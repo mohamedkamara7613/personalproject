@@ -1,0 +1,127 @@
+Le problème du sac à dos est un problème classique en optimisation combinatoire. L’objectif est de choisir des objets parmi un ensemble donné, chacun ayant une masse et un prix (ou une valeur), de manière à maximiser le prix total tout en respectant une contrainte de poids maximale que peut contenir le sac.
+
+Contexte
+
+Entrées :
+
+masses : liste des poids de chaque objet.
+
+prix : liste des valeurs associées à chaque objet.
+
+masseMax : poids maximal que le sac peut contenir.
+
+
+Sortie :
+
+Une liste contenant des 0 et 1 indiquant quels objets (par leur indice) sont pris dans le sac (1 pour pris, 0 pour non pris).
+
+
+
+L'algorithme utilise une approche de programmation dynamique pour résoudre ce problème.
+
+
+---
+
+Approche de programmation dynamique
+
+L'idée est de diviser le problème global (tous les objets, toute la capacité du sac) en sous-problèmes plus petits (moins d'objets ou une capacité réduite du sac) et de mémoriser les résultats intermédiaires pour éviter les calculs redondants.
+
+Notation et principe
+
+On utilise un dictionnaire dejaVu pour stocker les solutions optimales des sous-problèmes.
+
+Clé : un tuple (k, mMax) représentant les k premiers objets avec une capacité de sac maximale mMax.
+
+Valeur : une liste de 0 et 1 indiquant les choix optimaux pour ces objets dans cette capacité.
+
+
+L’algorithme procède de manière récursive, en se demandant :
+
+Inclure ou non le dernier objet dans le sac ?
+
+
+
+Étapes
+
+1. Cas de base : Si k == 1 (un seul objet) :
+
+Si la masse de cet objet est inférieure ou égale à mMax, il est inclus (liste [1]).
+
+Sinon, il n'est pas inclus (liste [0]).
+
+
+
+2. Cas récursifs :
+
+Si la masse du dernier objet (masses[k-1]) dépasse mMax, cet objet est ignoré, et la solution est celle obtenue en considérant les k-1 premiers objets.
+
+Sinon, deux choix sont possibles :
+
+1. Exclure le dernier objet : La solution est celle obtenue pour les k-1 objets avec une capacité maximale mMax.
+
+
+2. Inclure le dernier objet : La solution est celle obtenue pour les k-1 objets avec une capacité maximale réduite de masses[k-1], plus la valeur de cet objet.
+
+
+
+On compare les deux solutions et choisit celle qui maximise le prix total.
+
+
+
+
+Fonctionnement
+
+L'algorithme parcourt les objets un par un, en stockant les résultats des sous-problèmes dans le dictionnaire dejaVu. Une fois tous les objets analysés, la solution finale pour le problème complet est dans dejaVu[(n, masseMax)].
+
+
+---
+
+Exemple
+
+Supposons :
+
+masses = [2, 3, 4]
+
+prix = [3, 4, 5]
+
+masseMax = 5
+
+
+Étapes :
+
+1. Cas de base :
+
+Pour le premier objet : si masses[0] = 2 <= 5, on inclut l'objet → solution [1].
+
+
+
+2. Deuxième objet :
+
+Inclure : poids total = 2 + 3 = 5, valeur = 3 + 4 = 7.
+
+Exclure : solution avec le premier objet uniquement (valeur 3).
+
+Choix optimal : inclure le deuxième objet, solution [1, 1].
+
+
+
+3. Troisième objet :
+
+Si inclus, poids dépasse 5.
+
+Donc, le choix optimal est [1, 1].
+
+
+
+
+
+---
+
+Complexité
+
+Temps : , où  est le nombre d’objets.
+
+Espace :  pour stocker le dictionnaire.
+
+
+L’algorithme est plus efficace que la recherche exhaustive (qui est ), car il évite de recalculer les mêmes sous-problèmes.

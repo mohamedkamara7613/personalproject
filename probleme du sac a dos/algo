@@ -1,0 +1,63 @@
+
+
+def sac(masses, prix, masseMax):
+    # Dictionnaire pour stocker les solutions déjà calculées
+    dejaVu = {} 
+
+    # Fonction pour calculer le prix d'un sac (combinaison de choix)
+    def prixChoix(choix): # choix est une liste de 0 ou de 1
+        S = 0
+        n = len(prix)
+        for i in range(n):
+            S += choix[i] * prix[i]
+        return S
+
+    # Fonction de recherche pour déterminer les choix optimaux
+    def recherche(k, mMax):
+        # Vérifie si la clé (k, mMax) est déjà dans le dictionnaire
+        if (k, mMax) in dejaVu:
+            return
+
+        # Cas de base : un seul objet
+        if k == 1:
+            if masses[0] <= mMax:
+                dejaVu[(1, mMax)] = [1]
+            else:
+                dejaVu[(1, mMax)] = [0]
+        else:
+            # Cas où la masse du dernier objet est supérieure à mMax
+            if masses[k - 1] > mMax:
+                recherche(k - 1, mMax) # on refait la recherche avec les objets qui restent
+                New = dejaVu[(k - 1, mMax)] + [0] # on met à jour notre dic pour dire qu'on ne prend pas le dernier objet
+                dejaVu[(k, mMax)] = New
+            else:
+                # Cas où l'on peut inclure ou exclure l'objet k-1, on a deux possibilité
+                recherche(k - 1, mMax)
+                recherche(k - 1, mMax - masses[k - 1])
+
+                a = prixChoix(dejaVu[(k - 1, mMax)])
+                b = prixChoix(dejaVu[(k - 1, mMax - masses[k - 1])]) + prix[k - 1]
+
+                if a >= b: # on compare les deux solutions obtenue pour choisir le meilleur
+                    New = dejaVu[(k - 1, mMax)] + [0]
+                else:
+                    New = dejaVu[(k - 1, mMax - masses[k - 1])] + [1]
+
+                dejaVu[(k, mMax)] = New
+
+    # Nombre d'objets
+    n = len(masses)
+    # Appel de la fonction de recherche pour les n objets et la masse maximale donnée
+    recherche(n, masseMax)
+
+    # Retourne la liste de choix pour le sac optimal
+    return dejaVu[(n, masseMax)]
+"""
+Explications
+
+prixChoix: Calcule le prix total pour un choix de sac donné.
+
+recherche: Cette fonction calcule le choix optimal en utilisant la programmation dynamique et stocke les résultats dans le dictionnaire dejaVu.
+
+sac: La fonction principale qui initialise la recherche pour obtenir le meilleur choix d'objets à prendre en fonction des contraintes.
+"""
