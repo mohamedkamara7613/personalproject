@@ -1,0 +1,180 @@
+""" 
+----------------- editeur.extension
+	Par Mohamed kamara 
+	
+	Role : Permet de creer des niveaux
+"""
+
+
+FICHIER NECESSAIRE
+	data.extension
+	fichier.extension
+VARIABLE
+	SURFACE joueur = personnage.choisir_personnage()
+	SURFACE joueur_actuel = joueur["BAS"], mur, caisse, caisse_ok, objectif, instruction
+
+	POSITION pos_joueur, pos_actuelle, pos_instruction = (0,0)
+
+	BOOL joueur_blitter = False, clicGaucheEnCours = False, clicDroitEnCours = False, joueur_Choosed = False, launched = True
+
+	ENTIER objet_actuel = items["MUR"]
+
+DEBUT
+//Chargement de la carte
+	SI fichier.charger_niveau(carte, niveau) == False
+		exit("Impossible de charger le niveau\n Cause possible : le fichier 'level.lvl' n'existe pas.\n")
+	FIN SI
+
+//Recherche de la position du joueur sur la carte
+	i = 0
+	TANT QUE i < NB_BLOC_LARGEUR
+		j = 0
+		TANT QUE j < NB_BLOC_HAUTEUR
+			SI 	carte[i][j] == items["JOUEUR"] // Si le joueur se trouve a cette position
+				position_joueur = (i, j)
+				carte[i][j] = items["VIDE"]
+			FIN SI
+			j = j + 1
+		FIN TANT QUE
+		i = i + 1
+	FIN TANT QUE
+
+//Affichage des instructions de l'editeur
+	launched = True
+	TANT QUE launched == True
+		event = get_event()
+
+		SI event == QUIT
+			launched = False
+		FIN SI
+
+		fill(window, white)
+		blit(instruction, window, pos_instruction)
+		refresh_screen()
+	FIN TANT QUE
+//Boucle principale
+	launched = True
+	TANT QUE lauched == True
+		event = get_event()
+
+		SI event == QUIT
+			launched = False
+		SINON SI event == MOUSEBUTTONDOWN
+			SI  event.button == BUTTON_LEFT
+				SI objet_actuel == items["JOUEUR"]
+					pos_joueur = (event.pos[0] / TAILLE_BLOC, event.pos[1] / TAILLE_BLOC)
+					joueur_blitter = True
+				FIN SI
+				carte[event.pos[0] / TAILLE_BLOC][event.pos[1] / TAILLE_BLOC] = objet_actuel
+				clicGaucheEnCours = True
+
+			SINON SI event.button == BUTTON_RIGHT
+				SI carte[event.pos[0] / TAILLE_BLOC][event.pos[1] / TAILLE_BLOC] == items["JOUEUR"]
+					pos_joueur = (0,0)
+					joueur_blitter = False
+				FIN SI
+				carte[event.pos[0] / TAILLE_BLOC][event.pos[1] / TAILLE_BLOC] = itmes["VIDE"]
+				clicDroitEnCours = True
+			SINON SI event = MOUSEMOTION
+				SI clicGaucheEnCours == True:
+					carte[event.pos[0] / TAILLE_BLOC][event.pos[1] / TAILLE_BLOC] = objet_actuel
+				
+				SINON SI clicDroitEnCours:
+					grille[event.pos[0] / TAILLE_BLOC][event.pos[1] / TAILLE_BLOC] =  items["VIDE"]
+
+				FIN SI
+				pos_actuelle = event.pos
+			SINON SI event = MOUSEBUTTONUP
+				SI event.button == BUTTON_LEFT:
+					clicGaucheEnCours = False
+				
+				SINON SI event.button == BUTTON_RIGHT:
+					clicDroitEnCours = False
+
+				FIN SI
+			FIN SI
+		FIN SI
+		SI event == pygame.KEYDOWN:
+			SI event.key == pygame.K_ESCAPE:
+				launched = False
+
+			SINON SI event.key == Keyboard_s:
+				fichier.sauvegarder_niveau(grille) # A besoin de la grille pour fonctionner
+
+			SINON SI event.key == Keyboard_c:
+				fichiers.chargerNiveau()
+
+			SINON SI event.key == Keyboard_KP1:
+				objetActuel = items["MUR"]
+				joueur_Choosed = False
+
+			SINON SI event.key == Keyboard_KP2:
+				objetActuel = items["CAISSE"]
+				joueur_Choosed = False
+
+			SINON SI event.key == Keyboard_KP3:
+				objetActuel = items["OBJECTIF"]
+				joueur_Choosed = False
+
+			SINON SI event.key == Keyboard_KP4:
+				objetActuel = items["CAISSE_OK"]
+				joueur_Choosed = False
+
+			SION SI event.key == Keyboard_KP5:
+				objetActuel = items["JOUEUR"]
+				joueur_Choosed = True
+			FIN SI
+		FIN SI
+	
+		//Effacement de l'ecran 
+		fill(window, white)
+
+		//Placement des sprites a l'ecran
+		i = 0
+		TANT QUE i < NB_BLOC_LARGEUR
+			j = 0
+			TANT QUE j < NB_BLOC_HAUTEUR
+				position = (i * TAILLE_BLOC, j * TAILLE_BLOC)
+
+				SI carte[i][j] == items["MUR"]
+					blit(window, mur, position)
+
+				SINON SI carte[i][j] == items["CAISSE"]
+					blit(window, caisse, position)
+
+				SINON SI carte[i][j] == items["CAISSE_OK"]
+					blit(window, caisse_ok, position)
+
+				SINON SI carte[i][j] == items["OBJECTIF"]
+					blit(window, objectif, position)
+				SINON SI carte[i][j] == items["JOUEUR"]
+					SI joueur_blitter == True
+						blit(window, joueur_actuel, position_joueur)	
+				FIN SI
+				j = j + 1
+			FIN TANT QUE
+			i = i + 1
+		FIN TANT QUE
+
+		//Affichage de l'objet selectionné a coté du curseur
+		SI objetActuel == items["MUR"]:
+			blit(window, mur, position_actuel)
+
+		SINON SI objetActuel == items["CAISSE"]:
+			blit(window, caisse, position_actuel)
+
+		SINON SI objetActuel == items["OBJECTIF"]:
+			blit(window, objectif, position_actuel)
+
+		SINON SI objetActuel == items["CAISSE_OK"]:
+			blit(window, caisse_ok, position_actuel)
+			
+		SINON SI objetActuel == items["JOUEUR"]:
+			blit(window, joueur_actuel, position_actuel)
+
+	#Mise a jour de l'ecran 
+		refresh_screen()
+
+	FIN TANT QUE
+
+FIN 

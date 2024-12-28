@@ -1,0 +1,29 @@
+"""
+--------------- data.extension
+	Par Mohamed kamara
+
+	Role : définit les variables et les constantes pour le programme
+"""
+
+
+FICHIER NECESSAIRE
+	jeu.extension
+	edit.extension
+	date.extension
+
+VARIABLE
+
+TAILLE_BLOC = 34
+NB_BLOC_HAUTEUR = 12
+NB_BLOC_LARGEUR = 12
+HAUTEUR_FENETRE = NB_BLOC_HAUTEUR * TAILLE_BLOC
+LARGEUR_FENETRE = NB_BLOC_LARGEUR * TAILLE_BLOC
+
+//liste de direction associé a des valeurs constantes
+direction = [HAUT, BAS, GAUCHE ,DROITE]
+
+//liste des objets associés a des valeurs constantes
+items = [VIDE, MUR, CAISSE, OBJECTIF, JOUEUR, CAISSE_OK]
+
+//tableau de mario qui doit contenir les images correspondantes
+mario = {"haut":0, "bas":0, "gauche":0, "droite":0}

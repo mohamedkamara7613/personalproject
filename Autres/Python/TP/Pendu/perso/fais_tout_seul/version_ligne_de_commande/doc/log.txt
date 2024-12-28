@@ -1,0 +1,846 @@
+DATE : 2021-04-04 17:46:08.447610
+MESSAGE : Lancement du programme et importation des modules
+------------------------------------------------------------------------------------------------------------------------
+DATE : 2021-04-04 17:46:15.472299
+MESSAGE : Recupération du nom du joueur
+DATE : 2021-04-04 17:46:23.446835
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:46:23.447399
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:46:23.448584
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:46:23.450202
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:23.451729
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:30.397866
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:30.398863
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:30.399958
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:31.499745
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:31.500543
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:31.501501
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:32.699791
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:32.700598
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:32.701336
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:35.136022
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:35.136980
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:35.138290
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:37.197475
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:37.198256
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:37.199096
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:37.921793
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:37.922377
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:37.923048
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:42.142865
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:42.143463
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:42.144511
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:45.226521
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:45.227314
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:45.228273
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:46.690263
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:46.690969
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:46.692064
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:47.619560
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:47.620535
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:47.621389
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:47.622285
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:46:52.228600
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:46:52.229192
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:46:52.230011
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:46:52.231365
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:52.232325
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:53.991221
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:53.992149
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:53.992935
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:55.189546
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:55.190245
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:55.190946
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:56.221565
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:56.223902
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:56.225015
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:46:57.422843
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:46:57.423452
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:46:57.424906
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:01.092780
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:01.093699
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:01.094751
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:03.508927
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:03.509912
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:03.510850
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:04.824328
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:04.825240
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:04.826343
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:04.830758
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:47:05.817480
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:47:05.818909
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:47:05.819960
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:47:05.822766
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:05.823677
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:07.641922
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:07.643071
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:07.644218
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:09.323091
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:09.324087
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:09.324924
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:11.451583
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:11.452560
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:11.453637
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:12.138870
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:12.139718
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:12.140565
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:14.037487
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:14.038305
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:14.039231
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:16.304371
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:16.305366
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:16.306392
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:17.881978
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:17.882904
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:17.883939
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:26.631512
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:26.632400
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:26.633199
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:27.674508
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:27.675402
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:27.676109
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:27.678350
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:47:28.535578
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:47:28.536739
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:47:28.538121
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:47:28.539915
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:28.540679
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:30.452867
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:30.454578
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:30.455592
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:31.980892
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:31.981523
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:31.982392
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:35.983172
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:35.984776
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:35.985801
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:37.171352
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:37.172202
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:37.173376
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:37.176614
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:47:40.931678
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:47:40.932918
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:47:40.934563
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:47:40.936471
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:40.937732
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:42.346907
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:42.347906
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:42.348877
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:43.383249
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:43.384164
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:43.385141
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:45.704336
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:45.705458
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:45.706375
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:46.788140
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:46.789055
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:46.789937
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:47.913017
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:47.913931
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:47.914976
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:48.556761
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:48.557730
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:48.559304
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:52.740862
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:52.741830
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:52.742956
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:47:54.550174
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:47:54.551044
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:47:54.551739
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:17.265277
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:17.266056
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:17.267306
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:25.313573
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:25.314669
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:25.315565
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:27.114672
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:27.116137
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:27.116996
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:27.118177
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:48:30.164142
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:48:30.165421
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:48:30.166499
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:48:30.175727
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:30.178069
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:31.604512
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:31.605447
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:31.606723
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:33.102000
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:33.102936
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:33.104472
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:34.394551
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:34.395871
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:34.396873
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:36.052578
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:36.053600
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:36.054745
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:37.132777
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:37.134018
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:37.134918
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:37.136413
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:48:38.228053
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:48:38.229301
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:48:38.230629
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:48:38.242053
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:38.244802
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:41.242892
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:41.244661
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:41.245920
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:42.521226
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:42.522244
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:42.523296
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:43.759480
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:43.760446
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:43.761391
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:44.987585
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:44.988662
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:44.989712
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:45.580385
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:45.581572
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:45.583173
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:48.004884
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:48.006022
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:48.007927
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:49.963142
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:49.965103
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:49.966914
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:53.644729
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:53.646066
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:53.647710
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:58.742659
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:58.743374
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:58.744757
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:48:59.960056
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:48:59.961054
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:59.962552
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:48:59.964524
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:49:03.610669
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:49:03.614391
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:49:03.616040
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:49:03.617408
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:03.618417
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:06.916392
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:06.917874
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:06.920606
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:08.547009
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:08.547863
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:08.548701
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:09.763375
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:09.764571
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:09.765692
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:13.616003
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:13.617682
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:13.619098
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:17.420026
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:17.421108
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:17.422170
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:24.987651
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:24.988667
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:24.989690
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:26.654982
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:26.656393
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:26.658193
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:28.540708
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:28.542778
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:28.543978
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:30.479665
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:30.481146
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:30.482259
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:33.134314
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:33.138635
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:33.140587
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:33.142055
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:49:34.574554
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:49:34.575687
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:49:34.577103
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:49:34.578877
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:34.580751
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:37.007982
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:37.009302
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:37.010567
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:37.696842
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:37.699267
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:37.700516
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:38.253988
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:38.256122
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:38.257313
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:38.842202
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:38.843097
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:38.844016
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:39.386152
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:39.387496
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:39.389061
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:41.211438
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:41.212693
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:41.213938
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:42.673013
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:42.674298
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:42.675741
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:45.285117
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:45.286384
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:45.287894
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:49:48.045611
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:49:48.046935
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:49:48.048807
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:14.604514
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:14.605442
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:14.606702
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:16.543765
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:16.545249
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:16.546741
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:18.083327
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:18.085309
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:18.086822
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:18.842190
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:18.843604
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:18.844849
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:20.637291
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:20.638855
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:20.640415
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:22.053801
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:22.054950
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:22.056042
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:23.644271
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:23.645439
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:23.646853
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:50:29.405563
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:50:29.408045
+MESSAGE : Affichage des scores
+DATE : 2021-04-04 17:50:29.409548
+MESSAGE : Supprimer un joueur
+DATE : 2021-04-04 17:50:35.353540
+MESSAGE : Affichage des scores
+DATE : 2021-04-04 17:50:35.355608
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:50:36.594859
+MESSAGE : Affichage de l'aide
+DATE : 2021-04-04 17:50:40.158651
+MESSAGE : Recupération du nom du joueur
+DATE : 2021-04-04 17:50:40.975198
+MESSAGE : Recupération du nom du joueur
+DATE : 2021-04-04 17:50:47.161193
+MESSAGE : Recupération du nom du joueur
+DATE : 2021-04-04 17:50:54.779464
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:50:54.781447
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:50:54.785734
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:50:54.788592
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:54.789700
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:57.642357
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:57.643688
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:57.645319
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:57.910283
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:57.911848
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:57.913526
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:58.114962
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:58.116576
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:58.118246
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:58.312961
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:58.314011
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:58.315092
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:58.496202
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:58.497472
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:58.500081
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:58.679816
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:58.681173
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:58.682229
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:58.868899
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:58.870301
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:58.871804
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:59.062965
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:59.064388
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:59.065878
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:59.255299
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:59.256994
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:59.258477
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:50:59.928359
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:50:59.929626
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:50:59.932941
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:51:00.237390
+MESSAGE : Lancement d'une partie de jeu
+DATE : 2021-04-04 17:51:00.239310
+MESSAGE : Recuperation de la liste des scores
+DATE : 2021-04-04 17:51:00.242077
+MESSAGE : Choix du mot secret
+DATE : 2021-04-04 17:51:00.244122
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:00.245521
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:01.465346
+MESSAGE : Saisie incorrecte
+DATE : 2021-04-04 17:51:01.658236
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:01.660181
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:01.661724
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:01.832602
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:01.833604
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:01.835053
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:02.007654
+MESSAGE : Saisie incorrecte
+DATE : 2021-04-04 17:51:02.756211
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:02.758906
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:02.761733
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:03.094238
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:03.095609
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:03.096990
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:03.429229
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:03.430625
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:03.431948
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:03.899691
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:03.901385
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:03.903182
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:06.068160
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:06.070200
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:06.071969
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:06.651095
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:06.652454
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:06.654001
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:07.579315
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:07.580289
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:07.581455
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:09.136497
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:09.137530
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:09.139159
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:10.517329
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:10.518915
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:10.521199
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:11.100665
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:11.102206
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:11.103926
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:12.492994
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:12.494038
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:12.496462
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:14.129274
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:14.130316
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:14.131372
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:14.786427
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:14.787486
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:14.789009
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:16.371281
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:16.374843
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:16.377111
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:21.071120
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:21.073375
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:21.077209
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:21.810548
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:21.811743
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:21.813381
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:22.476364
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:22.477394
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:22.479589
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:23.234326
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:23.235513
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:23.236630
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:24.179160
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:24.181780
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:24.184432
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:25.953350
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:25.955211
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:25.957351
+MESSAGE : Lecture de caractere
+DATE : 2021-04-04 17:51:27.754223
+MESSAGE : Vification des caracteres
+DATE : 2021-04-04 17:51:27.755998
+MESSAGE : Verification si le joueur à gagner ou non
+DATE : 2021-04-04 17:51:27.758016
+MESSAGE : Enrengistrement de la liste des scores
+DATE : 2021-04-04 17:51:31.510316
+MESSAGE : Fin du programme
+------------------------------------------------------------------------------------------------------------------------

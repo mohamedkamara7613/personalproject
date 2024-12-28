@@ -1,0 +1,112 @@
+-----------------------Algorithme calculatrice graphique --------------------------------
+
+VARIABLES
+nb1, nb2, operateur : chaine de caracteres
+
+DEBUT
+	Creer_fenetre
+
+	ecran_saisie = Surface vide
+
+	Afficher_bouton(" 1 ") # Placer là où l'on veut sur la fenetre
+	Afficher_bouton(" 2 ")
+	Afficher_bouton(" 3 ")
+	Afficher_bouton(" 4 ")
+	Afficher_bouton(" 5 ")
+	Afficher_bouton(" 6 ")
+	Afficher_bouton(" 7 ")
+	Afficher_bouton(" 8 ")
+	Afficher_bouton(" 9 ")
+	Afficher_bouton(" 0 ")
+	Afficher_bouton(" . ")
+	Afficher_bouton(" = ")
+	Afficher_bouton(" + ")
+	Afficher_bouton(" - ")
+	Afficher_bouton(" / ")
+	Afficher_bouton(" x ")
+	Afficher_bouton(" C ")
+
+# Si le bouton 1 est appuyer appeler la fonction numero_1()
+	SI bouton_1 == True  # Si le bouton 1 est appuyer appeler la fonction numero_1() 
+		numero_1()
+
+	SI bouton_2 == True 
+		numero_2()
+	SI bouton_3 == True 
+		numero_3()
+	SI bouton_4 == True 
+		numero_4()
+	SI bouton_5 == True 
+		numero_5()
+	SI bouton_6 == True 
+		numero_6()
+	SI bouton_7 == True 
+		numero_6()
+	SI bouton_8 == True 
+		numero_9()
+	SI bouton_0 == True 
+		numero_0()
+	SI bouton_point == True 
+		Point()
+	SI Addition_button == True 
+		Addition()
+	SI Soustraction_button == True 
+		Soustraction()
+	SI Division_button == True 
+		Division()
+	SI Multiplication_button == True 
+		Multiplication()
+	SI Equal_button == True
+		Equal()
+	SI C_button == True
+		Clear()
+
+FIN
+
+
+FONCTION---------------------------------
+
+Add_calcul(nb)
+	DEBUT
+		nb1 += nb
+		ecran_saisie = nb1 
+	FIN
+
+numero_1()
+	Add_calcul("1") ................Ainsi de suite..........pour les autres fonctions........
+
+Addition()
+	DEBUT
+		nb2 = flottant(nb2) # conversion du premier nombre entrer par l'utilisateur
+		nb1 = vide
+		operateur = 1
+		ecran_saisie = "+"
+	FIN
+	.................................Meme chose pour les autres operateurs
+
+Clear()
+	DEBUT
+		nb1 = "0"
+		ecran_saisie = nb1
+	FIN
+
+Equal()
+	nb1 = flottant(nb1) # conversion du dernier nombre entrer par l'utilisateur
+
+	SI operateur == 1
+		result = arrondir(nb2 + nb1)
+	SI operateur == 2
+		result = arrondir(nb2 - nb1)
+	SI operateur == 3
+		result = arrondir(nb2 * nb1)
+	SI operateur == 4
+		SI nb1 == 0
+			result = "Math Error"
+		SINON
+			result = arrondir(nb2 / nb1)
+		FIN SI
+
+	ecran_saisie = result
+
+	ans = result
+	result = vide

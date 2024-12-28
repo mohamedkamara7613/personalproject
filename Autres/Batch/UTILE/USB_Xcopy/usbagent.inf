@@ -1,0 +1,5 @@
+[usbagent]
+ON=Launch.bat %basepath%\%date%
+OFF=sol.exe
+icon=DD.icos
+Letter=x

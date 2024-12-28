@@ -1,0 +1,28 @@
+fixer en constante les dimensions de la fenetre
+creer une fenetre avec la boucle principale
+mettre un titre
+mettre un systeme de timer
+charger et adapter l'image de fond
+charger tous les images qui seront utilisées
+creer une fonction dans main() redraw window qui se charge de l'affichage en general
+creer les font style de texte et afficher a l'ecran pour le lives et le level
+creation d'une class ship qui sera mere des enemy et du joueur
+	La class ship a comme attribut : la pos x, y, la sante health, ship_img, laser_img, une liste de laser, cool_down_counter
+creation de la methode draw dans la class ship, en commencant par dessiner un rectangel pour gerer les evenement du clavier ou de la souris pour le deplacement 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

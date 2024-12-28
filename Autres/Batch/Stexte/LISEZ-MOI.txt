@@ -1,0 +1,24 @@
+Bonjour et merci d'avoir téléchargé STexte!
+
+Voici comment fonctionne la commande:
+
+STexte "nom du fichier" "vitesse" "sons [on/off]
+
+-------------------------------------------------------------------------------------------------
+
+/!\ DANS LE FICHIER, METTEZ TOUT VOTRE TEXTE SUR UNE LIGNE ET SEPAREZ VOS PHRASES PAR DES ";" /!\
+
+-------------------------------------------------------------------------------------------------
+exemples de commandes:
+
+Stexte 50 conversation.txt on //affiche le contenu du fichier "conversation.txt" avec une vitesse de 50 ms et les sons activés
+
+-------------------------------------------------------------------------------------------------
+:exemple du fichier "conversation.txt"
+
+bonsoir;comment vas-tu?;moi ca va bien et toi;trkl;allez je te laisse, salut
+
+-------------------------------------------------------------------------------------------------
+
+STexte 1.0
+BY SPEEDCOOKIE

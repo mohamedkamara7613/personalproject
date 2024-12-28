@@ -1,0 +1,36 @@
+-----------------PREMIERE VERSION DE MARIO SOKOBAN : Mario Sokoban 1.0---------------------------------
+Dans le fichier "editeur.py"
+	empecher le blitage du joueur pulsieurs fois
+(FAIT)	afficher l'objet choisi avec la souris
+(FAIT)	Pouvoir bliter une caisse_ok sur la carte de l'editeur
+(FAIT)	permettre la sauvegarde du niveau dans un dictionnaire
+
+Dans le fichier 'jeu.py'
+	afficher un message de bravo quand le joueur gagne 
+	Gerer un ensemble de niveau et permettre de choisir un niveau
+
+
+-----------------DEUXIEME VERSION DE MARIO SOKOBAN Mario Sokoban 2.0 ---------------------------------
+Dans le fichier "editeur.py"
+	empecher le blitage du joueur pulsieurs fois
+	Permettre le choix d'un peresonnage = joueur
+(FAIT)	afficher l'objet choisi avec la souris
+(FAIT)	Pouvoir bliter une caisse_ok sur la carte de l'editeur
+(FAIT)	permettre la sauvegarde du niveau dans un dictionnaire
+
+Dans le fichier 'jeu.py'
+	afficher un message de bravo quand le joueur gagne 
+	Gerer un ensemble de niveau et permettre de choisir un niveau
+	Permettre le choix d'un personnage
+
+
+
+
+
+	Metrre du son dans tout le jeu
+	afficher le score quand le joueur gagne et quand il joue
+
+
+
+	--- Coder en anglais cette version
+Dans le fichier algorythme coder le fichier personnage

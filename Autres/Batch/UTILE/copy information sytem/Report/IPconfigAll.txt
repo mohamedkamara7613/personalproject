@@ -1,0 +1,66 @@
+
+Configuration IP de Windows
+
+   Nom de l'h“te . . . . . . . . . . : MohamedKeita
+   Suffixe DNS principal . . . . . . : 
+   Type de noeud. . . . . . . . . .  : Hybride
+   Routage IP activ‚ . . . . . . . . : Non
+   Proxy WINS activ‚ . . . . . . . . : Non
+
+Carte Ethernet Connexion r‚seau Bluetooth :
+
+   Statut du m‚dia. . . . . . . . . . . . : M‚dia d‚connect‚
+   Suffixe DNS propre … la connexion. . . : 
+   Description. . . . . . . . . . . . . . : P‚riph‚rique Bluetooth (r‚seau personnel)
+   Adresse physique . . . . . . . . . . . : 20-10-7A-F8-F2-DB
+   DHCP activ‚. . . . . . . . . . . . . . : Oui
+   Configuration automatique activ‚e. . . : Oui
+
+Carte r‚seau sans fil Connexion au r‚seau local* 3ÿ:
+
+   Statut du m‚dia. . . . . . . . . . . . : M‚dia d‚connect‚
+   Suffixe DNS propre … la connexion. . . : 
+   Description. . . . . . . . . . . . . . : Carte virtuelle directe Wi-Fi Microsoft
+   Adresse physique . . . . . . . . . . . : 20-10-7A-F8-F2-DA
+   DHCP activ‚. . . . . . . . . . . . . . : Oui
+   Configuration automatique activ‚e. . . : Oui
+
+Carte r‚seau sans fil Wi-Fiÿ:
+
+   Suffixe DNS propre … la connexion. . . : 
+   Description. . . . . . . . . . . . . . : Realtek RTL8188CE 802.11b/g/n WiFi Adapter
+   Adresse physique . . . . . . . . . . . : 20-10-7A-F8-F2-DA
+   DHCP activ‚. . . . . . . . . . . . . . : Oui
+   Configuration automatique activ‚e. . . : Oui
+   Adresse IPv6 de liaison locale. . . . .: fe80::bd33:fdba:7ad5:f49f%4(pr‚f‚r‚) 
+   Adresse IPv4. . . . . . . . . . . . . .: 192.168.1.2(pr‚f‚r‚) 
+   Masque de sous-r‚seau. . . .ÿ. . . . . : 255.255.255.0
+   Bail obtenu. . . . . . . . .ÿ. . . . . : mardi 4 ao–t 2020 19:07:46
+   Bail expirant. . . . . . . . .ÿ. . . . : mardi 25 ao–t 2020 19:07:50
+   Passerelle par d‚faut. . . .ÿ. . . . . : 192.168.1.1
+   Serveur DHCP . . . . . . . . . . . . . : 192.168.1.1
+   IAID DHCPv6 . . . . . . . . . . . : 69210234
+   DUID de client DHCPv6. . . . . . . . : 00-01-00-01-26-A8-D7-DF-E4-11-5B-2A-F2-62
+   Serveurs DNS. . .  . . . . . . . . . . : fe80::1%4
+	                               213.154.95.126
+	                               213.154.64.13
+	                               192.168.1.1
+   NetBIOS sur Tcpip. . . . . . . . . . . : Activ‚
+
+Carte Ethernet Ethernet :
+
+   Statut du m‚dia. . . . . . . . . . . . : M‚dia d‚connect‚
+   Suffixe DNS propre … la connexion. . . : 
+   Description. . . . . . . . . . . . . . : Realtek PCIe GbE Family Controller
+   Adresse physique . . . . . . . . . . . : E4-11-5B-2A-F2-62
+   DHCP activ‚. . . . . . . . . . . . . . : Oui
+   Configuration automatique activ‚e. . . : Oui
+
+Carte Tunnel isatap.{4DDA0AF2-41E5-42FF-84AD-EA7FC9143B87} :
+
+   Statut du m‚dia. . . . . . . . . . . . : M‚dia d‚connect‚
+   Suffixe DNS propre … la connexion. . . : 
+   Description. . . . . . . . . . . . . . : Carte Microsoft ISATAP
+   Adresse physique . . . . . . . . . . . : 00-00-00-00-00-00-00-E0
+   DHCP activ‚. . . . . . . . . . . . . . : Non
+   Configuration automatique activ‚e. . . : Oui

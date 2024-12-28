@@ -1,0 +1,120 @@
+-----------------------------------------------------------------------------------------
+							ALGORITHME DU JEU ZCasino
+-----------------------------------------------------------------------------------------
+
+VARIABLE
+	ENTIER	argentUtilisateur, argentMiser, numeroChoisi, chiffreGagnant
+	CARACTERE entree
+	BOOLEEN continuerPartie = True
+---------------------------------------------------------------------------------------------
+FONCTION lancee()
+	DEBUT
+		RETOURNER chiffreGagnant = nombre aléatoire(entre 0 et 49)
+	FIN
+
+FONCTION gagner(numeroChoisi, chiffreGagnant)
+	DEBUT
+		SI chiffreGagnant == numeroChoisi
+			RETOURNER 1
+		SINON SI chiffreGagnant % 2 == numeroChoisi % 2 
+			RETOURNER 2
+		SINON
+			RETOURNER 3
+	FIN
+
+FONCTION aide():
+	DEBUT
+		AFFICHER("---------------------------------------------------------------------------------")
+		AFFICHER("\tLe joueur mise sur un numéro compris entre 0 et 49 (50 numéros en tout).")
+		AFFICHER("\tEn choisissant son numéro, il y dépose la somme qu'il souhaite miser.")
+		AFFICHER("\tLa roulette est constituée de 50 cases allant naturellement de 0 à 49.")
+		AFFICHER("\tLes numéros pairs sont de couleur noire, les numéros impairs sont de")
+		AFFICHER("\tcouleur rouge Le croupier lance la roulette, lâche la bille et quand")
+		AFFICHER("\tla roulette s'arrête le croupier relève le numéro de la case dans")
+		AFFICHER("\tlaquelle la bille s'est arrêtée. Le numéro sur lequel s'est arrêtée la")
+		AFFICHER("\tbille est, naturellement, le numéro gagnant Si le numéro gagnant est celui")
+		AFFICHER("\tsur lequel le joueur a misé (probabilité de 1/50, plutôt faible), le croupier")
+		AFFICHER("\tlui remet 3 fois la somme misée. Sinon, le croupier regarde si le numéro misé")
+		AFFICHER("\tpar le joueur est de la même couleur que le numéro gagnant (s'ils sont tous")
+		AFFICHER("\tles deux pairs ou tous les deux impairs). Si c'est le cas, le croupier lui")
+		AFFICHER("\tremet 50 % de la somme misée. Si ce n'est pas le cas, le joueur perd sa mise")
+		AFFICHER("\tDans les deux scénarios gagnants vus ci-dessus (le numéro misé et le numéro")
+		AFFICHER("\tgagnant sont identiques ou ont la même couleur), le croupier remet au joueur ")
+		AFFICHER("\tla sommeinitialement misée avant d'y ajouter ses gains. Cela veut dire que,")
+		AFFICHER("\tdans ces deux scénarios, le joueur récupère de l'argent. Il n'y a que dans le")
+		AFFICHER("\ttroisième cas qu'il perd la somme misée.")
+FIN
+
+FONCTION main()
+	DEBUT
+		TANT QUE continuerPartie == True
+			AFFICHER("vous avez ",argentUtilisateur,"$")
+			argentMiser = AFFICHER("Entrez la somme à miser : ")
+			numeroChoisi = AFFICHER("Choisissez un numéro entre 0 et 49 pour miser miser dessus : ")
+
+			#Verification du numero choisi
+			SI numeroChoisi < 0 OU numeroChoisi > 49
+				AFFICHER("Le numero choisie n'est pas dans l'intervalle 0 et 49")
+				RETOUR AU DEBUT DE LA BOUCLE
+			FIN SI
+
+			#Verification de l'argent misée
+			SI argentMiser > argentUtilisateur
+				AFFICHER("Vous n'avez pas assez d'argent, vous n'avez que", argentUtilisateur)
+				RETOUR AU DEBUT DE LA BOUCLE
+			FIN SI
+			SI argentMiser > 0
+				AFFICHER("Vous n'avez rien miser ou somme inferieur a 0")
+				RETOUR AU DEBUT DE LA BOUCLE
+			FIN SI
+
+
+			#lancée de la bille, avec la génération d'un nombre aléatoire
+			chiffreGagnant = lancee_bille(void)
+			AFFICHER("La roulette tourne et s'arrete sur le numero", chiffreGagnant)
+
+
+			retour = gagner(numeroChoisi, chiffreGagnant)
+
+			SI retour == 1
+				AFFICHER("\tBravo c'était le bon numéro")
+				AFFICHER("\tVous avez gagné le triple de la somme misée")
+				argentUtilisateur = (3 * argentMiser) + argentUtilisateur
+				AFFICHER("\tMaintenant vous avez", argentUtilisateur,"$")
+
+			SINON SI retour == 2
+				AFFICHER("\tOh presque pas le bon numéro mais la bonne couleur")
+				AFFICHER("\tOh presque ! Vous avez gagné la moitié de votre montant de mise")
+				argentUtilisateur = arrondir_a_la_valeur_usuperieur(argentMiser / 2) + argentUtilisateur
+				AFFICHER("\tMaintenant vous avez", argentUtilisateur,"$")
+
+			SINON SI retour == 3
+				AFFICHER("\tDomage c'est pas le bon numéro ni la bonne couleur")
+				AFFICHER("\tVous avez perdu la somme misée")
+				argentUtilisateur = argentUtilisateur - argentMiser
+
+			#Interruption de la partie
+			SI argentUtilisateur <= 0:
+				AFFICHER("\tVous êtes ruiné ! c'est la fin de la partie.")
+				continuerPartie = False
+			FIN SI
+		FIN TANT QUE
+	FIN
+
+-------------------------------------------------------------------------------------------------
+DEBUT
+	TANT QUE jeu_lance == True
+		AFFICHER("----------------------------- Bienvenu sur ZCasino -----------------------------")
+		AFFICHER("\t\t1: Commencer   2: Help   3: Quitter")
+		entree = AFFICHER("\tTapez le numéro de votre choix: ")
+
+		SI entree == "3":
+			jeu_lancee = False
+		SINON SI entree == "2":
+			aide()
+		SINON:
+			main()
+		FIN SI
+	FIN TANT QUE
+FIN
+

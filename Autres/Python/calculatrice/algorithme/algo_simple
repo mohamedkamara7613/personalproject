@@ -1,0 +1,37 @@
+-----------------Algorithme de calculatrice ligne de commande simple-----------------------------
+
+Action : Calcul
+
+Variables : nb1(flottant), nb2(flottant), operateur(string), result(string)
+
+Debut
+	Ecrire("Saisissez le premier nombre : ")
+	Lire(nb1)
+
+	Ecrire("Saisissez l'opérateur : ")
+	Lire(operateur)
+
+	Ecrire("Saisissez le sencond nombre : ")
+	Lire(nb2)
+
+	SELON 
+		operateur == "+"
+			result = flottant(nb1 + nb2)
+
+		
+		operateur == "-"
+			result = flottant(nb1 - nb2)
+		
+		operateur == "/"
+			SI nb2 == 0
+				result = "Math Error"
+			SINON
+				result = flottant(nb1 / nb2)
+			FIN SI 
+
+		
+		operateur == "x"
+			result = flottant(nb1 * nb2)
+	FIN SELON
+
+	Ecrire(result)

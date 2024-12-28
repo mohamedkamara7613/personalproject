@@ -1,0 +1,70 @@
+"""
+--------------- fichier.extension
+	Par Mohamed kamara
+
+	Role : s'occupe de la gestion des fichiers enregistrements et lectures
+"""
+
+FICHIER NECESSAIRE
+	data.extension
+
+//-----------------------------------------------------------------------------------------------------
+FONCTION charger_niveau(carte, niveau)
+VARIABLE
+	//Tableau d'entier a deux dimensions, taille du tableau = NB_BLOC_HAUTEUR * NB_BLOC_LARGEUR
+	ligne[NB_BLOC_LARGEUR][NB_BLOC_HAUTEUR] = 0
+
+DEBUT
+	//Ouvrir le fichier "level.lvl" en droit de lecture
+
+	//Lire une seule ligne du fichier dans la variable 'ligne'
+
+	//Parcours du tableau 'ligne' pour convertir les caracteres en entier
+	i = 0
+	TANT QUE i < NB_BLOC_LARGEUR
+		TANT QUE j < NB_BLOC_HAUTEUR
+			SI ligne[(i * TAILLE_BLOC) + j] == '0'
+				carte[i][j] = 0
+
+			SINON SI ligne[(i * NB_BLOC_LARGEUR)+j] == '1'
+				carte[i][j] = 1
+			SINON SI ligne[(i * NB_BLOC_LARGEUR)+j] == '2'
+				carte[i][j] = 2
+
+			SINON SI ligne[(i * NB_BLOC_LARGEUR)+j] == '3'
+				carte[i][j] = 3
+
+			SINON SI ligne[(i * NB_BLOC_LARGEUR)+j] == '4'
+				carte[i][j] = 4
+
+			SINON SI ligne[(i * NB_BLOC_LARGEUR)+j] == '5'
+				carte[i][j] = 5
+
+			FIN SI
+			j = j + 1
+		i = i + 1
+	FIN TANT QUE
+
+	//Fermiture du fichier ouvert
+FIN
+
+
+//--------------------------------------------------------------------------------------------------
+
+FONCTION sauvegarder_niveau(carte)
+VARIABLE
+
+DEBUT
+	//Ouvrir le fichier 'level.lvl' s'il existe pas on le creer, en droit d'ecriture, ajout
+	i = 0
+	TANT QUE i < NB_BLOC_LARGEUR
+		j = 0
+		TANT QUE j < NB_BLOC_HAUTEUR
+			texte = convertir_en_string(carte[i][j])
+			ecriture(texte) dans le fichier 'level.lvl'
+			j = j + 1
+		FIN TANT QUE
+		i = i + 1
+	FIN TANT QUE
+	//Fermiture du fichier ouvert
+FIN

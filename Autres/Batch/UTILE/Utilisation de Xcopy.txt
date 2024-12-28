@@ -1,0 +1,54 @@
+Tableau I. Descriptions des options de la commande Xcopy
+
+Commutateur	Description
+
+/A	Copie uniquement les fichiers possédant l'attribut archive, ne change pas l'attribut.
+
+/M	Copie uniquement les fichiers possédant l'attribut archive, désactive l'attribut archive. Utile pour les sauvegardes.
+
+/D:j-m-a	Copie les fichiers modifiés à partir de la date spécifiée. Si aucune date n'est donnée, copie uniquement les fichiers dont l'heure source est plus récente que l'heure de destination. Utile pour les sauvegardes.
+
+/P	Avertissement avant la création de chaque fichier de destination.
+
+/S	Copie les répertoires et sous-répertoires à l'exception des répertoires vides.
+
+/E	Copie les répertoires et sous-répertoires, y compris les répertoires vides. Identique à /S /E. Peut être utilisé pour modifier /T
+
+/V	Vérifie chaque nouveau fichier. Non utilisé par Windows XP.
+
+/W	Vous demande d'appuyer sur une touche avant la copie.
+
+/C	Continue la copie même si des erreurs se produisent.
+
+/I	Si la destination n'existe pas et que plus d'un fichier est copié, considére la destination comme devant être un répertoire.
+
+/Q	N'affiche pas les noms de fichiers lors de la copie.
+
+/F	Affiche les noms de source et de destination complets lors de la copie.
+
+/L	Affiche les fichiers devant être copiés.
+
+/G	Permet la copie des fichiers chiffrés vers des destinations qui ne prennent pas en charge le chiffrement.
+
+/H	Copie également les fichiers cachés et les fichiers système.
+
+/R	Remplace les fichiers en lecture seule.
+
+/T	Crée la structure de répertoires mais ne copie pas les fichiers. N'inclut pas les répertoires ou sous-répertoires vides. /T /E incluent les répertoires et sous-répertoires vides.
+
+/U	Copie seulement les fichiers existants déjà dans la destination.
+
+/K	Copie les attributs. La commande normale Xcopy rétablira les attributs de lecture seule.
+
+/N	Copie en utilisant les noms courts générés. Peut être nécessaire pour les copies de NTFS vers FAT16.
+
+/O	Copie les fichiers d'appartenance et les informations d'ACL.
+
+/X	Copie les paramètres d'audit de fichiers (implique /O).
+
+/Y	Supprime la demande de confirmation de remplacement de fichiers de destination existants. Peut être pré-réglé dans la variable d'environnement COPYCMD.
+
+/-Y	Provoque la demande de confirmation de remplacement d'un fichier de destination existant.
+
+/Z	Copie les fichiers du réseau en mode redémarrable.
+/EXCLUDE:fichier1[+fichier2][+fichier3]...	Spécifie une liste de fichiers contenant des chaînes à exclure. Délicat à utiliser. Voir ci-dessous.

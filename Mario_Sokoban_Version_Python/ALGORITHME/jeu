@@ -1,0 +1,342 @@
+"""
+----------------- jeu.extension
+	Par Mohamed kamara 
+	
+	Role : Gere une partie complete de jeu
+
+"""
+
+FICHIER NECESSAIRE
+	fichier.extension
+	data.extension
+	personnage.extension
+
+//---------------------------------------------------------------------------------------------------------------------
+FONCTION jeu(window)
+//Fonction qui prend en parametre la surface fenetre ou blitter les elements
+
+VARIABLE
+	//Tableau de surface pour l'image des 4 directions du personnage
+	SURFACE joueur = personnage.choisir_personnage()
+	SURFACE joueur_actuel = joueur["BAS"], mur, caisse, caisse_ok, objectif, instruction, bravo
+
+	BOOL objectif_restant = False, launched = True, continu = True
+	
+	//Tableau d'entier a deux dimensions qui représentera la carte, cela permettra de savoir a telle case il y a un mur ou une caisse
+	ENTIER carte[NB_BLOC_LARGEUR][NB_BLOC_HAUTEUR] = 0 , niveau = 0, score = 0
+
+	POSITION position_joueur(0,0), position = (0,0), pos_instruction = (0,0), 
+	POSITION pos_score = ((NB_BLOC_LARGEUR - 2) * TAILLE_BLOC, 0) // En haut a droite
+	
+	// position de 'bravo' centrée 
+	POSTION pos_bravo = [(ecran.width / 2) - (bravo.width / 2),  (ecran.height / 2) - (bravo.height / 2)] 
+
+DEBUT
+	//Chargement du niveau
+	if fichier.charger_niveau(carte, niveau) == False:
+		exit("Impossible de charger le niveau\n Cause possible : le fichier 'level.lvl' n'existe pas.\n")
+
+	//Recherche de la position du joueur sur la carte
+	i = 0
+	TANT QUE i < NB_BLOC_LARGEUR
+		j = 0
+		TANT QUE j < NB_BLOC_HAUTEUR
+			SI 	carte[i][j] == items["JOUEUR"] // Si le joueur se trouve a cette position
+				position_joueur = (i, j)
+				carte[i][j] = items["VIDE"]
+			FIN SI
+			j = j + 1
+		FIN TANT QUE
+		i = i + 1
+	FIN TANT QUE
+
+
+	//Affichage des instructions du jeu
+	TANT QUE continu == True
+		event = get_event()
+		SI event == KEYDOWN
+			continu = False
+		SINON SI event == QUIT
+			exit("Programme Interompu")
+		FIN SI
+
+		fill(window, white)// Effacement de l'ecran
+		blit(window, instruction, pos_instruction)
+		refresh_screen(window)
+	FIN TANT QUE
+
+	//Boucle principale
+	TANT QUE launched == True
+		event = get_event()
+		
+		SI event == QUIT 
+			launched = False
+
+		SINON SI event == KEYDOWN
+			SI event.key == Keyboard_Echap
+				launched = False
+
+			SINON SI event.key == Keyboard_l
+				SI fichier.charger_niveau(carte, niveau) == False
+					exit("Impossible de charger le niveau\n Cause possible : le fichier 'level.lvl' n'existe pas.\n")
+				FIN SI
+				//Recherche de la position du joueur sur la carte
+				i = 0
+				TANT QUE i < NB_BLOC_LARGEUR
+					j = 0
+					TANT QUE j < NB_BLOC_HAUTEUR
+						SI 	carte[i][j] == items["JOUEUR"] // Si le joueur se trouve a cette position
+							position_joueur = (i, j)
+							carte[i][j] = items["VIDE"]
+						FIN SI
+						j = j + 1
+					FIN TANT QUE
+					i = i + 1
+				FIN TANT QUE
+
+				joueur_actuel = joueur["BAS"]
+
+			SINON SI event.key == Keyboard_UP
+				joueur_actuel = joueur["HAUT"]
+				deplacer_joueur(carte, position_joueur, direction["HAUT"], score)
+
+			SINON SI event.key == Keyboard_DOWN
+				joueur_actuel = joueur["BAS"]
+				deplacer_joueur(carte, position_joueur, direction["BAS"], score)
+
+			SINON SI event.key == Keyboard_LEFT
+				joueur_actuel = joueur["GAUCHE"]
+				deplacer_joueur(carte, position_joueur, direction["GAUCHE"], score)
+
+			SINON SI event.key == Keyboard_RIGHT
+				joueur_actuel = joueur["DROITE"]
+				deplacer_joueur(carte, position_joueur, direction["DROITE"], score)
+
+			FIN SI 
+
+		FIN SI
+
+
+		//Effacement de l'écran 
+		fill(window, white)
+
+		//Placement des sprites a l'ecran
+		objectif_restant = False
+
+		i = 0
+		TANT QUE i < NB_BLOC_LARGEUR
+			j = 0
+			TANT QUE j < NB_BLOC_HAUTEUR
+				position = (i * TAILLE_BLOC, j * TAILLE_BLOC)
+
+				SI carte[i][j] == items["MUR"]
+					blit(window, mur, position)
+
+				SINON SI carte[i][j] == items["CAISSE"]
+					blit(window, caisse, position)
+
+				SINON SI carte[i][j] == items["CAISSE_OK"]
+					blit(window, caisse_ok, position)
+
+				SINON SI carte[i][j] == items["OBJECTIF"]
+					blit(window, objectif, position)
+					objectif_restant = True
+
+				FIN SI 
+				j = j + 1
+			FIN TANT QUE
+			i = i + 1
+		FIN TANT QUE
+
+
+		//Si on a trouvé aucun objectif sur l'ecran cela veut dire qu'on a gagné
+		SI objectif_restant == False
+			//Recharge du niveau suivant
+			niveau = niveau + 1
+			SI fichier.charger_niveau(carte, niveau) == False
+				exit("Impossible de charger le niveau\n Cause possible : le fichier 'level.lvl' n'existe pas.\n")
+			FIN SI
+
+			//Recherche de la position du joueur sur la carte
+			i = 0
+			TANT QUE i < NB_BLOC_LARGEUR
+				j = 0
+				TANT QUE j < NB_BLOC_HAUTEUR
+					SI 	carte[i][j] == items["JOUEUR"] // Si le joueur se trouve a cette position
+						position_joueur = (i, j)
+						carte[i][j] = items["VIDE"]
+					FIN SI
+					j = j + 1
+				FIN TANT QUE
+				i = i + 1
+			FIN TANT QUE
+
+			joueur_actuel = joueur["BAS"]
+
+			//Affichage de bravo
+			continu = True
+			TANT QUE continu == True
+				event = get_event()
+				SI event == KEYDOWN
+					continu = False
+				SINON SI event == QUIT
+					exit("Programme Interompu")
+				FIN SI 
+
+				blit(window, bravo, pos_bravo)
+				pos_score = [ecran.width / 2,  ecran.height / 2]
+				afficher_texte(window, "Votre score est de : ", score, pos_score)
+				refresh_screen(window)
+			FIN TANT QUE
+
+		//Affichage du score pendant le jeu
+		afficher_texte(window, "score : ", score, pos_score)
+		FIN SI
+
+		//Placement du joueur a la bonne position
+		position = (position_joueur[0] * TAILLE_BLOC, position_joueur[1] * TAILLE_BLOC) 
+		blit(window, joueur_actuel, position)
+
+		//Liberation des surfaces
+			joueur, joueur_actuel, mur, caisse, caisse_ok, objectif, instruction, bravo
+
+	FIN TANT QUE
+FIN
+//----------------------------------------------------------------------------------------------------------------
+
+
+FONCTION deplacer_joueur(grille, position_joueur, dir, score)
+VARIABLE
+
+
+DEBUT
+	SI dir == direction["HAUT"]
+	//Verification si le joueur a le droit de se deplacer ou de deplacer une caisse
+		//Si le joueur se trouve au bord de la fenetre
+		SI position_joueur[1] - 1 < 0 
+			return False
+		FIN SI
+
+		//S'il y a un mur on arrete
+		SI carte[position_joueur[0]][position_joueur[1] - 1] == items["MUR"]
+			return False
+		FIN SI
+
+		//Si on veut pousser une caisse il faut verifier qu'il y a pas un mur derriere ou une autre caisse ou le bord de la fenetre
+		SI ((carte[position_joueur[0]][position_joueur[1] - 1] == items["CAISSE_OK"] OU carte[position_joueur[0]][position_joueur[1] - 1] == items["CAISSE"]) ET (position_joueur[1] - 2 < 0 OU carte[position_joueur[0]][position_joueur[1] - 2] == items["MUR"] OU carte[position_joueur[0]][position_joueur[1] - 2] == items["CAISSE"] OU carte[position_joueur[0]][position_joueur[1] - 2] == items["CAISSE_OK"]))
+
+			return False
+		FIN SI
+
+		//SI on arrive là c'est qu'on peut deplacer le joueur
+		//On verifie d'abord s'il y a pas de caisse a deplacer
+		deplacer_caisse(carte[position_joueur[0]][position_joueur[1]-1], carte[position_joueur[0]][position_joueur[1]-2], score)
+
+		//On peut enfin faire monter le joueur
+		position_joueur = (position_joueur[0], position_joueur[1]-1)
+	
+
+	SINON SI dir == direction["BAS"]
+	//Verification si le joueur a le droit de se deplacer ou de deplacer une caisse
+		//Si le joueur se trouve au bord de la fenetre
+		SI position_joueur[1] + 1 < 0 
+			return False
+		FIN SI
+
+		//S'il y a un mur on arrete
+		SI carte[position_joueur[0]][position_joueur[1] + 1] == items["MUR"]
+			return False
+		FIN SI
+
+		//Si on veut pousser une caisse il faut verifier qu'il y a pas un mur derriere ou une autre caisse ou le bord de la fenetre
+		SI ((carte[position_joueur[0]][position_joueur[1] + 1] == items["CAISSE_OK"] OU carte[position_joueur[0]][position_joueur[1] + 1] == items["CAISSE"]) ET (position_joueur[1] + 2 < 0 OU carte[position_joueur[0]][position_joueur[1] + 2] == items["MUR"] OU carte[position_joueur[0]][position_joueur[1] + 2] == items["CAISSE"] OU carte[position_joueur[0]][position_joueur[1] + 2] == items["CAISSE_OK"]))
+
+			return False
+		FIN SI
+
+		//SI on arrive là c'est qu'on peut deplacer le joueur
+		//On verifie d'abord s'il y a pas de caisse a deplacer
+		deplacer_caisse(carte[position_joueur[0]][position_joueur[1]+1], carte[position_joueur[0]][position_joueur[1]+2], score)
+
+		//On peut enfin faire descendre le joueur
+		position_joueur = (position_joueur[0], position_joueur[1]+1)
+
+
+	SINON SI dir == direction["GAUCHE"]
+	//Verification si le joueur a le droit de se deplacer ou de deplacer une caisse
+		//Si le joueur se trouve au bord de la fenetre
+		SI position_joueur[0] - 1 < 0 
+			return False
+		FIN SI
+
+		//S'il y a un mur on arrete
+		SI carte[position_joueur[0]-1][position_joueur[1]] == items["MUR"]
+			return False
+		FIN SI
+
+		//Si on veut pousser une caisse il faut verifier qu'il y a pas un mur derriere ou une autre caisse ou le bord de la fenetre
+		SI ((carte[position_joueur[0]-1][position_joueur[1]] == items["CAISSE_OK"] OU carte[position_joueur[0]-1][position_joueur[1]] == items["CAISSE"]) ET (position_joueur[0] - 2 < 0 OU carte[position_joueur[0]-2][position_joueur[1]] == items["MUR"] OU carte[position_joueur[0]-2][position_joueur[1]] == items["CAISSE"] OU carte[position_joueur[0]-2][position_joueur[1]] == items["CAISSE_OK"]))
+
+			return False
+		FIN SI
+
+		//SI on arrive là c'est qu'on peut deplacer le joueur
+		//On verifie d'abord s'il y a pas de caisse a deplacer
+		deplacer_caisse(carte[position_joueur[0]-1][position_joueur[1]], carte[position_joueur[0]-2][position_joueur[1]], score)
+
+		//On peut enfin deplacer le joueur
+		position_joueur = (position_joueur[0]-1, position_joueur[1])
+
+
+	SI dir == direction["DROITE"]
+	//Verification si le joueur a le droit de se deplacer ou de deplacer une caisse
+		//Si le joueur se trouve au bord de la fenetre
+		SI position_joueur[0] + 1 < 0 
+			return False
+		FIN SI
+
+		//S'il y a un mur on arrete
+		SI carte[position_joueur[0]+1][position_joueur[1]] == items["MUR"]
+			return False
+		FIN SI
+
+		//Si on veut pousser une caisse il faut verifier qu'il y a pas un mur derriere ou une autre caisse ou le bord de la fenetre
+		SI ((carte[position_joueur[0]+1][position_joueur[1]] == items["CAISSE_OK"] OU carte[position_joueur[0]+1][position_joueur[1]] == items["CAISSE"]) ET (position_joueur[0] + 2 < 0 OU carte[position_joueur[0]+2][position_joueur[1]] == items["MUR"] OU carte[position_joueur[0]+2][position_joueur[1]] == items["CAISSE"] OU carte[position_joueur[0]+2][position_joueur[1]] == items["CAISSE_OK"]))
+
+			return False
+		FIN SI
+
+		//SI on arrive là c'est qu'on peut deplacer le joueur
+		//On verifie d'abord s'il y a pas de caisse a deplacer
+		deplacer_caisse(carte[position_joueur[0]+1][position_joueur[1]], carte[position_joueur[0]+2][position_joueur[1]], score)
+
+		//On peut enfin faire monter le joueur
+		position_joueur = (position_joueur[0]+1, position_joueur[1])
+	FIN SI 
+
+FIN
+
+//---------------------------------------------------------------------------
+FONCTION deplacer_caisse(premiere_case, seconde_case, score)
+VARIABLE
+
+DEBUT
+	SI premiere_case == items["CAISSE"] OU premiere_case == items["CAISSE_OK"]
+		SI seconde_case == items["OBJECTIF"]
+			seconde_case = items["CAISSE_OK"]
+			score = score + 1
+		SINON
+			seconde_case = items["CAISSE"]
+			score = score + 1
+		FIN SI
+
+		SI premiere_case == items["CAISSE_OK"]
+			premiereCase = items["OBJECTIF"]
+			score = score + 1
+		SINON
+			premiere_case = items["VIDE"]
+			score = score + 1
+		FIN SI
+
+	FIN SI
+FIN

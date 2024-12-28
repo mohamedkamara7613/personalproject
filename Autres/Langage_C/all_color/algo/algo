@@ -1,0 +1,49 @@
+----------Algorythme d'affichage de toutes les couleurs avec la SDL---------------------
+
+//INITIALISATION DES BIBLIOTHEQUES
+SDL.H
+stdio.h
+stdlib.h
+//CONSTANTE
+TAILLE_TAB (HAUTEUR_FENETRE*LARGEUR_FENETRE)
+//VARIABLE
+SDL_SURFACE ecran
+SDL_SURFACE tableauDeSurface[TAILLE_TAB]
+ENTIER couleurBleu = 255, couleurRouge = 255, couleurVert = 255
+SDL_Rect position
+
+DEBUT
+	Initialisation de la sdl
+		verification de son ouverture
+	ouverture d'une fenetre de taille LARGEUR_FENETRE et HAUTEUR_FENETRE
+	Titre de la fenetre "All Color"
+
+//Parcours du tableau de surface
+	POUR i allant de 0 a TAILLE_TAB, pas de 1
+		position.x = position.x + 1
+		SI (position.x == LARGEUR_FENETRE)
+			position.y = position.y + 1
+		FIN SI
+		//Traitement des couleurs
+		rouge = rouge - 1
+		
+		AffichageDeSurface(tableauDeSurface[i], NULL, ecran, CodeCouleur(ecran->format, rouge, vert, bleu))
+	FIN POUR
+
+	Mise a jour de l'ecran
+	pause()
+//Liberation des memoires
+	Fermiture de la sdl
+FIN
+
+FONCONTION pause(rien)
+DEBUT
+	VARIABLE D'EVENEMENT
+	continuer = 1
+	TANT QUE (continuer == 1)
+		attente d'evenement 
+		SI (Evenement SDL_QUIT)
+			continuer = 0
+		FIN SI
+	FIN TANT QUE
+FIN

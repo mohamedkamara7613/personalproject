@@ -1,0 +1,7 @@
+Permet de booster la connexion internet en vous donnant la priorité devant les autres périphériques donc une amélioration de 20% approximativement
+
+Windows 7
+netsh int tcp set global congestionprovider=[None/CTCP]
+
+WINDOWS 8
+-set supplemental=[None/CTCP]

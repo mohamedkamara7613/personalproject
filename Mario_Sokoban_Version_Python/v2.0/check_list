@@ -1,0 +1,16 @@
+-----------------------MARIO SOKOBAN V2.0-------------------------------------
+
+
+- (FAIT) il a un menu qui s'adapte en fonction de la taille de la fenetre
+-(FAIT) je suis a laffichage de bravo et a laffichage du score du jeu
+- (FAIT)gerer le cas ou le niveau suivant nexiste pas
+- (FAIT) gerer le cas c'est fin du jeu
+- (FAIT) changer de police pour l'ecriture
+- (FAIT) gerer l'affichage au choix des personnages
+- (FAIT) ajouter le son au deplacement de mario, au deplacement imossible, à gagné, et la music de fond
+- (FAIT) chercher de nouveau son pour bravo et fin jeu
+- (FAIT) passer niveau suivant et precedant
+- ajouter mon ,nom au jeu  
+- ajouter personnages : sonic, shadow, tete d'oeuf
+- centrer la fenetre
+- touche p action precedent

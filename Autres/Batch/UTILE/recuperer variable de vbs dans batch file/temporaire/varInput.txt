@@ -1,0 +1,6 @@
+La variable inputbox est :  
+La variable inputbox est : 145 
+La variable inputbox est :  
+La variable inputbox est : 4545 
+La variable inputbox est :  
+La variable inputbox est : 4545 

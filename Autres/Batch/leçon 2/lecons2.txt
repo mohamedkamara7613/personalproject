@@ -1,0 +1,24 @@
+﻿------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	La commande goto 
+goto :nomdesection SECTION DEFINIE AU PREALABLE
+ TOUT CE QUI SE TROUVERA DANS LA SECTION DEFINIE SERA REPETER AUTOMATIQUEMENT 
+	-------------------------------------------------
+	-   :debut					-
+	-   echo Bonjour				-
+	-   pause>nul					-
+	-   goto :debut					-
+	-------------------------------------------------
+	
+	La commande choice
+choice /c noms de touches /n
+permet de faire un choix 
+
+	%errorlevel% QUI PREND UNE VALEUR DE TOUCHE APRES CHOICE PARCONTRE IL PREND LES VALEURS DANS LE SENS 	INVERSE
+
+	La commande timeout 
+timeout /t "temps en seconde" /nobreak LE TEMPS PEUT ETRE UNE VALEUR 
+
+	La commande ping localhost 
+ping localhost -n "temps">nul 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

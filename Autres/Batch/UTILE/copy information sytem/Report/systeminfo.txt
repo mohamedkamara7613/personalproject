@@ -1,0 +1,198 @@
+
+Nom de l'hìte:                              MOHAMEDKEITA
+Nom du systäme d'exploitation:              Microsoft Windows 8.1
+Version du systäme:                         6.3.9600 N/A version 9600
+Fabricant du systäme d'exploitation:        Microsoft Corporation
+Configuration du systäme d'exploitation:    Station de travail autonome
+Type de version du systäme d'exploitation:  Multiprocessor Free
+PropriÇtaire enregistrÇ:                    mohamedgalaye@outlook.com
+Organisation enregistrÇe:                   
+Identificateur de produit:                  00260-70000-00000-AA014
+Date d'installation originale:              21/07/2020, 19:16:08
+Heure de dÇmarrage du systäme:              04/08/2020, 19:06:50
+Fabricant du systäme:                       Hewlett-Packard
+Modäle du systäme:                          HP ProBook 4530s
+Type du systäme:                            X86-based PC
+Processeur(s):                              1 processeur(s) installÇ(s).
+                                            [01]ˇ: x64 Family 6 Model 42 Stepping 7 GenuineIntel ~800 MHz
+Version du BIOS:                            Hewlett-Packard 68SRR Ver. F.40, 12/03/2013
+RÇpertoire Windows:                         C:\WINDOWS
+RÇpertoire systäme:                         C:\WINDOWS\system32
+PÇriphÇrique d'amoráage:                    \Device\HarddiskVolume1
+Option rÇgionale du systäme:                fr;Franáais (France)
+Paramätres rÇgionaux d'entrÇe:              fr;Franáais (France)
+Fuseau horaire:                             (UTC+00:00) Dublin, êdimbourg, Lisbonne, Londres
+MÇmoire physique totale:                    2ˇ758 Mo
+MÇmoire physique disponible:                1ˇ055 Mo
+MÇmoire virtuelleˇ: taille maximale:        4ˇ742 Mo
+MÇmoire virtuelleˇ: disponible:             2ˇ500 Mo
+MÇmoire virtuelleˇ: en cours d'utilisation: 2ˇ242 Mo
+Emplacements des fichiers d'Çchange:        C:\pagefile.sys
+Domaine:                                    WORKGROUP
+Serveur d'ouverture de session:             \\MicrosoftAccount
+Correctif(s):                               147 Corrections installÇes.
+                                            [01]: KB2899189_Microsoft-Windows-CameraCodec-Package
+                                            [02]: KB2959936
+                                            [03]: KB2894856
+                                            [04]: KB2919355
+                                            [05]: KB2920189
+                                            [06]: KB2931358
+                                            [07]: KB2931366
+                                            [08]: KB2937220
+                                            [09]: KB2938772
+                                            [10]: KB2939153
+                                            [11]: KB2949621
+                                            [12]: KB2954879
+                                            [13]: KB2958262
+                                            [14]: KB2961072
+                                            [15]: KB2962140
+                                            [16]: KB2965142
+                                            [17]: KB2965500
+                                            [18]: KB2967917
+                                            [19]: KB2968599
+                                            [20]: KB2971203
+                                            [21]: KB2975061
+                                            [22]: KB2976627
+                                            [23]: KB2976978
+                                            [24]: KB2977629
+                                            [25]: KB2978002
+                                            [26]: KB2981580
+                                            [27]: KB2987107
+                                            [28]: KB2989647
+                                            [29]: KB2989930
+                                            [30]: KB2990967
+                                            [31]: KB2994290
+                                            [32]: KB2998527
+                                            [33]: KB3000850
+                                            [34]: KB3001237
+                                            [35]: KB3003057
+                                            [36]: KB3003667
+                                            [37]: KB3008242
+                                            [38]: KB3012235
+                                            [39]: KB3013172
+                                            [40]: KB3013531
+                                            [41]: KB3013538
+                                            [42]: KB3013791
+                                            [43]: KB3014442
+                                            [44]: KB3015696
+                                            [45]: KB3018133
+                                            [46]: KB3019978
+                                            [47]: KB3020370
+                                            [48]: KB3024751
+                                            [49]: KB3024755
+                                            [50]: KB3029606
+                                            [51]: KB3030947
+                                            [52]: KB3031044
+                                            [53]: KB3033446
+                                            [54]: KB3035126
+                                            [55]: KB3036612
+                                            [56]: KB3038002
+                                            [57]: KB3042085
+                                            [58]: KB3043812
+                                            [59]: KB3044374
+                                            [60]: KB3044673
+                                            [61]: KB3045634
+                                            [62]: KB3045685
+                                            [63]: KB3045717
+                                            [64]: KB3045719
+                                            [65]: KB3045999
+                                            [66]: KB3046017
+                                            [67]: KB3046480
+                                            [68]: KB3046737
+                                            [69]: KB3047254
+                                            [70]: KB3053863
+                                            [71]: KB3054169
+                                            [72]: KB3054256
+                                            [73]: KB3054464
+                                            [74]: KB3055323
+                                            [75]: KB3055343
+                                            [76]: KB3056347
+                                            [77]: KB3059317
+                                            [78]: KB3060793
+                                            [79]: KB3061493
+                                            [80]: KB3061512
+                                            [81]: KB3062760
+                                            [82]: KB3063843
+                                            [83]: KB3064059
+                                            [84]: KB3071756
+                                            [85]: KB3076949
+                                            [86]: KB3077715
+                                            [87]: KB3078405
+                                            [88]: KB3080149
+                                            [89]: KB3080800
+                                            [90]: KB3084135
+                                            [91]: KB3086255
+                                            [92]: KB3087137
+                                            [93]: KB3091297
+                                            [94]: KB3095701
+                                            [95]: KB3099834
+                                            [96]: KB3100473
+                                            [97]: KB3103616
+                                            [98]: KB3103696
+                                            [99]: KB3103709
+                                            [100]: KB3109103
+                                            [101]: KB3109560
+                                            [102]: KB3109976
+                                            [103]: KB3110329
+                                            [104]: KB3115224
+                                            [105]: KB3121261
+                                            [106]: KB3126030
+                                            [107]: KB3126434
+                                            [108]: KB3126587
+                                            [109]: KB3134815
+                                            [110]: KB3137728
+                                            [111]: KB3138378
+                                            [112]: KB3138602
+                                            [113]: KB3138910
+                                            [114]: KB3138962
+                                            [115]: KB3139398
+                                            [116]: KB3139914
+                                            [117]: KB3140185
+                                            [118]: KB3140219
+                                            [119]: KB3140234
+                                            [120]: KB3145384
+                                            [121]: KB3146604
+                                            [122]: KB3146723
+                                            [123]: KB3146751
+                                            [124]: KB3147071
+                                            [125]: KB3150513
+                                            [126]: KB3155784
+                                            [127]: KB3156059
+                                            [128]: KB3159398
+                                            [129]: KB3161102
+                                            [130]: KB3161949
+                                            [131]: KB3172614
+                                            [132]: KB3172729
+                                            [133]: KB3173424
+                                            [134]: KB3175024
+                                            [135]: KB3178539
+                                            [136]: KB3179574
+                                            [137]: KB3184143
+                                            [138]: KB3185319
+                                            [139]: KB3187754
+                                            [140]: KB4462930
+                                            [141]: KB4486105
+                                            [142]: KB4486115
+                                            [143]: KB4561600
+                                            [144]: KB4565635
+                                            [145]: KB4566425
+                                            [146]: KB4567409
+                                            [147]: KB4565541
+Carte(s) rÇseau:                            3 carte(s) rÇseau installÇe(s).
+                                            [01]: Realtek PCIe GbE Family Controller
+                                                  Nom de la connexionˇ: Ethernet
+                                                  êtatˇ:                Support dÇconnectÇ
+                                            [02]: Realtek RTL8188CE 802.11b/g/n WiFi Adapter
+                                                  Nom de la connexionˇ: Wi-Fi
+                                                  DHCP activÇˇ:         Oui
+                                                  Serveur DHCPˇ:        192.168.1.1
+                                                  Adresse(s) IP
+                                                  [01]: 192.168.1.2
+                                                  [02]: fe80::bd33:fdba:7ad5:f49f
+                                            [03]: PÇriphÇrique Bluetooth (rÇseau personnel)
+                                                  Nom de la connexionˇ: Connexion rÇseau Bluetooth
+                                                  êtatˇ:                Support dÇconnectÇ
+Configuration requise pour Hyper-V:         Extensions de mode du moniteur d'ordinateur virtuelˇ: Oui
+                                            Virtualisation activÇe dans le microprogrammeˇ: Non
+                                            Traduction d'adresse de second niveauˇ: Oui
+                                            PrÇvention de l'exÇcution des donnÇes disponibleˇ: Oui

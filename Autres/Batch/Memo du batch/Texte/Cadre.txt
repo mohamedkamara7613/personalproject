@@ -1,0 +1,7 @@
+	Voici les caractere à utiliser pour faire le cadre :
+			
+		Notepad: ┌ ┬ ┐ ├    ┼   ┤   └ ┴ ┘     ─ │
+		cmd.exe: Ú Â ¿  Ã    Å   ´  À Á Ù     Ä  ³
+
+		Notepad: ╔ ╦ ╗    ╠  ╬  ╣     ╚ ╩ ╝  ═ ║
+		cmd.exe:  É  Ë »   Ì  Î  ¹    È Ê ¼  Í  º

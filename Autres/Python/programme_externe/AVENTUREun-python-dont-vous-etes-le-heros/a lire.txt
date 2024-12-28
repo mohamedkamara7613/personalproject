@@ -1,0 +1,10 @@
+Ceci est un livre dont vous étes le héros, version python bien sur.
+C'est mon premier projet.
+n'hésitez pas à me contacter si il y a une erreur quelque part (ce qui est fort possible)
+Et pour toute question, ou remarque dans le code  ou le scénario(je suis ouvert a toute critique)
+marcokoor1@gmail.com
+
+Ha et j'oubliais, je suis francais ce qui veut dire que ce PYTHON DONT VOUS ETES LE HEROS et pour l'instant exculsivement en francais.
+Donc si vous parlez une autre langue sa va étre compliquer...
+
+Merci de jouer à mon jeu!

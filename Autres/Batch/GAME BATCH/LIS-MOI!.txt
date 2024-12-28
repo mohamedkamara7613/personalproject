@@ -1,0 +1,14 @@
+Bonjour Bienvenue Dans MineField V5.2 (c)
+
+Quelques petites choses:
+
+-si le programme vous dit "fichier introuvable bla bla bla" c'est que le dossier est placé a un mauvais endroit 
+ pour éviter ce probleme PLACEZ LE DOSSIER SUR VOTRE BUREAU
+
+-si le programme vous dit "batbox bla bla bla n'est pas reconnu en tant que commande interne ou externe" vérifiez que "Batbox" 
+ est bien installé dans le dossier du jeu
+
+-si vous trouvez d'autres problemes contactez moi a SpeedCookie@gmail.com
+
+
+

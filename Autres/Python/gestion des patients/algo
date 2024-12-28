@@ -1,0 +1,68 @@
+importation de tkinter et de tous les sous dossiers
+creation d'une fenetre avec tkinter
+definition des dimensions de la fenetre et du titre de la fenetre(1300x700)
+
+#ajouter le titre
+creer un label avec bordure pour le grand titre 
+		sur root_bd = value, 
+		relief = RIDGE
+		text = GESTION DES PATIENTS CHEZ HOPITAL
+		font = arial et taille 30
+		bg = darkblue
+		fg = white
+
+placer le label avec la methode place(x=0, y=0, width=1365)
+
+
+#liste des patients
+creer un label list des patients
+		sur root
+		text = liste des patients
+		font = arial 16
+		bg = darkblue
+		fg = white
+placer le label, place(x=600, y=100, width=760)
+
+	CREER DES LABELS INPUT ET TITRES
+creer un label d'affichage où on met le titre puis coller la partie input a coté
+-text_matricule patient (on creer donc deux label un de type Label et un autre de type Entry
+	titre : x=0 y=100 width=200
+	input : x=200 y=100 width=160 height=30
+-text_nom patient
+	titre : x=0 y=150 width=200
+	input : x=200 y=150 width=200 height=30
+-prenom patient
+-age patient
+-adresse patient
+-sexe patient
+-telephone patient
+-remarque patient
+
+ceation des boutons (enregistrer, modifier, supprimer)
+creer un label
+		root
+		text = text
+		font = arial 16
+		bg = darkblue
+		fg = yellow
+		command = (ajouter, modifier, supprimer)
+puis placer chaque bouton
+
+
+
+		FONCTION
+-ajouter()
+	declarer les variables : matricule, nom, prenom...
+	les initialiser avec la methode nomlabel.get()
+
+	#creer les connexions avec la base de donnée avec sqlite3
+	creer la variable de connexion avec la methode sqlite3.connect("nombase.db")
+	creer la variable curseur (ex: curser = connexion.cursor())
+	executer la commande avec :
+		curser.execute("insert into patient('code', 'nom',...) value(?,?,?,.....), (matricule, nom, prenom,...) ")
+		connexion.commit() envoyer
+		connexion.close()
+
+	notifier que le patient a ete ajouter avec messagebox.showinfo("text")
+
+	# afficher le resultat voir code

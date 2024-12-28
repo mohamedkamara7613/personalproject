@@ -1,0 +1,9 @@
+	
+	Bienvenu dans le jeu du pendu, les regles sont simples : 
+	un mot est affiché avec ses lettres cachées et vous devez déviner 
+	le mot en tapant chaque lettre contenu dans ce mot, une seule à 
+	la fois, dans l'ordre que vous voulez. Cependant vous avez que 
+	10 essais, c'est a dire que 10 erreurs seulement vous est permis
+	si le nombre d'essais s'épuise avant que n'ayez trouvé le mot 
+	caché vous perdez sinon vous gagné.
+	Votre score sera le nombre de coup qui vous reste si vous gagnez

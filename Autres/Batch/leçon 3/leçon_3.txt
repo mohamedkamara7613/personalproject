@@ -1,0 +1,23 @@
+	La commande color pour changer la couleur de fond et des ecritures 
+		-> color "fond/text"
+		les codes de couleurs sont 
+			0 Noir
+			1 Blue
+			2 Vert 
+			3 Turquoise
+			4 Rouge 
+			5 Violet 
+			6 Jaune
+			7 Blanc
+			8 Gris 
+			9 Bleu Clair
+			A Vert clair
+			B Bleu-Vert clair
+			C Rouge Clair 
+			D Violet Clair 
+			E Jaune Clair
+			F Blanc brillant  
+
+	La commande mode con pour changer la taille de la fenetre 
+		-> mode con cols="nombres de colonnes" lines="nombres de lignes"
+		les lignes doivent etre plus petites que les colonnes souvents le tiers 60cols 20lines 

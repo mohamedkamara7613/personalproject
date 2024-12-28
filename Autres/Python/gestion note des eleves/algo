@@ -1,0 +1,18 @@
+importation des biblotheques
+call de subprocess
+ttk et tk de tkinter
+et tkinter all
+messagebox de tkinter
+
+creation d'une fenetre de connexion avec tkinter Tk()
+dimension = "400x300+450+200"
+root.configure(background="#091821")
+
+#ajouter le titre
+
+creer un label
+    root
+    borderwidth=3
+    relief = SUNKEN
+    text = formulaire de connexion
+

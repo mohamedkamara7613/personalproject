@@ -1,0 +1,9 @@
+CE QUE NOTRE JEU EST CAPABLE DE FAIRE:
+	Le joueur est capable de se déplacer dans un labyrinth et de déplacer des caisses
+	Il ne peut pas pousser deux caisses a la fois
+	Une partie est considerer comme gagne lorque toutes les caisses sont sur les objectifs
+	Les niveaux de jeu seront enregistrés dans un fichier "niveaux.lvl"
+	Un editeur sera integré au programme pour que n'importe qui puisse edité ses niveaux
+
+CE QUE LE NOTRE JEU NE PAS FAIRE:
+	Il y aura pas de gestion du temps ecoulé ni de score

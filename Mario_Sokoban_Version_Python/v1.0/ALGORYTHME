@@ -1,0 +1,122 @@
+-----------------ALGORYTHME Mario Sokoban-----------------------//Programme fenetré
+-----------------FICHIER : data ---------------//contient les données principales du programme
+VARIABLE
+
+TAILLE_BLOC = 34
+NB_BLOC_HAUTEUR = 12
+NB_BLOC_LARGEUR = 12
+HAUTEUR_FENETRE = NB_BLOC_HAUTEUR * TAILLE_BLOC
+LARGEUR_FENETRE = NB_BLOC_LARGEUR * TAILLE_BLOC
+
+//liste de direction associé a des valeurs constantes
+direction = [HAUT, BAS, GAUCHE ,DROITE]
+
+//liste des objets associés a des valeurs constantes
+items = [VIDE, MUR, CAISSE, OBJECTIF, MARIO, CAISSE_OK]
+
+//tableau de mario qui doit contenir les images correspondantes
+mario = {"haut":0, "bas":0, "gauche":0, "droite":0}
+
+
+----------------FICHIER : main ----------------// Accueil initialise le jeu et dirige vers la section voulue
+
+VARIABLE
+Bool jeu_lancee = Vrai
+Variable_event event = NULL
+Surface menu = load("src_img/menu.jpg") 
+
+DEBUT
+------Initialisation des elements de base
+	init_bibliotheque_de_jeu()
+	window = init_fenetre(LARGEUR_FENETRE, HAUTEUR_FENETRE, double_buf, hwsurface, no_resizable)
+	set_caption("Mario Sokoban")
+	set_icon("src_img/mur.jpg") // charger l'image du mur pour l'icone
+
+------Boucle principale
+	TANT QUE jeu_lancee
+-----------------------------------------------------------------CONDITIONS-----------------------------------
+		event = get_event()
+		SI event == QUIT ou event == Keyboard_Echap
+			jeu_lancee = False
+			free_memory()
+
+		SINON SI event == num1
+			jouer(window)
+
+		SINON SI event == num2
+			edit(window)
+
+		FIN SI
+
+--------------------------------------------------------------------------------------------------------------
+
+		fill(window, white)
+		blit(window, menu, (0,0)) //Blitter menu sur window aux coordonnées 0,0
+
+		refresh_screen()
+	FIN TANT QUE
+
+
+FIN
+__________________________________________________________________________________________________________________
+
+---------------ARBORESCENCE DES FICHIERS :
+	fihier code : main, data, jeu, editeur, fichier
+	
+	dossier : src_img, src_audio
+
+
+---------------FICHIER CODE: data
+	Description : définit les variables et les constantes pour le programme
+#Constantes
+bloc_size = 34 // taille en pixel des cases
+nb_bloc_height = 12 // nombre de bloc sur la hauteur
+nb_bloc_width = 12 // nombre de bloc sur la largeur
+///
+	ici pour trouver la longueur ou la largeur en pixel de la fenetre on
+	multiplie la taille en pixel d'une case par le nombre de bloc en  
+	largeur ou en longueur
+///
+window_height = nb_bloc_height * bloc_size
+window_width = nb_bloc_width * bloc_size
+
+///
+	ici on cree un dictionnaire ou tableau pour les 4 directions associant des noms et des valeurs,
+	c'est plus pratique pour ne pas se perdre
+///
+direction = {"HAUT": 0, "BAS": 1, "GAUCHE": 2, "DROITE": 3}
+items = {"VIDE":0, "MUR":1, "CAISSE":2, "OBJECTIF":3, "MARIO":4, "CAISSE_OK":5}
+
+#Couleur
+white_color = (255, 255, 255)
+black_color = (0, 0, 0)
+
+#Autre variable
+pos_text_center = [window_width / 2 - 30, window_height / 2 - 30]
+window_resolution = (window_width, window_height)
+positionJoueur = [14, 0]
+
+
+#creation de la carte en ligne et en colone
+grille = [[0] * nb_bloc_width for i  in range(nb_bloc_height)]
+
+
+
+
+
+
+
+
+
+
+---------------FCHIER CODE: main
+	
+	-importation des differents modules : jeu, data, editeur
+	-importation module de jeu (exemple : pygame pour python, SDL pour langage C) = modulejeu
+	-initialisation du modulejeu:
+		-taille de la fenetre avec la variable window_resolution
+		-titre de la fenetre
+		-couleur de fond de la fenetre : blanc
+
+
+	

@@ -1,0 +1,16 @@
+--------------------------MARIO SOKOBAN V2.0----------------------------------
+
+- le jeu se lance avec une couleur de fond au hasard
+- il y a du son de fond 
+- au menu le joueur peut commencer a jouer ou lancer l'editeur de niveau qui lui permettra de creer des niveaux
+- Dans la section jeu, le joueur peut selectionne un personnage
+  le joueur peut se deplacer et deplacer une caisse mais ne peut traverser deux mur, ni deux caisse en meme temps
+ - Quand un deplacement impossible se produit un son est emit
+ - Quand le joueur se deplace un son se produit
+ - si on appuie sur Page up on passe au niveau suivant
+ - si on appuie sur Page down on retourne au niveau precedent 
+ - si on appuie sur la touche r niveau est recommence
+ - si on appuie sur la touche p on revient a l'action precedent
+ - il faut faire le minimum de deplacement avec les caisse pour faire un score minimal
+ - un son se produit quand le joueur gagne
+ - un son se produit a la fin des niveaux

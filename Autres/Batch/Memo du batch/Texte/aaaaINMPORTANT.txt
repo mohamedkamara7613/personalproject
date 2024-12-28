@@ -1,0 +1,63 @@
+
+              L'outils choice
+    Cet outil permet aux utilisateurs de sélectionner un élément d'une liste
+    de choix et renvoie l'index du choix sélectionné.
+
+Liste de paramètres :
+   /C    choix         Spécifie la liste des choix à créer.
+                       La liste par défaut est "ON".
+
+   /N                  Masque la liste des choix dans l'invite de commande.
+                       Le message avant l'invite de commande est affiché
+                       et les choix restent activés.
+
+   /CS                 Permet la sélection de choix respectant la casse.
+                       Par défaut, l'utilitaire ne respecte pas la casse.
+
+   /T    délai         Nombre de secondes de suspension avant
+                       d'effectuer un choix par défaut. Les valeurs acceptables
+                       sont comprises entre 0 et 9999. Si 0 est spécifié,
+                       le choix par défaut sera sélectionné sans suspension.
+
+   /D    choix         Spécifie le choix par défaut après nnnn secondes.
+                       Le caractère doit être compris dans les choix spécifiés
+                       par l'option /C et doit également spécifier nnnn avec /T.
+
+   /M    texte         Spécifie l'affichage du message avant   l'invite de
+                       commande. Si l'option n'est pas spécifiée, l'utilitaire
+                       affiche uniquement une invite de commande.
+
+   /?                  Affiche ce message d'aide.
+
+   Remarque :
+   La variable d'environnement ERRORLEVEL est définie à l'index de la
+   clé sélectionnée dans l'ensemble de choix. Le premier choix
+   listé renvoie la valeur 1, le second renvoie la valeur 2, etc.
+   Si l'utilisateur appuie sur une touche ne représentant pas un choix valide,
+   l'outil  émet un signal sonore d'avertissement. Si l'outil détecte une
+   condition d'erreur, il renvoie une valeur ERRORLEVEL de 255.
+   Si l'utilisateur appuie sur CTRL+Pause ou CTRL+C, l'outil renvoie
+   une valeur ERRORLEVEL de 0. Lorsque vous utilisez les paramètres
+   ERRORLEVEL dans un programme de commandes,
+    vous devez les lister par ordre décroissant.
+
+Exemples :
+   CHOIX /?
+   CHOICE /C ONA /M "Appuyez sur O pour Oui, N pour Non ou A pour Annuler."
+   CHOICE /T 10 /C ona /CS /D o
+   CHOICE /C ab /M "Sélectionnez a pour l'option 1 et b pour l'option 2."
+   CHOICE /C ab /N /M "Sélectionnez a pour l'option 1 et b pour l'option 2."
+
+
+
+
+
+        Echapper les caracteres speciaux
+         ajouter un ^ devant le caractere a echapper
+           bonjour ^>salut
+        Alligner plusieurs commande sur une meme ligne
+            echo bonjour & echo salut
+        Cacher une commande avec @ devant la comande
+            set /p age=votre age
+            @echo %age%
+            la commande set sera afficher mais pas la commande echo

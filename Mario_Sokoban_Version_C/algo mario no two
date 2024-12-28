@@ -1,0 +1,22 @@
+//recherche, au debut du programme,de la position de mario
+parcours de chaque case pour verifier s'il l'un d'eux contient MARIO
+Si c'est le cas Enregistrer sa position et dire qu'il est blitter
+
+Commencement de la boucle principale
+	si un clic gauche
+		si object selection est MARIO 
+		recuperation de la position du clic en case et changer pos mario 
+		mettre mario blitter
+	si un clic continue 
+		si clic gauche en cours 
+		recuperation de la position du clic en mouvement en case et changer pos mario
+		mettre mario blitter
+	si un clic droits
+		recuperation de la position du clic en case
+		si cette case contion mario remplacer par vide 
+		mettre mario non blitter
+
+
+	effacement ecran en blanc
+	collage de mario a sa position
+FIN BOUCLE

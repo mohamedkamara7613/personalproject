@@ -1,0 +1,54 @@
+ 
+ 	la boucle for 
+ 		for %%a in (1 2 3 4 5 6 7 8 9 10) do echo %%a 
+ 	oubien 
+ 		for /difinie une fonction %%nomdecompteur in (debut, pas, fin) do commande a faire
+ 		for /l %%a in (1,1,10) do echo %%a
+
+ 	la boucle for a beaucoup de fonction 
+ 		Pour acceder à un fichier et afficher le contenu
+ 			for /f ["options"] %variable IN (fichier.txt)  permet de parcourir le texte d'un fichier ou d'une chaine de caractère.
+			for /f %%a in (nomfichier.extension ou chemin d'acces) do commande a executer
+ 			for /f %%a in (nomfichier.extension) do echo %%a
+ 			Cela n'affiche que les premiers mots de chaque lignes, ne prend pas en compte les espaces
+
+ 			for /f "tokens=*" %%a in (nomfichier.extension) do echo %%a [lire un fichier ligne par ligne]
+ 			for /f "tokens=1,3 delims=/" %%a (nomfichier.extension) do echo %%a %%b
+ 			Cela affiche les elements 1 et 3 delimite par un slash sur la 1er ligne, le %%b n'est pas declarer mais existe
+ 			for /f "tokens=1-3,5-8 delims=/" %%a (nomfichier.extension) do echo %%a %%b %%c %%d %%e %%f %%g 
+ 			Affiche les valeurs de 1 jusqu'a 3 et de 5 jusqu'a 8
+ 		Pour convertir les compteurs en valeur normal
+ 			for /f "tokens=1,3 delims=/" %%a (nomfichier.extension) do set a=%%a & b=%%b
+
+ 			for /d %variable IN (répertoire) pour exécuter des commandes sur tous les fichiers d'un répertoire
+			for /r pour traiter un répertoire et tous ses sous-dossiers.	
+ 		
+ 		La fonction skip
+ 			for /f "skip=2" %%a (nomfichier.extension) do echo %%a 
+ 			Signifie quil saute deux lignes en partant de la premiere ligne donc affiche que les lignes qui se trouve apres la 2em lignes
+ 		La fonction eol
+ 			for /f "eol=l" %%a (nomfichier.extension) do echo %%a 
+ 			Affiche tout sauf les liges qui commence par la lettre 'l'
+ 	Creer un fichier et ecrire dedans
+ 		echo "texte" > nomdefichier.extension
+ 	le fichier est creer dans le repertoire où se trouve le fichier batch
+ 	il peut etre utilisé avec une valeur saisie par l'utilisateur
+ 		set /p reponse= Comment aller vous ? 
+ 		echo %reponse% > nomdefichier.extension
+ 	Ajouter du texte dans le fichier
+ 		echo "texte" >> nomdefichier.extension
+		
+		echo [MESSAGE] > [FICHIER] écrit [MESSAGE] dans le fichier [FICHIER] (remplace tout le contenu déjà existant et crée le fichier s'il n'existe pas)
+
+		echo [MESSAGE] >> [FICHIER] écrit [MESSAGE] dans le fichier [FICHIER] (ajoute [MESSAGE] à la fin du fichier (dans une nouvelle ligne))
+
+		ren [ANCIEN NOM] [NOUVEAU NOM] change le nom du fichier [ANCIEN NOM] par [NOUVEAU NOM]
+
+		type [FICHIER] affiche le contenu du fichier [FICHIER] (syntaxe alternative : more [FICHIER])
+
+		mkdir [DOSSIER]	Crée le dossier [DOSSIER]
+
+		rmdir [DOSSIER] Supprime le dossier [DOSSIER]
+
+		(echo)>[FICHIER] Crée un fichier texte nommé [FICHIER]
+

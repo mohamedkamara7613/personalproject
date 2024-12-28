@@ -1,0 +1,45 @@
+""" 
+----------------- main.extension
+	Par Mohamed kamara 
+	
+	Role : Contient le menu et redirige vers la partie souhaitée
+
+
+VARIABLE
+Bool jeu_lancee = Vrai
+Variable_event event = NULL
+Surface menu = load("src_img/menu.jpg") 
+
+DEBUT
+	--Initialisation des elements de base
+	init_bibliotheque_de_jeu()
+	window = init_fenetre(LARGEUR_FENETRE, HAUTEUR_FENETRE, double_buf, hwsurface, no_resizable)
+	set_caption("Mario Sokoban")
+	set_icon("src_img/mur.jpg") // charger l'image du mur pour l'icone
+
+	--Boucle principale
+	TANT QUE jeu_lancee
+	-------------------------------------------------------------CONDITIONS-----------------------------------
+		event = get_event()
+		SI event == QUIT ou event == Keyboard_Echap
+			jeu_lancee = False
+			free_memory()
+
+		SINON SI event == num1
+			jeu.jouer(window) // Appeller la fonction 'jouer' qui se trouve dans le fichier 'jeu.extension'
+
+		SINON SI event == num2
+			editeur.edit(window) // Appeller la fonction 'edit' qui se trouve dans le fichier 'editeur.extension'
+
+		FIN SI
+
+	----------------------------------------------------------------------------------------------------------
+
+		fill(window, white) // efface l'ecran en colorant en blanc
+		blit(window, menu, (0,0)) //Blitter menu sur window aux coordonnées 0,0
+
+		refresh_screen() // mise a jour de l'ecran
+	FIN TANT QUE
+
+
+FIN

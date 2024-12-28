@@ -1,0 +1,19 @@
+			
+			Le batbox  
+				Pour que batbox soit fonctionnel il faut toujours inserer au debut du programme le code qui permet  de le telecharger afin de pouvoir lutilisateur 
+				les fonctions du batbox :
+					/d "texte" affiche du texte comme un echo
+					/g X Y positionne des elements sur l'ecran au coordonnée x et y ou bien colones puis lignes
+					/c 0xcodeCouleur change la colour du texte 
+					/a 1-31 affiche le resultat d'un code ASCII comme un smiley
+					/w temps en ms comme le timeout ou ping localhost
+					/k qui permet de recuperer des touches comme les directions ou ctrl ou tab, il toujours suivi d'un if %errorlevel%==codeASCII touches commande a executer
+
+			exemple:
+			batbox /c 15 6 /d "Bonjour tout monde" /w 5000 /a 1 /c 0xfc /d "Salut" /c 0xf0 /a 1 /k
+			if %errorlevel%==9 goto :tab
+			if %errorlevel%==97 goto :a
+			:tab
+			echo vous avez appuyé sur tab
+			:a 
+			echo vous avez appuyé sur "A"
