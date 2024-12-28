@@ -1,0 +1,44 @@
+
+Chargement et normalisation de l'image 
+
+
+Pretraitement de l'image
+	- Denoising
+	- Amelioration du contraste
+	- Binarisation
+	- Correction de la rotation 
+	- Segmentation des zones de code-barres
+Pour chaque zone détectée
+	- mesure des barres 
+	- normalisation des mesures
+	- decodage
+	- validation du code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
