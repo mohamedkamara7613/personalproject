@@ -1,0 +1,56 @@
+ 
+
+---
+
+Objectif global (pour l'instant) : Créer un jeu Puissance 4 fonctionnel pour deux joueurs humains.
+
+---
+
+Initialisation du plateau de jeu
+	- Créer une grille de 6 lignes et 7 colonnes (6,7), list*list*int 
+ 	- `0` (vide), `1` (joueur 1) ou `2` (joueur 2) dans les cases de la grille.
+  	- Fonction afficher proprement le plateau (soit en console ou graphique avec pygame).
+	pour l'affichage '.' <--> vide;  'X' <--> joueur 1;  'O' <--> joueur 2
+		Exemple d'affichage:
+			. . . . . . .
+			. . . . . . .
+			. . . . . . .
+			. . . . . . .
+			. . . . . . .
+			. . . X . O .
+
+Ajout d’un jeton dans une colonne --> l'objectif est de pouvoir modifier le plateau en fonction des actions des joueurs.
+  	- Permettre à un joueur de choisir une colonne (0 à 6).
+  	- Vérifier si la colonne est valide (pas pleine, existe).(si le coup est jouableou non)
+  	- Placer le jeton du joueur à la position la plus basse disponible dans la colonne.
+
+Vérification des conditions de victoire --> Détecter quand la partie est terminée et annoncer le gagnant
+  	- Implémenter une fonction qui vérifie si un joueur a aligné 4 jetons horizontalement, verticalement ou en diagonale...
+  	- Retourner `True` si un joueur gagne, sinon continuer.
+
+Gestion des tours des joueurs
+  	- Alterner les tours entre deux joueurs.
+  	- Vérifier après chaque tour si le plateau est plein (match nul) ou si un joueur a gagné. role de la fonction check_victorie
+  	- facultatif:"Afficher un message après chaque coup (plateau actualisé, joueur suivant)".
+
+
+Boucle principale du jeu 
+
+  - Mettre en place une boucle qui :
+    1. Affiche le plateau.
+    2. Demande au joueur courant de choisir une colonne.
+    3. Ajoute le jeton dans le plateau.
+    4. Vérifie si la partie est terminée (victoire ou match nul).
+  - Afficher le message final (gagnant ou match nul).
+
+---
+
+etapes à suivre en gros
+
+1. Création et affichage du plateau   
+2. Ajout des jetons et gestion des colonnes   
+3. Implémentation des condtions de victoire   
+4. Boucle des tours des joueurs et gestion des cas  
+ 
+
+

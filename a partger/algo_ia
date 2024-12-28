@@ -1,0 +1,85 @@
+minimax(board, player, depth, alpha, beta, nb_simulation)
+But : Calculer le meilleur coup à jouer à l'aide de l'algorithme Minimax avec élagage alpha-beta
+
+Si depth == 0 ou si la partie est terminée (l'un des deux joueur a gagné ou match nul) :
+ -> avec ConnectFour.check_victory(grille, player) pour savoir si "player" a gagné
+ -> avec ConnectFour.is_full(grille) <- partie nulle
+Calculer l'évaluation de la grille avec evaluate.
+definir score = Différence entre les victoires de l'IA et celles de l'humain
+Retourner (score, None).
+Recuperer la liste des coups possible avec coup_possible(board)
+s'il y en a pas retourner (0, None)
+Si le joueur est l'IA (maximisant) :
+Initialiser max_eval = -inf et best_move = None.
+Pour chaque coup possible :
+Simuler le coup sur une copie de la grille en faisant -> ConnectFour.drop_piece(grille, coup_a_jouer, player)
+Appeler minimax de manière récursive avec HUMAIN comme joueur et avec depth - 1 en respectant l'ordre des parametres.
+Si le score retourné est meilleur que max_eval :
+Mettre à jour max_eval et best_move -> max_eval = eval_score et best_move = coup
+Mettre à jour alpha avec le maximum entre alpha et max_eval.
+Si alpha >= beta, interrompre la boucle (élagage).
+Retourner (max_eval, best_move).
+Si le joueur est l'humain (minimisant) :
+Initialiser min_eval = +inf et best_move = None.
+Pour chaque coup possible :
+Simuler le coup sur une copie de la grille.
+Appeler minimax de manière récursive pour l'IA avec depth - 1.
+Si le score retourné est plus petit que min_eval : 
+Mettre à jour min_eval et best_move. -> min_eval = eval_score et best_move = coup
+Mettre à jour beta avec le minimum entre beta et min_eval.
+Si alpha >= beta, interrompre la boucle (élagage).
+Retourner (min_eval, best_move).
+
+
+# ------------------------------------------------------------------------------------------------------------------------
+
+evaluate(board, nb_simulations)
+But : Évaluer la grille actuelle en simulant plusieurs parties aléatoires.
+
+Algorithme :
+Initialiser trois compteurs :
+nb_null pour les matchs nuls.
+nb_victoire_joueur1 pour les victoires de l'IA.
+nb_victoire_joueur2 pour les victoires de l'humain.
+Répéter nb_simulations fois :
+Simuler une partie avec simulation(board, IA_PLAYER).
+Si l'IA gagne, incrémenter nb_victoire_joueur1.
+Si l'humain gagne, incrémenter nb_victoire_joueur2.
+Sinon, incrémenter nb_null.
+Retourner un tuple (nb_null, nb_victoire_joueur1, nb_victoire_joueur2)
+
+
+# -------------------------------------------------------------------------------------------------------------------------
+
+simulation(board, player)
+But : Simuler une partie en jouant aléatoirement à partir d'une position donnée.
+
+Algorithme :
+Copier la grille de jeu (board) pour ne pas modifier l'état actuel (faire copy avec deepcopy)
+Tant que le jeu n'est pas terminé : (potentiellement avec un while True puis un return si victoire ou nul)
+Recuperer la liste des coups possibles.
+Choisir un coup au hasard. (potentiellement avec la biblio random -> random.choice(liste))
+Jouer le coup pour le joueur actuel sur la copie de la grille avec ConnectFour(grille_copie, coup, player)
+Si le joueur actuel gagne -> avec la fonction ConnectFour.check_victory(grille_copie, player):
+Retourner le joueur actuel comme vainqueur.
+Si la grille est pleine -> avec la fonction ConnectFour.is_full(grille_copie):
+Retourner 0 (match nul).
+Changer de joueur, (# 3-1=2 et 3-2=1 peut etre utile)
+
+
+
+# -------------------------------------------------------------------------------------------------------------------------
+coup_possible(board)
+But : Trouver les colonnes où un coup est encore possible.
+
+Algorithme :
+Créer une liste vide L.
+Pour chaque colonne col dans la grille :
+Si la première case de la colonne est vide :
+Ajouter l'indice de la colonne à L.
+Retourner la liste L
+
+
+
+
+# -------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,2 @@
+# NOTE DES MODIFICATIONS APPORTER À CERTAINES FONCTIONSSSSSSSSSSSSS
+    - dans le fichier ia_engine.py les parametre de la fonction evaluate ont ete changés, suppression de player, no need

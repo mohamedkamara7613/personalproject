@@ -1,0 +1,6 @@
+Passer à toute l'equipe le fichier "game_console.py" pour qu'il voit le fonctionnement du jeu sans ia
+
+Puis leur passer le fichier "game_graphic_v1.py", "game_logic.py" et leur propre fichier "ia_engine" pour l'intégration de l'ia
+
+
+Le fichier "ia_perso_v0.py" est une ia fonctionnelle qui dépend  du fichier "game_logic.py" et est utilisé dans "game_graphic_v1.py"
