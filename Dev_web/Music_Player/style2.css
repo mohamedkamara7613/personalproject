@@ -64,7 +64,7 @@ nav .circle i {
     height: 220px;
     border-radius: 50%;
     border: 8px solid #fff;
-    background: linear-gradient(315deg, #422330, #4e2a39);
+    /* background: linear-gradient(315deg, #422330, #4e2a39); */
     box-shadow: -8px -8px 16px #24131a,
                 8px 8px 16px #6e3b50;
     animation: spin 10s linear infinite;
