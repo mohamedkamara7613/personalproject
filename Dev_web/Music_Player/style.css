@@ -1,0 +1,66 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', 'sans-serif';
+    box-sizing: border-box;
+    
+}
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: linear-gradient(145deg, #2b121b, #240f17);
+    box-shadow:  14px 14px 28px #180a0f,
+                 -14px -14px 28px #381823;
+}
+.music-player{
+    width: 500px;
+    padding: 25px 35px;
+    text-align: center;
+    border-radius: 41px;
+    background: linear-gradient(145deg, #381a25, #2f1620);
+    box-shadow:  5px 5px 5px #2b171f,
+    -5px -5px 5px #472633;
+
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+nav .circle{
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    line-height: 70px;
+    color: #fff;  
+    border-radius: 50%;
+    background: linear-gradient(315deg, #482533, #3c202b);
+    box-shadow:  -5px -5px 17px #351c26,
+    5px 5px 17px #3d202c;
+}
+nav .circle i{
+    font-size: 30px;
+}
+.song-image{
+    width: 220px;
+    border-radius: 50%;
+    border: 8px solid #fff;
+    
+}
+
+
+
+
+
+
+
+/*
+
+             border-radius: 41px;
+             background: linear-gradient(145deg, #7f4056, #6b3648);
+             box-shadow:  5px 5px 10px #46232f,
+                          -5px -5px 10px #a85571;*/
