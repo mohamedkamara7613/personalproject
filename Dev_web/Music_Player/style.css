@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    color: #fff;
     background: linear-gradient(145deg, #2b121b, #240f17);
     box-shadow:  14px 14px 28px #180a0f,
                  -14px -14px 28px #381823;
@@ -35,8 +36,7 @@ nav .circle{
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    line-height: 70px;
-    color: #fff;  
+    line-height: 70px;  
     border-radius: 50%;
     background: linear-gradient(315deg, #482533, #3c202b);
     box-shadow:  -5px -5px 17px #351c26,
@@ -49,10 +49,39 @@ nav .circle i{
     width: 220px;
     border-radius: 50%;
     border: 8px solid #fff;
+    /*box-shadow: 0 10px 60px rgba(255, 26, 26, 0.22);*/
+    background: linear-gradient(315deg, #422330, #4e2a39);
+    box-shadow:  -8px -8px 16px #24131a,
+                 8px 8px 16px #6e3b50;
     
 }
+.music-player h1{
+    font-size: 30px;
+    font-weight: 400;
+    margin-top: 20px;
+}
+.music-player p{
+    font-size: 20px;
+}
+#progress{
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 40px 0;
+    background: linear-gradient(145deg, #a28893, #c1a2ae);
+}  
+#progress::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 8px solid #fff;
+    background: #c1a2ae;
+    box-shadow: 0 10px 60px rgba(255, 26, 26, 0.22)
 
-
+} 
 
 
 
