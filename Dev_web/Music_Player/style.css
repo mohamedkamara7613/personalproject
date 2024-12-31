@@ -42,6 +42,11 @@ nav .circle{
     box-shadow:  -5px -5px 17px #351c26,
     5px 5px 17px #3d202c;
 }
+nav .circle:hover{
+    background: linear-gradient(315deg, #5c3c4c, #4b3c3c);
+    box-shadow:  -5px -5px 17px #4a3a4c,5px 5px 17px #4b3c3c;
+    cursor: pointer;
+}
 nav .circle i{
     font-size: 30px;
 }
@@ -80,16 +85,53 @@ nav .circle i{
     border: 8px solid #fff;
     background: #c1a2ae;
     box-shadow: 0 10px 60px rgba(255, 26, 26, 0.22)
-
 } 
+#progress::-moz-range-thumb{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 8px solid #fff;
+    background: #c1a2ae;
+    box-shadow: 0 10px 60px rgba(255, 26,
+    26, 0.22);
+}
+#progress::-webkit-slider-thumb:hover{
+    background: linear-gradient(315deg, #5c3c4c, #4b3c3c);
+    box-shadow:  -5px -5px 17px #4a3a4c,5px 5px 17px #4b3c3c;
+}
+.controls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.controls div{
+    width: 70px;
+    height: 70px;
+    margin: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(315deg, #482533, #3c202b);
+    box-shadow:  -5px -5px 17px #351c26,
+    5px 5px 17px #3d202c;
 
-
-
-
-
-/*
-
-             border-radius: 41px;
-             background: linear-gradient(145deg, #7f4056, #6b3648);
-             box-shadow:  5px 5px 10px #46232f,
-                          -5px -5px 10px #a85571;*/
+}
+.controls div i{
+    font-size: 30px;
+}
+.controls div:hover{
+    background: linear-gradient(315deg, #5c3c4c, #4b3c3c);
+    box-shadow:  -5px -5px 17px #4a3a4c,5px 5px 17px #4b3c3c;
+}
+.controls div:nth-child(2){
+    transform: scale(1.5);
+    background: linear-gradient(145deg, #a28893, #c1a2ae);
+    color: #fff;
+}
+    
+audio{
+    display: none;
+}
