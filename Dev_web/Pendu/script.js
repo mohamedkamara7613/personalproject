@@ -42,8 +42,14 @@ fetch("liste.txt")
             result.innerHTML = "Entrer une seule lettre !";
         }else if(wordToGuess.indexOf(guess) === -1){
             result.innerHTML = "Mauvaise lettre !";
+            // animation de message afficher à l'ecran 
+            result.style.color = "red";
+            result.style.transform = "scale(1.2)";
+            setTimeout(() => result.style.transform = "scale(1)", 500);
+            // creer une classe pour l'animation de la lettre
             wordContainer.classList.add("letter-wrong");
             setTimeout(() => wordContainer.classList.remove("letter-wrong"), 500); // Supprime l'animation après 500ms
+            // mise à jour de l'erreur et de l'animation associée
             if (mistakes < parts.length) {
                 parts[mistakes].classList.add("visible"); // Affiche une partie
                 mistakes++;
@@ -64,7 +70,10 @@ fetch("liste.txt")
             document.getElementById("word").innerHTML = hiddenWord;
 
             if(hiddenWord === wordToGuess){
-                result.innerHTML = "Bravo !";
+                result.innerHTML = "Bravo vous avez trouvé le mot !";
+                result.style.color = "green";
+                result.style.transform = "scale(1.2)";
+                setTimeout(() => result.style.transform = "scale(1)", 500);
                 guessInput.style.display = "none";
                 submitButton.style.display = "none";
                 link.style.display = "block";
