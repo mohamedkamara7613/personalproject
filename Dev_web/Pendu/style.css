@@ -11,12 +11,38 @@ h1 {
 
 body {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: space-evenly;
     height: 100vh;
-    background-color: #68B985;
+    
+    border-radius: 50px;
+    background: #2150c0;
+    box-shadow: inset 20px 20px 28px #0d204d,
+                inset -20px -20px 28px #3580ff;
+}
+#alreadyTested {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+    min-width: 300px;
+    border-radius: 50px;
+    background: #2f6542;
+    box-shadow: inset 20px 20px 28px #13281a,
+                inset -20px -20px 28px #4ba26a;
+}
+
+.tested-letter {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    font-size: 18px;
+    color: #333;
 }
 main {
+    margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: center;

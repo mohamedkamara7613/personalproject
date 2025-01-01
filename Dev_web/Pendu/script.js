@@ -12,13 +12,30 @@ fetch("liste.txt")
     var randomIndex = Math.floor(Math.random() * wordList.length); //Comment fonctionne Math.floor, Math.range()
     const wordToGuess = wordList[randomIndex].toLowerCase();
     const wordContainer = document.getElementById("word");
-    const hangmanImage = document.querySelector(".hangman img");
-    
-
-    //alert(wordToGuess);
-
     var wordLength = wordToGuess.length;
-    var hiddenWordArray = new Array(wordLength).fill("_");
+
+    const hangmanImage = document.querySelector(".hangman img");
+
+    const alreadyTestedContainer = document.getElementById("alreadyTested");
+    const testedLetters = new Set(); // Utilisez un Set pour éviter les doublons
+    const alreadyTested = document.querySelector(".alreadyTested")
+    let guessAlreadyTested = [];
+
+    function addTestedLetter(letter) {
+        if (!testedLetters.has(letter)) {
+            testedLetters.add(letter); // Ajoute la lettre au Set
+    
+            // Créer un élément `p` pour afficher la lettre
+            const letterElement = document.createElement("p");
+            letterElement.textContent = letter;
+            letterElement.classList.add("tested-letter"); // Ajouter une classe pour le style
+            
+            // Ajouter l'élément au conteneur
+            alreadyTestedContainer.appendChild(letterElement);
+        }
+    }
+    
+    
  
 
     // Efface le contenu actuel, au cas où un mot précédent était affiché
@@ -131,6 +148,7 @@ fetch("liste.txt")
             
 
         }
+        addTestedLetter(guess)
     }
     submitButton.onclick = main;
     guessInput.onkeyup = function(e){
