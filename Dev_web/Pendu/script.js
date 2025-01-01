@@ -1,11 +1,11 @@
 
-// il faudrait lower les mots aprés les avoirs chargé ainsi que l'entrée du user
+
 
 // Charger le fichier text et choisir un mot au hasard dans la liste de mot
 fetch("liste.txt")
 .then(response => response.text()) // pourquoi et comment then...
 .then(data =>{
-    var wordList = data.split("\n");
+    var wordList = data.split("\n").filter(word => word.trim() !== "");
     var randomIndex = Math.floor(Math.random() * wordList.length); //Comment fonctionne Math.floor, Math.range()
     const wordToGuess = wordList[randomIndex].toLowerCase();
 
@@ -60,3 +60,4 @@ fetch("liste.txt")
             }
         }
 })
+.catch(error => console.error("Erreur :", error));
