@@ -1,3 +1,6 @@
+
+// il faudrait lower les mots aprés les avoirs chargé ainsi que l'entrée du user
+
 // Charger le fichier text et choisir un mot au hasard dans la liste de mot
 fetch("liste.txt")
 .then(response => response.text()) // pourquoi et comment then...
@@ -41,8 +44,10 @@ fetch("liste.txt")
                 guessInput.style.display = "none";
                 submitButton.style.display = "none";
                 link.style.display = "block";
-
+            }else{
+                result.innerHTML = "Bonne lettre !";
             }
+
         }
     }
 })
