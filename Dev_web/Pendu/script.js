@@ -9,6 +9,7 @@ fetch("liste.txt")
     var randomIndex = Math.floor(Math.random() * wordList.length); //Comment fonctionne Math.floor, Math.range()
     const wordToGuess = wordList[randomIndex].toLowerCase();
     const wordContainer = document.getElementById("word");
+    console.log(wordToGuess);
 
     //alert(wordToGuess);
 
@@ -34,12 +35,20 @@ fetch("liste.txt")
     
     function main(){
         var guess = guessInput.value.toLowerCase();
-        console.log(guess);
+        let mistakes = 0;
+        const parts = document.querySelectorAll(".part");
 
         if(guess.length > 1 || guess.length === 0){
             result.innerHTML = "Entrer une seule lettre !";
         }else if(wordToGuess.indexOf(guess) === -1){
             result.innerHTML = "Mauvaise lettre !";
+            wordContainer.classList.add("letter-wrong");
+            setTimeout(() => wordContainer.classList.remove("letter-wrong"), 500); // Supprime l'animation après 500ms
+            if (mistakes < parts.length) {
+                parts[mistakes].classList.add("visible"); // Affiche une partie
+                mistakes++;
+            }
+        
         }else{
             // Quand une lettre est trouvée
             for(var i = 0; i < wordToGuess.length; i++){
