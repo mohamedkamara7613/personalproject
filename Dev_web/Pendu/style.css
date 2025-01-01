@@ -14,8 +14,6 @@ body {
     align-items: start;
     justify-content: space-evenly;
     height: 100vh;
-    
-    border-radius: 50px;
     background: #2150c0;
     box-shadow: inset 20px 20px 28px #0d204d,
                 inset -20px -20px 28px #3580ff;
@@ -26,9 +24,9 @@ body {
     color: white;
     min-width: 300px;
     border-radius: 50px;
-    background: #2f6542;
-    box-shadow: inset 20px 20px 28px #13281a,
-                inset -20px -20px 28px #4ba26a;
+    background: #497cf3;
+    box-shadow: inset 20px 20px 28px #1d3261,
+                inset -20px -20px 28px #75c6ff;
 }
 
 .tested-letter {
