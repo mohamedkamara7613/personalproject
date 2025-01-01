@@ -15,9 +15,16 @@ fetch("liste.txt")
     /* var wordLength = wordToGuess.length;
     var hiddenWordArray = new Array(wordLength).fill("_");
     var hiddenWord = hiddenWordArray.join(""); */
-    
+
     // Efface le contenu actuel, au cas où un mot précédent était affiché
     wordContainer.innerHTML = "";
+
+    //creer un <span> pour chaque lettre du mot
+    for(let i=0; i < wordToGuess.length; i++){
+        const span = document.createElement("span")
+        span.textContent = "_";
+        wordContainer.appendChild(span);
+    }
 
     //document.getElementById("word").innerHTML = hiddenWord;
     var guessInput = document.getElementById("guess");  
