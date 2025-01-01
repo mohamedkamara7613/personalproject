@@ -8,15 +8,18 @@ fetch("liste.txt")
     var wordList = data.split("\n").filter(word => word.trim() !== "");
     var randomIndex = Math.floor(Math.random() * wordList.length); //Comment fonctionne Math.floor, Math.range()
     const wordToGuess = wordList[randomIndex].toLowerCase();
+    const wordContainer = document.getElementById("word");
 
     //alert(wordToGuess);
 
-    var wordLength = wordToGuess.length;
+    /* var wordLength = wordToGuess.length;
     var hiddenWordArray = new Array(wordLength).fill("_");
-    var hiddenWord = hiddenWordArray.join("");
+    var hiddenWord = hiddenWordArray.join(""); */
     
+    // Efface le contenu actuel, au cas où un mot précédent était affiché
+    wordContainer.innerHTML = "";
 
-    document.getElementById("word").innerHTML = hiddenWord;
+    //document.getElementById("word").innerHTML = hiddenWord;
     var guessInput = document.getElementById("guess");  
     var submitButton = document.getElementById("submit");
     var link = document.getElementById("link"); 
