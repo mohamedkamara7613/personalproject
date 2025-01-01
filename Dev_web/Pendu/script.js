@@ -9,7 +9,7 @@ fetch("liste.txt")
     var randomIndex = Math.floor(Math.random() * wordList.length); //Comment fonctionne Math.floor, Math.range()
     const wordToGuess = wordList[randomIndex].toLowerCase();
 
-    alert(wordToGuess);
+    //alert(wordToGuess);
 
     var wordLength = wordToGuess.length;
     var hiddenWord = "";
@@ -24,7 +24,8 @@ fetch("liste.txt")
     var result = document.getElementById("result") ; 
     
     function main(){
-        var guess = guessInput.value;
+        var guess = guessInput.value.toLowerCase();
+        console.log(guess);
 
         if(guess.length > 1 || guess.length === 0){
             result.innerHTML = "Entrer une seule lettre !";
@@ -48,7 +49,7 @@ fetch("liste.txt")
                 result.innerHTML = "Bonne lettre !";
             }
 
-            guess.value = ""
+            guessInput.value = ""
 
         }
     }
@@ -57,5 +58,5 @@ fetch("liste.txt")
         if(e.key === "Enter"){
             main();
             }
-            }
+        }
 })
