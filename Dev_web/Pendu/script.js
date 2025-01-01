@@ -12,6 +12,7 @@ fetch("liste.txt")
     var randomIndex = Math.floor(Math.random() * wordList.length); //Comment fonctionne Math.floor, Math.range()
     const wordToGuess = wordList[randomIndex].toLowerCase();
     const wordContainer = document.getElementById("word");
+    const hangmanImage = document.querySelector(".hangman img");
     
 
     //alert(wordToGuess);
@@ -37,14 +38,14 @@ fetch("liste.txt")
     var result = document.getElementById("result") ; 
 
     let mistakes = 0;
-        const parts = document.querySelectorAll(".part");
+    const maxGuess = 6;
 
     function handleWrongGuess() {
-        if (mistakes < parts.length) {
-            parts[mistakes].classList.add("visible"); // Afficher une nouvelle partie
+        if (mistakes < maxGuess) {
+            hangmanImage.src = `images/hangman-${mistakes}.svg`; // Afficher une nouvelle partie
             mistakes++;
         }
-        if (mistakes === parts.length) {
+        if (mistakes === maxGuess) {
             // Jeu terminé, le bonhomme est complet
             document.getElementById("result").innerText = "Vous avez perdu !";
             document.getElementById("guess").disabled = true; // Désactiver les entrées
@@ -64,6 +65,7 @@ fetch("liste.txt")
         }else if(wordToGuess.indexOf(guess) === -1){
             result.innerHTML = "Mauvaise lettre !";
             guessInput.value = ""
+            hangmanImage.src = "images/hangman-0.svg";
             // animation de message afficher à l'ecran 
             result.style.color = "red";
             result.style.transform = "scale(1.2)";
@@ -104,6 +106,10 @@ fetch("liste.txt")
                 guessInput.style.display = "none";
                 submitButton.style.display = "none";
                 link.style.display = "block";
+                link.onclick = function (){
+                    window.location.reload();
+                    hangmanImage.src = "images/hangman-0.svg";
+                }
                 confetti({
                     particleCount: 100,
                     spread: 70,
@@ -114,6 +120,7 @@ fetch("liste.txt")
             }
 
             guessInput.value = ""
+            
 
         }
     }
