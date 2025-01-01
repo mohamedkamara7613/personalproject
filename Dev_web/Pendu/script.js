@@ -22,8 +22,8 @@ fetch("liste.txt")
     var submitButton = document.getElementById("submit");
     var link = document.getElementById("link"); 
     var result = document.getElementById("result") ; 
-
-    submitButton.onclick = function(){
+    
+    function main(){
         var guess = guessInput.value;
 
         if(guess.length > 1 || guess.length === 0){
@@ -52,4 +52,10 @@ fetch("liste.txt")
 
         }
     }
+    submitButton.onclick = main()
+    guessInput.onkeyup = function(e){
+        if(e.key === "Enter"){
+            main();
+            }
+            }
 })
