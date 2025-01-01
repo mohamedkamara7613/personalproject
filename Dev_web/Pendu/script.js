@@ -19,7 +19,7 @@ fetch("liste.txt")
 
     var wordLength = wordToGuess.length;
     var hiddenWordArray = new Array(wordLength).fill("_");
-    var hiddenWord = hiddenWordArray.join(""); 
+ 
 
     // Efface le contenu actuel, au cas où un mot précédent était affiché
     wordContainer.innerHTML = "";
@@ -37,19 +37,31 @@ fetch("liste.txt")
     var link = document.getElementById("link"); 
     var result = document.getElementById("result") ; 
 
+
+    function reset(){
+        guessInput.style.display = "none";
+        submitButton.style.display = "none";
+        link.style.display = "block";
+        link.onclick = function (){
+            window.location.reload();
+            hangmanImage.src = "images/hangman-0.svg";
+        }
+    }
+
+
     let mistakes = 0;
     const maxGuess = 6;
 
     function handleWrongGuess() {
         if (mistakes < maxGuess) {
-            hangmanImage.src = `images/hangman-${mistakes}.svg`; // Afficher une nouvelle partie
             mistakes++;
+            hangmanImage.src = `images/hangman-${mistakes}.svg`; // Afficher une nouvelle partie
+            
         }
         if (mistakes === maxGuess) {
             // Jeu terminé, le bonhomme est complet
             document.getElementById("result").innerText = "Vous avez perdu !";
-            document.getElementById("guess").disabled = true; // Désactiver les entrées
-            document.getElementById("submit").disabled = true;
+            reset();
         }
     }
     
@@ -103,13 +115,9 @@ fetch("liste.txt")
                 result.style.color = "green";
                 result.style.transform = "scale(1.2)";
                 setTimeout(() => result.style.transform = "scale(1)", 500);
-                guessInput.style.display = "none";
-                submitButton.style.display = "none";
-                link.style.display = "block";
-                link.onclick = function (){
-                    window.location.reload();
-                    hangmanImage.src = "images/hangman-0.svg";
-                }
+
+                reset();
+                
                 confetti({
                     particleCount: 100,
                     spread: 70,
