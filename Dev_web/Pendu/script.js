@@ -41,10 +41,14 @@ fetch("liste.txt")
         }else if(wordToGuess.indexOf(guess) === -1){
             result.innerHTML = "Mauvaise lettre !";
         }else{
+            // Quand une lettre est trouvée
             for(var i = 0; i < wordToGuess.length; i++){
                 if(wordToGuess[i] === guess){
                     //hiddenWord = hiddenWord.substr(0,i) + guess + hiddenWord.substr(i+1);
                     hiddenWordArray[i] = guess;
+                    const letterSpan = wordContainer.children[i];
+                    letterSpan.classList.add("letter-correct")
+                    setTimeout(() => letterSpan.classList.remove("letter-correct"), 500); // Supprime l'animation après 500ms)
                 }
             }
             hiddenWord = hiddenWordArray.join("");
