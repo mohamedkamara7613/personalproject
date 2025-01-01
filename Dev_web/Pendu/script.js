@@ -9,7 +9,7 @@ fetch("liste.txt")
     var randomIndex = Math.floor(Math.random() * wordList.length); //Comment fonctionne Math.floor, Math.range()
     const wordToGuess = wordList[randomIndex].toLowerCase();
     const wordContainer = document.getElementById("word");
-    console.log(wordToGuess);
+    
 
     //alert(wordToGuess);
 
@@ -38,6 +38,10 @@ fetch("liste.txt")
         let mistakes = 0;
         const parts = document.querySelectorAll(".part");
 
+        if(guess === "4123"){
+            console.log(wordToGuess);
+            guess = ""
+        }
         if(guess.length > 1 || guess.length === 0){
             result.innerHTML = "Entrer une seule lettre !";
         }else if(wordToGuess.indexOf(guess) === -1){
@@ -63,15 +67,21 @@ fetch("liste.txt")
                     result.textContent = "Bonne lettre"
                     result.style.color = "blue";
                     //hiddenWordArray[i] = guess;
+                    const span = document.querySelectorAll("#word span")[i];
+                    span.textContent = guess; // Remplace "_" par la lettre devinée
                     const letterSpan = wordContainer.children[i];
-                    letterSpan.classList.add("letter-correct")
+                    letterSpan.classList.add("letter-correct") 
                     setTimeout(() => letterSpan.classList.remove("letter-correct"), 500); // Supprime l'animation après 500ms)
                 }
             }
-            hiddenWord = hiddenWordArray.join("");
+            //hiddenWord = hiddenWordArray.join("");
             //document.getElementById("word").innerHTML = hiddenWord;
+            // Vérifier si le mot est entièrement deviné
+            const revealedWord = Array.from(document.querySelectorAll("#word span"))
+            .map(span => span.textContent)
+            .join("");
 
-            if(hiddenWord === wordToGuess){
+            if(revealedWord === wordToGuess){
                 result.innerHTML = "Bravo vous avez trouvé le mot !";
                 result.style.color = "green";
                 result.style.transform = "scale(1.2)";

@@ -7,6 +7,7 @@
     <title>Devinez le mot</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
     <main>
@@ -14,7 +15,7 @@
         <p id="word"></p>
         <input type="text" id="guess">
         <button id="submit">Diviner</button>
-        <button id="link" onclick="window.open('index.html')">Restart</button>
+        <button id="link" onclick="location.reload()">Restart</button>
         <p id="result"></p>
         <!--Pour l'annimation en cas d'echec-->
         <div id="hangman">
