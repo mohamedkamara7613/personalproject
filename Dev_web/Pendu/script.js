@@ -53,7 +53,7 @@ fetch("liste.txt")
 
         }
     }
-    submitButton.onclick = main()
+    submitButton.onclick = main;
     guessInput.onkeyup = function(e){
         if(e.key === "Enter"){
             main();
