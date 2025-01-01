@@ -1,5 +1,8 @@
 
-
+//sil y a ajout de score prendre ne compte le cas ou le jeu entre la meme lettre juste deux fois ne pas le compter deux fois
+// peut etre resolu en faisant une liste de lettre juste entrer par le user
+//s'il tape une lettre verifier si elle est dans la liste si oui cela veut dire que la lettre est juste et à deja etait entrer
+//donc ne rien faire Sinon continuer comme d'habitude
 
 // Charger le fichier text et choisir un mot au hasard dans la liste de mot
 fetch("liste.txt")
