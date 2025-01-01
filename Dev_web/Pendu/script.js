@@ -12,13 +12,12 @@ fetch("liste.txt")
     //alert(wordToGuess);
 
     var wordLength = wordToGuess.length;
-    var hiddenWord = "";
-    for(var i=0; i < wordLength; i++){
-        hiddenWord += "_";
-    }
+    var hiddenWordArray = new Array(wordLength).fill("_");
+    var hiddenWord = hiddenWordArray.join("");
+    
 
     document.getElementById("word").innerHTML = hiddenWord;
-    var guessInput = document.getElementById("guess");
+    var guessInput = document.getElementById("guess");  
     var submitButton = document.getElementById("submit");
     var link = document.getElementById("link"); 
     var result = document.getElementById("result") ; 
@@ -34,10 +33,11 @@ fetch("liste.txt")
         }else{
             for(var i = 0; i < wordToGuess.length; i++){
                 if(wordToGuess[i] === guess){
-                    hiddenWord = hiddenWord.substr(0,i) + guess + hiddenWord.substr(i+1);
+                    //hiddenWord = hiddenWord.substr(0,i) + guess + hiddenWord.substr(i+1);
+                    hiddenWordArray[i] = guess;
                 }
             }
-
+            hiddenWord = hiddenWordArray.join("");
             document.getElementById("word").innerHTML = hiddenWord;
 
             if(hiddenWord === wordToGuess){
