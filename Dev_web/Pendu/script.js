@@ -35,11 +35,25 @@ fetch("liste.txt")
     var submitButton = document.getElementById("submit");
     var link = document.getElementById("link"); 
     var result = document.getElementById("result") ; 
+
+    let mistakes = 0;
+        const parts = document.querySelectorAll(".part");
+
+    function handleWrongGuess() {
+        if (mistakes < parts.length) {
+            parts[mistakes].classList.add("visible"); // Afficher une nouvelle partie
+            mistakes++;
+        }
+        if (mistakes === parts.length) {
+            // Jeu terminé, le bonhomme est complet
+            document.getElementById("result").innerText = "Vous avez perdu !";
+            document.getElementById("guess").disabled = true; // Désactiver les entrées
+            document.getElementById("submit").disabled = true;
+        }
+    }
     
     function main(){
         var guess = guessInput.value.toLowerCase();
-        let mistakes = 0;
-        const parts = document.querySelectorAll(".part");
 
         if(guess === "4123"){
             console.log(wordToGuess);
@@ -58,10 +72,7 @@ fetch("liste.txt")
             wordContainer.classList.add("letter-wrong");
             setTimeout(() => wordContainer.classList.remove("letter-wrong"), 500); // Supprime l'animation après 500ms
             // mise à jour de l'erreur et de l'animation associée
-            if (mistakes < parts.length) {
-                parts[mistakes].classList.add("visible"); // Affiche une partie
-                mistakes++;
-            }
+            handleWrongGuess();
         
         }else{
             // Quand une lettre est trouvée
