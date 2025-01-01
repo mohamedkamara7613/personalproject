@@ -13,9 +13,9 @@ fetch("liste.txt")
 
     //alert(wordToGuess);
 
-    /* var wordLength = wordToGuess.length;
+    var wordLength = wordToGuess.length;
     var hiddenWordArray = new Array(wordLength).fill("_");
-    var hiddenWord = hiddenWordArray.join(""); */
+    var hiddenWord = hiddenWordArray.join(""); 
 
     // Efface le contenu actuel, au cas où un mot précédent était affiché
     wordContainer.innerHTML = "";
@@ -60,14 +60,16 @@ fetch("liste.txt")
             for(var i = 0; i < wordToGuess.length; i++){
                 if(wordToGuess[i] === guess){
                     //hiddenWord = hiddenWord.substr(0,i) + guess + hiddenWord.substr(i+1);
-                    hiddenWordArray[i] = guess;
+                    result.textContent = "Bonne lettre"
+                    result.style.color = "blue";
+                    //hiddenWordArray[i] = guess;
                     const letterSpan = wordContainer.children[i];
                     letterSpan.classList.add("letter-correct")
                     setTimeout(() => letterSpan.classList.remove("letter-correct"), 500); // Supprime l'animation après 500ms)
                 }
             }
             hiddenWord = hiddenWordArray.join("");
-            document.getElementById("word").innerHTML = hiddenWord;
+            //document.getElementById("word").innerHTML = hiddenWord;
 
             if(hiddenWord === wordToGuess){
                 result.innerHTML = "Bravo vous avez trouvé le mot !";

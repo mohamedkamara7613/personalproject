@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap');
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -25,6 +25,7 @@ main {
     background-color: #fff;
     padding: 20px;
     border-radius: 20px;
+    animation: fadeIn 1s ease-in-out;
 }
 h1 {
     margin-bottom: 20px;
@@ -35,9 +36,8 @@ input {
     padding: 15px 20px;
     width: 100%;
     border: 1px solid #999;
-    border-radius: 6PX;
+    border-radius: 6px;
     outline: none;
-
 }
 
 #word {
@@ -48,26 +48,103 @@ input {
     width: 100%;
     text-align: center;
     font-size: 35px;
-    border-radius: 6PX;
-
+    border-radius: 6px;
+    animation: pulse 1.5s infinite;
 }
-button  {
+
+button {
     text-decoration: 0;
     width: 100%;
     padding: 15px;
     color: #000;
     border: 0;
-    border-radius: 6PX;
+    border-radius: 6px;
     cursor: pointer;
-    background-color:#FECF49;
+    background-color: #FECF49;
     text-align: center;
+    transition: transform 0.2s ease, background-color 0.3s ease;
 }
+
+button:hover {
+    background-color: #FFD573;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 #link {
     margin: 10px;
     display: none;
     margin-bottom: 0;
+    animation: fadeIn 1s ease-in-out;
 }
+
 #result {
-    margin-top: 10px ;
-    
+    margin-top: 10px;
+    min-height: 20px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.letter-correct {
+    animation: fadeInZoom 0.5s ease-in-out;
+}
+
+@keyframes fadeInZoom {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.letter-wrong {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.part {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.part.visible {
+    opacity: 1;
 }
