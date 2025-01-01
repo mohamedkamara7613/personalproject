@@ -46,6 +46,7 @@ fetch("liste.txt")
             result.innerHTML = "Entrer une seule lettre !";
         }else if(wordToGuess.indexOf(guess) === -1){
             result.innerHTML = "Mauvaise lettre !";
+            guessInput.value = ""
             // animation de message afficher à l'ecran 
             result.style.color = "red";
             result.style.transform = "scale(1.2)";
@@ -89,6 +90,11 @@ fetch("liste.txt")
                 guessInput.style.display = "none";
                 submitButton.style.display = "none";
                 link.style.display = "block";
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
             }else{
                 result.innerHTML = "Bonne lettre !";
             }
@@ -105,3 +111,4 @@ fetch("liste.txt")
         }
 })
 .catch(error => console.error("Erreur :", error));
+
