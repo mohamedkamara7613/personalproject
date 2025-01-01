@@ -1,6 +1,6 @@
 
 // il faudrait lower les mots aprés les avoirs chargé ainsi que l'entrée du user
-
+// pouvoir valider avec la touche entrée
 // Charger le fichier text et choisir un mot au hasard dans la liste de mot
 fetch("liste.txt")
 .then(response => response.text()) // pourquoi et comment then...
@@ -9,7 +9,7 @@ fetch("liste.txt")
     var randomIndex = Math.floor(Math.random() * wordList.length); //Comment fonctionne Math.floor, Math.range()
     const wordToGuess = wordList[randomIndex];
 
-    alert(wordToGuess);
+    //alert(wordToGuess);
 
     var wordLength = wordToGuess.length;
     var hiddenWord = "";
@@ -47,6 +47,8 @@ fetch("liste.txt")
             }else{
                 result.innerHTML = "Bonne lettre !";
             }
+
+            guess.value = ""
 
         }
     }
