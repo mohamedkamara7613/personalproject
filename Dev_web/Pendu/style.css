@@ -80,6 +80,7 @@ button {
     margin: 20px;
     text-decoration: 0;
     width: 100%;
+    font-size: 20px;
     padding: 15px;
     color: #000;
     border: 0;
@@ -116,11 +117,11 @@ button:active {
 #result {
     display: none;
     justify-content: center;
-    font-size: large;
+    font-size: 20px;
     padding: 10px;
     margin: 20px;
     min-height: 20px;
-    width: 200px;
+    min-width: 200px;
     border-radius: 50px;
     background: var(--result-bg-color);
     color: var(--result-text-color);

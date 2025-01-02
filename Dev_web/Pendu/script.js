@@ -87,7 +87,7 @@ fetch("liste.txt")
         if (isCorrect) {
             // Couleur verte et effet d'agrandissement pour une bonne lettre
             root.style.setProperty("--result-bg-color", "#68B985");
-            root.style.setProperty("--result-text-color", "green");
+            root.style.setProperty("--result-text-color", "white");
             root.style.setProperty("--result-transform", "scale(1.1)");
             result.style.display = "flex";
         } else {
