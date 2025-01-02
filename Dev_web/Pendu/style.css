@@ -77,6 +77,7 @@ input {
 }
 
 button {
+    margin: 20px;
     text-decoration: 0;
     width: 100%;
     padding: 15px;
@@ -106,10 +107,27 @@ button:active {
     animation: fadeIn 1s ease-in-out;
 }
 
+:root {
+    --result-bg-color: #FECF49;
+    --result-text-color: #000;
+    --result-transform: scale(1);
+}
+
 #result {
-    margin-top: 10px;
+    display: none;
+    justify-content: center;
+    font-size: large;
+    padding: 10px;
+    margin: 20px;
     min-height: 20px;
-    transition: color 0.3s ease, transform 0.3s ease;
+    width: 200px;
+    border-radius: 50px;
+    background: var(--result-bg-color);
+    color: var(--result-text-color);
+    box-shadow: inset 20px 20px 28px #000,
+                inset -20px -20px 28px #000;
+    transform: var(--result-transform);
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 /* Animations */

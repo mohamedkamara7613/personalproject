@@ -81,6 +81,28 @@ fetch("liste.txt")
             reset();
         }
     }
+    function updateResultStyle(isCorrect) {
+        const root = document.documentElement;
+    
+        if (isCorrect) {
+            // Couleur verte et effet d'agrandissement pour une bonne lettre
+            root.style.setProperty("--result-bg-color", "#68B985");
+            root.style.setProperty("--result-text-color", "green");
+            root.style.setProperty("--result-transform", "scale(1.1)");
+            result.style.display = "flex";
+        } else {
+            // Couleur rouge et réduction pour une mauvaise lettre
+            root.style.setProperty("--result-bg-color", "#FF6B6B");
+            root.style.setProperty("--result-text-color", "red");
+            root.style.setProperty("--result-transform", "scale(0.9)");
+            result.style.display = "flex";
+        }
+    
+        // Remettre à l'état normal après une animation
+        setTimeout(() => {
+            root.style.setProperty("--result-transform", "scale(1)");
+        }, 300);
+    }
     
     function main(){
         var guess = guessInput.value.toLowerCase();
@@ -93,12 +115,10 @@ fetch("liste.txt")
             result.innerHTML = "Entrer une seule lettre !";
         }else if(wordToGuess.indexOf(guess) === -1){
             result.innerHTML = "Mauvaise lettre !";
-            guessInput.value = ""
+            guessInput.value = "";
             hangmanImage.src = "images/hangman-0.svg";
             // animation de message afficher à l'ecran 
-            result.style.color = "red";
-            result.style.transform = "scale(1.2)";
-            setTimeout(() => result.style.transform = "scale(1)", 500);
+            updateResultStyle(false);
             // creer une classe pour l'animation de la lettre
             wordContainer.classList.add("letter-wrong");
             setTimeout(() => wordContainer.classList.remove("letter-wrong"), 500); // Supprime l'animation après 500ms
@@ -110,8 +130,8 @@ fetch("liste.txt")
             for(var i = 0; i < wordToGuess.length; i++){
                 if(wordToGuess[i] === guess){
                     //hiddenWord = hiddenWord.substr(0,i) + guess + hiddenWord.substr(i+1);
-                    result.textContent = "Bonne lettre"
-                    result.style.color = "blue";
+                    result.textContent = "Bonne lettre";
+                    updateResultStyle(true);
                     //hiddenWordArray[i] = guess;
                     const span = document.querySelectorAll("#word span")[i];
                     span.textContent = guess; // Remplace "_" par la lettre devinée
