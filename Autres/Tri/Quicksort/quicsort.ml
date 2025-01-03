@@ -16,15 +16,12 @@
 
 
 
-
 let rec partitionner liste pivot less more = match liste with
   | [] -> [], []
   | t :: reste ->
-      if t < pivot then partitionner reste pivot [t]::less more
-      else partionner reste pivot less [t]::more
-    ;;    
-
-
+      if t < pivot then (partitionner reste pivot ([t]::less) more)
+      else (partitionner reste pivot less ([t]::more))
+;;
 
 
 let quicksort liste = 
@@ -34,4 +31,9 @@ let quicksort liste =
   | pivot :: reste ->
       let plus_petit, plus_grand = partitionner liste pivot [] [] in
       plus_petit @ [pivot] @ plus_grand
-  ;;
+;;
+
+
+let l = [1;2;8;6];;
+
+quicksort l;;
