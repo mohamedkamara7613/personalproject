@@ -17,20 +17,20 @@
 
 
 let rec partitionner liste pivot less more = match liste with
-  | [] -> [], []
+  | [] -> (less, more)
   | t :: reste ->
       if t < pivot then (partitionner reste pivot ([t]::less) more)
       else (partitionner reste pivot less ([t]::more))
 ;;
 
 
-let quicksort liste = 
+let rec quicksort liste = 
   match liste with
   | [] -> []
   | [a] -> [a]
   | pivot :: reste ->
       let plus_petit, plus_grand = partitionner liste pivot [] [] in
-      plus_petit @ [pivot] @ plus_grand
+      quicksort plus_petit @ [pivot] @ quicksort plus_grand
 ;;
 
 
