@@ -17,7 +17,7 @@
 
 
 
-let rec partitionner liste pivot less more = match liste with&
+let rec partitionner liste pivot less more = match liste with
   | [] -> [], []
   | t :: reste ->
       if t < pivot then partitionner reste pivot [t]::less more
