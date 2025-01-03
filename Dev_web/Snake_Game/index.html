@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game</title>
+    <script>
+        function main(){
+            // Creation de ma variable canvas et recuperatioin du context pour effectuer tous les opérations
+            const canvas = document.querySelector("canvas");
+
+            if(canvas.getContext){
+                const ctx = canvas.getContext("2d");
+                // Creation d'un objet rect
+                ctx.re 
+            }         
+        }
+    </script>
     <style>
         body{
             background-color: #000;
@@ -17,7 +29,7 @@
         }
     </style>
 </head>
-<body>
-    <canvas width="500" height="500"></canvas>
+<body onload="main();">
+    <canvas id="myCanvas" width="500" height="500">Jeu Snake Game</canvas>
 </body>
 </html>
