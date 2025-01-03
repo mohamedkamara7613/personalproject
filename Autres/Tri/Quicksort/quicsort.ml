@@ -29,8 +29,9 @@ let rec quicksort liste = match liste with
 ;;
 
 
-let rec quicksort liste = 
 
 let l = [1;2;8;6];;
 
 quicksort l;;
+
+(*Version Iterative*)
