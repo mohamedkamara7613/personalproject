@@ -7,7 +7,7 @@
     <script>
         function main(){
             // Creation de ma variable canvas et recuperatioin du context pour effectuer tous les opérations
-            const canvas = document.querySelector("canvas");
+            const canvas = document.querySelector("#myCanvas");
 
             if(canvas.getContext){
                 const ctx = canvas.getContext("2d");
@@ -16,8 +16,9 @@
                 // Taille des boites
                 const box_size = 20;   
                 // # Proprietés du serpent
-                    // snake est un tableau qui represente le corp et la tete du serpent
-                    let snake = [];             
+                // snake est un tableau qui represente le corp et la tete du serpent
+                let snake = [];
+                let food;             
 
                 function initGame(){
                     
@@ -25,13 +26,13 @@
                     // peut etre fait en utilisant push
                     snake[0] = {
                         x : canvas.width / 2,
-                        y: canvas.width /2,
+                        y: canvas.height / 2,
                         direction : "right",
                         color : "green"
                     };
 
                     // Proprieté de la nourriture
-                    let food = {
+                    food = {
                         x : Math.floor(Math.random() * (canvas.width / box_size)) * box_size,
                         y : Math.floor(Math.random() * (canvas.height / box_size)) * box_size,
                         color : "red"
@@ -39,18 +40,21 @@
                 }
                 
                 function drawGrid(){
+                    
                     // Dessine le serpent
-                    ctx.fillStyle(snake[0].color);
+                    ctx.fillStyle = snake[0].color;
                     ctx.fillRect(snake[0].x, snake[0].y, box_size, box_size);
 
                     // Dessine la nourriture
-                    ctx.fillStyle(food.color);
+                    ctx.fillStyle = food.color;
                     ctx.fillRect(food.x, food.y, box_size, box_size);
                 };
+
+                initGame();
+                drawGrid();
             }
             
-            initGame();
-            drawGrid();
+            
         }
     </script>
     <style>
