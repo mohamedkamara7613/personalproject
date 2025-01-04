@@ -57,10 +57,10 @@ function main(){
             // Mise a jour de la position du serpent
             
             if (snake_head.direction === "up"){
-                snake_head.y += box_size;
-            }
-            if (snake_head.direction === "up"){
                 snake_head.y -= box_size;
+            }
+            if (snake_head.direction === "down"){
+                snake_head.y += box_size;
             }
             if (snake_head.direction === "left"){
                 snake_head.x -= box_size;
