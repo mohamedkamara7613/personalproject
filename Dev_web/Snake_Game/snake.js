@@ -75,22 +75,24 @@ function main(){
                         }       
                 );
             };
-
-            for (var i=0; i < snake.length; i++){
-                // Mise a jour de la position du serpent
-                if (snake[i].direction === "up"){
-                    snake[i].y -= box_size;
-                }
-                if (snake[i].direction === "down"){
-                    snake[i].y += box_size;
-                }
-                if (snake[i].direction === "left"){
-                    snake[i].x -= box_size;
-                }
-                if (snake[i].direction === "right"){
-                    snake[i].x += box_size;
-                }    
+            // Mise a jout des positions des segments du serpent
+            for (var i=snake.length-1; i > 0;i--){
+                snake[i].x = snake[i-1].x;
+                snake[i].y = snake[i-1].y;
             }
+            // Mise a jour de la position du serpent
+            if (snake_head.direction === "up"){
+                snake_head.y -= box_size;
+            }
+            if (snake_head.direction === "down"){
+                snake_head.y += box_size;
+            }
+            if (snake_head.direction === "left"){
+                snake_head.x -= box_size;
+            }
+            if (snake_head.direction === "right"){
+                snake_head.x += box_size;
+            } 
             
             
 
