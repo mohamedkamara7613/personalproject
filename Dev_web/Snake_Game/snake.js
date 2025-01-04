@@ -54,8 +54,10 @@ function main(){
         };
 
         function updateGame(){
+             // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+
             // Mise a jour de la position du serpent
-            
             if (snake_head.direction === "up"){
                 snake_head.y -= box_size;
             }
@@ -69,6 +71,7 @@ function main(){
                 snake_head.x += box_size;
             }
 
+            // Si la nourriture est mangée -> augmenter le serpent
             
 
         }
