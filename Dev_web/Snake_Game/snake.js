@@ -21,7 +21,7 @@ function main(){
             snake[0] = {
                 x : Math.floor(canvas.width / (2 * box_size)) * box_size,
                 y: Math.floor(canvas.height / (2 * box_size)) * box_size,
-                direction : "right",
+                direction : "none",
                 color : "green"
             };
             snake_head = snake[0]
