@@ -11,12 +11,17 @@
 
             if(canvas.getContext){
                 const ctx = canvas.getContext("2d");
-                // Creation d'un objet rect
-                ctx.fillStyle = "rgb(200, 0, 0)";
-                ctx.fillRect(10, 10, 50, 50)
 
-                ctx.fillStyle = "rgba(0, 200, 0, 0.5)";
-                ctx.fillRect(20, 20, 50, 50)
+                let snake_head = {
+                    x : canvas.width / 2,
+                    y : canvas.height / 2,
+                    size : 40,
+                    color : "green"
+                };
+
+                ctx.fillStyle = snake_head.color;
+                ctx.fillRect(snake_head.x, snake_head.y, snake_head.size, snake_head.size);
+                
             }         
         }
     </script>
@@ -34,6 +39,6 @@
     </style>
 </head>
 <body onload="main();">
-    <canvas id="myCanvas" width="500" height="500">Jeu Snake Game</canvas>
+    <canvas id="myCanvas" width="800" height="700">Jeu Snake Game</canvas>
 </body>
 </html>
