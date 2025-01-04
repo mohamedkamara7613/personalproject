@@ -56,28 +56,30 @@ function main(){
         function updateGame(){
              // Clear the canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
-
-            // Mise a jour de la position du serpent
-            if (snake_head.direction === "up"){
-                snake_head.y -= box_size;
+            for (var i=0; i < snake.length; i++){
+                // Mise a jour de la position du serpent
+                if (snake[i].direction === "up"){
+                    snake[i].y -= box_size;
+                }
+                if (snake[i].direction === "down"){
+                    snake[i].y += box_size;
+                }
+                if (snake[i].direction === "left"){
+                    snake[i].x -= box_size;
+                }
+                if (snake[i].direction === "right"){
+                    snake[i].x += box_size;
+                }    
             }
-            if (snake_head.direction === "down"){
-                snake_head.y += box_size;
-            }
-            if (snake_head.direction === "left"){
-                snake_head.x -= box_size;
-            }
-            if (snake_head.direction === "right"){
-                snake_head.x += box_size;
-            }
+            
 
             // Si la nourriture est mangée -> augmenter le serpent
             if (snake_head.x === food.x && snake_head.y === food.y){
                 let snake_current_queue = snake[snake.length-1];
                 snake.push(
-                    {
-                        x : food.x,
-                        y : food.y,
+                    {   
+                        x : snake_current_queue.x,
+                        y : snake_current_queue.y,
                         direction : snake_current_queue.direction
                         }    
                 );
