@@ -72,6 +72,16 @@ function main(){
             }
 
             // Si la nourriture est mangée -> augmenter le serpent
+            if (snake_head.x === food.x && snake_head.y === food.y){
+                let snake_current_queue = snake[snake.length-1];
+                snake.push(
+                    {
+                        x : food.x,
+                        y : food.y,
+                        direction : snake_current_queue.direction
+                        }    
+                );
+            };
             
 
         }
@@ -79,8 +89,12 @@ function main(){
         function drawGrid(){
             
             // Dessine le serpent
-            ctx.fillStyle = snake_head.color;
-            ctx.fillRect(snake_head.x, snake_head.y, box_size, box_size);
+            console.log(snake);
+            for (var i=0; i < snake.length; i++){
+                ctx.fillStyle = "green";
+                ctx.fillRect(snake[i].x, snake[i].y, box_size, box_size);
+            }
+        
 
             // Dessine la nourriture
             ctx.fillStyle = food.color;
@@ -92,7 +106,7 @@ function main(){
         setInterval(()=>{
             updateGame();
             drawGrid();
-        }, 100)
+        }, 200)
         
     };
     
