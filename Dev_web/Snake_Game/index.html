@@ -3,30 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <title>Snake Game</title>
     <script src="snake.js"></script>
     <style>
-        body{
-            background-color: #E3F2FD;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
+        *{
             margin: 0;
-            height: 100vh;
-            width: 100%;
+            padding: 0;
+            box-sizing: border-box;
+
         }
-        canvas{
+        body{
+            display: flex;
+            justify-content: center ;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            background: #E3F2FD;
+        }
+        .container{
+            width: 80vmin;
+            height: 90vmin;
+            display: flex;
+            overflow: hidden;
+            flex-direction: column;
+            justify-content: center;
             border: 2px solid black;
             border-radius: 10px;
             background-color: #212837;
             box-shadow:  23px 23px 50px #0d1016,
              -23px -23px 50px #354058
         }
+        .game-details {
+            color: #B8C6DC;
+            font-weight: 500;
+            font-size: 1.2rem;
+            padding: 20px 27px;
+            display: flex;
+            justify-content: space-between;
+        }
+        #myCanvas{
+            display: grid;
+            grid-template: repeat(30, 1fr) / repeat(30, 1fr);
+            width: 600px;
+            height: 500px;
+            border: 2px solid white
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .controls i {
+            padding: 25px 0;
+            text-align: center;
+            font-size: 2rem;
+            color: #B8C6DC;
+            width: calc(100% / 4);
+            cursor: pointer;
+            border-right: 1px solid #171B26;
+        }
     </style>
 </head>
 <body onload="main();">
-    <canvas id="myCanvas" width="800" height="600">Jeu Snake Game</canvas>
+    <div class="container">
+        <div class="game-details">
+            <span class="score">Score: 0</span>
+            <span class="high-score">High Score: 0</span>
+          </div>
+    
+        <canvas id="myCanvas" width="600" height="500">Jeu Snake Game</canvas>
+        
+        <div class="controls">
+            <i data-key="ArrowLeft" class="fa-solid fa-arrow-left-long"></i>
+            <i data-key="ArrowUp" class="fa-solid fa-arrow-up-long"></i>
+            <i data-key="ArrowRight" class="fa-solid fa-arrow-right-long"></i>
+            <i data-key="ArrowDown" class="fa-solid fa-arrow-down-long"></i>
+        </div>
+    </div>
 </body>
 </html>
