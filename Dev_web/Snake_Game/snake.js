@@ -178,11 +178,11 @@ function main(){
 // -------------------------------------------------------------------------------------------------------------------------
 
         initGame();
-        
+        gestionEvenement();
 
         // Mise a jour a intervalle de temps reguliers
         setInterval(()=>{
-            gestionEvenement();
+            
             updateGame();
             drawGrid();
         }, 200)
