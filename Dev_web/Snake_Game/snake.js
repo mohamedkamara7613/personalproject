@@ -1,6 +1,7 @@
 /*
     A faire :
-        - rajouter la gestion des collisions et le changement de la position de food quand le serpent le mange
+        - rajouter la gestion des collisions 
+        - mettre a jour high_score quand le joueur perd
 
 */
 
@@ -24,13 +25,21 @@ function main(){
         let food;             
         // le score actuelle
         let currentScore = 0;
+        let highScore = 0;
+
         
+// -------------------------------------------------------------------------------------------------------------------------
+        function updateHighscore(newHighScore){
+            highScore = newHighScore;
+            const high_scoreElement = document.querySelector(".high-score");
+            high_scoreElement.textContent = `High Score : ${highScore}`;
+        };
 // -------------------------------------------------------------------------------------------------------------------------
         function updateScore(newScore){
             currentScore = newScore;
             const scoreElement = document.querySelector(".score");
             scoreElement.textContent = `Score : ${currentScore}`;
-        }
+        };
 // -------------------------------------------------------------------------------------------------------------------------
         function generateFood(){
             // Génération d'un nouveau food
@@ -40,7 +49,7 @@ function main(){
                 y : Math.floor(Math.random() * (canvas.height / box_size)) * box_size,
                 color : "red"
             };
-        }
+        };
 // -------------------------------------------------------------------------------------------------------------------------
 
         function initGame(){
@@ -70,18 +79,18 @@ function main(){
                 for(var i=0; i < snake.length; i++){
                     if (event.key === "ArrowUp" && snake[i].direction !== "down"){
                         snake[i].direction = "up";
-                    }
+                    };
                     if (event.key === "ArrowDown" && snake[i].direction !== "up"){
                         snake[i].direction = "down";
-                    }
+                    };
                     if (event.key === "ArrowRight" && snake[i].direction !== "left"){
                         snake[i].direction = "right";
-                    }
+                    };
                     if (event.key === "ArrowLeft" && snake[i].direction !== "right"){
                         snake[i].direction = "left";
-                    }
-                }
-            }
+                    };
+                };
+            };
             
         };
 // -------------------------------------------------------------------------------------------------------------------------
@@ -93,20 +102,20 @@ function main(){
             for (var i=snake.length-1; i > 0;i--){
                 snake[i].x = snake[i-1].x;
                 snake[i].y = snake[i-1].y;
-            }
+            };
             // Mise a jour de la position du serpent
             if (snake_head.direction === "up"){
                 snake_head.y -= box_size;
-            }
+            };
             if (snake_head.direction === "down"){
                 snake_head.y += box_size;
-            }
+            };
             if (snake_head.direction === "left"){
                 snake_head.x -= box_size;
-            }
+            };
             if (snake_head.direction === "right"){
                 snake_head.x += box_size;
-            } 
+            } ;
 
             // Si la nourriture est mangée -> augmenter le serpent
             if (snake_head.x === food.x && snake_head.y === food.y){
@@ -119,6 +128,11 @@ function main(){
                         }       
                 );
 
+                // Augmenter le score et le mettre a jour
+                currentScore++;
+                updateScore(currentScore);
+                updateHighscore(currentScore);
+
                 // Generer a nouveau une nourriture a une position aleatoire
                 generateFood();
             };
@@ -126,7 +140,7 @@ function main(){
             
             
 
-        }
+        };
 // -------------------------------------------------------------------------------------------------------------------------
         
         function drawGrid(){
@@ -135,7 +149,7 @@ function main(){
             for (var i=0; i < snake.length; i++){
                 ctx.fillStyle = "green";
                 ctx.fillRect(snake[i].x, snake[i].y, box_size, box_size);
-            }
+            };
         
 
             // Dessine la nourriture
@@ -145,7 +159,7 @@ function main(){
 // -------------------------------------------------------------------------------------------------------------------------
 
         initGame();
-        
+        updateScore(currentScore);
 
         // Mise a jour a intervalle de temps reguliers
         setInterval(()=>{
@@ -157,4 +171,4 @@ function main(){
     };
     
     
-}
+};
