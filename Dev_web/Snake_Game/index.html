@@ -25,7 +25,6 @@
             width: 80vmin;
             height: 90vmin;
             display: flex;
-            overflow: hidden;
             flex-direction: column;
             justify-content: center;
             border: 2px solid black;
@@ -43,16 +42,16 @@
             justify-content: space-between;
         }
         #myCanvas{
-            display: grid;
-            grid-template: repeat(30, 1fr) / repeat(30, 1fr);
-            width: 600px;
-            height: 500px;
-            border: 2px solid white
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            border: 10px solid white
         }
 
         .controls {
             display: flex;
             justify-content: space-evenly;
+            margin: 10px 20px;
         }
         .controls i {
             padding: 25px 0;
