@@ -1,7 +1,6 @@
 /*
     A faire :
-        - rajouter la gestion des collisions 
-        - mettre a jour high_score quand le joueur perd
+        - Designer la fin du jeu
 
 */
 
