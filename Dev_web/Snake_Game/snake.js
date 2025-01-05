@@ -1,5 +1,6 @@
 /*
     A faire plus tard :
+        - rajouter la logique des boutons graphiques
         - Designer la fin du jeu
         - rajouter les sprites et le background
 
