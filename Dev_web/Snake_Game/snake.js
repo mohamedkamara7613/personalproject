@@ -24,7 +24,7 @@ function main(){
         let snake_head;
         let food;             
         // le score actuelle
-        let currentScore = 0;
+        let currentScore;
         let highScore = 0;
 
 
@@ -54,6 +54,12 @@ function main(){
 
         function initGame(){
             
+            
+            if (currentScore > highScore){
+                updateHighscore(currentScore);
+            };
+            currentScore = 0;
+            snake = [];
             // Initialisation de la position de la tete du serpent 
             // peut etre fait en utilisant push
             snake[0] = {
@@ -142,15 +148,15 @@ function main(){
             // si le serpent entre en collision avec son propre corps
             for (var i=1; i < snake.length-1; i++){
                 if (snake_head.x === snake[i].x && snake_head.y === snake[i].y){
-                    if (currentScore > highScore){
-                        updateHighscore(currentScore);
-                    };
-                    currentScore = 0;
-                    snake = [];
                     initGame();
                     alert("Game Over");
                 };
             };
+            // si le serpent touche les murs
+            if (snake_head.x < 0 || snake_head.x + box_size > canvas.width || snake_head.y < 0 || snake_head.y + box_size> canvas.height){
+                initGame();
+                alert("Game Over");
+            }
             
 
         };
