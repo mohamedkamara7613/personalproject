@@ -22,6 +22,25 @@ function main(){
         let snake = [];
         let snake_head;
         let food;             
+        // le score actuelle
+        let currentScore = 0;
+        
+// -------------------------------------------------------------------------------------------------------------------------
+        function updateScore(newScore){
+            currentScore = newScore;
+            const scoreElement = document.querySelector(".score");
+            scoreElement.textContent = `Score : ${currentScore}`;
+        }
+// -------------------------------------------------------------------------------------------------------------------------
+        function generateFood(){
+            // Génération d'un nouveau food
+            // Proprieté de la nourriture
+            food = {
+                x : Math.floor(Math.random() * (canvas.width / box_size)) * box_size,
+                y : Math.floor(Math.random() * (canvas.height / box_size)) * box_size,
+                color : "red"
+            };
+        }
 // -------------------------------------------------------------------------------------------------------------------------
 
         function initGame(){
@@ -36,12 +55,9 @@ function main(){
             };
             snake_head = snake[0]
 
-            // Proprieté de la nourriture
-            food = {
-                x : Math.floor(Math.random() * (canvas.width / box_size)) * box_size,
-                y : Math.floor(Math.random() * (canvas.height / box_size)) * box_size,
-                color : "red"
-            };
+            // Genere la nouriture a une position aleatioire
+            generateFood();
+            
         };
 // -------------------------------------------------------------------------------------------------------------------------
 
@@ -73,17 +89,6 @@ function main(){
              // Clear the canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
 
-            // Si la nourriture est mangée -> augmenter le serpent
-            if (snake_head.x === food.x && snake_head.y === food.y){
-                let snake_current_queue = snake[snake.length-1];
-                snake.push(
-                    {   
-                        x : snake_current_queue.x,
-                        y : snake_current_queue.y,
-                        direction : snake_current_queue.direction
-                        }       
-                );
-            };
             // Mise a jout des positions des segments du serpent
             for (var i=snake.length-1; i > 0;i--){
                 snake[i].x = snake[i-1].x;
@@ -102,6 +107,22 @@ function main(){
             if (snake_head.direction === "right"){
                 snake_head.x += box_size;
             } 
+
+            // Si la nourriture est mangée -> augmenter le serpent
+            if (snake_head.x === food.x && snake_head.y === food.y){
+                let snake_current_queue = snake[snake.length-1];
+                snake.push(
+                    {   
+                        x : snake_current_queue.x,
+                        y : snake_current_queue.y,
+                        direction : snake_current_queue.direction
+                        }       
+                );
+
+                // Generer a nouveau une nourriture a une position aleatoire
+                generateFood();
+            };
+            
             
             
 
@@ -111,7 +132,6 @@ function main(){
         function drawGrid(){
             
             // Dessine le serpent
-            console.log(snake);
             for (var i=0; i < snake.length; i++){
                 ctx.fillStyle = "green";
                 ctx.fillRect(snake[i].x, snake[i].y, box_size, box_size);
@@ -125,10 +145,11 @@ function main(){
 // -------------------------------------------------------------------------------------------------------------------------
 
         initGame();
-        gestionEvenement();
+        
 
         // Mise a jour a intervalle de temps reguliers
         setInterval(()=>{
+            gestionEvenement();
             updateGame();
             drawGrid();
         }, 200)
