@@ -156,7 +156,7 @@ function main(){
             if (snake_head.x < 0 || snake_head.x + box_size > canvas.width || snake_head.y < 0 || snake_head.y + box_size> canvas.height){
                 initGame();
                 alert("Game Over");
-            }
+            };
             
 
         };
