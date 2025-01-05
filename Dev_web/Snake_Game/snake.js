@@ -1,6 +1,7 @@
 /*
     A faire :
         - Designer la fin du jeu
+        - rajouter les sprites et le background
 
 */
 
