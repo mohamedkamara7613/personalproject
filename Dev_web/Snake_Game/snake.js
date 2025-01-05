@@ -1,5 +1,5 @@
 /*
-    A faire :
+    A faire plus tard :
         - Designer la fin du jeu
         - rajouter les sprites et le background
 
