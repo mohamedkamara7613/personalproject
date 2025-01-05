@@ -1,3 +1,12 @@
+/*
+    A faire :
+        - rajouter la gestion des collisions et le changement de la position de food quand le serpent le mange
+
+*/
+
+
+
+
 function main(){
     // Creation de ma variable canvas et recuperatioin du context pour effectuer tous les opérations
     const canvas = document.querySelector("#myCanvas");
