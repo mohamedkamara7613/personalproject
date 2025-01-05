@@ -27,7 +27,7 @@ function main(){
         let currentScore = 0;
         let highScore = 0;
 
-        
+
 // -------------------------------------------------------------------------------------------------------------------------
         function updateHighscore(newHighScore){
             highScore = newHighScore;
@@ -66,6 +66,7 @@ function main(){
 
             // Genere la nouriture a une position aleatioire
             generateFood();
+            updateScore(currentScore);
             
         };
 // -------------------------------------------------------------------------------------------------------------------------
@@ -98,12 +99,12 @@ function main(){
              // Clear the canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
 
-            // Mise a jout des positions des segments du serpent
+            // Mise a jout des positions des segments du serpent ---------------------------------------
             for (var i=snake.length-1; i > 0;i--){
                 snake[i].x = snake[i-1].x;
                 snake[i].y = snake[i-1].y;
             };
-            // Mise a jour de la position du serpent
+            // Mise a jour de la position du serpent----------------------------------------------------
             if (snake_head.direction === "up"){
                 snake_head.y -= box_size;
             };
@@ -117,7 +118,7 @@ function main(){
                 snake_head.x += box_size;
             } ;
 
-            // Si la nourriture est mangée -> augmenter le serpent
+            // Si la nourriture est mangée -> augmenter le serpent----------------------------------------
             if (snake_head.x === food.x && snake_head.y === food.y){
                 let snake_current_queue = snake[snake.length-1];
                 snake.push(
@@ -131,13 +132,25 @@ function main(){
                 // Augmenter le score et le mettre a jour
                 currentScore++;
                 updateScore(currentScore);
-                updateHighscore(currentScore);
+                
 
                 // Generer a nouveau une nourriture a une position aleatoire
                 generateFood();
             };
             
-            
+            // Gestion des collisoions ------------------------------------------------------------
+            // si le serpent entre en collision avec son propre corps
+            for (var i=1; i < snake.length-1; i++){
+                if (snake_head.x === snake[i].x && snake_head.y === snake[i].y){
+                    if (currentScore > highScore){
+                        updateHighscore(currentScore);
+                    };
+                    currentScore = 0;
+                    snake = [];
+                    initGame();
+                    alert("Game Over");
+                };
+            };
             
 
         };
@@ -159,7 +172,7 @@ function main(){
 // -------------------------------------------------------------------------------------------------------------------------
 
         initGame();
-        updateScore(currentScore);
+        
 
         // Mise a jour a intervalle de temps reguliers
         setInterval(()=>{
