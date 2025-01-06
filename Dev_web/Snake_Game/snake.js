@@ -225,3 +225,34 @@ function main(){
     
     
 };
+
+function resizeCanvas() {
+    const container = document.querySelector('.container');
+    const canvas = document.getElementById('myCanvas');
+    const boxSize = 20; // Taille d'un bloc en pixels
+    
+    // Nombre de blocs que tu veux afficher
+    const numBlocksWidth = 30;
+    const numBlocksHeight = 25;
+    
+    // Calculer les dimensions du canvas en fonction de boxSize
+    const canvasWidth = numBlocksWidth * boxSize;
+    const canvasHeight = numBlocksHeight * boxSize;
+    
+    // Ajuster la taille du canvas tout en gardant le ratio
+    if (container.clientWidth / container.clientHeight < canvasWidth / canvasHeight) {
+        canvas.width = container.clientWidth;
+        canvas.height = (container.clientWidth / canvasWidth) * canvasHeight;
+    } else {
+        canvas.height = container.clientHeight;
+        canvas.width = (container.clientHeight / canvasHeight) * canvasWidth;
+    }
+    
+    // Recalculer pour éviter la déformation
+    const ctx = canvas.getContext('2d');
+    ctx.scale(canvas.width / canvasWidth, canvas.height / canvasHeight);
+}
+
+// Appeler cette fonction au chargement et lors du redimensionnement
+window.addEventListener('resize', resizeCanvas);
+window.addEventListener('load', resizeCanvas);
