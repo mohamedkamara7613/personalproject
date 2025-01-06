@@ -29,10 +29,11 @@
         }
         .container{
             width: 80vmin;
-            height: 90vmin;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            height: 900vmin;
+            display: grid; /* Utiliser un layout en grille */
+            grid-template-rows: auto 1fr auto; /* 3 zones : game-details, canvas, controls */
+            gap: 10px; /* Espacement entre les zones */
+            padding: 10px; /* Ajouter un padding interne */
             border: 2px solid black;
             border-radius: 10px;
             background-color: #212837;
@@ -40,12 +41,14 @@
              -23px -23px 50px #354058
         }
         .game-details {
+            display: flex;
+            justify-content: space-between;
+            align-self: start; /* Aligner le texte des détails en haut */
             color: #B8C6DC;
             font-weight: 500;
             font-size: 1.2rem;
             padding: 20px 27px;
-            display: flex;
-            justify-content: space-between;
+            
         }
         #myCanvas{
             display: block;
