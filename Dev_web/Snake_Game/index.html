@@ -29,11 +29,10 @@
         }
         .container{
             width: 80vmin;
-            height: 900vmin;
+            height: 90vmin;
             display: grid; /* Utiliser un layout en grille */
             grid-template-rows: auto 1fr auto; /* 3 zones : game-details, canvas, controls */
             gap: 10px; /* Espacement entre les zones */
-            padding: 10px; /* Ajouter un padding interne */
             border: 2px solid black;
             border-radius: 10px;
             background-color: #212837;
@@ -53,23 +52,29 @@
         #myCanvas{
             display: block;
             margin: 0 auto;
-            width: 100%;
-            border: 10px solid white
+            align-self: center; /* Centrer verticalement le canvas */
+            max-width: 100%; /* Empêcher le dépassement horizontal */
+            height: auto; /* Préserver le ratio de l'image */
+            border: 5px solid white
         }
 
         .controls {
             display: flex;
             justify-content: space-evenly;
+            align-self: end; /* Aligner les boutons au bas du conteneur */
             margin: 10px 20px;
         }
         .controls i {
-            padding: 25px 0;
+            flex: 1; /* Répartir également les boutons */
+            padding: 20px 0;
             text-align: center;
             font-size: 2rem;
             color: #B8C6DC;
-            width: calc(100% / 4);
             cursor: pointer;
             border-right: 1px solid #171B26;
+        }
+        .controls i:last-child {
+            border-right: none; /* Retirer la bordure pour le dernier bouton */
         }
     </style>
 </head>
