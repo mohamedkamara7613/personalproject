@@ -54,8 +54,6 @@ function main(){
 // -------------------------------------------------------------------------------------------------------------------------
 
         function initGame(){
-            
-            
             if (currentScore > highScore){
                 updateHighscore(currentScore);
             };
@@ -82,7 +80,6 @@ function main(){
             // Gestion des evenements
             document.addEventListener("keydown", direction);
             
-                
             function direction(event){
                 for(var i=0; i < snake.length; i++){
                     if (event.key === "ArrowUp" && snake[i].direction !== "down"){
@@ -99,7 +96,43 @@ function main(){
                     };
                 };
             };
+
+            const arrowLeftElement = document.querySelector("#ArrowLeft");
+            const arrowRightElement = document.querySelector("#ArrowRight");
+            const arrowUpElement = document.querySelector("#ArrowUp");
+            const arrowDownElement = document.querySelector("#ArrowDown");
+
+            arrowLeftElement.addEventListener("click", ()=>{
+                for (var i=0; i < snake.length; i++){
+                    if (snake[i].direction !== "right"){
+                        snake[i].direction = "left";
+                    };
+                };
+            });
             
+            arrowRightElement.addEventListener("click", ()=>{
+                for (var i=0; i < snake.length; i++){
+                    if (snake[i].direction !== "left"){
+                        snake[i].direction = "right";
+                    };
+                };
+            });
+
+            arrowUpElement.addEventListener("click", ()=>{
+                for (var i=0; i < snake.length; i++){
+                    if (snake[i].direction !== "down"){
+                        snake[i].direction = "up";
+                    };
+                };
+            });
+
+            arrowDownElement.addEventListener("click", ()=>{
+                for (var i=0; i < snake.length; i++){
+                    if (snake[i].direction !== "up"){
+                        snake[i].direction = "down";
+                    };
+                };
+            });
         };
 // -------------------------------------------------------------------------------------------------------------------------
         function updateGame(){
