@@ -26,10 +26,12 @@
             min-height: 100vh;
             width: 100%;
             background: #E3F2FD;
+            overflow: hidden; /* Empêcher le scroll inutile */
         }
         .container{
-            width: 80vmin;
-            height: 90vmin;
+            width: 90vmin; /* Largeur relative à la taille de l'écran */
+            max-width: 600px; /* Limite maximale pour les écrans larges */
+            height: auto; /* S'adapte à la hauteur nécessaire */
             display: grid; /* Utiliser un layout en grille */
             grid-template-rows: auto 1fr auto; /* 3 zones : game-details, canvas, controls */
             gap: 10px; /* Espacement entre les zones */
@@ -53,8 +55,9 @@
             display: block;
             margin: 0 auto;
             align-self: center; /* Centrer verticalement le canvas */
-            max-width: 100%; /* Empêcher le dépassement horizontal */
+            width: 100%; /* Empêcher le dépassement horizontal */
             height: auto; /* Préserver le ratio de l'image */
+            max-height: 60vmin; /* Limite la hauteur pour les petits écrans */
             border: 5px solid white
         }
 
@@ -76,6 +79,45 @@
         .controls i:last-child {
             border-right: none; /* Retirer la bordure pour le dernier bouton */
         }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95vmin; /* Plus large pour petits écrans */
+                padding: 5px;
+            }
+
+            #myCanvas {
+                max-height: 50vmin; /* Réduit la taille du canvas sur petits écrans */
+            }
+
+            .game-details {
+                font-size: 1rem; /* Texte plus petit */
+                padding: 5px;
+            }
+
+            .controls i {
+                font-size: 1.2rem; /* Réduit la taille des icônes */
+                padding: 10px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 100%; /* Occupe toute la largeur */
+                height: auto; /* Ajuste selon le contenu */
+                padding: 5px;
+            }
+
+            #myCanvas {
+                max-height: 45vmin;
+            }
+
+            .controls i {
+                font-size: 1rem;
+                padding: 8px 0;
+            }
+        }
+
     </style>
 </head>
 <body onload="main();">
