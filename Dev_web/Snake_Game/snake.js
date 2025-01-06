@@ -227,32 +227,68 @@ function main(){
 };
 
 function resizeCanvas() {
+    console.log("ok");
     const container = document.querySelector('.container');
     const canvas = document.getElementById('myCanvas');
     const boxSize = 20; // Taille d'un bloc en pixels
+    const numBlocksWidth = 30; // Nombre de blocs en largeur
+    const numBlocksHeight = 25; // Nombre de blocs en hauteur
     
-    // Nombre de blocs que tu veux afficher
-    const numBlocksWidth = 30;
-    const numBlocksHeight = 25;
+    // Calculer le rapport d'aspect (aspect ratio)
+    const aspectRatio = numBlocksWidth / numBlocksHeight;
     
-    // Calculer les dimensions du canvas en fonction de boxSize
-    const canvasWidth = numBlocksWidth * boxSize;
-    const canvasHeight = numBlocksHeight * boxSize;
-    
-    // Ajuster la taille du canvas tout en gardant le ratio
-    if (container.clientWidth / container.clientHeight < canvasWidth / canvasHeight) {
-        canvas.width = container.clientWidth;
-        canvas.height = (container.clientWidth / canvasWidth) * canvasHeight;
+    // Obtenir les dimensions du conteneur
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    // Adapter la largeur et la hauteur du canvas en fonction du conteneur
+    if (containerWidth / containerHeight < aspectRatio) {
+        // Si le conteneur est plus "étroit" que le ratio
+        canvas.width = containerWidth;
+        canvas.height = containerWidth / aspectRatio;
     } else {
-        canvas.height = container.clientHeight;
-        canvas.width = (container.clientHeight / canvasHeight) * canvasWidth;
+        // Si le conteneur est plus "large" que le ratio
+        canvas.height = containerHeight;
+        canvas.width = containerHeight * aspectRatio;
     }
     
-    // Recalculer pour éviter la déformation
+    // Ajuster l'échelle pour éviter la déformation
     const ctx = canvas.getContext('2d');
-    ctx.scale(canvas.width / canvasWidth, canvas.height / canvasHeight);
+    ctx.scale(canvas.width / (numBlocksWidth * boxSize), canvas.height / (numBlocksHeight * boxSize));
 }
 
-// Appeler cette fonction au chargement et lors du redimensionnement
-window.addEventListener('resize', resizeCanvas);
-window.addEventListener('load', resizeCanvas);
+// Appeler la fonction au chargement et lors des redimensionnements
+/* window.addEventListener('resize', resizeCanvas);
+window.addEventListener('load', resizeCanvas); */
+
+
+function resizeContainer() {
+    const container = document.querySelector('.container');
+    const aspectRatio = 4 / 3; // Rapport d'aspect largeur/hauteur (modifiable)
+
+    // Obtenir les dimensions de la fenêtre
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    // Calculer la taille idéale du conteneur en fonction du rapport d'aspect
+    let containerWidth, containerHeight;
+    if (windowWidth / windowHeight < aspectRatio) {
+        containerWidth = windowWidth * 0.9; // Utiliser 90% de la largeur de la fenêtre
+        containerHeight = containerWidth / aspectRatio;
+    } else {
+        containerHeight = windowHeight * 0.9; // Utiliser 90% de la hauteur de la fenêtre
+        containerWidth = containerHeight * aspectRatio;
+    }
+
+    // Appliquer les dimensions calculées au conteneur
+    container.style.width = `${containerWidth}px`;
+    container.style.height = `${containerHeight}px`;
+
+    // Redimensionner le canvas pour correspondre au conteneur
+    resizeCanvas();
+}
+
+// Appeler la fonction au chargement et lors des redimensionnements
+window.addEventListener('resize', resizeContainer);
+window.addEventListener('load', resizeContainer);
+

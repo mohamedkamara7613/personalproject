@@ -29,9 +29,9 @@
             overflow: hidden; /* Empêcher le scroll inutile */
         }
         .container{
-            width: 90vmin; /* Largeur relative à la taille de l'écran */
-            max-width: 600px; /* Limite maximale pour les écrans larges */
-            height: auto; /* S'adapte à la hauteur nécessaire */
+            width: 80vmin; /* Largeur relative à la taille de l'écran */
+            /* max-width: 600px; /* Limite maximale pour les écrans larges */
+            height: 90vmin; /* S'adapte à la hauteur nécessaire */
             display: grid; /* Utiliser un layout en grille */
             grid-template-rows: auto 1fr auto; /* 3 zones : game-details, canvas, controls */
             gap: 10px; /* Espacement entre les zones */
@@ -57,6 +57,7 @@
             align-self: center; /* Centrer verticalement le canvas */
             width: 100%; /* Empêcher le dépassement horizontal */
             height: auto; /* Préserver le ratio de l'image */
+            aspect-ratio: 30 / 25; /* Par exemple, 30 blocs de largeur pour 25 de hauteur */
             max-height: 60vmin; /* Limite la hauteur pour les petits écrans */
             border: 5px solid white
         }
@@ -75,6 +76,9 @@
             color: #B8C6DC;
             cursor: pointer;
             border-right: 1px solid #171B26;
+            background-color: #212837;
+            box-shadow:  20px 20px 60px #1f2333,
+             -20px -20px 60px #2b2f45;
         }
         .controls i:last-child {
             border-right: none; /* Retirer la bordure pour le dernier bouton */
