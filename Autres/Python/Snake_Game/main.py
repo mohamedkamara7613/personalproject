@@ -51,7 +51,9 @@ class SnakeGame():
         } """
         self.generate_food()
 
-        
+    def generate_food(self):
+        pass
+
     def handleEvenement(self):
         pass
 
@@ -66,8 +68,6 @@ class SnakeGame():
     def handleCollisions(self):
         pass
 
-    def generate_food(self):
-        pass
 
     def drawGrid(self, screen):
         
