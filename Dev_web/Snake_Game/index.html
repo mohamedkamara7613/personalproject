@@ -84,44 +84,6 @@
             border-right: none; /* Retirer la bordure pour le dernier bouton */
         }
 
-        @media (max-width: 768px) {
-            .container {
-                width: 95vmin; /* Plus large pour petits écrans */
-                padding: 5px;
-            }
-
-            #myCanvas {
-                max-height: 50vmin; /* Réduit la taille du canvas sur petits écrans */
-            }
-
-            .game-details {
-                font-size: 1rem; /* Texte plus petit */
-                padding: 5px;
-            }
-
-            .controls i {
-                font-size: 1.2rem; /* Réduit la taille des icônes */
-                padding: 10px 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                width: 100%; /* Occupe toute la largeur */
-                height: auto; /* Ajuste selon le contenu */
-                padding: 5px;
-            }
-
-            #myCanvas {
-                max-height: 45vmin;
-            }
-
-            .controls i {
-                font-size: 1rem;
-                padding: 8px 0;
-            }
-        }
-
     </style>
 </head>
 <body onload="main();">
