@@ -44,11 +44,12 @@ class SnakeGame():
         self.score = 0
 
         # Initialisation de la position du food
-        self.food = {
+        """ self.food = {
             "x": random.randint(0, self.columns - 1),
             "y": random.randint(0, self.rows - 1),
             "img": self.food_img
-        }
+        } """
+        self.generate_food()
 
         
     def handleEvenement(self):
