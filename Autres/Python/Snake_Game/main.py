@@ -31,14 +31,14 @@ class SnakeGame():
         
     def init(self):
         # Initialisation de la tete du serpent au centre de l'ecran 
-        self.head_snake = {
+        self.snake_head = {
             "x": self.columns // 2,
             "y": self.rows // 2,
             "img": self.snake_head_img, # Par la suite img sera un sprite
             "direction": "right"
         }
         # L'ajouter au snake
-        self.snake.append(self.head_snake)
+        self.snake.append(self.snake_head)
 
         # Initialisation du score
         self.score = 0
