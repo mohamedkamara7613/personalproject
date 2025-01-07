@@ -21,7 +21,11 @@ class SnakeGame():
         self.grid = [[0 for _ in range(self.rows)] for _ in range(self.columns)]
         self.snake = []
         self.snake_head = {}
+        self.snake_head_img = GREEN
+        self.snake_body_img = WHITE
+
         self.food = {}
+        self.food_img = YELLOW
         self.score = 0
         self.current_score = 0 # peut etre recuperer depuis un fichier
         
@@ -30,7 +34,7 @@ class SnakeGame():
         self.head_snake = {
             "x": self.columns // 2,
             "y": self.rows // 2,
-            "img": GREEN,
+            "img": self.snake_head_img, # Par la suite img sera un sprite
             "direction": "right"
         }
         # L'ajouter au snake
@@ -43,14 +47,20 @@ class SnakeGame():
         self.food = {
             "x": random.randint(0, self.columns - 1),
             "y": random.randint(0, self.rows - 1),
-            "img": YELLOW
+            "img": self.food_img
         }
 
+        
     def handleEvenement(self):
         pass
 
     def updateGame(self):
-        pass
+        # Placer le serpent dans la grille
+        for i in range(len(self.snake)):
+            self.grid[self.snake[i]["x"]][self.snake[i]["y"]] = self.snake[i]["img"] # j'ai un doute sur la performence cad la grille va contenir des sprites
+
+        # Placer le food dans la grille
+        self.grid[self.food["x"]][self.food["y"]] = self.food["img"]
 
     def handleCollisions(self):
         pass
@@ -59,9 +69,18 @@ class SnakeGame():
         pass
 
     def drawGrid(self, screen):
+        
         for i in range(self.rows):
             for j in range(self.columns):
+                # Faire apparaitre la grille
                 pygame.draw.rect(screen, WHITE, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE), 1)
+
+                if self.grid[i][j] == self.snake_head_img:
+                    #screen.blit(self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE))
+                    pygame.draw.rect(screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
+                elif self.grid[i][j] == self.food_img:
+                    #screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE))
+                    pygame.draw.rect(screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
 
         pygame.display.update()
 
@@ -81,9 +100,9 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
         
-        clock.tick(fps)
+        game.updateGame()
         game.drawGrid(game.screen)
-        
+        clock.tick(fps)
     pygame.quit()
 
 
