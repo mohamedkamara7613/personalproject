@@ -1,6 +1,10 @@
 import pygame
+import random
 
 WHITE = (255, 255, 255)
+GREEN = (0, 222, 0)
+YELLOW = (250, 250, 5)
+
 
 
 WIDTH = 600
@@ -17,11 +21,30 @@ class SnakeGame():
         self.grid = [[0 for _ in range(self.rows)] for _ in range(self.columns)]
         self.snake = []
         self.snake_head = {}
+        self.food = {}
         self.score = 0
         self.current_score = 0 # peut etre recuperer depuis un fichier
         
     def init(self):
-        pass
+        # Initialisation de la tete du serpent au centre de l'ecran 
+        self.head_snake = {
+            "x": self.columns // 2,
+            "y": self.rows // 2,
+            "img": GREEN,
+            "direction": "right"
+        }
+        # L'ajouter au snake
+        self.snake.append(self.head_snake)
+
+        # Initialisation du score
+        self.score = 0
+
+        # Initialisation de la position du food
+        self.food = {
+            "x": random.randint(0, self.columns - 1),
+            "y": random.randint(0, self.rows - 1),
+            "img": YELLOW
+        }
 
     def handleEvenement(self):
         pass
