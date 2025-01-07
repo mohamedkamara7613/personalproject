@@ -1,5 +1,8 @@
 import pygame
 
+WHITE = (255, 255, 255)
+
+
 WIDTH = 600
 HEIGHT = 600
 BOX_SIZE = 20
@@ -7,7 +10,7 @@ BOX_SIZE = 20
 class SnakeGame():
     def __init__(self):
         pygame.init()
-        self.display = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Snake Game")
 
         self.columns, self.rows = WIDTH // BOX_SIZE, HEIGHT // BOX_SIZE
@@ -18,7 +21,7 @@ class SnakeGame():
         self.current_score = 0 # peut etre recuperer depuis un fichier
         
     def init(self):
-        print(self.grid)
+        pass
 
     def handleEvenement(self):
         pass
@@ -32,9 +35,12 @@ class SnakeGame():
     def generate_food(self):
         pass
 
-    def drawGrid(self):
+    def drawGrid(self, screen):
+        for i in range(self.rows):
+            for j in range(self.columns):
+                pygame.draw.rect(screen, WHITE, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE), 1)
 
-
+        pygame.display.update()
 
 
 
@@ -53,7 +59,7 @@ def main():
                 run = False
         
         clock.tick(fps)
-        pygame.display.update()
+        game.drawGrid(game.screen)
         
     pygame.quit()
 
