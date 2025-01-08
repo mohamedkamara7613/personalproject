@@ -89,9 +89,7 @@ class SnakeGame():
 
         # Mise a jour de la position du serpent
         if self.snake_head["direction"] == "up":
-            self.snake_head["y"] = (self.snake_head["y"] - 1) % self.rows
-            
-            print((self.snake_head["y"] - 1) % self.rows) 
+            self.snake_head["y"] = (self.snake_head["y"] - 1) % self.rows 
         elif self.snake_head["direction"] == "down":
             self.snake_head["y"] = (self.snake_head["y"] + 1) % self.rows
         elif self.snake_head["direction"] == "left":
@@ -108,6 +106,7 @@ class SnakeGame():
         self.grid[self.food["x"]][self.food["y"]] = self.food["img"]
 
     def handleCollisions(self):
+        # Si le serpent mange la nourriture
         if self.snake_head["x"]  == self.food["x"] and self.snake_head["y"] == self.food["y"]:
             self.score += 1
             self.generate_food()
@@ -125,8 +124,8 @@ class SnakeGame():
     def drawGrid(self):
         self.screen.fill(BLACK)
         
-        for i in range(self.rows):
-            for j in range(self.columns):
+        for j in range(self.rows):
+            for i in range(self.columns):
                 # Faire apparaitre la grille
                 pygame.draw.rect(self.screen, WHITE, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE), 1)
                 
