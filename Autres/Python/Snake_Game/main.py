@@ -88,9 +88,9 @@ class SnakeGame():
         elif self.snake_head["direction"] == "down":
             self.snake_head["y"] += (self.snake_head["y"] - 1) % self.rows
         elif self.snake_head["direction"] == "left":
-            self.snake_head["x"] -= (self.snake_head["x"] - 1) % self.rows
+            self.snake_head["x"] -= (self.snake_head["x"] - 1) % self.columns
         elif self.snake_head["direction"] == "right":
-            self.snake_head["x"] += (self.snake_head["x"] - 1) % self.rows
+            self.snake_head["x"] += (self.snake_head["x"] - 1) % self.columns
 
 
         # Placer le serpent dans la grille
