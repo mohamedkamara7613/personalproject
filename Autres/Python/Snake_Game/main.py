@@ -14,11 +14,12 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 222, 0)
 YELLOW = (250, 250, 5)
+RED = (255, 0, 0)
 
 
 
-WIDTH = 600
-HEIGHT = 600
+WIDTH = 900
+HEIGHT = 800
 BOX_SIZE = 30
 
 class SnakeGame():
@@ -31,8 +32,8 @@ class SnakeGame():
         self.grid = []
         self.snake = []
         self.snake_head = {}
-        self.snake_head_img = GREEN
-        self.snake_body_img = WHITE
+        self.snake_head_img = RED
+        self.snake_body_img = GREEN
 
         self.food = {}
         self.food_img = YELLOW
@@ -61,18 +62,24 @@ class SnakeGame():
         self.generate_food()
 
     def generate_food(self):
-        ok = True
-        while ok:
+        ok = False
+        while not ok:
             x = random.randint(0, self.columns - 1)
             y = random.randint(0, self.rows - 1)
+            ok = True # On suppose d'abord que (x, y) est valide
+
             for segment in self.snake:
-                if segment["x"] != x and segment["y"] != y:
-                    self.food = {
-                        "x": x,
-                        "y": y,
-                        "img": self.food_img
-                    } 
-                    ok = False
+                if segment["x"] == x and segment["y"] == y:
+                     ok = False # Si une collision est détectée, (x, y) n'est pas valide
+                     break # Pas besoin de continuer à vérifier les autres segments
+                
+            # Si ok reste False après la boucle, cela signifie que (x, y) est libre
+            self.food = {
+                "x": x,
+                "y": y,
+                "img": self.food_img
+            } 
+                   
 
     def handleEvenement(self):
         for event in pygame.event.get():
@@ -101,7 +108,7 @@ class SnakeGame():
             new_segment = {
                 "x": last_segment["x"],
                 "y": last_segment["y"],
-                "img" : last_segment["img"],
+                "img" : self.snake_head["img"] if len(self.snake) == 0 else self.snake_body_img,
                 "direction": last_segment["direction"]
             }
             self.snake.append(new_segment)
@@ -147,15 +154,19 @@ class SnakeGame():
         
         for j in range(self.rows):
             for i in range(self.columns):
-                # Faire apparaitre la grille
-                pygame.draw.rect(self.screen, WHITE, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE), 1)
-                
                 # Dessiner les elements de la grille
                 if self.grid[i][j] == self.snake_head_img:
                     #self.screen.blit(self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE))
                     pygame.draw.rect(self.screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
 
-                elif self.grid[i][j] == self.food_img:
+                for segment in self.snake[1:]:
+                    if segment["img"] == self.snake_body_img:
+                        #self.screen.blit(self.snake_body_img, (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE))
+                        pygame.draw.rect(self.screen, self.snake_body_img, (segment["x"]*BOX_SIZE, 
+                                                                            segment["y"]*BOX_SIZE, BOX_SIZE, BOX_SIZE))
+                        
+
+                if self.grid[i][j] == self.food_img:
                     #self.screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE))
                     pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
 
@@ -168,7 +179,7 @@ def main():
     game = SnakeGame()
     game.init()
 
-    fps = 5
+    fps = 6.5
     clock = pygame.time.Clock()
 
     run = True
