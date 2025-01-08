@@ -82,6 +82,11 @@ class SnakeGame():
         # Réinitialiser la grille
         self.grid = [[0 for _ in range(self.rows)] for _ in range(self.columns)]
 
+        # Mise à jour des positions des segments du corps
+        for i in range(len(self.snake) - 1, 0, -1):
+            self.snake[i]["x"] = self.snake[i - 1]["x"]
+            self.snake[i]["y"] = self.snake[i - 1]["y"]
+            
         # Mise a jour de la position du serpent
         if self.snake_head["direction"] == "up":
             print(self.snake_head)
@@ -95,10 +100,6 @@ class SnakeGame():
         elif self.snake_head["direction"] == "right":
             self.snake_head["x"] = (self.snake_head["x"] + 1) % self.columns
 
-        # Mise à jour des positions des segments du corps
-        for i in range(len(self.snake) - 1, 0, -1):
-            self.snake[i]["x"] = self.snake[i - 1]["x"]
-            self.snake[i]["y"] = self.snake[i - 1]["y"]
 
         # Placer le serpent dans la grille
         for i in range(len(self.snake)):
@@ -111,7 +112,14 @@ class SnakeGame():
         if self.snake_head["x"]  == self.food["x"] and self.snake_head["y"] == self.food["y"]:
             self.score += 1
             self.generate_food()
-            self.snake.append(self.snake[len(self.snake)-1])
+            last_segment = self.snake[-1]
+            new_segment = {
+                "x": last_segment["x"],
+                "y": last_segment["y"],
+                "img" : last_segment["img"],
+                "direction": last_segment["direction"]
+            }
+            self.snake.append(new_segment)
                 
 
 
