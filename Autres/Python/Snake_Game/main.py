@@ -86,10 +86,9 @@ class SnakeGame():
         for i in range(len(self.snake) - 1, 0, -1):
             self.snake[i]["x"] = self.snake[i - 1]["x"]
             self.snake[i]["y"] = self.snake[i - 1]["y"]
-            
+
         # Mise a jour de la position du serpent
         if self.snake_head["direction"] == "up":
-            print(self.snake_head)
             self.snake_head["y"] = (self.snake_head["y"] - 1) % self.rows
             
             print((self.snake_head["y"] - 1) % self.rows) 
