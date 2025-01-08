@@ -79,15 +79,18 @@ class SnakeGame():
         return True
 
     def updateGame(self):
+        # Réinitialiser la grille
+        self.grid = [[0 for _ in range(self.rows)] for _ in range(self.columns)]
+
         # Mise a jour de la position du serpent
         if self.snake_head["direction"] == "up":
-            self.snake_head["y"] -= 1   
+            self.snake_head["y"] -= (self.snake_head["y"] - 1) % self.rows 
         elif self.snake_head["direction"] == "down":
-            self.snake_head["y"] += 1
+            self.snake_head["y"] += (self.snake_head["y"] - 1) % self.rows
         elif self.snake_head["direction"] == "left":
-            self.snake_head["x"] -= 1
+            self.snake_head["x"] -= (self.snake_head["x"] - 1) % self.rows
         elif self.snake_head["direction"] == "right":
-            self.snake_head["x"] += 1
+            self.snake_head["x"] += (self.snake_head["x"] - 1) % self.rows
 
 
         # Placer le serpent dans la grille
@@ -109,10 +112,12 @@ class SnakeGame():
             for j in range(self.columns):
                 # Faire apparaitre la grille
                 pygame.draw.rect(self.screen, WHITE, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE), 1)
-
+                
+                # Dessiner les elements de la grille
                 if self.grid[i][j] == self.snake_head_img:
                     #self.screen.blit(self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE))
                     pygame.draw.rect(self.screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
+
                 elif self.grid[i][j] == self.food_img:
                     #self.screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE))
                     pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
