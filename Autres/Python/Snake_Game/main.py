@@ -2,6 +2,7 @@ import pygame
 import random
 
 WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 GREEN = (0, 222, 0)
 YELLOW = (250, 250, 5)
 
@@ -66,16 +67,14 @@ class SnakeGame():
                 return False
             
             if event.type == pygame.KEYDOWN:
-                for i in range(len(self.snake)):
-                    if event.key == pygame.K_UP and self.snake[i]["direction"] != "down":
-                        print("ok")
-                        self.snake[i]["direction"] = "up"
-                    if event.key == pygame.K_DOWN and self.snake[i]["direction"] != "up":
-                        self.snake[i]["direction"] = "down"
-                    if event.key == pygame.K_RIGHT and self.snake[i]["direction"] != "left":
-                        self.snake[i]["direction"] = "right"
-                    if event.key == pygame.K_LEFT and self.snake[i]["direction"] != "right":
-                        self.snake[i]["direction"] = "left"
+                if event.key == pygame.K_UP and self.snake[0]["direction"] != "down":
+                    self.snake[0]["direction"] = "up"
+                if event.key == pygame.K_DOWN and self.snake[0]["direction"] != "up":
+                    self.snake[0]["direction"] = "down"
+                if event.key == pygame.K_RIGHT and self.snake[0]["direction"] != "left":
+                    self.snake[0]["direction"] = "right"
+                if event.key == pygame.K_LEFT and self.snake[0]["direction"] != "right":
+                    self.snake[0]["direction"] = "left"
 
         return True
 
@@ -103,19 +102,20 @@ class SnakeGame():
                 
 
 
-    def drawGrid(self, screen):
+    def drawGrid(self):
+        self.screen.fill(BLACK)
         
         for i in range(self.rows):
             for j in range(self.columns):
                 # Faire apparaitre la grille
-                pygame.draw.rect(screen, WHITE, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE), 1)
+                pygame.draw.rect(self.screen, WHITE, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE), 1)
 
                 if self.grid[i][j] == self.snake_head_img:
-                    #screen.blit(self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE))
-                    pygame.draw.rect(screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
+                    #self.screen.blit(self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE))
+                    pygame.draw.rect(self.screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
                 elif self.grid[i][j] == self.food_img:
-                    #screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE))
-                    pygame.draw.rect(screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
+                    #self.screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE))
+                    pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
 
         pygame.display.update()
 
@@ -134,7 +134,7 @@ def main():
 
         run = game.handleEvenement()
         game.updateGame()
-        game.drawGrid(game.screen)
+        game.drawGrid()
         clock.tick(fps)
     pygame.quit()
 
