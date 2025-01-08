@@ -84,14 +84,21 @@ class SnakeGame():
 
         # Mise a jour de la position du serpent
         if self.snake_head["direction"] == "up":
-            self.snake_head["y"] -= (self.snake_head["y"] - 1) % self.rows 
+            print(self.snake_head)
+            self.snake_head["y"] = (self.snake_head["y"] - 1) % self.rows
+            
+            print((self.snake_head["y"] - 1) % self.rows) 
         elif self.snake_head["direction"] == "down":
-            self.snake_head["y"] += (self.snake_head["y"] - 1) % self.rows
+            self.snake_head["y"] = (self.snake_head["y"] + 1) % self.rows
         elif self.snake_head["direction"] == "left":
-            self.snake_head["x"] -= (self.snake_head["x"] - 1) % self.columns
+            self.snake_head["x"] = (self.snake_head["x"] - 1) % self.columns
         elif self.snake_head["direction"] == "right":
-            self.snake_head["x"] += (self.snake_head["x"] - 1) % self.columns
+            self.snake_head["x"] = (self.snake_head["x"] + 1) % self.columns
 
+        # Mise à jour des positions des segments du corps
+        for i in range(len(self.snake) - 1, 0, -1):
+            self.snake[i]["x"] = self.snake[i - 1]["x"]
+            self.snake[i]["y"] = self.snake[i - 1]["y"]
 
         # Placer le serpent dans la grille
         for i in range(len(self.snake)):
@@ -101,7 +108,10 @@ class SnakeGame():
         self.grid[self.food["x"]][self.food["y"]] = self.food["img"]
 
     def handleCollisions(self):
-        pass
+        if self.snake_head["x"]  == self.food["x"] and self.snake_head["y"] == self.food["y"]:
+            self.score += 1
+            self.generate_food()
+            self.snake.append(self.snake[len(self.snake)-1])
                 
 
 
@@ -138,6 +148,7 @@ def main():
     while run:
 
         run = game.handleEvenement()
+        game.handleCollisions()
         game.updateGame()
         game.drawGrid()
         clock.tick(fps)
