@@ -127,11 +127,15 @@ class SnakeGame():
                 "direction": last_segment["direction"]
             }
             self.snake.append(new_segment)
+            return False
 
         # Si le serpent se touche lui meme
         for i in range(1,len(self.snake)):
             if self.snake_head["x"] == self.snake[i]["x"] and self.snake_head["y"] == self.snake[i]["y"]:
-                return False
+                return True
+            
+        
+        
                 
 
 
@@ -169,7 +173,6 @@ def main():
         run = game.handleEvenement()
         if game.handleCollisions():
             print("Perdu")
-            run = False
             pygame.time.wait(2000)
             game.init()
 
