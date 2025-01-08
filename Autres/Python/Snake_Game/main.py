@@ -1,4 +1,8 @@
-""" Optimisation de la grille :
+""" 
+    A FAIRE:
+        -rajouter la gestion du score et du max score
+        - rajouter les sprites
+Optimisation de la grille :
 
 Tu utilises une grille 2D (self.grid) pour stocker les états des cases. 
 Cela pourrait devenir inefficace en termes de mémoire et de performance 
