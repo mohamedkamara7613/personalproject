@@ -28,7 +28,7 @@ class SnakeGame():
         pygame.display.set_caption("Snake Game")
 
         self.columns, self.rows = WIDTH // BOX_SIZE, HEIGHT // BOX_SIZE
-        self.grid = [[0 for _ in range(self.rows)] for _ in range(self.columns)]
+        self.grid = []
         self.snake = []
         self.snake_head = {}
         self.snake_head_img = GREEN
@@ -40,7 +40,11 @@ class SnakeGame():
         self.current_score = 0 # peut etre recuperer depuis un fichier
         
     def init(self):
+        # Initialisation de la grille
+        self.grid = [[0 for _ in range(self.rows)] for _ in range(self.columns)]
+        
         # Initialisation de la tete du serpent au centre de l'ecran 
+        self.snake = []
         self.snake_head = {
             "x": self.columns // 2,
             "y": self.rows // 2,
@@ -87,6 +91,28 @@ class SnakeGame():
 
         return True
 
+
+    def handleCollisions(self):
+        # Si le serpent mange la nourriture
+        if self.snake_head["x"]  == self.food["x"] and self.snake_head["y"] == self.food["y"]:
+            self.score += 1
+            self.generate_food()
+            last_segment = self.snake[-1]
+            new_segment = {
+                "x": last_segment["x"],
+                "y": last_segment["y"],
+                "img" : last_segment["img"],
+                "direction": last_segment["direction"]
+            }
+            self.snake.append(new_segment)
+            return False
+
+        # Si le serpent se touche lui meme
+        for i in range(1,len(self.snake)):
+            if self.snake_head["x"] == self.snake[i]["x"] and self.snake_head["y"] == self.snake[i]["y"]:
+                return True
+            
+        
     def updateGame(self):
         # Réinitialiser la grille
         self.grid = [[0 for _ in range(self.rows)] for _ in range(self.columns)]
@@ -113,29 +139,6 @@ class SnakeGame():
 
         # Placer le food dans la grille
         self.grid[self.food["x"]][self.food["y"]] = self.food["img"]
-
-    def handleCollisions(self):
-        # Si le serpent mange la nourriture
-        if self.snake_head["x"]  == self.food["x"] and self.snake_head["y"] == self.food["y"]:
-            self.score += 1
-            self.generate_food()
-            last_segment = self.snake[-1]
-            new_segment = {
-                "x": last_segment["x"],
-                "y": last_segment["y"],
-                "img" : last_segment["img"],
-                "direction": last_segment["direction"]
-            }
-            self.snake.append(new_segment)
-            return False
-
-        # Si le serpent se touche lui meme
-        for i in range(1,len(self.snake)):
-            if self.snake_head["x"] == self.snake[i]["x"] and self.snake_head["y"] == self.snake[i]["y"]:
-                return True
-            
-        
-        
                 
 
 
