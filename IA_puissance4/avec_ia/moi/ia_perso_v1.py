@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+    Amelioration POuvant etre ajoutée
+        la fonction evaluate_window ne gere pas pour l'instant les contre attaque sur la diagonale
     AMELIORATION APPORTÉ
         - Meilleur heuristique
             - favoriser les colonnes centrales
