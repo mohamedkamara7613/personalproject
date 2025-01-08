@@ -1,3 +1,12 @@
+""" Optimisation de la grille :
+
+Tu utilises une grille 2D (self.grid) pour stocker les états des cases. 
+Cela pourrait devenir inefficace en termes de mémoire et de performance 
+si la grille est grande. Une alternative serait de garder uniquement la 
+liste des coordonnées du serpent et de la nourriture.
+ """
+
+
 import pygame
 import random
 
@@ -10,7 +19,7 @@ YELLOW = (250, 250, 5)
 
 WIDTH = 600
 HEIGHT = 600
-BOX_SIZE = 20
+BOX_SIZE = 30
 
 class SnakeGame():
     def __init__(self):
@@ -118,6 +127,11 @@ class SnakeGame():
                 "direction": last_segment["direction"]
             }
             self.snake.append(new_segment)
+
+        # Si le serpent se touche lui meme
+        for i in range(1,len(self.snake)):
+            if self.snake_head["x"] == self.snake[i]["x"] and self.snake_head["y"] == self.snake[i]["y"]:
+                return False
                 
 
 
@@ -152,12 +166,17 @@ def main():
 
     run = True
     while run:
-
         run = game.handleEvenement()
-        game.handleCollisions()
+        if game.handleCollisions():
+            print("Perdu")
+            run = False
+            pygame.time.wait(2000)
+            game.init()
+
         game.updateGame()
         game.drawGrid()
         clock.tick(fps)
+
     pygame.quit()
 
 
