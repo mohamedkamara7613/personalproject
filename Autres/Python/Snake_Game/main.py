@@ -50,7 +50,13 @@ class SnakeGame():
         self.load_assets()
 
     def load_assets(self):
-        pass
+        try:
+            # Images pour la nourriture du serpent
+            self.food_img = pygame.image.load("images/apple.png")
+            self.food_img = pygame.transform.scale(self.food_img, (BOX_SIZE, BOX_SIZE))
+        except pygame.error as e:
+            print(e)
+            self.food_img = YELLOW
         
     def init(self):
         # Initialisation de la grille
@@ -182,20 +188,21 @@ class SnakeGame():
                
 
                 # Dessiner les elements de la grille
+                # Dessiner la tete du serpent
                 if self.grid[i][j] == self.snake_head_img:
                     #self.screen.blit(self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE))
                     pygame.draw.rect(self.screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
-
+                # Dessiner le corps du serpent
                 for segment in self.snake[1:]:
                     if segment["img"] == self.snake_body_img:
                         #self.screen.blit(self.snake_body_img, (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE))
                         pygame.draw.rect(self.screen, self.snake_body_img, (segment["x"]*BOX_SIZE, 
                                                                             segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
                         
-
+                # Dessiner le food (nourriture)
                 if self.grid[i][j] == self.food_img:
-                    #self.screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE))
-                    pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
+                    self.screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING))
+                    #pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
 
         pygame.display.update()
 
