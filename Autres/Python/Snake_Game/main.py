@@ -254,6 +254,34 @@ class SnakeGame():
         elif self.snake_head["direction"] == "right":
             self.snake_head["x"] = (self.snake_head["x"] + 1) % self.columns
             self.snake_head["img"] = self.snake_imgs["head_right"]
+        
+        # Mise à jour des images du corps
+        for i in range(1, len(self.snake) - 1):
+            prev_segment = self.snake[i - 1]
+            current_segment = self.snake[i]
+            next_segment = self.snake[i + 1]
+
+            # Déterminer la direction entre les segments précédents et suivants
+            prev_dx = prev_segment["x"] - current_segment["x"]
+            prev_dy = prev_segment["y"] - current_segment["y"]
+            next_dx = next_segment["x"] - current_segment["x"]
+            next_dy = next_segment["y"] - current_segment["y"]
+
+            # Cas des segments droits
+            if prev_dx == next_dx == 0:
+                current_segment["img"] = self.snake_imgs["body_vertical"]
+            elif prev_dy == next_dy == 0:
+                current_segment["img"] = self.snake_imgs["body_horizontal"]
+
+            # Cas des coins
+            elif (prev_dx == -1 and next_dy == 1) or (next_dx == -1 and prev_dy == 1):
+                current_segment["img"] = self.snake_imgs["body_bottomleft"]
+            elif (prev_dx == 1 and next_dy == 1) or (next_dx == 1 and prev_dy == 1):
+                current_segment["img"] = self.snake_imgs["body_bottomright"]
+            elif (prev_dx == -1 and next_dy == -1) or (next_dx == -1 and prev_dy == -1):
+                current_segment["img"] = self.snake_imgs["body_topleft"]
+            elif (prev_dx == 1 and next_dy == -1) or (next_dx == 1 and prev_dy == -1):
+                current_segment["img"] = self.snake_imgs["body_topright"]
 
         # Mise à jour de l'image de la queue
         if len(self.snake) > 1:
@@ -298,31 +326,17 @@ class SnakeGame():
                 # Faire apparaitre la grille
                 pygame.draw.rect(self.screen, WHITE, (0, HEADING, WIDTH, HEIGHT), 1)
 
+                # Dessiner le serpent
+                for segment in self.snake:
+                    self.screen.blit(segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
                
-
-                # Dessiner les elements de la grille
-                # Dessiner la tete du serpent
-                if self.grid[i][j] == self.snake_head["img"]:
-                    self.screen.blit(self.snake_head["img"], (i*BOX_SIZE, j*BOX_SIZE + HEADING))
-                    #pygame.draw.rect(self.screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
-                
-                # Dessiner le corps du serpent
-                for segment in self.snake[1:]:
-                    if segment["img"] == self.snake_body_img:
-                        self.screen.blit(self.snake_body_img, (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
-                        #pygame.draw.rect(self.screen, self.snake_body_img, (segment["x"]*BOX_SIZE, 
-                        #                                                    segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
-                        
-
-                # Dessiner la queue du serpent
-                if self.grid[i][j] == self.snake[-1]["img"]:
-                    self.screen.blit(self.snake[-1]["img"], (i*BOX_SIZE, j*BOX_SIZE + HEADING))
-                    #pygame.draw.rect(self.screen, self.snake_tail_img, (i*BOX_SIZE,
-                    #                                                    j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
                 # Dessiner le food (nourriture)
                 if self.grid[i][j] == self.food_img:
                     self.screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING))
                     #pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
+
+                
+                   
 
         pygame.display.update()
 
