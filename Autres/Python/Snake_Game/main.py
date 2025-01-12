@@ -54,6 +54,54 @@ class SnakeGame():
             # Images pour la nourriture du serpent
             self.food_img = pygame.image.load("images/apple.png")
             self.food_img = pygame.transform.scale(self.food_img, (BOX_SIZE, BOX_SIZE))
+
+            # Images pour le serpent
+            # Pour la tete
+            head_up = pygame.image.load("images/head_up.png")
+            head_up = pygame.transform.scale(head_up, (BOX_SIZE, BOX_SIZE))
+
+            head_down = pygame.image.load("images/head_down.png")
+            head_down = pygame.transform.scale(head_down, (BOX_SIZE, BOX_SIZE))
+
+            head_left = pygame.image.load("images/head_left.png")
+            head_left = pygame.transform.scale(head_left, (BOX_SIZE, BOX_SIZE))
+
+            head_right = pygame.image.load("images/head_right.png")
+            head_right = pygame.transform.scale(head_right, (BOX_SIZE, BOX_SIZE))
+
+            # Pour le corps
+            body_bottomleft = pygame.image.load("images/body_bottomleft.png")
+            body_bottomleft = pygame.transform.scale(body_bottomleft, (BOX_SIZE, BOX_SIZE))
+
+            body_bottomright = pygame.image.load("images/body_bottomright.png")
+            body_bottomright = pygame.transform.scale(body_bottomright, (BOX_SIZE, BOX_SIZE))
+
+            body_horizontal = pygame.image.load("images/body_horizontal.png")
+            body_horizontal = pygame.transform.scale(body_horizontal, (BOX_SIZE, BOX_SIZE))
+
+            body_vertical = pygame.image.load("images/body_vertical.png")
+            body_vertical = pygame.transform.scale(body_vertical, (BOX_SIZE, BOX_SIZE))
+
+            body_topleft = pygame.image.load("images/body_topleft.png")
+            body_topleft = pygame.transform.scale(body_topleft, (BOX_SIZE, BOX_SIZE))
+
+            body_topright = pygame.image.load("images/body_topright.png")
+            body_topright = pygame.transform.scale(body_topright, (BOX_SIZE, BOX_SIZE))
+
+            # Pour la queue
+            tail_up = pygame.image.load("images/tail_up.png")
+            tail_up = pygame.transform.scale(tail_up, (BOX_SIZE, BOX_SIZE))
+
+            tail_down = pygame.image.load("images/tail_down.png")
+            tail_down = pygame.transform.scale(tail_down, (BOX_SIZE, BOX_SIZE))
+
+            tail_left = pygame.image.load("images/tail_left.png")
+            tail_left = pygame.transform.scale(tail_left, (BOX_SIZE, BOX_SIZE))
+
+            tail_right = pygame.image.load("images/tail_right.png")
+            tail_right = pygame.transform.scale(tail_right, (BOX_SIZE, BOX_SIZE))
+
+            
         except pygame.error as e:
             print(e)
             self.food_img = YELLOW
