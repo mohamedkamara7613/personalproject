@@ -204,10 +204,11 @@ class SnakeGame():
             self.score += 1
             self.generate_food()
             last_segment = self.snake[-1]
+            img = self.snake_imgs["tail_up"]
             new_segment = {
                 "x": last_segment["x"],
                 "y": last_segment["y"],
-                "img" : self.snake_head["img"] if len(self.snake) == 0 else self.snake_body_img,
+                "img" : img,
                 "direction": last_segment["direction"]
             }
             self.snake.append(new_segment)
@@ -230,7 +231,7 @@ class SnakeGame():
             self.snake[i]["x"] = self.snake[i - 1]["x"]
             self.snake[i]["y"] = self.snake[i - 1]["y"]
 
-        # Mise a jour de la position du serpent
+        # Mise a jour de la position et l'image de la tete du serpent
         if self.snake_head["direction"] == "up":
             self.snake_head["y"] = (self.snake_head["y"] - 1) % self.rows 
             self.snake_head["img"] = self.snake_imgs["head_up"]
@@ -285,6 +286,12 @@ class SnakeGame():
                         #pygame.draw.rect(self.screen, self.snake_body_img, (segment["x"]*BOX_SIZE, 
                         #                                                    segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
                         
+
+                # Dessiner la queue du serpent
+                if self.grid[i][j] == self.snake_imgs["tail_up"]:
+                    self.screen.blit(self.snake_imgs["tail_up"], (i*BOX_SIZE, j*BOX_SIZE + HEADING))
+                    #pygame.draw.rect(self.screen, self.snake_tail_img, (i*BOX_SIZE,
+                    #                                                    j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
                 # Dessiner le food (nourriture)
                 if self.grid[i][j] == self.food_img:
                     self.screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING))
