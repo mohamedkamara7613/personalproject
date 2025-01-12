@@ -1,6 +1,5 @@
 """ 
     A FAIRE:
-        - rajouter les sprites
         - Sauvegarder le high_score dans un fichier text ou crypter a la fin du jeu jeu et a chaque perte
           et recuper au demarrage du jeu
         - rajouter de la music, les effets
@@ -53,7 +52,10 @@ class SnakeGame():
     def load_assets(self):
         try:
             # Images de fond
-            self.background = pygame.image.load("images/textureStone.png")
+            #self.background = pygame.image.load("images/textureStone.png")
+            self.background = pygame.image.load("images/floor.png")
+            self.background = pygame.image.load("images/alienfloor1_specular.jpg")
+
             #self.background = pygame.transform.scale(self.background, (WIDTH, HEIGHT))
             self.background = pygame.transform.scale(self.background, (BOX_SIZE, BOX_SIZE))
 
@@ -235,6 +237,13 @@ class SnakeGame():
                 self.high_score = self.score
                 return True
             
+        # Si le serpent touche le bord
+        if (self.snake_head["x"] == 0) or (self.snake_head["x"] == self.columns):
+            self.high_score = self.score
+            return True
+        elif (self.snake_head["y"] == 0) or (self.snake_head["y"]) == self.rows:
+            self.high_score = self.score
+            return True
         
     def updateGame(self):
         # Réinitialiser la grille
@@ -327,10 +336,6 @@ class SnakeGame():
                 else:
                     current_segment["img"] = self.snake_imgs["body_topright"]  # Coin haut-droit
 
-
-
-
-
         # Mise à jour de l'image de la queue
         if len(self.snake) > 1:
             tail = self.snake[-1]
@@ -374,8 +379,9 @@ class SnakeGame():
         for j in range(self.rows+1):
             for i in range(self.columns):
                  # Faire apparaitre la grille
-                pygame.draw.rect(self.screen, WHITE, (0, HEADING, WIDTH, HEIGHT), 1)
                 self.screen.blit(self.background, (i*BOX_SIZE, j* BOX_SIZE + HEADING))
+                pygame.draw.rect(self.screen, WHITE, (0, HEADING, WIDTH, HEIGHT), 1)
+                
 
         # Dessiner le food (nourriture)
         self.screen.blit(self.food_img, (self.food["x"]*BOX_SIZE, self.food["y"]*BOX_SIZE + HEADING))
