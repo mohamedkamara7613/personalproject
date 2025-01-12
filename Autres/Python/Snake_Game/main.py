@@ -42,6 +42,7 @@ class SnakeGame():
         self.food = {}
         self.food_img = YELLOW
         self.score = 0
+        self.high_score = 0
         self.current_score = 0 # peut etre recuperer depuis un fichier
         
     def init(self):
@@ -157,9 +158,11 @@ class SnakeGame():
         # Effacer l'ecran
         self.screen.fill(BLACK)
 
-        # Difinition de la police et Affichage du score
+        # Difinition de la police et Affichage du score et du high_score
         font = pygame.font.SysFont("monospace", 40)  # Choisir une police et une taille
         score_text = font.render(f"Score : {self.score}", True, WHITE)
+        high_score_text = font.render(f"High Score : {self.high_score}", True, WHITE)
+        self.screen.blit(high_score_text, (WIDTH-(high_score_text.get_width() + 20), 20))
         self.screen.blit(score_text, (20,20))
         
         for j in range(self.rows):
