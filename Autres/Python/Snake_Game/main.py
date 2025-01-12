@@ -45,6 +45,12 @@ class SnakeGame():
         self.score = 0
         self.high_score = 0
         self.current_score = 0 # peut etre recuperer depuis un fichier
+
+        # Charger tous les images et la music
+        self.load_assets()
+
+    def load_assets(self):
+        pass
         
     def init(self):
         # Initialisation de la grille
