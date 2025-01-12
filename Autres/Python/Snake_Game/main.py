@@ -154,12 +154,20 @@ class SnakeGame():
 
 
     def drawGrid(self):
+        # Effacer l'ecran
         self.screen.fill(BLACK)
+
+        # Difinition de la police et Affichage du score
+        font = pygame.font.SysFont("monospace", 40)  # Choisir une police et une taille
+        score_text = font.render(f"Score : {self.score}", True, WHITE)
+        self.screen.blit(score_text, (20,20))
         
         for j in range(self.rows):
             for i in range(self.columns):
                 # Faire apparaitre la grille
                 pygame.draw.rect(self.screen, WHITE, (0, HEADING, WIDTH, HEIGHT), 1)
+
+               
 
                 # Dessiner les elements de la grille
                 if self.grid[i][j] == self.snake_head_img:
