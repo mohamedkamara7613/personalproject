@@ -52,6 +52,11 @@ class SnakeGame():
 
     def load_assets(self):
         try:
+            # Images de fond
+            self.background = pygame.image.load("images/textureStone.png")
+            #self.background = pygame.transform.scale(self.background, (WIDTH, HEIGHT))
+            self.background = pygame.transform.scale(self.background, (BOX_SIZE, BOX_SIZE))
+
             # Images pour la nourriture du serpent
             self.food_img = pygame.image.load("images/apple.png")
             self.food_img = pygame.transform.scale(self.food_img, (BOX_SIZE, BOX_SIZE))
@@ -357,6 +362,7 @@ class SnakeGame():
     def drawGrid(self):
         # Effacer l'ecran
         self.screen.fill(BLACK)
+        #self.screen.blit(self.background, (0,HEADING))
 
         # Difinition de la police et Affichage du score et du high_score
         font = pygame.font.SysFont("monospace", 40)  # Choisir une police et une taille
@@ -369,6 +375,7 @@ class SnakeGame():
             for i in range(self.columns):
                 # Faire apparaitre la grille
                 pygame.draw.rect(self.screen, WHITE, (0, HEADING, WIDTH, HEIGHT), 1)
+                self.screen.blit(self.background, (i*BOX_SIZE, j* BOX_SIZE + HEADING))
 
                 # Dessiner le serpent
                 for segment in self.snake:
