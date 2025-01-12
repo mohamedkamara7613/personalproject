@@ -372,20 +372,21 @@ class SnakeGame():
         self.screen.blit(score_text, (20,20))
         
         for j in range(self.rows):
-            for i in range(self.columns):
+            for i in range(self.columns+1):
                 # Faire apparaitre la grille
                 pygame.draw.rect(self.screen, WHITE, (0, HEADING, WIDTH, HEIGHT), 1)
                 self.screen.blit(self.background, (i*BOX_SIZE, j* BOX_SIZE + HEADING))
+
+                # Dessiner le food (nourriture)
+                self.screen.blit(self.food_img, (self.food["x"]*BOX_SIZE, self.food["y"]*BOX_SIZE + HEADING))
+                #pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
+
 
                 # Dessiner le serpent
                 for segment in self.snake:
                     self.screen.blit(segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
                
-                # Dessiner le food (nourriture)
-                if self.grid[i][j] == self.food_img:
-                    self.screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING))
-                    #pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
-
+                
                 
                    
 
