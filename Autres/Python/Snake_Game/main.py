@@ -285,7 +285,6 @@ class SnakeGame():
             
             # Coin bas-gauche : Le segment tourne vers le bas et vers la gauche
             elif (prev_dx == -1 and next_dy == 1) or (next_dx == -1 and prev_dy == 1):
-                print("ok")  # Débogage : vérifier si on entre dans cette condition
                 # Si le segment est en train de sortir par le bord gauche ou bas,
                 # on ajuste l'image pour montrer l'angle approprié
                 if current_segment["x"] == 0:  # Si le segment est à gauche de l'écran
@@ -371,25 +370,22 @@ class SnakeGame():
         self.screen.blit(high_score_text, (WIDTH-(high_score_text.get_width() + 20), 20))
         self.screen.blit(score_text, (20,20))
         
-        for j in range(self.rows):
-            for i in range(self.columns+1):
-                # Faire apparaitre la grille
+        
+        for j in range(self.rows+1):
+            for i in range(self.columns):
+                 # Faire apparaitre la grille
                 pygame.draw.rect(self.screen, WHITE, (0, HEADING, WIDTH, HEIGHT), 1)
                 self.screen.blit(self.background, (i*BOX_SIZE, j* BOX_SIZE + HEADING))
 
-                # Dessiner le food (nourriture)
-                self.screen.blit(self.food_img, (self.food["x"]*BOX_SIZE, self.food["y"]*BOX_SIZE + HEADING))
-                #pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
+        # Dessiner le food (nourriture)
+        self.screen.blit(self.food_img, (self.food["x"]*BOX_SIZE, self.food["y"]*BOX_SIZE + HEADING))
+        #pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
 
-
-                # Dessiner le serpent
-                for segment in self.snake:
-                    self.screen.blit(segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
-               
-                
-                
-                   
-
+        # Dessiner le serpent
+        for segment in self.snake:
+            self.screen.blit(segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
+        
+        
         pygame.display.update()
 
 
