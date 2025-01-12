@@ -1,7 +1,8 @@
 """ 
     A FAIRE:
         - rajouter les sprites
-        - Sauvegarder le high_score dans un fichier text ou crypter et recuper au demarrage du jeu
+        - Sauvegarder le high_score dans un fichier text ou crypter a la fin du jeu jeu et a chaque perte
+          et recuper au demarrage du jeu
         - rajouter de la music, les effets
 Optimisation de la grille :
 
@@ -20,6 +21,7 @@ BLACK = (0, 0, 0)
 GREEN = (0, 222, 0)
 YELLOW = (250, 250, 5)
 RED = (255, 0, 0)
+BLUE = (0, 0, 222)
 
 
 HEADING = 100
@@ -33,21 +35,20 @@ class SnakeGame():
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT+HEADING))
         pygame.display.set_caption("Snake Game")
 
+        # Charger tous les images et la music
+        self.load_assets()
+
         self.columns, self.rows = WIDTH // BOX_SIZE, HEIGHT // BOX_SIZE
         self.grid = []
         self.snake = []
         self.snake_head = {}
-        self.snake_head_img = RED
-        self.snake_body_img = GREEN
+        self.snake_body_img = self.snake_imgs["body_vertical"]
 
         self.food = {}
-        self.food_img = YELLOW
         self.score = 0
         self.high_score = 0
         self.current_score = 0 # peut etre recuperer depuis un fichier
 
-        # Charger tous les images et la music
-        self.load_assets()
 
     def load_assets(self):
         try:
@@ -101,10 +102,42 @@ class SnakeGame():
             tail_right = pygame.image.load("images/tail_right.png")
             tail_right = pygame.transform.scale(tail_right, (BOX_SIZE, BOX_SIZE))
 
+            self.snake_imgs = {
+                "head_up": head_up,
+                "head_down": head_down,
+                "head_left": head_left,
+                "head_right": head_right,
+                "body_bottomleft": body_bottomleft,
+                "body_bottomright": body_bottomright,
+                "body_horizontal": body_horizontal,
+                "body_vertical": body_vertical,
+                "body_topleft": body_topleft,
+                "body_topright": body_topright,
+                "tail_up": tail_up,
+                "tail_down": tail_down,
+                "tail_left": tail_left,
+                "tail_right": tail_right    
+            }
+
             
         except pygame.error as e:
             print(e)
-            self.food_img = YELLOW
+            self.snake_imgs = {
+                "head_up": RED,
+                "head_down": RED,
+                "head_left": RED,
+                "head_right": RED,
+                "body_bottomleft": GREEN,
+                "body_bottomright": GREEN,
+                "body_horizontal": GREEN,
+                "body_vertical": GREEN,
+                "body_topleft": GREEN,
+                "body_topright": GREEN,
+                "tail_up": BLUE,
+                "tail_down": BLUE,
+                "tail_left": BLUE,
+                "tail_right": BLUE    
+            }
         
     def init(self):
         # Initialisation de la grille
@@ -115,7 +148,7 @@ class SnakeGame():
         self.snake_head = {
             "x": self.columns // 2,
             "y": self.rows // 2,
-            "img": self.snake_head_img, # Par la suite img sera un sprite
+            "img": self.snake_imgs["head_up"],
             "direction": "none"
         }
         # L'ajouter au snake
@@ -200,12 +233,16 @@ class SnakeGame():
         # Mise a jour de la position du serpent
         if self.snake_head["direction"] == "up":
             self.snake_head["y"] = (self.snake_head["y"] - 1) % self.rows 
+            self.snake_head["img"] = self.snake_imgs["head_up"]
         elif self.snake_head["direction"] == "down":
             self.snake_head["y"] = (self.snake_head["y"] + 1) % self.rows
+            self.snake_head["img"] = self.snake_imgs["head_down"]
         elif self.snake_head["direction"] == "left":
             self.snake_head["x"] = (self.snake_head["x"] - 1) % self.columns
+            self.snake_head["img"] = self.snake_imgs["head_left"]
         elif self.snake_head["direction"] == "right":
             self.snake_head["x"] = (self.snake_head["x"] + 1) % self.columns
+            self.snake_head["img"] = self.snake_imgs["head_right"]
 
 
         # Placer le serpent dans la grille
@@ -237,15 +274,16 @@ class SnakeGame():
 
                 # Dessiner les elements de la grille
                 # Dessiner la tete du serpent
-                if self.grid[i][j] == self.snake_head_img:
-                    #self.screen.blit(self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE))
-                    pygame.draw.rect(self.screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
+                if self.grid[i][j] == self.snake_head["img"]:
+                    self.screen.blit(self.snake_head["img"], (i*BOX_SIZE, j*BOX_SIZE + HEADING))
+                    #pygame.draw.rect(self.screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
+                
                 # Dessiner le corps du serpent
                 for segment in self.snake[1:]:
                     if segment["img"] == self.snake_body_img:
-                        #self.screen.blit(self.snake_body_img, (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE))
-                        pygame.draw.rect(self.screen, self.snake_body_img, (segment["x"]*BOX_SIZE, 
-                                                                            segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
+                        self.screen.blit(self.snake_body_img, (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
+                        #pygame.draw.rect(self.screen, self.snake_body_img, (segment["x"]*BOX_SIZE, 
+                        #                                                    segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
                         
                 # Dessiner le food (nourriture)
                 if self.grid[i][j] == self.food_img:
