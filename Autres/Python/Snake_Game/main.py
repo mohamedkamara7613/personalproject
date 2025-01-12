@@ -1,6 +1,8 @@
 """ 
     A FAIRE:
         - rajouter les sprites
+        - Sauvegarder le high_score dans un fichier text ou crypter et recuper au demarrage du jeu
+        - rajouter de la music, les effets
 Optimisation de la grille :
 
 Tu utilises une grille 2D (self.grid) pour stocker les états des cases. 
