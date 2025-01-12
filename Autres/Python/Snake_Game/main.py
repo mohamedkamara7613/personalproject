@@ -205,7 +205,6 @@ class SnakeGame():
             self.generate_food()
             last_segment = self.snake[len(self.snake)-1]
 
-            print(self.snake)
             if last_segment["direction"] == "up":
                 img = self.snake_imgs["tail_up"]
             elif last_segment["direction"] == "down":
@@ -245,43 +244,88 @@ class SnakeGame():
         if self.snake_head["direction"] == "up":
             self.snake_head["y"] = (self.snake_head["y"] - 1) % self.rows 
             self.snake_head["img"] = self.snake_imgs["head_up"]
+        
         elif self.snake_head["direction"] == "down":
             self.snake_head["y"] = (self.snake_head["y"] + 1) % self.rows
             self.snake_head["img"] = self.snake_imgs["head_down"]
+       
         elif self.snake_head["direction"] == "left":
             self.snake_head["x"] = (self.snake_head["x"] - 1) % self.columns
             self.snake_head["img"] = self.snake_imgs["head_left"]
+       
         elif self.snake_head["direction"] == "right":
             self.snake_head["x"] = (self.snake_head["x"] + 1) % self.columns
             self.snake_head["img"] = self.snake_imgs["head_right"]
         
         # Mise à jour des images du corps
+        # Parcours de tous les segments du serpent, excepté la tête et la queue
         for i in range(1, len(self.snake) - 1):
-            prev_segment = self.snake[i - 1]
-            current_segment = self.snake[i]
-            next_segment = self.snake[i + 1]
+            prev_segment = self.snake[i - 1]  # Segment précédent
+            current_segment = self.snake[i]  # Segment actuel
+            next_segment = self.snake[i + 1]  # Segment suivant
 
-            # Déterminer la direction entre les segments précédents et suivants
-            prev_dx = prev_segment["x"] - current_segment["x"]
-            prev_dy = prev_segment["y"] - current_segment["y"]
-            next_dx = next_segment["x"] - current_segment["x"]
-            next_dy = next_segment["y"] - current_segment["y"]
+            # Calcul des différences de position entre les segments voisins pour déterminer leur orientation
+            prev_dx = prev_segment["x"] - current_segment["x"]  # Différence en X entre le segment précédent et actuel
+            prev_dy = prev_segment["y"] - current_segment["y"]  # Différence en Y entre le segment précédent et actuel
+            next_dx = next_segment["x"] - current_segment["x"]  # Différence en X entre le segment suivant et actuel
+            next_dy = next_segment["y"] - current_segment["y"]  # Différence en Y entre le segment suivant et actuel
 
-            # Cas des segments droits
-            if prev_dx == next_dx == 0:
-                current_segment["img"] = self.snake_imgs["body_vertical"]
-            elif prev_dy == next_dy == 0:
-                current_segment["img"] = self.snake_imgs["body_horizontal"]
+            # Cas des segments droits : la direction est purement verticale ou horizontale
+            if prev_dx == next_dx == 0:  # Si la direction est verticale
+                current_segment["img"] = self.snake_imgs["body_vertical"]  # Image du segment vertical
+            elif prev_dy == next_dy == 0:  # Si la direction est horizontale
+                current_segment["img"] = self.snake_imgs["body_horizontal"]  # Image du segment horizontal
 
-            # Cas des coins
+            # Cas des coins en prenant en compte les bords (transition du serpent quand il traverse les bords de l'écran)
+            
+            # Coin bas-gauche : Le segment tourne vers le bas et vers la gauche
             elif (prev_dx == -1 and next_dy == 1) or (next_dx == -1 and prev_dy == 1):
-                current_segment["img"] = self.snake_imgs["body_bottomleft"]
+                print("ok")  # Débogage : vérifier si on entre dans cette condition
+                # Si le segment est en train de sortir par le bord gauche ou bas,
+                # on ajuste l'image pour montrer l'angle approprié
+                if current_segment["x"] == 0:  # Si le segment est à gauche de l'écran
+                    current_segment["img"] = self.snake_imgs["body_bottomleft"]  # Coin bas-gauche
+                elif current_segment["y"] == HEIGHT - 1:  # Si le segment est en bas de l'écran
+                    current_segment["img"] = self.snake_imgs["body_bottomleft"]  # Coin bas-gauche
+                else:
+                    current_segment["img"] = self.snake_imgs["body_bottomleft"] 
+
+            # Coin bas-droit : Le segment tourne vers le bas et vers la droite
             elif (prev_dx == 1 and next_dy == 1) or (next_dx == 1 and prev_dy == 1):
-                current_segment["img"] = self.snake_imgs["body_bottomright"]
+                # Si le segment est en train de sortir par le bord droit ou bas,
+                # on ajuste l'image pour montrer l'angle approprié
+                if current_segment["x"] == WIDTH - 1:  # Si le segment est à droite de l'écran
+                    current_segment["img"] = self.snake_imgs["body_bottomright"]  # Coin bas-droit
+                elif current_segment["y"] == HEIGHT - 1:  # Si le segment est en bas de l'écran
+                    current_segment["img"] = self.snake_imgs["body_bottomright"]  # Coin bas-droit
+                else:
+                    current_segment["img"] = self.snake_imgs["body_bottomright"]
+
+            # Coin haut-gauche : Le segment tourne vers le haut et vers la gauche
             elif (prev_dx == -1 and next_dy == -1) or (next_dx == -1 and prev_dy == -1):
-                current_segment["img"] = self.snake_imgs["body_topleft"]
+                # Si le segment est en train de sortir par le bord gauche ou haut,
+                # on ajuste l'image pour montrer l'angle approprié
+                if current_segment["x"] == 0:  # Si le segment est à gauche de l'écran
+                    current_segment["img"] = self.snake_imgs["body_topleft"]  # Coin haut-gauche
+                elif current_segment["y"] == 0:  # Si le segment est en haut de l'écran
+                    current_segment["img"] = self.snake_imgs["body_topleft"]  # Coin haut-gauche
+                else:
+                    current_segment["img"] = self.snake_imgs["body_topleft"]
+
+            # Coin haut-droit : Le segment tourne vers le haut et vers la droite
             elif (prev_dx == 1 and next_dy == -1) or (next_dx == 1 and prev_dy == -1):
-                current_segment["img"] = self.snake_imgs["body_topright"]
+                # Si le segment est en train de sortir par le bord droit ou haut,
+                # on ajuste l'image pour montrer l'angle approprié
+                if current_segment["x"] == WIDTH - 1:  # Si le segment est à droite de l'écran
+                    current_segment["img"] = self.snake_imgs["body_topright"]  # Coin haut-droit
+                elif current_segment["y"] == 0:  # Si le segment est en haut de l'écran
+                    current_segment["img"] = self.snake_imgs["body_topright"]  # Coin haut-droit
+                else:
+                    current_segment["img"] = self.snake_imgs["body_topright"]  # Coin haut-droit
+
+
+
+
 
         # Mise à jour de l'image de la queue
         if len(self.snake) > 1:
