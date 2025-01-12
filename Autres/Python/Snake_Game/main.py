@@ -21,7 +21,7 @@ YELLOW = (250, 250, 5)
 RED = (255, 0, 0)
 
 
-
+HEADING = 100
 WIDTH = 900
 HEIGHT = 800
 BOX_SIZE = 30
@@ -29,7 +29,7 @@ BOX_SIZE = 30
 class SnakeGame():
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT+HEADING))
         pygame.display.set_caption("Snake Game")
 
         self.columns, self.rows = WIDTH // BOX_SIZE, HEIGHT // BOX_SIZE
@@ -158,21 +158,24 @@ class SnakeGame():
         
         for j in range(self.rows):
             for i in range(self.columns):
+                # Faire apparaitre la grille
+                pygame.draw.rect(self.screen, WHITE, (0, HEADING, WIDTH, HEIGHT), 1)
+
                 # Dessiner les elements de la grille
                 if self.grid[i][j] == self.snake_head_img:
                     #self.screen.blit(self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE))
-                    pygame.draw.rect(self.screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
+                    pygame.draw.rect(self.screen, self.snake_head_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
 
                 for segment in self.snake[1:]:
                     if segment["img"] == self.snake_body_img:
                         #self.screen.blit(self.snake_body_img, (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE))
                         pygame.draw.rect(self.screen, self.snake_body_img, (segment["x"]*BOX_SIZE, 
-                                                                            segment["y"]*BOX_SIZE, BOX_SIZE, BOX_SIZE))
+                                                                            segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
                         
 
                 if self.grid[i][j] == self.food_img:
                     #self.screen.blit(self.food_img, (i*BOX_SIZE, j*BOX_SIZE))
-                    pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE, BOX_SIZE, BOX_SIZE))
+                    pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
 
         pygame.display.update()
 
