@@ -1,6 +1,5 @@
 """ 
     A FAIRE:
-        -rajouter la gestion du score et du max score
         - rajouter les sprites
 Optimisation de la grille :
 
@@ -119,9 +118,11 @@ class SnakeGame():
             self.snake.append(new_segment)
             return False
 
-        # Si le serpent se touche lui meme
+        # FIN DU JEU
+        # Si le serpent se touche lui meme 
         for i in range(1,len(self.snake)):
             if self.snake_head["x"] == self.snake[i]["x"] and self.snake_head["y"] == self.snake[i]["y"]:
+                self.high_score = self.score
                 return True
             
         
