@@ -391,7 +391,22 @@ class SnakeGame():
         for segment in self.snake:
             self.screen.blit(segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
         
+        pygame.display.update()
+
+    def display_game_over(self):
         
+        # Afficher un rectangle rouge avec "GAME OVER" en rouge
+        font = pygame.font.SysFont("Arial", 60)
+        game_over_text = font.render("GAME OVER", True, RED)
+        rect = game_over_text.get_rect(center=(WIDTH // 2, (HEIGHT + HEADING) // 2))
+        
+        # Dessiner le fond rouge
+        pygame.draw.rect(self.screen, BLUE, rect.inflate(50, 50))
+        
+        # Afficher le texte en rouge
+        self.screen.blit(game_over_text, rect)
+        #self.screen.blit(game_over_text, (WIDTH//2, (HEIGHT+HEADING)//2))
+
         pygame.display.update()
 
 
@@ -406,11 +421,13 @@ def main():
 
     run = True
     while run:
+        
         run = game.handleEvenement()
         if game.handleCollisions():
-            print("Perdu")
+            game.display_game_over()
             pygame.time.wait(2000)
             game.init()
+            continue
 
         game.updateGame()
         game.drawGrid()
