@@ -1,0 +1,226 @@
+
+
+VARIABLES:
+    - int : colonnes
+    - int : lignes
+    -  list * list of 'a (matrix de donnée) : grille : represente la carte du jeu où placer les objets
+    - list of dict : serpent : corps du serpent
+    - dict : tete_serpent : un dictionnaire contenant la position du serpent et sa direction
+    - dict : food : nouriture du serpent, contient sa position 
+    - int : score : nombre de fois que le serpent ait mangé "la pomme"
+    - int : high_score : peut etre sauvegarder dans un fichier
+
+
+
+
+function init():
+    - initialiser la grille avec la valeur '0'
+    - placer la tete du serpent dans le corps : definir une postion et une direction defaut
+    - score = 0
+    - placer la nouriture -> generate_food()
+
+function generate_food():
+    - bool : ok = FALSE : indique si le food a été placé
+    TANT QUE NOT ok FAIRE:
+        x = CHOIX_RANDOM_ENTRE(0,colonnes)
+        y = CHOIX_RANDOM_ENTRE(0,lignes)
+        ok = TRUE
+
+        # Eviter que le food soir sur le serpent
+        POUR CHAQUE segment DANS serpent FAIRE:
+            SI segment["x"] == x ET segment["y"] == y FAIRE:
+                ok = FALSE # COLLISIONS DETECTÉS
+                ARRETER LA BOUCLE
+    
+    food = {
+        "x" : x,
+        "y" : y
+    }
+    RETOURNER food
+
+function handle_event():
+    POUR CHAQUE event DANS list_event:
+        SI event.type == "QUIT" FAIRE:
+            RETOURNER FALSE
+        
+        # update la direction de la tete du serpent
+        SI event.type == "KEYDOWN_UP" ET serpent[0]["direction"] != "DOWN" :
+            serpent[0]["direction"] != "UP"
+        SI event.type == "KEYDOWN_DOWN" ET serpent[0]["direction"] != "UP" :
+            serpent[0]["direction"] != "DOWN"
+        SI event.type == "KEYDOWN_RIGHT" ET serpent[0]["direction"] != "LEFT" :
+            serpent[0]["direction"] != "RIGHT"
+        SI event.type == "KEYDOWN_LEFT" ET serpent[0]["direction"] != "RIGHT" :
+            serpent[0]["direction"] != "LEFT"
+
+    RETOURNER TRUE
+
+function handle_collision():
+    # si le serpent mange la video
+    SI tete_serpent["x"] == food["x"] ET tete_serpent["y"] == food["y"]:
+        score = score + 1
+        APPELER LA FONCTION : generate_food()
+        recuperer la queue du serpent en last_segment
+        new_segment = {
+            "x": last_segment["x"],
+            "y": last_segment["y"],
+            "direction": last_segment["direction"]
+        }
+        AJOUTER new_segment A LA FIN DE serpent
+        RETOURNER FALSE
+    # TEST DE LA FIN DU JEUX
+    # SI LE SERPENT SE TOUCHE LUI MEME
+    POUR i ENTRE 0 et taille_serpent FAIRE:
+        SI tete_serpent["x"] == serpent[i]["x"] ET  tete_serpent["y"] == serpent[i]["y"] FAIRE:
+            high_score = score
+            RETOURNER TRUE
+
+    # SI LE SERPENT TOUCHE LE BORD DE LA MAP
+    SI (tete_serpent["x"] == 0) OU (tete_serpent["x"] ==  colonnes) OU (tete_serpent["y"] == 0) OU (tete_serpent["y"] ==  colonnes) FAIRE:
+        high_score = score
+        RETOURNER TRUE
+
+
+
+function updateGame():
+    # Réinitialiser la grille (toutes les cases à 0)
+    POUR i DE 0 À colonnes-1 FAIRE:
+        POUR j DE 0 À lignes-1 FAIRE:
+            grille[i][j] = 0
+
+    # Mettre à jour les segments du corps du serpent (de la queue vers la tête)
+    POUR i DE longueur(serpent)-1 JUSQU'À 1 PAR PAS DE -1 FAIRE:
+        serpent[i]["x"] = serpent[i-1]["x"]
+        serpent[i]["y"] = serpent[i-1]["y"]
+
+    # Mettre à jour la position de la tête selon la direction
+    SI tete_serpent["direction"] == "UP" :
+        tete_serpent["y"] = (tete_serpent["y"] - 1) modulo lignes
+
+    SINON SI tete_serpent["direction"] == "DOWN" :
+        tete_serpent["y"] = (tete_serpent["y"] + 1) modulo lignes
+
+    SINON SI tete_serpent["direction"] == "LEFT" :
+        tete_serpent["x"] = (tete_serpent["x"] - 1) modulo colonnes
+
+    SINON SI tete_serpent["direction"] == "RIGHT" :
+        tete_serpent["x"] = (tete_serpent["x"] + 1) modulo colonnes
+
+    # Mise à jour des segments du corps (optionnel sans images, donc ignoré ici)
+
+    # Placer le serpent dans la grille
+    POUR CHAQUE segment DANS serpent FAIRE:
+        grille[segment["x"]][segment["y"]] = SERPENT
+
+    # Placer la nourriture dans la grille
+    grille[food["x"]][food["y"]] = FOOD
+
+function drawGrid():
+    # Effacer la grille d'affichage (visuel)
+    # Afficher le score et le high_score (facultatif si on veut afficher du texte)
+
+    POUR j DE 0 À lignes FAIRE:
+        POUR i DE 0 À colonnes FAIRE:
+            # Dessiner chaque case de la grille (optionnel sans affichage graphique)
+
+    # Dessiner la nourriture à sa position (optionnel sans affichage graphique)
+    # Dessiner le serpent à partir de ses segments (optionnel sans affichage graphique)
+
+    # Mettre à jour l'écran (optionnel sans affichage graphique)
+
+
+function display_game_over():
+    # Afficher un message "GAME OVER" centré (visuel uniquement)
+    # Mettre à jour l'affichage pour montrer ce message
+
+
+function main():
+    initialiser une instance du jeu
+    appeler init()
+
+    fps = 6.5
+    créer un chronomètre (horloge)
+
+    run = TRUE
+    TANT QUE run == TRUE FAIRE:
+        run = handle_event()   # Gérer les touches
+
+        SI handle_collision() == TRUE FAIRE:
+            afficher "GAME OVER"
+            attendre 2 secondes
+            réinitialiser le jeu via init()
+            CONTINUER la boucle
+
+        updateGame()
+        drawGrid()
+        attendre 1/fps secondes
+
+    quitter le jeu
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    # action est un entier représentant la direction
+    # 0 = haut, 1 = bas, 2 = gauche, 3 = droite
+    directions = ["UP", "DOWN", "LEFT", "RIGHT"]
+    
+    # Mettre à jour la direction de la tête du serpent
+    tete_serpent["direction"] = directions[action]
+
+    # Appeler updateGame pour mettre à jour la position du serpent
+    updateGame()
+
+    # Vérifier les collisions et retourner le score
+    if handle_collision():
+        return True  # Fin du jeu
+
+    return False  # Le jeu continue
+    

@@ -1,0 +1,26 @@
+@startuml
+!theme bluegray
+
+package "Jeu Snake" {
+    [Game] --> [Agent] : Fournit l'état
+    [Game] <-- [Agent] : Envoie l'action
+    [Game] --> [Display] : Affiche le jeu
+}
+
+package "Agent IA" {
+    [Agent] --> [Linear_QNet] : Appelle predict()
+    [Agent] --> [QTrainer] : Appelle train_step()
+    [Agent] --> [Mémoire] : Sauvegarde expérience
+    [QTrainer] --> [Linear_QNet] : Met à jour le modèle
+}
+
+note right of [Linear_QNet]
+Réseau de neurones linéaire :
+- input : état (11)
+- hidden : 256
+- output : action (3)
+end note
+@enduml
+
+-----------------------------------------------------------------------------------------------------------------------
+
