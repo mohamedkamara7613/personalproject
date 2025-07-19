@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+    Model definition for the DQN agent in Snake Game.
+
+    This module defines the neural network architecture used by the DQN agent.
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

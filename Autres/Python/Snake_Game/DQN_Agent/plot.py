@@ -1,4 +1,9 @@
 # plot.py
+"""
+Plotting utility for training progress in Snake Game DQN Agent.
+
+This module provides a function to plot the scores and mean scores during the training of the DQN agent."""
+
 import matplotlib.pyplot as plt
 from IPython import display
 

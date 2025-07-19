@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+"""dqn_agent.py
+DQN Agent for Snake Game.
+This module defines the DQN agent, its memory, and the trainer for training the agent.
+"""
+
 import random
 import numpy as np
 from collections import deque

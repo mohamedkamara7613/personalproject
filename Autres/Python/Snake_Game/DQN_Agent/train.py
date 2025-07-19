@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from dqn_agent import Agent
-from DQN import SnakeGame
+from DQN_game_logic import SnakeGame
 from dqn_agent import QTrainer
 from plot import plot
 import pygame
@@ -27,8 +27,9 @@ def train(debug=False):
     game = SnakeGame()
     game.init()
 
-    fps = 6.5
-    clock = pygame.time.Clock()
+    if debug:
+        fps = 6.5
+        clock = pygame.time.Clock()
 
     trainer = QTrainer(agent.model, lr=0.001, gamma=0.9)
 
@@ -88,5 +89,5 @@ def train(debug=False):
 
     print("✅ Fin du programme.")
 
-
-train(debug=False)
+if __name__ == "__main__":
+    train(debug=False)

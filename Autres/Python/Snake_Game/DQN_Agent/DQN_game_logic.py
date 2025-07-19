@@ -1,9 +1,9 @@
-""" 
-  Version de Snake Game en Python avec un agent IA avec le DEep Q Learning
-  Auteur: Mohamed Kamara
-  Date: 2023-10-20
-  Description: Un jeu de serpent simple où le serpent grandit en mangeant de la nourriture
-  et le jeu se termine si le serpent se mord la queue ou touche les bords de l'écran.
+""" Snake Game Logic Module
+    Version: 1.0
+    Auteur: Mohamed Kamara
+    Date: 2023-10-20
+    Description: Un jeu de serpent simple où le serpent grandit en mangeant de la nourriture
+    et le jeu se termine si le serpent se mord la queue ou touche les bords de l'écran.
   Le jeu utilise Pygame pour l'affichage et la gestion des événements.
   Les images du serpent et de la nourriture sont chargées depuis des fichiers.
  """
