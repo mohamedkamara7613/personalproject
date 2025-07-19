@@ -3,6 +3,7 @@ from dqn_agent import Agent
 from DQN import SnakeGame
 from dqn_agent import QTrainer
 from plot import plot
+import pygame
 
 MAX_GAMES = 1000
 
@@ -21,10 +22,13 @@ def relative_to_absolute_direction(current_direction, action):
     return mapping[new_direction]
 
 
-def train():
+def train(debug=False):
     agent = Agent()
     game = SnakeGame()
     game.init()
+
+    fps = 6.5
+    clock = pygame.time.Clock()
 
     trainer = QTrainer(agent.model, lr=0.001, gamma=0.9)
 
@@ -60,6 +64,16 @@ def train():
                     high_score = score
                     agent.model.save()
 
+            if debug:
+                if game.handleDeath() or game.handleFood():
+                    game.display_game_over()
+                    pygame.time.wait(2000)
+                    game.init()
+                    continue
+                game.updateGame()
+                game.drawGrid()
+                clock.tick(fps)
+
             print(f"Jeu {agent.nb_games}  Score: {score}  Record: {high_score}")
 
     except KeyboardInterrupt:
@@ -70,8 +84,9 @@ def train():
 
         agent.model.save()
         plot(scores, mean_scores)
+        pygame.quit()
 
     print("✅ Fin du programme.")
 
 
-train()
+train(debug=False)
