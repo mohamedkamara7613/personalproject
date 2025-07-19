@@ -455,7 +455,7 @@ class SnakeGame():
     def step(self, action):
         reward = 0
         #pos_actuel = (self.snake_head["x"], self.snake_head["y"])
-        done = None
+        done = False
 
        # === Convertir l'action en direction ===   
         if action == 0 and self.snake[0]["direction"] != "down": # 0 = up
@@ -470,8 +470,6 @@ class SnakeGame():
         # === Mettre à jour la position du serpent ===
         self.updateGame()
 
-        # === Détection collision ===
-        done = self.handleCollisions()
 
         # === Récompense ===
         if self.handleDeath():
