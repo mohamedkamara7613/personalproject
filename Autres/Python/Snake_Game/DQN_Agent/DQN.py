@@ -154,7 +154,7 @@ class SnakeGame():
             "x": self.columns // 2,
             "y": self.rows // 2,
             "img": self.snake_imgs["head_up"],
-            "direction": "none"
+            "direction": "up"
         }
         # L'ajouter au snake
         self.snake.append(self.snake_head)
@@ -454,7 +454,7 @@ class SnakeGame():
 #--------------------------------------------------------------------------------------------------------------------------
     def step(self, action):
         reward = 0
-        pos_actuel = (self.snake_head["x"], self.snake_head["y"])
+        #pos_actuel = (self.snake_head["x"], self.snake_head["y"])
         done = None
 
        # === Convertir l'action en direction ===   
@@ -483,9 +483,9 @@ class SnakeGame():
         else:
             reward = 0 # rien de special
 
-        pos_suivant = (self.snake_head["x"], self.snake_head["y"]) # celle obtenue en faisant l'action
+        #pos_suivant = (self.snake_head["x"], self.snake_head["y"]) # celle obtenue en faisant l'action
 
-        return (pos_actuel, reward, done, pos_suivant)
+        return (reward, done, self.score)
     #--------------------------------------------------------------------------------------------------------------------------
     def is_collision_at(self, x, y):
         # mur

@@ -6,6 +6,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
+from model import Linear_QNet
+
 MAX_LEN = 100_000
 
 # ------------------------------------------------------------------------------------------------------------------------------
@@ -25,8 +27,8 @@ class Agent:
         self.memory = deque(maxlen=MAX_LEN)
         self.batch_size = 1000
 
-        #self.model = Linear_QNet(11, 256, 3)    # input=11, hidden=256, output=3 (left, straight, right)
-        #self.trainer = QTrainer(self.model, lr=0.001 , self.gamma)
+        self.model = Linear_QNet(11, 256, 3)    # input=11, hidden=256, output=3 (left, straight, right)
+        #self.trainer = QTrainer(self.model, lr=0.001 , self.gamma=0.9)
 
 # ------------------------------------------------------------------------------------------------------------------------------
     def get_action(self, state):
