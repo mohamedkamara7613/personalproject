@@ -33,7 +33,7 @@ def train():
     high_score = 0
     mean_scores = []
 
-
+    i = 0
     while True:
         current_state = game.get_state()
 
@@ -42,7 +42,6 @@ def train():
         absolute_action = relative_to_absolute_direction(game.snake_head["direction"], relative_action)
        
         reward, done, score = game.step(absolute_action)
-        print(done)
 
         next_state = game.get_state()
 
