@@ -577,6 +577,23 @@ class SnakeGame():
         ]
 
         return np.array(state, dtype=int)  # Convertir en tableau numpy pour l'agent IA
+    
+#--------------------------------------------------------------------------------------------------------------------------
+    
+    def relative_to_absolute_direction(self, current_direction, action):
+        directions = ['up', 'right', 'down', 'left']
+        idx = directions.index(current_direction)
+
+        if action[1]:  # tout droit
+            new_direction = directions[idx]
+        elif action[0]:  # à gauche
+            new_direction = directions[(idx - 1) % 4]
+        elif action[2]:  # à droite
+            new_direction = directions[(idx + 1) % 4]
+
+        mapping = {'up': 0, 'down': 1, 'left': 2, 'right': 3}
+        return mapping[new_direction]
+
 #--------------------------------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------------------------
 

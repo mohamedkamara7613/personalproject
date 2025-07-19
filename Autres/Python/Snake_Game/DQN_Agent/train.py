@@ -7,19 +7,6 @@ import pygame
 
 MAX_GAMES = 1000
 
-def relative_to_absolute_direction(current_direction, action):
-    directions = ['up', 'right', 'down', 'left']
-    idx = directions.index(current_direction)
-
-    if action[1]:  # tout droit
-        new_direction = directions[idx]
-    elif action[0]:  # à gauche
-        new_direction = directions[(idx - 1) % 4]
-    elif action[2]:  # à droite
-        new_direction = directions[(idx + 1) % 4]
-
-    mapping = {'up': 0, 'down': 1, 'left': 2, 'right': 3}
-    return mapping[new_direction]
 
 
 def train(debug=False):
@@ -43,7 +30,7 @@ def train(debug=False):
             current_state = game.get_state()
 
             relative_action = agent.get_action(current_state)
-            absolute_action = relative_to_absolute_direction(game.snake_head["direction"], relative_action)
+            absolute_action = game.relative_to_absolute_direction(game.snake_head["direction"], relative_action)
 
             reward, done, score = game.step(absolute_action)
             next_state = game.get_state()
