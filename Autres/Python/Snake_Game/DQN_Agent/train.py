@@ -2,20 +2,22 @@
 from dqn_agent import Agent
 from DQN import SnakeGame
 from dqn_agent import QTrainer
-
+from plot import plot
 
 def relative_to_absolute_direction(current_direction, action):
-    new_action = None
+    directions = ['up', 'right', 'down', 'left']
+    idx = directions.index(current_direction)
 
-    # go straight -> garder la meme direction
-    if action[1]:
-            new_action = current_direction
-    elif action[0]:
-            new_action = 3 # left
-    elif action[2]:
-            new_action = 2 # right
-            
-    return new_action
+    if action[1]:  # tout droit
+        new_direction = directions[idx]
+    elif action[0]:  # à gauche
+        new_direction = directions[(idx - 1) % 4]
+    elif action[2]:  # à droite
+        new_direction = directions[(idx + 1) % 4]
+
+    mapping = {'up': 0, 'down': 1, 'left': 2, 'right': 3}
+    return mapping[new_direction]
+
          
 
 
@@ -41,23 +43,36 @@ def train():
        
         reward, done, score = game.step(absolute_action)
 
-        dfghgfdf
+        # Ce bloque n'est il pas une repetition ....
+        scores.append(score)
+        total_score += score
+        mean_score = total_score / agent.nb_games
+        mean_scores.append(mean_score)
+
+        plot(scores, mean_scores)
+
 
         next_state = game.get_state()
 
         trainer.train_step(current_state, relative_action, reward, next_state, done)
 
         if done:
-              game.init()
-              agent.nb_games += 1
-              scores.append(score)
-              total_score += score 
+            game.init()
+            agent.nb_games += 1
 
-              if score > high_score:
-                    high_score = score
-                    agent.model.save()
+            # par rapport a ce bloc
+            scores.append(score)
+            total_score += score
+            mean_score = total_score / agent.nb_games
+            mean_scores.append(mean_score)
 
-        print(f"Jeu {agent.n_games}  Score: {score}  Record: {high_score}")
+            plot(scores, mean_scores) 
+
+            if score > high_score:
+                high_score = score
+                agent.model.save()
+
+        print(f"Jeu {agent.nb_games}  Score: {score}  Record: {high_score}")
 
 
 train()
