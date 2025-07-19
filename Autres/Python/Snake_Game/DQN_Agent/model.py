@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class Linear_QNet(torch.nn.Module):
+class Linear_QNet(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(Linear_QNet, self).__init__()
         self.linear1 = nn.Linear(input_size, hidden_size)
