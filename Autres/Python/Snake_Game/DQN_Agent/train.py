@@ -4,6 +4,8 @@ from DQN import SnakeGame
 from dqn_agent import QTrainer
 from plot import plot
 
+MAX_GAMES = 1000
+
 def relative_to_absolute_direction(current_direction, action):
     directions = ['up', 'right', 'down', 'left']
     idx = directions.index(current_direction)
@@ -33,8 +35,8 @@ def train():
     high_score = 0
     mean_scores = []
 
-    i = 0
-    while True:
+  
+    while agent.nb_games < MAX_GAMES:
         current_state = game.get_state()
 
         relative_action = agent.get_action(current_state)
