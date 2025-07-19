@@ -20,8 +20,6 @@ def relative_to_absolute_direction(current_direction, action):
     mapping = {'up': 0, 'down': 1, 'left': 2, 'right': 3}
     return mapping[new_direction]
 
-         
-
 
 def train():
     agent = Agent()
@@ -35,37 +33,45 @@ def train():
     high_score = 0
     mean_scores = []
 
-  
-    while agent.nb_games < MAX_GAMES:
-        current_state = game.get_state()
+    try:
+        while agent.nb_games < MAX_GAMES:
+            current_state = game.get_state()
 
-        relative_action = agent.get_action(current_state)
+            relative_action = agent.get_action(current_state)
+            absolute_action = relative_to_absolute_direction(game.snake_head["direction"], relative_action)
 
-        absolute_action = relative_to_absolute_direction(game.snake_head["direction"], relative_action)
-       
-        reward, done, score = game.step(absolute_action)
+            reward, done, score = game.step(absolute_action)
+            next_state = game.get_state()
 
-        next_state = game.get_state()
+            trainer.train_step(current_state, relative_action, reward, next_state, done)
 
-        trainer.train_step(current_state, relative_action, reward, next_state, done)
+            if done:
+                game.init()
+                agent.nb_games += 1
 
-        if done:
-            game.init()
-            agent.nb_games += 1
+                scores.append(score)
+                total_score += score
+                mean_score = total_score / agent.nb_games
+                mean_scores.append(mean_score)
 
-            # par rapport a ce bloc
-            scores.append(score)
-            total_score += score
-            mean_score = total_score / agent.nb_games
-            mean_scores.append(mean_score)
+                plot(scores, mean_scores)
 
-            plot(scores, mean_scores) 
+                if score > high_score:
+                    high_score = score
+                    agent.model.save()
 
-            if score > high_score:
-                high_score = score
-                agent.model.save()
+            print(f"Jeu {agent.nb_games}  Score: {score}  Record: {high_score}")
 
-        print(f"Jeu {agent.nb_games}  Score: {score}  Record: {high_score}")
+    except KeyboardInterrupt:
+        print("\n🛑 Entraînement interrompu manuellement.")
+        print(f"📊 Nombre de parties jouées : {agent.nb_games}")
+        print(f"🏆 Meilleur score atteint : {high_score}")
+        print("💾 Sauvegarde du modèle...")
+
+        agent.model.save()
+        plot(scores, mean_scores)
+
+    print("✅ Fin du programme.")
 
 
 train()
