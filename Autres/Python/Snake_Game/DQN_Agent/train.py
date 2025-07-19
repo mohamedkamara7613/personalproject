@@ -43,15 +43,6 @@ def train():
        
         reward, done, score = game.step(absolute_action)
 
-        # Ce bloque n'est il pas une repetition ....
-        scores.append(score)
-        total_score += score
-        mean_score = total_score / agent.nb_games
-        mean_scores.append(mean_score)
-
-        plot(scores, mean_scores)
-
-
         next_state = game.get_state()
 
         trainer.train_step(current_state, relative_action, reward, next_state, done)
