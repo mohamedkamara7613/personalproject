@@ -35,7 +35,13 @@ def train(debug=False):
             reward, done, score = game.step(absolute_action)
             next_state = game.get_state()
 
-            trainer.train_step(current_state, relative_action, reward, next_state, done)
+            agent.memory.push((current_state, relative_action, reward, next_state, done))
+            if len(agent.memory) > agent.batch_size:
+                minibatch = agent.memory.sample(agent.batch_size)
+                states, actions, rewards, next_states, dones = zip(*minibatch)
+                trainer.train_step(states, actions, rewards, next_states, dones)
+
+            #trainer.train_step(current_state, relative_action, reward, next_state, done)
 
             if agent.nb_games % 10 == 0:
                 trainer.update_target_model()

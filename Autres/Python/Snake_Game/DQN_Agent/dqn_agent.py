@@ -8,8 +8,6 @@ import random
 import numpy as np
 from collections import deque
 import torch
-import torch.nn as nn
-import torch.optim as optim
 
 from model import Linear_QNet
 
@@ -29,7 +27,7 @@ class Agent:
         self.gamma = 0.9            # Discount factor
 
 
-        self.memory = deque(maxlen=MAX_LEN)
+        self.memory = Memory(capacity=MAX_LEN)  # mémoire pour stocker les expériences
         self.batch_size = 1000
 
         self.model = Linear_QNet(11, 256, 3)    # input=11, hidden=256, output=3 (left, straight, right)
@@ -109,39 +107,31 @@ class QTrainer:
 
 # ------------------------------------------------------------------------------------------------------------------------------
 
-    def train_step(self, state, action, reward, next_state, done):
+    def train_step(self, states, actions, rewards, next_states, dones):
 
-        # Conversion des données en vecteur torch
-        state = torch.tensor(state, dtype=torch.float32)
-        next_state = torch.tensor(next_state, dtype=torch.float32)
-        action = torch.tensor(action, dtype=torch.long)
-        reward = torch.tensor(reward, dtype=torch.float32)
-        done = torch.tensor(done, dtype=torch.bool)
+        # Conversion en tenseurs
+        states = torch.tensor(np.array(states), dtype=torch.float32)
+        next_states = torch.tensor(np.array(next_states), dtype=torch.float32)
+        actions = torch.tensor(actions, dtype=torch.long)     # shape: (batch,)
+        rewards = torch.tensor(rewards, dtype=torch.float32)  # shape: (batch,)
+        dones = torch.tensor(dones, dtype=torch.bool)         # shape: (batch,)
 
-        # Ajout d'une dimension batch fictive (1, etat)
-        if len(state.shape) == 1:
-            state = state.unsqueeze(0)
-            next_state = next_state.unsqueeze(0)
-            action = action.unsqueeze(0)
-            reward = reward.unsqueeze(0)
-            done = done.unsqueeze(0)
+        # Prédictions actuelles
+        predictions = self.model(states)  # shape: (batch, num_actions)
+        
+        # Clone pour former les cibles
+        targets = predictions.clone().detach()
 
-        # Prediction des Q-values pour l'etat courant
-        prediction = self.model(state)
+        for i in range(len(dones)):
+            Q_new = rewards[i]
+            if not dones[i]:
+                # Ici on utilise target_model pour stabilité
+                Q_new = rewards[i] + self.gamma * torch.max(self.target_model(next_states[i])).item()
 
-        # Calcul de la Q-value cible
-        target = prediction.clone()
-        for i in range(len(done)): 
-            Q_new = reward[i]
-            if not done[i]:
-                Q_new = reward[i] + self.gamma * torch.max(self.target_model(next_state[i]))
+            targets[i][actions[i]] = Q_new
 
-            target[i][action[i]] = Q_new
-
-        # Calcul de la perte + retropropagation
+        # Calcul de la perte
         self.optimizer.zero_grad()
-        loss = self.loss_fn(target, prediction)
+        loss = self.loss_fn(predictions, targets)
         loss.backward()
         self.optimizer.step()
-
-        
