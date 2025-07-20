@@ -39,8 +39,8 @@ def train(debug=False):
 
             agent.memory.push(current_state, relative_action, reward, next_state, done)
             if len(agent.memory) > agent.batch_size:
-                minibatch = agent.memory.sample(agent.batch_size)
-                states, actions, rewards, next_states, dones = zip(*minibatch)
+                #minibatch = agent.memory.sample(agent.batch_size)
+                states, actions, rewards, next_states, dones = agent.memory.sample(agent.batch_size)
                 trainer.train_step(states, actions, rewards, next_states, dones)
 
             #trainer.train_step(current_state, relative_action, reward, next_state, done)
