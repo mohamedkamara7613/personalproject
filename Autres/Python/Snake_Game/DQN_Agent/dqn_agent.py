@@ -24,10 +24,12 @@ class Agent:
     def __init__(self):
         self.nb_games = 0           # nombre de parties jouées, pour ajuster l'exploration plutard
         self.high_score = 0         # meilleur score atteint
+        self.total_score = 0        # score total pour calculer la moyenne
         self.epsilon = 1.0          # probabilité initiale d'exploration
         self.epsilon_decay = 0.001  # Taux de reduction d'epsilon
         self.epsilon_min = 0.1
         self.gamma = 0.9            # Discount factor
+        self.lr = 0.001             # Learning rate
 
         self.memory = Memory(capacity=MAX_LEN)  # mémoire pour stocker les expériences
         self.batch_size = 1000
@@ -66,7 +68,8 @@ class Agent:
             "model_state": self.model.state_dict(),
             "optimizer_state": self.optimizer.state_dict(),
             "nb_games": self.nb_games,
-            "high_score": self.high_score  # optionnel si vous voulez sauvegarder le score
+            "high_score": self.high_score,  # optionnel si vous voulez sauvegarder le score
+            "total_score": self.total_score
         }
         torch.save(checkpoint, file_name)
         print(f"✅ Modèle sauvegardé dans {file_name}")
@@ -83,6 +86,11 @@ class Agent:
         self.target_model.load_state_dict(checkpoint["model_state"])  # pour synchroniser
         self.optimizer.load_state_dict(checkpoint["optimizer_state"])
         self.nb_games = checkpoint["nb_games"]
+        self.high_score = checkpoint.get("high_score", 0)  # charge le high score s'il existe
+        self.total_score = checkpoint.get("total_score", 0)  # charge le score total s'il existe
+        self.model.eval()
+        self.target_model.eval()  # met le modèle cible en mode évaluation
+        
         print(f"📦 Modèle chargé depuis {file_name}, nb_games = {self.nb_games}")
 
 

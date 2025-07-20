@@ -11,18 +11,21 @@ MAX_GAMES = 1000
 
 def train(debug=False):
     agent = Agent()
+    agent.load()  # charge le fichier sauvegardé
+
     game = SnakeGame()
     game.init()
+
+    trainer = QTrainer(agent.model, agent.target_model, agent.optimizer, lr=0.001, gamma=0.9)
 
     if debug:
         fps = 6.5
         clock = pygame.time.Clock()
 
-    trainer = QTrainer(agent.model, agent.target_model, agent.optimizer, lr=0.001, gamma=0.9)
-
     scores = []
-    total_score = 0
     mean_scores = []
+    high_score = agent.high_score
+    
 
     try:
         while agent.nb_games < MAX_GAMES:
@@ -45,21 +48,27 @@ def train(debug=False):
             if agent.nb_games % 10 == 0:
                 trainer.update_target_model()
 
+            if agent.nb_games % 100 == 0:
+                # Sauvegarde régulière
+                agent.save()
 
             if done:
                 game.init()
                 agent.nb_games += 1
 
                 scores.append(score)
-                total_score += score
-                mean_score = total_score / agent.nb_games
+                agent.total_score += score
+                mean_score = agent.total_score / agent.nb_games
                 mean_scores.append(mean_score)
 
                 plot(scores, mean_scores)
 
                 if score > agent.high_score:
-                    agent.high_score = score
-                    agent.save()
+                    high_score = score
+                    agent.high_score = high_score
+                    print(f"🏆 Nouveau record ! Score: {high_score}")
+                
+                
 
             if debug:
                 if game.handleDeath() or game.handleFood():
