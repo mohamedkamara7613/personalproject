@@ -13,7 +13,7 @@ def train(debug=False):
     agent = Agent()
     agent.load()  # charge le fichier sauvegardé
 
-    game = SnakeGame()
+    game = SnakeGame(display=debug)
     game.init()
 
     trainer = QTrainer(agent.model, agent.target_model, agent.optimizer, lr=0.001, gamma=0.9)
@@ -45,7 +45,7 @@ def train(debug=False):
 
             #trainer.train_step(current_state, relative_action, reward, next_state, done)
 
-            if agent.nb_games % 10 == 0:
+            if agent.nb_games % 50 == 0:
                 trainer.update_target_model()
 
             if agent.nb_games % 100 == 0:

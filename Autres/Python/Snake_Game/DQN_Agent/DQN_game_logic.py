@@ -27,18 +27,22 @@ HEIGHT = 800
 BOX_SIZE = 30
 
 class SnakeGame():
-    def __init__(self):
-        pygame.init()
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT+HEADING))
-        pygame.display.set_caption("Snake Game")
+    def __init__(self, display=True):
+        self.display = display
+        
+        if self.display:
+            pygame.init()
+            self.screen = pygame.display.set_mode((WIDTH, HEIGHT+HEADING))
+            pygame.display.set_caption("Snake Game")
 
-        # Charger tous les images et la music
+            # Charger tous les images et la music
         self.load_assets()
 
         self.columns, self.rows = WIDTH // BOX_SIZE, HEIGHT // BOX_SIZE
         self.grid = []
         self.snake = []
         self.snake_head = {}
+        #if not self.display:
         self.snake_body_img = self.snake_imgs["body_vertical"]
 
         self.food = {}
