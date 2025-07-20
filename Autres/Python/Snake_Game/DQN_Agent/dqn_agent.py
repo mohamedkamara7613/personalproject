@@ -81,6 +81,11 @@ class Agent:
 # ------------------------------------------------------------------------------------------------------------------------------
 
     def load(self, file_name="model.pth"):
+        if not os.path.exists(file_name):
+            print(f"❌ Le fichier {file_name} n'existe pas. Le Fichier va etre créer.")
+            self.save(file_name)
+            return
+
         checkpoint = torch.load(file_name)
         self.model.load_state_dict(checkpoint["model_state"])
         self.target_model.load_state_dict(checkpoint["model_state"])  # pour synchroniser

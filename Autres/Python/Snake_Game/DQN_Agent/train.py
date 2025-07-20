@@ -37,7 +37,7 @@ def train(debug=False):
             reward, done, score = game.step(absolute_action)
             next_state = game.get_state()
 
-            agent.memory.push((current_state, relative_action, reward, next_state, done))
+            agent.memory.push(current_state, relative_action, reward, next_state, done)
             if len(agent.memory) > agent.batch_size:
                 minibatch = agent.memory.sample(agent.batch_size)
                 states, actions, rewards, next_states, dones = zip(*minibatch)
