@@ -37,6 +37,10 @@ def train(debug=False):
 
             trainer.train_step(current_state, relative_action, reward, next_state, done)
 
+            if agent.nb_games % 10 == 0:
+                trainer.update_target_model()
+
+
             if done:
                 game.init()
                 agent.nb_games += 1

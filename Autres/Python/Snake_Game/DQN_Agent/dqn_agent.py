@@ -91,10 +91,23 @@ class Memory:
 class QTrainer:
     def __init__(self, model, lr, gamma):
         self.model = model
+        self.target_model = Linear_QNet(model.linear1.in_features,
+                                        model.linear1.out_features,
+                                        model.linear2.out_features)
+        self.target_model.load_state_dict(self.model.state_dict())  # copie initiale
+        self.target_model.eval()
+
         self.lr = lr
         self.gamma = gamma
         self.optimizer = torch.optim.Adam(model.parameters(), lr=self.lr)
         self.loss_fn = torch.nn.MSELoss()
+
+# ------------------------------------------------------------------------------------------------------------------------------
+
+    def update_target_model(self):
+        self.target_model.load_state_dict(self.model.state_dict())
+
+# ------------------------------------------------------------------------------------------------------------------------------
 
     def train_step(self, state, action, reward, next_state, done):
 
@@ -118,10 +131,10 @@ class QTrainer:
 
         # Calcul de la Q-value cible
         target = prediction.clone()
-        for i in range(len(done)):
+        for i in range(len(done)): 
             Q_new = reward[i]
             if not done[i]:
-                Q_new = reward[i] + self.gamma * torch.max(self.model(next_state[i]))
+                Q_new = reward[i] + self.gamma * torch.max(self.target_model(next_state[i]))
 
             target[i][action[i]] = Q_new
 
@@ -132,22 +145,3 @@ class QTrainer:
         self.optimizer.step()
 
         
-
-
-
-
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
