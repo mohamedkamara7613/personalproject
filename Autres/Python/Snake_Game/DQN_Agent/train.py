@@ -18,11 +18,10 @@ def train(debug=False):
         fps = 6.5
         clock = pygame.time.Clock()
 
-    trainer = QTrainer(agent.model, lr=0.001, gamma=0.9)
+    trainer = QTrainer(agent.model, agent.target_model, agent.optimizer, lr=0.001, gamma=0.9)
 
     scores = []
     total_score = 0
-    high_score = 0
     mean_scores = []
 
     try:
@@ -58,9 +57,9 @@ def train(debug=False):
 
                 plot(scores, mean_scores)
 
-                if score > high_score:
-                    high_score = score
-                    agent.model.save()
+                if score > agent.high_score:
+                    agent.high_score = score
+                    agent.save()
 
             if debug:
                 if game.handleDeath() or game.handleFood():
@@ -72,15 +71,15 @@ def train(debug=False):
                 game.drawGrid()
                 clock.tick(fps)
 
-            print(f"Jeu {agent.nb_games}  Score: {score}  Record: {high_score}")
+            print(f"Jeu {agent.nb_games}  Score: {score}  Record: {agent.high_score}")
 
     except KeyboardInterrupt:
         print("\n🛑 Entraînement interrompu manuellement.")
         print(f"📊 Nombre de parties jouées : {agent.nb_games}")
-        print(f"🏆 Meilleur score atteint : {high_score}")
+        print(f"🏆 Meilleur score atteint : {agent.high_score}")
         print("💾 Sauvegarde du modèle...")
 
-        agent.model.save()
+        agent.save()
         plot(scores, mean_scores)
         pygame.quit()
 

@@ -8,6 +8,8 @@ import random
 import numpy as np
 from collections import deque
 import torch
+import pickle
+import os
 
 from model import Linear_QNet
 
@@ -21,17 +23,22 @@ MAX_LEN = 100_000
 class Agent:
     def __init__(self):
         self.nb_games = 0           # nombre de parties jouées, pour ajuster l'exploration plutard
+        self.high_score = 0         # meilleur score atteint
         self.epsilon = 1.0          # probabilité initiale d'exploration
         self.epsilon_decay = 0.001  # Taux de reduction d'epsilon
         self.epsilon_min = 0.1
         self.gamma = 0.9            # Discount factor
 
-
         self.memory = Memory(capacity=MAX_LEN)  # mémoire pour stocker les expériences
         self.batch_size = 1000
 
         self.model = Linear_QNet(11, 256, 3)    # input=11, hidden=256, output=3 (left, straight, right)
-        #self.trainer = QTrainer(self.model, lr=0.001 , self.gamma=0.9)
+        self.target_model = Linear_QNet(self.model.linear1.in_features,
+                                        self.model.linear1.out_features,
+                                        self.model.linear2.out_features)
+        self.target_model.load_state_dict(self.model.state_dict())  # copie initiale
+        self.target_model.eval()
+        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
 
 # ------------------------------------------------------------------------------------------------------------------------------
     def get_action(self, state):
@@ -52,33 +59,32 @@ class Agent:
         final_move[action] = 1 # conversion en vecteur binaire
 
         return final_move
+# ------------------------------------------------------------------------------------------------------------------------------
     
+    def save(self, file_name="model.pth", memory_path="memory.pkl"):
+        checkpoint = {
+            "model_state": self.model.state_dict(),
+            "optimizer_state": self.optimizer.state_dict(),
+            "nb_games": self.nb_games,
+            "high_score": self.high_score  # optionnel si vous voulez sauvegarder le score
+        }
+        torch.save(checkpoint, file_name)
+        print(f"✅ Modèle sauvegardé dans {file_name}")
+
+        # Sauvegarde de la mémoire
+        with open(memory_path, "wb") as f:
+            pickle.dump(self.memory, f)
+            print(f"✅ Mémoire sauvegardée dans {memory_path}")
 # ------------------------------------------------------------------------------------------------------------------------------
-#       .......................................=== Memory ===.......................................
-# ------------------------------------------------------------------------------------------------------------------------------
 
+    def load(self, file_name="model.pth"):
+        checkpoint = torch.load(file_name)
+        self.model.load_state_dict(checkpoint["model_state"])
+        self.target_model.load_state_dict(checkpoint["model_state"])  # pour synchroniser
+        self.optimizer.load_state_dict(checkpoint["optimizer_state"])
+        self.nb_games = checkpoint["nb_games"]
+        print(f"📦 Modèle chargé depuis {file_name}, nb_games = {self.nb_games}")
 
-
-class Memory:
-    def __init__(self, capacity=MAX_LEN):
-        self.buffer = deque(maxlen=capacity)
-
-    def push(self, state, action, reward, next_state, done):
-        self.buffer.append((state, action, reward, next_state, done))
-
-    def sample(self, batch_size):
-        batch = random.sample(self.buffer, batch_size)
-        states, actions, rewards, next_states, dones = zip(*batch)
-        return (
-            np.array(states),
-            np.array(actions),
-            np.array(rewards),
-            np.array(next_states),
-            np.array(dones)
-        )
-
-    def __len__(self):
-        return len(self.buffer)
 
 
 
@@ -87,17 +93,12 @@ class Memory:
 # ------------------------------------------------------------------------------------------------------------------------------
 
 class QTrainer:
-    def __init__(self, model, lr, gamma):
+    def __init__(self, model, target_model, optimizer, lr, gamma):
         self.model = model
-        self.target_model = Linear_QNet(model.linear1.in_features,
-                                        model.linear1.out_features,
-                                        model.linear2.out_features)
-        self.target_model.load_state_dict(self.model.state_dict())  # copie initiale
-        self.target_model.eval()
-
+        self.target_model = target_model
         self.lr = lr
         self.gamma = gamma
-        self.optimizer = torch.optim.Adam(model.parameters(), lr=self.lr)
+        self.optimizer = optimizer
         self.loss_fn = torch.nn.MSELoss()
 
 # ------------------------------------------------------------------------------------------------------------------------------
@@ -135,3 +136,33 @@ class QTrainer:
         loss = self.loss_fn(predictions, targets)
         loss.backward()
         self.optimizer.step()
+
+
+# ------------------------------------------------------------------------------------------------------------------------------
+#       .......................................=== Memory ===.......................................
+# ------------------------------------------------------------------------------------------------------------------------------
+
+
+
+class Memory:
+    def __init__(self, capacity=MAX_LEN):
+        self.buffer = deque(maxlen=capacity)
+
+    def push(self, state, action, reward, next_state, done):
+        self.buffer.append((state, action, reward, next_state, done))
+
+    def sample(self, batch_size):
+        batch = random.sample(self.buffer, batch_size)
+        states, actions, rewards, next_states, dones = zip(*batch)
+        return (
+            np.array(states),
+            np.array(actions),
+            np.array(rewards),
+            np.array(next_states),
+            np.array(dones)
+        )
+
+    def __len__(self):
+        return len(self.buffer)
+
+
