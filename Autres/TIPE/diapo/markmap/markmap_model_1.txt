@@ -1,0 +1,35 @@
+# Détection et décodage de code-barres
+
+## Prétraitement de l'image
+### Denoising
+- Réduction du bruit tout en préservant les contours.
+- Filtre bilatéral et filtre médian utilisés.
+
+### Amélioration du contraste
+- Normalisation de l'histogramme pour rendre les barres plus distinctes.
+
+### Binarisation
+- Transformation en noir et blanc pour faciliter l'analyse.
+
+### Correction de la rotation
+- Filtre Canny pour la détection de contours.
+- Transformée de Hough pour détecter les lignes et calculer l'angle de rotation.
+
+### Segmentation des zones de code-barres
+- Balayage vertical pour détecter et extraire les zones potentiellement contenant des codes-barres.
+- Analyse de texture pour valider la présence d'un code-barres.
+
+## Analyse de chaque zone détectée
+### Mesure des barres
+- Calcul de la largeur de chaque barre dans la zone identifiée.
+
+### Normalisation des mesures
+- Ajustement des dimensions pour une comparaison standardisée.
+
+### Décodage
+- Conversion des largeurs mesurées en une séquence numérique correspondant au code-barres.
+
+### Validation du code
+- Vérification de l'exactitude du code décodé.
+
+

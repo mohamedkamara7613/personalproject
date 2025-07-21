@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.17.3-alpha.1/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.3-alpha.1/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.17.3-alpha.1/dist/index.js"></script><script>(()=>{setTimeout(()=>{const{markmap:q,mm:v}=window,j=new q.Toolbar;j.attach(v);const we=j.render();we.setAttribute("style","position:absolute;bottom:20px;right:20px"),document.body.append(we)})})()</script><script>((f,d,h,u)=>{const g=f();window.mm=g.Markmap.create("svg#mindmap",(d||g.deriveOptions)(u),h)})(()=>window.markmap,null,{"content":"Détection et décodage de code-barres","children":[{"content":"Prétraitement de l'image","children":[{"content":"Denoising","children":[],"payload":{"lines":"4,5"}},{"content":"Amélioration du contraste","children":[],"payload":{"lines":"6,7"}},{"content":"Binarisation","children":[],"payload":{"lines":"8,9"}},{"content":"Correction de la rotation","children":[],"payload":{"lines":"10,11"}},{"content":"Segmentation des zones de code-barres","children":[],"payload":{"lines":"12,13"}}],"payload":{"lines":"3,4"}},{"content":"Analyse de chaque zone détectée","children":[{"content":"Mesure des barres","children":[],"payload":{"lines":"15,16"}},{"content":"Normalisation des mesures","children":[],"payload":{"lines":"17,18"}},{"content":"Décodage","children":[],"payload":{"lines":"19,20"}},{"content":"Validation du code","children":[],"payload":{"lines":"20,21"}}],"payload":{"lines":"14,15"}}],"payload":{"lines":"1,2"}},{"maxWidth":300})</script>
+</body>
+</html>

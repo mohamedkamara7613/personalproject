@@ -1,0 +1,22 @@
+---
+markmap:
+  maxWidth: 400       # Définir la largeur maximale de chaque branche
+  nodeMinHeight:    # Augmenter la hauteur minimale des noeuds pour plus d'espacement
+  spacingVertical: 30  # Espacement vertical entre les branches
+  spacingHorizontal: 30 # Espacement horizontal entre les branches
+---
+
+# Détection et décodage de code-barres
+
+## Prétraitement de l'image
+### Denoising
+### Amélioration du contraste
+### Binarisation
+### Correction de la rotation
+### Segmentation des zones de code-barres
+
+## Analyse de chaque zone détectée
+### Mesure des barres
+### Normalisation des mesures
+### Décodage
+### Validation du code

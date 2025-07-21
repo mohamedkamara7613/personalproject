@@ -136,3 +136,7 @@ Time: 22:43:08 --------- Date: Aug  1 2021 ---------- File: fichiers.c ---------
 Time: 22:43:08 --------- Date: Aug  1 2021 ---------- File: fichiers.c --------- Line: 28
 Time: 22:43:08 --------- Date: Aug  1 2021 ---------- File: jeu.c --------- Line: 34
 Time: 22:43:08 --------- Date: Aug  1 2021 ---------- File: main.c --------- Line: 40
+Time: 22:43:08 --------- Date: Aug  1 2021 ---------- File: fichiers.c --------- Line: 28
+Time: 22:43:08 --------- Date: Aug  1 2021 ---------- File: jeu.c --------- Line: 34
+Time: 22:43:08 --------- Date: Aug  1 2021 ---------- File: main.c --------- Line: 40
+Time: 22:43:29 --------- Date: Aug  1 2021 ---------- File: main.c --------- Line: 40

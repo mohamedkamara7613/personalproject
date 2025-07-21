@@ -1,0 +1,117 @@
+A FAIRE : POUR CHAQUE FONCTION EXPLIQUER SI NECESSAIRE SON Fonctionnement
+            COMPLETER LES VARIABLES Utilisées DANS CHAQUE FONCTION
+
+
+
+
+
+
+
+
+
+Le code comporte deux classe  : une classe Gomoku_game et une classe  Gomoku_AI.
+
+La classe Gomoku_game est la classe principale qui gère le jeu de Gomoku
+Elle contient les méthodes pour initialiser un nouvel échiquier, placer des pièces sur l'échiquier, 
+vérifier si il y a une victoire ou pas, afficher l'état actuel de l'échiquier etc..
+C'est dans cette classe où sera utilisé la classe Gomoku_AI.
+
+
+initialize_AI : 
+    Cette méthode sert à initialiser l'IA en creer une instance de Gomoku_AI
+
+show_grid :
+    Affche la grille, l'etat du jeu
+
+make_move :
+    Place un pion sur la grille si on a le droit, en fonction du joueur actuelle.
+    Si c'est au tour d'un joueur, place un X ou O sur la case
+
+is_game_over :
+    Verifie la fin du jeu en comptant le nombre de pion qui se trouve sur ligne , colonne ou diagonale.
+    Retourne True si c'est la fin du jeu False sinon.
+    La methode utilisée ici est de verifier le voisinage  de chaque case à partir de la position actuelle
+    du joueur actuelle.
+    ET non par verification integrale de la grille
+
+play:
+    La boucle while principal du jeu, elle appelle make_move jusqu'à ce que le jeu soit terminé.
+
+
+            
+            
+-------------------------LÀ C'EST LE COEUR DU PROGRAMME------------------------------------------------------
+
+
+
+La classe Gomoku_AI est une intelligence artificielle qui peut jouer au Gomoku contre l'utilisateur.
+Dans cette classe une instance du jeu y est créé pour pouvoir utilisé les focntions  de cette dernière.
+
+evaluate:
+    parametre : Aucun
+    variables utilisées :
+        - score : Score de l'IA (integer)
+        - player_ia : integer et vaut +1
+        - player_oppenent: integer et vaut -1
+
+    Fonctioin qui evalue les positions, elle retourne un poids  pour une case. 
+    Plus le poid est grand plus la chance qu'il y ai une victoire.
+    Evalue la situation actuelle du jeu, renvoie le score de l'IA
+
+
+
+miniMax:
+    parametre : int  depth : profondeur de la recherche en arbre de decision
+                bool maximizingPlayer : vrai si c'est le tour de l'IA faux si c'est le tour de l'utilisateur
+                (int, int) lastMove :  Coordonnée de la derniere pièce placée
+    variables utilisées:
+        - max_eval  : Integer, valeur d'évaluation maximum trouvé dans l'arbre des décisions
+        - evel       : Integer, évaluation de la situation courante
+        - i           : Integer, indice de la colone
+        - j           : Integer, Indice de la ligne
+
+    renvoie les coups gagants  et le score associés.
+    Si il n'y as pas de coup gagnant alors renvoie None et 0
+
+alphaBeta:
+    Parametres : float alpha : valeur alpha (prochaine étape)
+                float beta : valeur Beta (étape précédente)
+                bool maximisingPlayer : vrai si c'est le tour de l'IA faux si c'est le tour de l'utilisateur
+                (int, int) lastMove :  Coordonnée de la derniere pièce placée
+    variables utilisées:
+        - max_eval  : Integer, valeur d'évaluation maximum trouvé dans l'arbre des décisions
+        - evel       : Integer, évaluation de la situation courante
+        - i           : Integer, indice de la colone
+        - j           : Integer, Indice de la ligne
+
+        Cette fonction est utilisée par miniMax pour faire des recherches dans l'arbre de décision.
+        
+        Elle prend en compte l'alpha et beta pour limiter la profondeur de la recherche.
+        Renvoie le meilleur coup à jouer et son score associé.
+
+findBestmove:
+    Paramètres : Aucun
+    Variables Utilisées :
+        - self.board : tableau contenant le plateau de jeu
+        - bestVAlue : integer , Score associé au coup gagnant
+        - value : integer  , Score actuel
+        - bestMove : tuples d'integer
+                    
+    Cherche le coup le plus prometteur possible pour l'IA.
+    Appelée par minmax lorsqu'il n'y a pas de coup gagnant.
+    Renvoie le meilleur coup trouvé et son score.
+
+    Fonctionnement:
+        Pour chaque case libre sur le plateau, on place une pierre IA et on récupère le score obtenu.
+        Sans oublier de remettre la case vide à la fin de notre simulmation de coup.
+        On compare ce score avec le meilleur score déjà connu et on garde le meilleur coup s'il est supérieur.
+
+
+makeMove :
+    Appelée lorsque l'IA doit jouer.
+    Elle utilise findBestmove pour trouver le coup gagnant et le score associé.
+    Puis elle place le pion sur la board correspondante.
+
+
+
+
