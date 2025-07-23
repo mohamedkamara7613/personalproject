@@ -22,8 +22,8 @@ def train(debug=False):
         fps = 6.5
         clock = pygame.time.Clock()
 
-    scores = []
-    mean_scores = []
+    scores = agent.scores
+    mean_scores = agent.mean_scores
     high_score = agent.high_score
     
 
@@ -61,7 +61,12 @@ def train(debug=False):
                 mean_score = agent.total_score / agent.nb_games
                 mean_scores.append(mean_score)
 
-                plot(scores, mean_scores)
+                # mise à jour des scores
+                agent.scores = scores
+                agent.mean_scores = mean_scores
+
+                if len(scores) > 2:
+                    plot(scores, mean_scores)
 
                 if score > agent.high_score:
                     high_score = score

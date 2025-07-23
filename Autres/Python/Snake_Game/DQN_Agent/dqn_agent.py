@@ -25,6 +25,8 @@ class Agent:
         self.nb_games = 0           # nombre de parties jouées, pour ajuster l'exploration plutard
         self.high_score = 0         # meilleur score atteint
         self.total_score = 0        # score total pour calculer la moyenne
+        self.scores = []            # liste des scores pour le graphique
+        self.mean_scores = []       # liste des scores moyens pour le graphique
         self.epsilon = 1.0          # probabilité initiale d'exploration
         self.epsilon_decay = 0.001  # Taux de reduction d'epsilon
         self.epsilon_min = 0.1
@@ -62,8 +64,8 @@ class Agent:
 
         return final_move
 # ------------------------------------------------------------------------------------------------------------------------------
-    
-    def save(self, file_name="model.pth", memory_path="memory.pkl"):
+                                                                                                                                                                                                    
+    def save(self, file_name="model.pth", memory_path="memory.pkl", score_path="scores.pkl"):
         checkpoint = {
             "model_state": self.model.state_dict(),
             "optimizer_state": self.optimizer.state_dict(),
@@ -74,14 +76,18 @@ class Agent:
         torch.save(checkpoint, file_name)
         print(f"✅ Modèle sauvegardé dans {file_name}")
 
+        # Sauvegarde du score pour le graphique
+        with open(score_path, "wb") as f:
+            pickle.dump((self.scores, self.mean_scores), f)
+
         # Sauvegarde de la mémoire
         with open(memory_path, "wb") as f:
             pickle.dump(self.memory, f)
             print(f"✅ Mémoire sauvegardée dans {memory_path}")
 # ------------------------------------------------------------------------------------------------------------------------------
 
-    def load(self, file_name="model.pth"):
-        if not os.path.exists(file_name):
+    def load(self, file_name="model.pth", memory_path="memory.pkl", score_path="scores.pkl"):
+        if not os.path.exists(file_name) or not os.path.exists(memory_path) or not os.path.exists(score_path):
             print(f"❌ Le fichier {file_name} n'existe pas. Le Fichier va etre créer.")
             self.save(file_name)
             return
@@ -97,6 +103,18 @@ class Agent:
         self.target_model.eval()  # met le modèle cible en mode évaluation
         
         print(f"📦 Modèle chargé depuis {file_name}, nb_games = {self.nb_games}")
+
+        # Chargement des scores pour le graphique
+        if os.path.exists(score_path):
+            with open(score_path, "rb") as f:
+                self.scores, self.mean_scores = pickle.load(f)
+                print("📊 Scores chargés pour le graphique.")
+
+        # Chargement de la mémoire
+        if os.path.exists(memory_path):
+            with open(memory_path, "rb") as f:
+                self.memory = pickle.load(f)
+                print(f"📦 Mémoire chargée depuis {memory_path}")
 
 
 
