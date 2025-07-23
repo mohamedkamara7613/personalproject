@@ -36,7 +36,7 @@ class Agent:
         self.memory = Memory(capacity=MAX_LEN)  # mémoire pour stocker les expériences
         self.batch_size = 256
 
-        self.model = Linear_QNet(11, 256, 3)    # input=11, hidden=256, output=3 (left, straight, right)
+        self.model = Linear_QNet(18, 256, 3)    # input=18, hidden=256, output=3 (left, straight, right)
         self.target_model = Linear_QNet(self.model.linear1.in_features,
                                         self.model.linear1.out_features,
                                         self.model.linear2.out_features)

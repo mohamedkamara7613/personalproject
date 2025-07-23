@@ -549,39 +549,47 @@ class SnakeGame():
         return self.is_collision_at(x, y)
     #--------------------------------------------------------------------------------------------------------------------------
     def get_state(self):
-
-        """
-        Amelioration possible : creer un mode de representation avec des distances normalisées par rapport au mur, au food
-        
-        """
-
-        # === Direction normaliser du serpent ===
+        # === Direction du serpent ===
         dir_up = self.snake_head["direction"] == "up"
         dir_down = self.snake_head["direction"] == "down"
         dir_left = self.snake_head["direction"] == "left"
         dir_right = self.snake_head["direction"] == "right"
 
-        # === position relative du food par rapport à la tete du serpent ===
+        # === Position relative du food ===
         food_right = self.food["x"] > self.snake_head["x"]
         food_left = self.food["x"] < self.snake_head["x"]
-        food_up = self.food["y"] <  self.snake_head["y"]
+        food_up = self.food["y"] < self.snake_head["y"]
         food_down = self.food["y"] > self.snake_head["y"]
 
-        # === Danger autour du serpent ===
+        # === Danger ===
         danger_straight = self.is_danger_straight()
         danger_right = self.is_danger_right()
         danger_left = self.is_danger_left()
-       
 
-        # === Etat du serpent ===
+        # === Coordonnées normalisées food vs head ===
+        dx = (self.food["x"] - self.snake_head["x"]) / WIDTH
+        dy = (self.food["y"] - self.snake_head["y"]) / HEIGHT
+
+        # === Distances aux murs (normalisées) ===
+        dist_left = self.snake_head["x"] / WIDTH
+        dist_right = (WIDTH - self.snake_head["x"]) / WIDTH
+        dist_up = self.snake_head["y"] / HEIGHT
+        dist_down = (HEIGHT - self.snake_head["y"]) / HEIGHT
+
+        # === Taille du serpent (normalisée à une valeur raisonnable) ===
+        snake_length = len(self.snake) / (WIDTH * HEIGHT / 10)
+
         state = [
-            int(dir_up), int(dir_down), int(dir_left), int(dir_right),  # Direction du serpent
-            int(food_right), int(food_left), int(food_up), int(food_down),  # Position du food
-            int(danger_straight), int(danger_right), int(danger_left)  # Danger autour du serpent
+            int(dir_up), int(dir_down), int(dir_left), int(dir_right),
+            int(food_right), int(food_left), int(food_up), int(food_down),
+            int(danger_straight), int(danger_right), int(danger_left),
+            dx, dy,
+            dist_left, dist_right, dist_up, dist_down,
+            snake_length
         ]
 
-        return np.array(state, dtype=int)  # Convertir en tableau numpy pour l'agent IA
-    
+        return np.array(state, dtype=np.float32)
+
 #--------------------------------------------------------------------------------------------------------------------------
     
     def relative_to_absolute_direction(self, current_direction, action):
