@@ -13,7 +13,7 @@ import os
 
 from model import Linear_QNet
 
-MAX_LEN = 100_000
+MAX_LEN = 50_000
 
 # ------------------------------------------------------------------------------------------------------------------------------
 #       .......................................=== Agent ===.......................................
@@ -34,7 +34,7 @@ class Agent:
         self.lr = 0.001             # Learning rate
 
         self.memory = Memory(capacity=MAX_LEN)  # mémoire pour stocker les expériences
-        self.batch_size = 1000
+        self.batch_size = 256
 
         self.model = Linear_QNet(11, 256, 3)    # input=11, hidden=256, output=3 (left, straight, right)
         self.target_model = Linear_QNet(self.model.linear1.in_features,

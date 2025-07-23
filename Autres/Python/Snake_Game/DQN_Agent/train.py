@@ -6,7 +6,7 @@ from plot import plot
 import pygame
 
 MAX_GAMES = 1000
-
+MIN_MEMORY_SIZE = 1000  # Minimum memory size before training starts
 
 
 def train(debug=False):
@@ -38,8 +38,8 @@ def train(debug=False):
             next_state = game.get_state()
 
             agent.memory.push(current_state, relative_action, reward, next_state, done)
-            if len(agent.memory) > agent.batch_size:
-                #minibatch = agent.memory.sample(agent.batch_size)
+            if len(agent.memory) > MIN_MEMORY_SIZE:
+                # Entraînement du modèle avec un batch de la mémoire
                 states, actions, rewards, next_states, dones = agent.memory.sample(agent.batch_size)
                 trainer.train_step(states, actions, rewards, next_states, dones)
 
@@ -65,7 +65,7 @@ def train(debug=False):
                 agent.scores = scores
                 agent.mean_scores = mean_scores
 
-                if len(scores) > 2:
+                if agent.nb_games % 20 == 0:
                     plot(scores, mean_scores)
 
                 if score > agent.high_score:
