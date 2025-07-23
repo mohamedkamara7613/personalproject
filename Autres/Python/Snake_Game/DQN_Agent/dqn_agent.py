@@ -92,7 +92,7 @@ class Agent:
             self.save(file_name)
             return
 
-        checkpoint = torch.load(file_name)
+        checkpoint = torch.load(file_name, weights_only=True)
         self.model.load_state_dict(checkpoint["model_state"])
         self.target_model.load_state_dict(checkpoint["model_state"])  # pour synchroniser
         self.optimizer.load_state_dict(checkpoint["optimizer_state"])

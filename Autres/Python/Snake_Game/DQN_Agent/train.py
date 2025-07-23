@@ -45,18 +45,9 @@ def train(debug=False):
                 trainer.train_step(states, actions, rewards, next_states, dones)
 
             #trainer.train_step(current_state, relative_action, reward, next_state, done)
+ 
 
-            if debug:
-                    if done:
-                        game.display_game_over()
-                        pygame.time.wait(200)
-                        game.init()
-                    game.updateGame()
-                    game.drawGrid()
-                    clock.tick(fps)
-                
-
-            if agent.nb_games % 50 == 0:
+            if agent.nb_games % 100 == 0:
                 trainer.update_target_model()
 
             if agent.nb_games % 100 == 0:
@@ -76,13 +67,23 @@ def train(debug=False):
                 agent.scores = scores
                 agent.mean_scores = mean_scores
 
-                if agent.nb_games % 20 == 0:
+                if agent.nb_games % 10 == 0:
+                    pass
                     plot(scores, mean_scores)
 
                 if score > agent.high_score:
                     high_score = score
                     agent.high_score = high_score
                     print(f"🏆 Nouveau record ! Score: {high_score}")
+
+            if debug:
+                    if done:
+                        game.display_game_over()
+                        pygame.time.wait(200)
+                        game.init()
+                    game.updateGame()
+                    game.drawGrid()
+                    clock.tick(fps)
                 
 
             print(f"Jeu {agent.nb_games}  Score: {score}  Record: {agent.high_score}")
