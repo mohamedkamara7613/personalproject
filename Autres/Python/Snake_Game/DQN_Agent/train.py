@@ -54,6 +54,11 @@ def train(debug=False):
                 # Sauvegarde régulière
                 agent.save()
 
+            if agent.nb_games % 5 == 0:
+                pass
+            plot(scores, mean_scores)
+
+
             if done:
                 game.init()
                 agent.nb_games += 1
@@ -67,10 +72,6 @@ def train(debug=False):
                 agent.scores = scores
                 agent.mean_scores = mean_scores
 
-                if agent.nb_games % 10 == 0:
-                    pass
-                    plot(scores, mean_scores)
-
                 if score > agent.high_score:
                     high_score = score
                     agent.high_score = high_score
@@ -81,6 +82,7 @@ def train(debug=False):
                         game.display_game_over()
                         pygame.time.wait(200)
                         game.init()
+                        continue
                     game.updateGame()
                     game.drawGrid()
                     clock.tick(fps)
