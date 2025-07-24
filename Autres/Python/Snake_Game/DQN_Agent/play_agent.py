@@ -2,10 +2,11 @@
 from DQN_game_logic import SnakeGame
 from dqn_agent import Agent
 import time
+import pygame
 
 def play_trained_model():
     agent = Agent()
-    agent.model.load()  # charge le fichier sauvegardé
+    agent.load()  # charge le fichier sauvegardé
     game = SnakeGame()
     game.init()
 
@@ -22,6 +23,8 @@ def play_trained_model():
         game.drawGrid()
         time.sleep(0.1)  # Pour ralentir un peu
 
+    game.display_game_over()
+    pygame.time.wait(2000)
     print(f"Score du modèle : {score}")
 
 if __name__ == "__main__":

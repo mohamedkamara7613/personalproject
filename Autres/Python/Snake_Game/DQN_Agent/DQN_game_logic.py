@@ -55,19 +55,20 @@ class SnakeGame():
         try:
             # Images de fond
             #self.background = pygame.image.load("images/textureStone.png")
-            self.background = pygame.image.load("images/floor.png")
-            self.background = pygame.image.load("images/alienfloor1_specular.jpg")
+            #self.background = pygame.image.load("images/floor.png")
+            #self.background = pygame.image.load("images/alienfloor1_specular.jpg")
 
             #self.background = pygame.transform.scale(self.background, (WIDTH, HEIGHT))
-            self.background = pygame.transform.scale(self.background, (BOX_SIZE, BOX_SIZE))
+            #self.background = pygame.transform.scale(self.background, (BOX_SIZE, BOX_SIZE))
 
             # Images pour la nourriture du serpent
-            self.food_img = pygame.image.load("images/apple.png")
-            self.food_img = pygame.transform.scale(self.food_img, (BOX_SIZE, BOX_SIZE))
+            #self.food_img = pygame.image.load("images/apple.png")
+            #self.food_img = pygame.transform.scale(self.food_img, (BOX_SIZE, BOX_SIZE))
+            self.food_img = GREEN
 
             # Images pour le serpent
             # Pour la tete
-            head_up = pygame.image.load("images/head_up.png")
+            """head_up = pygame.image.load("images/head_up.png")
             head_up = pygame.transform.scale(head_up, (BOX_SIZE, BOX_SIZE))
 
             head_down = pygame.image.load("images/head_down.png")
@@ -110,6 +111,7 @@ class SnakeGame():
 
             tail_right = pygame.image.load("images/tail_right.png")
             tail_right = pygame.transform.scale(tail_right, (BOX_SIZE, BOX_SIZE))
+            
 
             self.snake_imgs = {
                 "head_up": head_up,
@@ -126,9 +128,24 @@ class SnakeGame():
                 "tail_down": tail_down,
                 "tail_left": tail_left,
                 "tail_right": tail_right    
+            }"""
+            self.snake_imgs = {
+                "head_up": RED,
+                "head_down": RED,
+                "head_left": RED,
+                "head_right": RED,
+                "body_bottomleft": GREEN,
+                "body_bottomright": GREEN,
+                "body_horizontal": GREEN,
+                "body_vertical": GREEN,
+                "body_topleft": GREEN,
+                "body_topright": GREEN,
+                "tail_up": BLUE,
+                "tail_down": BLUE,
+                "tail_left": BLUE,
+                "tail_right": BLUE
             }
 
-            
         except pygame.error as e:
             print(e)
             self.snake_imgs = {
@@ -404,18 +421,19 @@ class SnakeGame():
         for j in range(self.rows+1):
             for i in range(self.columns):
                  # Faire apparaitre la grille
-                self.screen.blit(self.background, (i*BOX_SIZE, j* BOX_SIZE + HEADING))
+                #self.screen.blit(self.background, (i*BOX_SIZE, j* BOX_SIZE + HEADING))
                 pygame.draw.rect(self.screen, WHITE, (0, HEADING, WIDTH, HEIGHT), 1)
                 
 
         # Dessiner le food (nourriture)
-        self.screen.blit(self.food_img, (self.food["x"]*BOX_SIZE, self.food["y"]*BOX_SIZE + HEADING))
-        #pygame.draw.rect(self.screen, self.food_img, (i*BOX_SIZE, j*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
+        #self.screen.blit(self.food_img, (self.food["x"]*BOX_SIZE, self.food["y"]*BOX_SIZE + HEADING))
+        pygame.draw.rect(self.screen, self.food_img, (self.food["x"]*BOX_SIZE, self.food["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
 
         # Dessiner le serpent
         for segment in self.snake:
-            self.screen.blit(segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
-        
+            #self.screen.blit(segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
+            pygame.draw.rect(self.screen, segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
+
         pygame.display.update()
 
     def display_game_over(self):
@@ -456,10 +474,17 @@ class SnakeGame():
 #--------------------------------------------------------------------------------------------------------------------------
 # Pour l'agent IA
 #--------------------------------------------------------------------------------------------------------------------------
+    def get_distance_to_food(self):
+        dx = self.food["x"] - self.snake_head["x"]
+        dy = self.food["y"] - self.snake_head["y"]
+        return np.sqrt(dx**2 + dy**2)
+#--------------------------------------------------------------------------------------------------------------------------
+    
     def step(self, action):
         reward = 0
         #pos_actuel = (self.snake_head["x"], self.snake_head["y"])
         done = False
+        old_distance = self.get_distance_to_food()
 
        # === Convertir l'action en direction ===   
         if action == 0 and self.snake[0]["direction"] != "down": # 0 = up
@@ -477,13 +502,21 @@ class SnakeGame():
 
         # === Récompense ===
         if self.handleDeath():
-            reward = -1 # mort = mauvais
+            reward = -10 # mort = mauvais
             done  = True
         elif self.handleFood():
-            reward = 1 # manger = bon
+            reward = 10 # manger = bon
             done = False
         else:
-            reward = 0 # rien de special
+            reward = 0 # rien de special*
+
+        new_distance = self.get_distance_to_food()
+
+        # === Récompense basée sur la distance à la nourriture ===
+        if new_distance < old_distance:
+            reward += 0.5  # bonus pour rapprochement
+        else:
+            reward -= 0.5  # pénalité pour éloignement
 
         #pos_suivant = (self.snake_head["x"], self.snake_head["y"]) # celle obtenue en faisant l'action
 
