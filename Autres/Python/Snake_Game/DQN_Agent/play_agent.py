@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""play_agent.py
+This script allows you to play the Snake Game using a trained DQN agent."""
 from DQN_game_logic import SnakeGame
 from dqn_agent import Agent
 import time
@@ -19,7 +21,6 @@ def play_trained_model():
 
         _, done, score = game.step(absolute_action)
 
-        game.updateGame()
         game.drawGrid()
         time.sleep(0.1)  # Pour ralentir un peu
 

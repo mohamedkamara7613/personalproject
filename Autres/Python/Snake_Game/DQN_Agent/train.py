@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""train.py
+This script trains a DQN agent to play the Snake Game."""
 from dqn_agent import Agent
 from DQN_game_logic import SnakeGame
 from dqn_agent import QTrainer
@@ -54,10 +56,7 @@ def train(debug=False):
                 # Sauvegarde régulière
                 agent.save()
 
-            if agent.nb_games % 5 == 0:
-                pass
-            plot(scores, mean_scores)
-
+            
 
             if done:
                 game.init()
@@ -71,11 +70,17 @@ def train(debug=False):
                 # mise à jour des scores
                 agent.scores = scores
                 agent.mean_scores = mean_scores
+                
+                #plot(scores, mean_scores)
 
                 if score > agent.high_score:
                     high_score = score
                     agent.high_score = high_score
                     print(f"🏆 Nouveau record ! Score: {high_score}")
+            
+            
+                
+
 
             if debug:
                     if done:
@@ -83,7 +88,7 @@ def train(debug=False):
                         pygame.time.wait(200)
                         game.init()
                         continue
-                    game.updateGame()
+                    #game.updateGame()
                     game.drawGrid()
                     clock.tick(fps)
                 

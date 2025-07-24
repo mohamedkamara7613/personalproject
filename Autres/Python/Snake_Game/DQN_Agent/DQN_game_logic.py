@@ -49,6 +49,7 @@ class SnakeGame():
         self.score = 0
         self.high_score = 0
         self.current_score = 0 # peut etre recuperer depuis un fichier
+        self.steps_since_last_food = 0
 
 
     def load_assets(self):
@@ -209,6 +210,7 @@ class SnakeGame():
     def handleFood(self):
         # Si le serpent mange la nourriture
         if self.snake_head["x"]  == self.food["x"] and self.snake_head["y"] == self.food["y"]:
+            print("🍏 Pomme mangée !")  # ligne temporaire
             self.score += 1
             self.generate_food()
             last_segment = self.snake[len(self.snake)-1]
@@ -229,7 +231,8 @@ class SnakeGame():
                 "direction": last_segment["direction"]
             }
             self.snake.append(new_segment)
-            return False
+            return True
+        return False
         
     def handleDeath(self):
         # FIN DU JEU
@@ -485,6 +488,7 @@ class SnakeGame():
         #pos_actuel = (self.snake_head["x"], self.snake_head["y"])
         done = False
         old_distance = self.get_distance_to_food()
+        self.steps_since_last_food += 1
 
        # === Convertir l'action en direction ===   
         if action == 0 and self.snake[0]["direction"] != "down": # 0 = up
@@ -502,10 +506,14 @@ class SnakeGame():
 
         # === Récompense ===
         if self.handleDeath():
-            reward = -10 # mort = mauvais
+            reward = -20 # mort = mauvais
             done  = True
         elif self.handleFood():
-            reward = 10 # manger = bon
+            reward = +15 # manger = bon
+            self.steps_since_last_food = 0 # Réinitialiser le compteur de pas depuis la dernière nourriture
+            done = False
+        elif self.steps_since_last_food > 50:  # Si le serpent n'a pas mangé depuis longtemps
+            reward -= 1.0 # pénalité pour ne pas manger
             done = False
         else:
             reward = 0 # rien de special*
@@ -514,9 +522,9 @@ class SnakeGame():
 
         # === Récompense basée sur la distance à la nourriture ===
         if new_distance < old_distance:
-            reward += 0.5  # bonus pour rapprochement
+            reward += 1.0  # bonus pour rapprochement
         else:
-            reward -= 0.5  # pénalité pour éloignement
+            reward -= 1.0  # pénalité pour éloignement
 
         #pos_suivant = (self.snake_head["x"], self.snake_head["y"]) # celle obtenue en faisant l'action
 
@@ -654,11 +662,11 @@ def main():
     run = True
     while run:
         
-        run = game.handleEvenement()
+        run = game.handleDeath()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
-        if game.handleDeath() or game.handleFood():
+        if run:
             game.display_game_over()
             pygame.time.wait(2000)
             game.init()
