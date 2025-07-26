@@ -454,7 +454,7 @@ class SnakeGame():
             #self.screen.blit(segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
             pygame.draw.rect(self.screen, segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
 
-        self.draw_vision(self.screen)
+        #self.draw_vision(self.screen)
         self.draw_local_grid(self.screen)
         pygame.display.update()
 
@@ -843,6 +843,35 @@ class SnakeGame():
 
                 pygame.draw.rect(surface, color, rect, 2)
 
+# ------------------------------------------------------------------------------------------------------------------------------
+    def draw_path(self, path, color=(255, 0, 255)):
+        """
+        Dessine le chemin donné sur la grille du jeu.
+        
+        Paramètres :
+        - game : instance de SnakeGame
+        - path : liste de directions (ex: ["up", "right", "right", ...])
+        - color : couleur du tracé (par défaut violet)
+        """
+        if not path:
+            return  # aucun chemin à dessiner
+
+        cell_size = BOX_SIZE
+        x, y = self.snake_head["x"], self.snake_head["y"]
+        DIRS = {
+            "up": (0, -1),
+            "down": (0, 1),
+            "left": (-1, 0),
+            "right": (1, 0),
+        }
+
+        for direction in path:
+            dx, dy = DIRS[direction]
+            x += dx
+            y += dy
+
+            rect = pygame.Rect(x * cell_size, y * cell_size, cell_size, cell_size)
+            pygame.draw.rect(self.screen, color, rect, width=2)
 
 #--------------------------------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------------------------
