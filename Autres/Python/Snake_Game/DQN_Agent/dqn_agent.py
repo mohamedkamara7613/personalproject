@@ -46,7 +46,8 @@ class Agent:
 
 # ------------------------------------------------------------------------------------------------------------------------------
     def get_action(self, state):
-        self.epsilon = max(self.epsilon - self.epsilon_decay, self.epsilon_min)  # diminue epsilon à chaque appel
+        #self.epsilon = max(self.epsilon - self.epsilon_decay, self.epsilon_min)  # diminue epsilon à chaque appel
+        self.epsilon = max(self.epsilon * 0.995, self.epsilon_min) # diminue epsilon de façon exponentielle
         final_move = [0, 0, 0] # one-hot encoding
 
 
