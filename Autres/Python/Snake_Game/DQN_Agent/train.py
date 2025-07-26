@@ -97,7 +97,6 @@ def train(debug=False):
         print("💾 Sauvegarde du modèle...")
 
         agent.save()
-        plot(scores, mean_scores)
         pygame.quit()
 
     print("✅ Fin du programme.")

@@ -438,6 +438,7 @@ class SnakeGame():
             pygame.draw.rect(self.screen, segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
 
         self.draw_vision(self.screen)
+        self.draw_local_grid(self.screen)
         pygame.display.update()
 
     def display_game_over(self):
@@ -783,6 +784,41 @@ class SnakeGame():
                     break
 
                 step += 1
+                
+    #--------------------------------------------------------------------------------------------------------------------------
+                
+    def draw_local_grid(self, surface, grid_size=5):
+        """Dessine une grille locale centrée sur la tête du serpent."""
+        head_x = self.snake_head["x"]
+        head_y = self.snake_head["y"]
+        offset = grid_size // 2
+
+        for dy in range(-offset, offset + 1):
+            for dx in range(-offset, offset + 1):
+                cx = head_x + dx
+                cy = head_y + dy
+
+                if not (0 <= cx < self.columns and 0 <= cy < self.rows):
+                    continue  # Hors de la grille
+
+                # Coordonnées en pixels
+                px = cx * BOX_SIZE
+                py = cy * BOX_SIZE + HEADING
+
+                rect = pygame.Rect(px, py, BOX_SIZE, BOX_SIZE)
+
+                if cx == self.food["x"] and cy == self.food["y"]:
+                    color = (0, 255, 0)  # Pomme : vert
+                elif any(seg["x"] == cx and seg["y"] == cy for seg in self.snake):
+                    color = (255, 0, 0)  # Corps du serpent : rouge
+                elif cx == head_x and cy == head_y:
+                    color = (255, 255, 0)  # Tête du serpent : jaune
+                else:
+                    color = (50, 50, 50)  # Zone vide : gris foncé
+
+                pygame.draw.rect(surface, color, rect, 2)
+
+
 #--------------------------------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------------------------
 
