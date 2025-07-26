@@ -34,13 +34,17 @@ def train(debug=False):
 
             current_state = game.get_state()
 
-            relative_action = agent.get_action(current_state)
-            absolute_action = game.relative_to_absolute_direction(game.snake_head["direction"], relative_action)
+            relative_action_vec, relative_action = agent.get_action(current_state)
+            absolute_action = game.relative_to_absolute_direction(game.snake_head["direction"], relative_action_vec)
+            
+            if debug:
+                print(f"Action choisie : {absolute_action} (relative: {relative_action})")  
 
             reward, done, score = game.step(absolute_action)
             next_state = game.get_state()
 
             agent.memory.push(current_state, relative_action, reward, next_state, done)
+            
             if len(agent.memory) > MIN_MEMORY_SIZE:
                 # Entraînement du modèle avec un batch de la mémoire
                 states, actions, rewards, next_states, dones = agent.memory.sample(agent.batch_size)
@@ -49,11 +53,10 @@ def train(debug=False):
             #trainer.train_step(current_state, relative_action, reward, next_state, done)
  
 
-            if agent.nb_games % 100 == 0:
+            if agent.nb_games % 50 == 0:
                 trainer.update_target_model()
 
-            if agent.nb_games % 100 == 0:
-                # Sauvegarde régulière
+            if score > agent.high_score:
                 agent.save()
 
 

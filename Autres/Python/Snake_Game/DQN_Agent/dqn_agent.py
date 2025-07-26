@@ -10,6 +10,7 @@ from collections import deque
 import torch
 import pickle
 import os
+import math
 
 from model import Linear_QNet
 
@@ -48,6 +49,8 @@ class Agent:
     def get_action(self, state):
         #self.epsilon = max(self.epsilon - self.epsilon_decay, self.epsilon_min)  # diminue epsilon à chaque appel
         self.epsilon = max(self.epsilon * 0.995, self.epsilon_min) # diminue epsilon de façon exponentielle
+        #self.epsilon = self.epsilon_min + (1.0 - self.epsilon_min) * math.exp(-self.epsilon_decay * self.nb_games) # diminue epsilon de façon exponentielle
+
         final_move = [0, 0, 0] # one-hot encoding
 
 
@@ -63,7 +66,7 @@ class Agent:
 
         final_move[action] = 1 # conversion en vecteur binaire
 
-        return final_move
+        return final_move, action  # retourne le mouvement final et l'action choisie (0, 1 ou 2)
 # ------------------------------------------------------------------------------------------------------------------------------
                                                                                                                                                                                                     
     def save(self, file_name="model.pth", memory_path="memory.pkl", score_path="scores.pkl"):
