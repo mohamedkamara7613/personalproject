@@ -18,6 +18,10 @@ DIR_TO_ACTION = {
     "left": 3,
 }
 
+
+# ----------------------------------------------------
+#       .......................................=== Solver ===.......................................
+# ----------------------------------------------------
 def bfs(game):
     start = (game.snake_head["x"], game.snake_head["y"])
     goal = (game.food["x"], game.food["y"])
@@ -43,6 +47,10 @@ def bfs(game):
 
     return []  # Aucun chemin trouvé
 
+# ------------------------------------------------------------------------------------------------------------------
+#       .......................................=== Solver ===.......................................
+# ------------------------------------------------------------------------------------------------------------------
+
 def play_with_solver():
     game = SnakeGame(display=True)
     game.init()
@@ -55,6 +63,7 @@ def play_with_solver():
 
             if not path:
                 print("😵 Aucun chemin trouvé. Fin du jeu.")
+                print(f"🎮  Score Final : {score}, High Score : {game.high_score}")
                 game.save()
                 break
 
@@ -73,7 +82,8 @@ def play_with_solver():
                     return
     except KeyboardInterrupt:
         print("🚫 Jeu interrompu par l'utilisateur.")
-        game.save()  # Sauvegarder le score final
+        print(f"🎮  Score Final : {score}, High Score : {game.high_score}")
+        game.save()  # Sauvegarder le score finalé
     finally:
             pygame.quit()
     
