@@ -103,4 +103,4 @@ def train(debug=False):
     print("✅ Fin du programme.")
 
 if __name__ == "__main__":
-    train(debug=False)  # Change to True for debugging mode
+    train(debug=True)  # Change to True for debugging mode

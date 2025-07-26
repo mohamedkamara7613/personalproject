@@ -437,6 +437,7 @@ class SnakeGame():
             #self.screen.blit(segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
             pygame.draw.rect(self.screen, segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
 
+        self.draw_vision(self.screen)
         pygame.display.update()
 
     def display_game_over(self):
@@ -455,7 +456,7 @@ class SnakeGame():
 
         pygame.display.update()
 
-
+    """
     def handleEvenement(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -472,7 +473,7 @@ class SnakeGame():
                     self.snake[0]["direction"] = "left"
 
         return True
-  
+    """
 
 #--------------------------------------------------------------------------------------------------------------------------
 # Pour l'agent IA
@@ -732,6 +733,56 @@ class SnakeGame():
         mapping = {'up': 0, 'down': 1, 'left': 2, 'right': 3}
         return mapping[new_direction]
 
+    #--------------------------------------------------------------------------------------------------------------------------
+
+    def draw_vision(self, surface):
+        head_x = self.snake_head["x"]
+        head_y = self.snake_head["y"]
+        head_px = head_x * BOX_SIZE + BOX_SIZE // 2
+        head_py = head_y * BOX_SIZE + HEADING + BOX_SIZE // 2
+
+        directions = [
+            (0, -1),   # ↑
+            (1, -1),   # ↗
+            (1, 0),    # →
+            (1, 1),    # ↘
+            (0, 1),    # ↓
+            (-1, 1),   # ↙
+            (-1, 0),   # ←
+            (-1, -1),  # ↖
+        ]
+
+        for dx, dy in directions:
+            step = 1
+            while True:
+                cx = head_x + dx * step
+                cy = head_y + dy * step
+
+                # Sortie de la grille
+                if not (0 <= cx < self.columns and 0 <= cy < self.rows):
+                    break
+
+                px = cx * BOX_SIZE + BOX_SIZE // 2
+                py = cy * BOX_SIZE + HEADING + BOX_SIZE // 2
+
+                is_body = any(seg["x"] == cx and seg["y"] == cy for seg in self.snake[1:])
+                is_food = (self.food["x"] == cx and self.food["y"] == cy)
+
+                # Couleurs différentes selon la nature de l'objet vu
+                if is_food:
+                    color = (0, 255, 0)  # Vert pour food
+                elif is_body:
+                    color = (255, 0, 0)  # Rouge pour corps
+                else:
+                    color = (150, 150, 150)  # Gris clair pour vide
+
+                # Dessine une ligne de la tête jusqu'à cette case
+                pygame.draw.line(surface, color, (head_px, head_py), (px, py), 2)
+
+                if is_body or is_food:
+                    break
+
+                step += 1
 #--------------------------------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------------------------
 
