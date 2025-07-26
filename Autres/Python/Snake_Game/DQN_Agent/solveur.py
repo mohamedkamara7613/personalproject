@@ -1,7 +1,7 @@
 import pygame
 from collections import deque
 from DQN_game_logic import SnakeGame
-import pickle
+from heapq import heappush, heappop
 
 # Directions disponibles
 DIRS = {
@@ -18,10 +18,9 @@ DIR_TO_ACTION = {
     "left": 3,
 }
 
-
-# ----------------------------------------------------
-#       .......................................=== Solver ===.......................................
-# ----------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------
+#       .......................................=== BFS ===.......................................
+# ----------------------------------------------------------------------------------------------------
 def bfs(game):
     start = (game.snake_head["x"], game.snake_head["y"])
     goal = (game.food["x"], game.food["y"])
@@ -59,7 +58,8 @@ def play_with_solver():
 
     try:
         while True:
-            path = bfs(game)
+            # path = bfs(game)
+            path = safe_a_star(game)
 
             if not path:
                 print("😵 Aucun chemin trouvé. Fin du jeu.")
