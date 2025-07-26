@@ -844,37 +844,19 @@ class SnakeGame():
                 pygame.draw.rect(surface, color, rect, 2)
 
 # ------------------------------------------------------------------------------------------------------------------------------
-    def draw_path(self, path, color=(255, 0, 255)):
+    def draw_path(self, positions, color=(255, 0, 255)):
         """
-        Dessine le chemin vers la nourriture sur la grille du jeu.
-        - path : liste de directions (ex: ["up", "right", "down", ...])
-        - color : couleur du tracé (par défaut violet)
+        Dessine le chemin donné sous forme de positions [(x, y), ...]
         """
-        if not path:
-            return
-
-        x, y = self.snake_head["x"], self.snake_head["y"]
-
-        DIRS = {
-            "up": (0, -1),
-            "down": (0, 1),
-            "left": (-1, 0),
-            "right": (1, 0),
-        }
-
-        for direction in path:
-            dx, dy = DIRS[direction]
-            x += dx
-            y += dy
-
+        for (x, y) in positions:
             rect = pygame.Rect(
                 x * BOX_SIZE,
                 y * BOX_SIZE + HEADING,
                 BOX_SIZE,
                 BOX_SIZE
             )
-            pygame.draw.rect(self.screen, color, rect, width=2)  # contour
-        
+            pygame.draw.rect(self.screen, color, rect, width=2)
+
 
 #--------------------------------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------------------------

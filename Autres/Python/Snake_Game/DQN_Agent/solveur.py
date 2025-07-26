@@ -108,6 +108,21 @@ def bfs(game):
                     queue.append(((nx, ny), path + [direction]))
 
     return []  # Aucun chemin trouvé
+# ----------------------------------------------------------------------------------------------------
+def directions_to_positions(start_x, start_y, path):
+    """
+    Convertit une séquence de directions en liste de positions (x, y).
+    """
+    x, y = start_x, start_y
+    positions = []
+
+    for direction in path:
+        dx, dy = DIRS[direction]
+        x += dx
+        y += dy
+        positions.append((x, y))
+
+    return positions
 
 # ------------------------------------------------------------------------------------------------------------------
 #       .......................................=== Solver ===.......................................
@@ -129,13 +144,17 @@ def play_with_solver():
                 print(f"🎮  Score Final : {score}, High Score : {game.high_score}")
                 game.save()
                 break
+            
+            # Convertir une seule fois en positions fixes AVANT que le serpent ne bouge
+            fixed_path_positions = directions_to_positions(game.snake_head["x"], game.snake_head["y"], path)
+
 
             for direction in path:
                 action = DIR_TO_ACTION[direction]
                 reward, done, score = game.step(action)
 
                 game.drawGrid()
-                game.draw_path(path)  # Dessiner le chemin
+                game.draw_path(fixed_path_positions)  # Dessiner le chemin
                 pygame.display.flip()
                 clock.tick(fps)
 
