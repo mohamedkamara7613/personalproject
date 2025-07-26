@@ -12,6 +12,7 @@
 import pygame
 import random
 import numpy as np
+import pickle
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -48,10 +49,30 @@ class SnakeGame():
         self.food = {}
         self.score = 0
         self.high_score = 0
+        self.load()
         self.current_score = 0 # peut etre recuperer depuis un fichier
         self.steps_since_last_food = 0
 
-
+    # -------------------------------------------------------------------------------------------------------
+    def save(self, file_name="high_score.pkl"):
+        """Sauvegarde le score le plus élevé dans un fichier."""
+        if self.score > self.high_score:
+            self.high_score = self.score
+        with open(file_name, "wb") as f:
+            pickle.dump(self.high_score, f)
+            print(f"✅ High score sauvegardé dans {file_name}")
+    
+    # -------------------------------------------------------------------------------------------------------
+    def load(self, file_name="high_score.pkl"):
+        """Charge le score le plus élevé depuis un fichier."""
+        try:
+            with open(file_name, "rb") as f:
+                self.high_score = pickle.load(f)
+                print(f"📦 High score chargé depuis {file_name}")
+        except FileNotFoundError:
+            print(f"❌ Le fichier {file_name} n'existe pas. Le Fichier va etre créer.")
+            self.save(file_name)
+    # -------------------------------------------------------------------------------------------------------
     def load_assets(self):
         try:
             # Images de fond
@@ -65,7 +86,7 @@ class SnakeGame():
             # Images pour la nourriture du serpent
             #self.food_img = pygame.image.load("images/apple.png")
             #self.food_img = pygame.transform.scale(self.food_img, (BOX_SIZE, BOX_SIZE))
-            self.food_img = GREEN
+            self.food_img = YELLOW
 
             # Images pour le serpent
             # Pour la tete
@@ -239,15 +260,12 @@ class SnakeGame():
         # Si le serpent se touche lui meme 
         for i in range(1,len(self.snake)):
             if self.snake_head["x"] == self.snake[i]["x"] and self.snake_head["y"] == self.snake[i]["y"]:
-                self.high_score = self.score
                 return True
             
         # Si le serpent touche le bord
         if (self.snake_head["x"] == 0) or (self.snake_head["x"] == self.columns):
-            self.high_score = self.score
             return True
         elif (self.snake_head["y"] == 0) or (self.snake_head["y"]) == self.rows:
-            self.high_score = self.score
             return True
         
     def handleCollisions(self):
@@ -279,18 +297,18 @@ class SnakeGame():
         # Si le serpent se touche lui meme 
         for i in range(1,len(self.snake)):
             if self.snake_head["x"] == self.snake[i]["x"] and self.snake_head["y"] == self.snake[i]["y"]:
-                self.high_score = self.score
                 return True
             
         # Si le serpent touche le bord
         if (self.snake_head["x"] == 0) or (self.snake_head["x"] == self.columns):
-            self.high_score = self.score
             return True
         elif (self.snake_head["y"] == 0) or (self.snake_head["y"]) == self.rows:
-            self.high_score = self.score
             return True
         
     def updateGame(self):
+        if self.score > self.high_score:
+            self.high_score = self.score
+            
         # Réinitialiser la grille
         self.grid = [[0 for _ in range(self.rows)] for _ in range(self.columns)]
 
@@ -454,6 +472,8 @@ class SnakeGame():
         # Afficher le texte en rouge
         self.screen.blit(game_over_text, rect)
         #self.screen.blit(game_over_text, (WIDTH//2, (HEIGHT+HEADING)//2))
+        
+        self.save()  # Sauvegarder le score le plus élevé
 
         pygame.display.update()
 
@@ -775,9 +795,9 @@ class SnakeGame():
 
                 # Couleurs différentes selon la nature de l'objet vu
                 if is_food:
-                    color = (0, 255, 0)  # Vert pour food
+                    color = YELLOW # Vert pour food
                 elif is_body:
-                    color = (255, 0, 0)  # Rouge pour corps
+                    color = GREEN  # Rouge pour corps
                 else:
                     color = (150, 150, 150)  # Gris clair pour vide
 
