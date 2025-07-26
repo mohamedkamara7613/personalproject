@@ -56,7 +56,6 @@ def train(debug=False):
                 # Sauvegarde régulière
                 agent.save()
 
-            
 
             if done:
                 game.init()
@@ -71,17 +70,14 @@ def train(debug=False):
                 agent.scores = scores
                 agent.mean_scores = mean_scores
                 
-                #plot(scores, mean_scores)
+                if not debug:
+                    plot(scores, mean_scores)
 
                 if score > agent.high_score:
                     high_score = score
                     agent.high_score = high_score
                     print(f"🏆 Nouveau record ! Score: {high_score}")
             
-            
-                
-
-
             if debug:
                     if done:
                         game.display_game_over()
@@ -92,7 +88,6 @@ def train(debug=False):
                     game.drawGrid()
                     clock.tick(fps)
                 
-
             print(f"Jeu {agent.nb_games}  Score: {score}  Record: {agent.high_score}")
 
     except KeyboardInterrupt:
@@ -102,10 +97,9 @@ def train(debug=False):
         print("💾 Sauvegarde du modèle...")
 
         agent.save()
-        plot(scores, mean_scores)
         pygame.quit()
 
     print("✅ Fin du programme.")
 
 if __name__ == "__main__":
-    train(debug=True)
+    train(debug=True)  # Change to True for debugging mode

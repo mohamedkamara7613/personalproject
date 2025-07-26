@@ -36,7 +36,7 @@ class Agent:
         self.memory = Memory(capacity=MAX_LEN)  # mémoire pour stocker les expériences
         self.batch_size = 256
 
-        self.model = Linear_QNet(18, 256, 3)    # input=18, hidden=256, output=3 (left, straight, right)
+        self.model = Linear_QNet(53, 256, 3)    # input=18, hidden=256, output=3 (left, straight, right)
         self.target_model = Linear_QNet(self.model.linear1.in_features,
                                         self.model.linear1.out_features,
                                         self.model.linear2.out_features)
@@ -46,7 +46,8 @@ class Agent:
 
 # ------------------------------------------------------------------------------------------------------------------------------
     def get_action(self, state):
-        self.epsilon = max(self.epsilon - self.epsilon_decay, self.epsilon_min)  # diminue epsilon à chaque appel
+        #self.epsilon = max(self.epsilon - self.epsilon_decay, self.epsilon_min)  # diminue epsilon à chaque appel
+        self.epsilon = max(self.epsilon * 0.995, self.epsilon_min) # diminue epsilon de façon exponentielle
         final_move = [0, 0, 0] # one-hot encoding
 
 
