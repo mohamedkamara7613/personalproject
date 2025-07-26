@@ -523,10 +523,14 @@ class SnakeGame():
         new_distance = self.get_distance_to_food()
 
         # === Récompense basée sur la distance à la nourriture ===
+        # Ne pas appliquer de pénalité si le serpent est déja mort ou a mangé
+        if done or self.handleFood():
+            return (reward, done, self.score)
+        
         if new_distance < old_distance:
-            reward += 1.0  # bonus pour rapprochement
+            reward += 0.5  # bonus pour rapprochement
         else:
-            reward -= 1.0  # pénalité pour éloignement
+            reward -= 0.2  # pénalité pour éloignement
 
         #pos_suivant = (self.snake_head["x"], self.snake_head["y"]) # celle obtenue en faisant l'action
 
