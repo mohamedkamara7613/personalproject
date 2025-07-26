@@ -1,6 +1,6 @@
 import pygame
 from collections import deque
-from DQN_game_logic import SnakeGame
+from game_logic import SnakeGame
 from heapq import heappush, heappop
 
 # Directions disponibles
@@ -142,9 +142,11 @@ def play_with_solver():
             if not path:
                 print("😵 Aucun chemin trouvé. Fin du jeu.")
                 print(f"🎮  Score Final : {score}, High Score : {game.high_score}")
+                
                 game.save()
+                pygame.time.wait(2000)
                 break
-            
+
             # Convertir une seule fois en positions fixes AVANT que le serpent ne bouge
             fixed_path_positions = directions_to_positions(game.snake_head["x"], game.snake_head["y"], path)
 
