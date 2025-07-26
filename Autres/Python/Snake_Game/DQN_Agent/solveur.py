@@ -135,6 +135,7 @@ def play_with_solver():
                 reward, done, score = game.step(action)
 
                 game.drawGrid()
+                game.draw_path(path)  # Dessiner le chemin
                 pygame.display.flip()
                 clock.tick(fps)
 
