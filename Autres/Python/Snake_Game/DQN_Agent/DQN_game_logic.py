@@ -12,6 +12,7 @@
 import pygame
 import random
 import numpy as np
+import pickle
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -48,10 +49,30 @@ class SnakeGame():
         self.food = {}
         self.score = 0
         self.high_score = 0
+        self.load()
         self.current_score = 0 # peut etre recuperer depuis un fichier
         self.steps_since_last_food = 0
 
-
+    # -------------------------------------------------------------------------------------------------------
+    def save(self, file_name="high_score.pkl"):
+        """Sauvegarde le score le plus élevé dans un fichier."""
+        if self.score > self.high_score:
+            self.high_score = self.score
+        with open(file_name, "wb") as f:
+            pickle.dump(self.high_score, f)
+            print(f"✅ High score sauvegardé dans {file_name}")
+    
+    # -------------------------------------------------------------------------------------------------------
+    def load(self, file_name="high_score.pkl"):
+        """Charge le score le plus élevé depuis un fichier."""
+        try:
+            with open(file_name, "rb") as f:
+                self.high_score = pickle.load(f)
+                print(f"📦 High score chargé depuis {file_name}")
+        except FileNotFoundError:
+            print(f"❌ Le fichier {file_name} n'existe pas. Le Fichier va etre créer.")
+            self.save(file_name)
+    # -------------------------------------------------------------------------------------------------------
     def load_assets(self):
         try:
             # Images de fond
@@ -65,7 +86,7 @@ class SnakeGame():
             # Images pour la nourriture du serpent
             #self.food_img = pygame.image.load("images/apple.png")
             #self.food_img = pygame.transform.scale(self.food_img, (BOX_SIZE, BOX_SIZE))
-            self.food_img = GREEN
+            self.food_img = YELLOW
 
             # Images pour le serpent
             # Pour la tete
@@ -210,7 +231,6 @@ class SnakeGame():
     def handleFood(self):
         # Si le serpent mange la nourriture
         if self.snake_head["x"]  == self.food["x"] and self.snake_head["y"] == self.food["y"]:
-            print("🍏 Pomme mangée !")  # ligne temporaire
             self.score += 1
             self.generate_food()
             last_segment = self.snake[len(self.snake)-1]
@@ -239,15 +259,12 @@ class SnakeGame():
         # Si le serpent se touche lui meme 
         for i in range(1,len(self.snake)):
             if self.snake_head["x"] == self.snake[i]["x"] and self.snake_head["y"] == self.snake[i]["y"]:
-                self.high_score = self.score
                 return True
             
         # Si le serpent touche le bord
-        if (self.snake_head["x"] == 0) or (self.snake_head["x"] == self.columns):
-            self.high_score = self.score
+        if not (0 <= self.snake_head["x"] < self.columns):
             return True
-        elif (self.snake_head["y"] == 0) or (self.snake_head["y"]) == self.rows:
-            self.high_score = self.score
+        elif not (0 <= self.snake_head["y"] < self.rows):
             return True
         
     def handleCollisions(self):
@@ -279,18 +296,18 @@ class SnakeGame():
         # Si le serpent se touche lui meme 
         for i in range(1,len(self.snake)):
             if self.snake_head["x"] == self.snake[i]["x"] and self.snake_head["y"] == self.snake[i]["y"]:
-                self.high_score = self.score
                 return True
             
         # Si le serpent touche le bord
         if (self.snake_head["x"] == 0) or (self.snake_head["x"] == self.columns):
-            self.high_score = self.score
             return True
         elif (self.snake_head["y"] == 0) or (self.snake_head["y"]) == self.rows:
-            self.high_score = self.score
             return True
         
     def updateGame(self):
+        if self.score > self.high_score:
+            self.high_score = self.score
+            
         # Réinitialiser la grille
         self.grid = [[0 for _ in range(self.rows)] for _ in range(self.columns)]
 
@@ -301,19 +318,19 @@ class SnakeGame():
 
         # Mise a jour de la position et l'image de la tete du serpent
         if self.snake_head["direction"] == "up":
-            self.snake_head["y"] = (self.snake_head["y"] - 1) % self.rows 
+            self.snake_head["y"] -= 1 
             self.snake_head["img"] = self.snake_imgs["head_up"]
         
         elif self.snake_head["direction"] == "down":
-            self.snake_head["y"] = (self.snake_head["y"] + 1) % self.rows
+            self.snake_head["y"] += 1
             self.snake_head["img"] = self.snake_imgs["head_down"]
        
         elif self.snake_head["direction"] == "left":
-            self.snake_head["x"] = (self.snake_head["x"] - 1) % self.columns
+            self.snake_head["x"] -= 1
             self.snake_head["img"] = self.snake_imgs["head_left"]
        
         elif self.snake_head["direction"] == "right":
-            self.snake_head["x"] = (self.snake_head["x"] + 1) % self.columns
+            self.snake_head["x"] += 1
             self.snake_head["img"] = self.snake_imgs["head_right"]
         
         # Mise à jour des images du corps
@@ -438,7 +455,7 @@ class SnakeGame():
             pygame.draw.rect(self.screen, segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
 
         self.draw_vision(self.screen)
-        self.draw_local_grid(self.screen)
+        #self.draw_local_grid(self.screen)
         pygame.display.update()
 
     def display_game_over(self):
@@ -454,6 +471,8 @@ class SnakeGame():
         # Afficher le texte en rouge
         self.screen.blit(game_over_text, rect)
         #self.screen.blit(game_over_text, (WIDTH//2, (HEIGHT+HEADING)//2))
+        
+        self.save()  # Sauvegarder le score le plus élevé
 
         pygame.display.update()
 
@@ -491,6 +510,8 @@ class SnakeGame():
         done = False
         old_distance = self.get_distance_to_food()
         self.steps_since_last_food += 1
+        
+       
 
        # === Convertir l'action en direction ===   
         if action == 0 and self.snake[0]["direction"] != "down": # 0 = up
@@ -501,7 +522,7 @@ class SnakeGame():
             self.snake[0]["direction"] = "right"
         if action == 3 and self.snake[0]["direction"] != "right":  # 3 = left
             self.snake[0]["direction"] = "left" 
-
+    
         # === Mettre à jour la position du serpent ===
         self.updateGame()
 
@@ -775,9 +796,9 @@ class SnakeGame():
 
                 # Couleurs différentes selon la nature de l'objet vu
                 if is_food:
-                    color = (0, 255, 0)  # Vert pour food
+                    color = YELLOW # Vert pour food
                 elif is_body:
-                    color = (255, 0, 0)  # Rouge pour corps
+                    color = GREEN  # Rouge pour corps
                 else:
                     color = (150, 150, 150)  # Gris clair pour vide
 
@@ -821,6 +842,20 @@ class SnakeGame():
                     color = (50, 50, 50)  # Zone vide : gris foncé
 
                 pygame.draw.rect(surface, color, rect, 2)
+
+# ------------------------------------------------------------------------------------------------------------------------------
+    def draw_path(self, positions, color=(255, 0, 255)):
+        """
+        Dessine le chemin donné sous forme de positions [(x, y), ...]
+        """
+        for (x, y) in positions:
+            rect = pygame.Rect(
+                x * BOX_SIZE,
+                y * BOX_SIZE + HEADING,
+                BOX_SIZE,
+                BOX_SIZE
+            )
+            pygame.draw.rect(self.screen, color, rect, width=2)
 
 
 #--------------------------------------------------------------------------------------------------------------------------
