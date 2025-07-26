@@ -231,7 +231,6 @@ class SnakeGame():
     def handleFood(self):
         # Si le serpent mange la nourriture
         if self.snake_head["x"]  == self.food["x"] and self.snake_head["y"] == self.food["y"]:
-            print("🍏 Pomme mangée !")  # ligne temporaire
             self.score += 1
             self.generate_food()
             last_segment = self.snake[len(self.snake)-1]
@@ -263,9 +262,9 @@ class SnakeGame():
                 return True
             
         # Si le serpent touche le bord
-        if (self.snake_head["x"] == 0) or (self.snake_head["x"] == self.columns):
+        if not (0 <= self.snake_head["x"] < self.columns):
             return True
-        elif (self.snake_head["y"] == 0) or (self.snake_head["y"]) == self.rows:
+        elif not (0 <= self.snake_head["y"] < self.rows):
             return True
         
     def handleCollisions(self):
@@ -319,19 +318,19 @@ class SnakeGame():
 
         # Mise a jour de la position et l'image de la tete du serpent
         if self.snake_head["direction"] == "up":
-            self.snake_head["y"] = (self.snake_head["y"] - 1) % self.rows 
+            self.snake_head["y"] -= 1 
             self.snake_head["img"] = self.snake_imgs["head_up"]
         
         elif self.snake_head["direction"] == "down":
-            self.snake_head["y"] = (self.snake_head["y"] + 1) % self.rows
+            self.snake_head["y"] += 1
             self.snake_head["img"] = self.snake_imgs["head_down"]
        
         elif self.snake_head["direction"] == "left":
-            self.snake_head["x"] = (self.snake_head["x"] - 1) % self.columns
+            self.snake_head["x"] -= 1
             self.snake_head["img"] = self.snake_imgs["head_left"]
        
         elif self.snake_head["direction"] == "right":
-            self.snake_head["x"] = (self.snake_head["x"] + 1) % self.columns
+            self.snake_head["x"] += 1
             self.snake_head["img"] = self.snake_imgs["head_right"]
         
         # Mise à jour des images du corps
@@ -511,6 +510,8 @@ class SnakeGame():
         done = False
         old_distance = self.get_distance_to_food()
         self.steps_since_last_food += 1
+        
+       
 
        # === Convertir l'action en direction ===   
         if action == 0 and self.snake[0]["direction"] != "down": # 0 = up
@@ -521,7 +522,7 @@ class SnakeGame():
             self.snake[0]["direction"] = "right"
         if action == 3 and self.snake[0]["direction"] != "right":  # 3 = left
             self.snake[0]["direction"] = "left" 
-
+    
         # === Mettre à jour la position du serpent ===
         self.updateGame()
 

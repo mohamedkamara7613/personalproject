@@ -55,6 +55,7 @@ def play_with_solver():
 
             if not path:
                 print("😵 Aucun chemin trouvé. Fin du jeu.")
+                game.save()
                 break
 
             for direction in path:
