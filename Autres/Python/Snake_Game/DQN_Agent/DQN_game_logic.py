@@ -589,7 +589,7 @@ class SnakeGame():
 
         return self.is_collision_at(x, y)
     #--------------------------------------------------------------------------------------------------------------------------
-    def get_state(self):
+    def get_state_old(self):
         # === Direction du serpent ===
         dir_up = self.snake_head["direction"] == "up"
         dir_down = self.snake_head["direction"] == "down"
@@ -629,6 +629,91 @@ class SnakeGame():
             snake_length
         ]
 
+        return np.array(state, dtype=np.float32)
+
+#--------------------------------------------------------------------------------------------------------------------------
+  
+    def get_state(self):
+        head_x = self.snake_head["x"]
+        head_y = self.snake_head["y"]
+
+        # === 1. Direction actuelle (one-hot) ===
+        direction = self.snake_head["direction"]
+        dir_onehot = [
+            int(direction == "up"),
+            int(direction == "down"),
+            int(direction == "left"),
+            int(direction == "right"),
+        ]
+
+        # === 2. Champ de vision directionnel ===
+        # Directions (8 sens)
+        directions = [
+            (0, -1),  # ↑
+            (1, -1),  # ↗
+            (1, 0),   # →
+            (1, 1),   # ↘
+            (0, 1),   # ↓
+            (-1, 1),  # ↙
+            (-1, 0),  # ←
+            (-1, -1), # ↖
+        ]
+
+        vision = []
+
+        for dx, dy in directions:
+            food_seen = 0
+            danger_seen = 0
+            inv_dist = 0
+
+            step = 1
+            while True:
+                check_x = head_x + dx * step
+                check_y = head_y + dy * step
+
+                # Hors grille → mur
+                if not (0 <= check_x < self.columns and 0 <= check_y < self.rows):
+                    danger_seen = 1
+                    break
+
+                # Serpent ? → danger
+                if any(seg["x"] == check_x and seg["y"] == check_y for seg in self.snake[1:]):
+                    danger_seen = 1
+                    break
+
+                # Nourriture ?
+                if self.food["x"] == check_x and self.food["y"] == check_y:
+                    food_seen = 1
+                    inv_dist = 1 / step
+                    break
+
+                step += 1
+                if step > max(self.columns, self.rows):  # Sécurité
+                    break
+
+            vision.extend([food_seen, danger_seen, inv_dist])
+
+        # === 3. Grille locale autour de la tête (5x5) ===
+        local_grid = []
+        for dy in range(-2, 3):
+            for dx in range(-2, 3):
+                cell_x = head_x + dx
+                cell_y = head_y + dy
+
+                # Hors grille = mur (valeur neutre ici → 0)
+                if not (0 <= cell_x < self.columns and 0 <= cell_y < self.rows):
+                    local_grid.append(1)  # ou -1 si tu veux distinguer
+                    continue
+
+                if self.food["x"] == cell_x and self.food["y"] == cell_y:
+                    local_grid.append(2)
+                elif any(seg["x"] == cell_x and seg["y"] == cell_y for seg in self.snake):
+                    local_grid.append(1)
+                else:
+                    local_grid.append(0)
+
+        # === Final state vector ===
+        state = vision + local_grid + dir_onehot
         return np.array(state, dtype=np.float32)
 
 #--------------------------------------------------------------------------------------------------------------------------
