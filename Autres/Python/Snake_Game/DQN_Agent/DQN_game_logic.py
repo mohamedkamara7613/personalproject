@@ -454,8 +454,8 @@ class SnakeGame():
             #self.screen.blit(segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING))
             pygame.draw.rect(self.screen, segment["img"], (segment["x"]*BOX_SIZE, segment["y"]*BOX_SIZE + HEADING, BOX_SIZE, BOX_SIZE))
 
-        #self.draw_vision(self.screen)
-        self.draw_local_grid(self.screen)
+        self.draw_vision(self.screen)
+        #self.draw_local_grid(self.screen)
         pygame.display.update()
 
     def display_game_over(self):
