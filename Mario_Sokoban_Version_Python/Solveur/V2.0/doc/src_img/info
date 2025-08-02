@@ -1,0 +1,5 @@
+------------------------------MARIO SOKOBAN V2.0----------------------------------
+
+- la largeur de presque tous les images est de 340 px
+- la couleur jaune d'arriere plan est : 0xFCEC6B
+- methode de blittage : blit le premier element et les autres en fonction du premier
