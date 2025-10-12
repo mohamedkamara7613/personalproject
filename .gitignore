@@ -3,3 +3,17 @@ Autres/Python/test_utile/del_whitespacce/dictionnaire1.txt
 Autres/Python/test_utile/del_whitespacce/dictionnaire_whitespace_deleted.txt
 
 .buildozer/
+# Ignorer tous les environnements virtuels Python
+.venv/
+venv/
+**/.venv/
+**/venv/
+
+# Ignorer les fichiers de configuration spécifiques à l'IDEs
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+*.sublime-project
+*.sublime-workspace
