@@ -1,3 +1,1 @@
 mediapipe
-cv2
-time
