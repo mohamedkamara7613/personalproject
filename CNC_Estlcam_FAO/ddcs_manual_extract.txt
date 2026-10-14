@@ -1,0 +1,1225 @@
+﻿TOTAL PAGES: 44
+--- PAGE 1 ---
+Standalone Motion Controller
+DDCS V3.1
+UserÔÇÖs Guide
+Shenzhen Digital Dream Numerical Technology Co., Ltd.
+Add: Floor 2,ZhongCheng Life Science First Park, Longgang District,Shenzhen,China.
+Website:www.ddcnc.com Email:info@ddcnc.com
+--- PAGE 2 ---
+1 DDCS V3.1 Controller Introduction
+1.1 Introduction of Product
+Digital Dream has a 10 years history in the numerical control industry, specializing in the research, devel-
+opment and production of various CNC (Computer Numerical Control) systems from 2008. Digital Dream aims
+to combine high quality and high reliability with affordability. We produce 1 axis to 6 axes CNC system.
+The DDCS V3.1 is a 3 or 4 axis motion controller for stepper and servo systems.DDCS V3.1 is updated
+from DDCS V1.1 and DDCS V3.1. We are very proud of this product, it combines great power with a tiny
+footprint and is easy to use. After a very short time you will be familiar with the functions and this manual will
+help you. The highest output pulse per axis is 500KHz. The pulse width is adjustable (refer to driver manual).
+The control period of each position is only 4 milliseconds. This provides high control precision for stepper
+motors and servo motors.
+The DDCS V3.1 numerical control system adopts the ARM+FPGA design framework. ARM controls
+the human-computer interface and code analysis and the FPGA provides the underlying algorithms and creates
+the control pulse. This guarantees reliable control and easy operation. The internal operating system is Linux
+based.
+The panel layout structure of the DDCS V3.1 is very rational to save space. All operations are controlled
+by only 17 keys and a comprehensive G code set is supported.
+The DDCS can be used for many styles and types of CNC machines. Lathes, Routers, Pick&Place and
+Mills are just a few examples. It operates as a Stand Alone system without the need of a computer. This guaran-
+tees high precision, accuracy and reliability. The interface, even very comprehensive, can be learned in a very
+short time.
+1.2 Performance parameter of the DDCS V3.1
+1) 16 opto isolated digital inputs,3 opto isolated digital outputs;
+2) Upgrade algorithm,support soft interpolation,fixed arc interpolation bug of the old version;
+3) Analog spindle control 0-10V spindle control (can be modified as PWM output);
+4) 3-4 axis motor Control.Differential Pulse and direction output signal,Max.500Khz per axis;
+5) ARM9 main control chip,FPGA core algorithm chip;
+6) 5 inches TFT screen, resolution ratio: 480x272,17 operation keys;
+7) 24VDC power input, minimum Current is 0.5A;
+8) USB flash disk support for G code file input,no size limited of the G-code file ;
+9) 1GB internal memory;
+10) Support standard MPG;
+11) Jog function for each axis (continuous, step, defined 
+--- PAGE 3 ---
+1.3 Appearance, Structure and Size of Product
+The DDCS V3.1 is a small box that can fit in a window of a small control box or control cabinet. Four
+locking hooks fix this controller from the frame. The dimension you find in picture 1-1 and picture 1-2.
+The front panel is 191mm*128mm*5mm´╝ø
+The main body is 191mm*128mm*37mm´╝ø
+To mount the unit in an equipment cabinet, cut the hole182.5mm*59mm
+191 mm
+m
+m
+5
+1
+2
+8
+m
+m
+m
+m
+0
+1
+175
+mm
+1
+37 mm
+Picture 1-1 DDCS V3.1 Front and back view and dimensions
+182.5 mm
+m
+m
+9
+5
+Picture 1-2 DDCS V3.1 Rear view and dimensions
+Digital Dream Standalone Motion Controller Page -2 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 4 ---
+The front panel consists of 17 user keys and the 5ÔÇÖÔÇÖ (480*272) LCD.
+5'' Screen
+17 userÔÇÖs keys
+Picture1-3 Front panel
+At the back side of the controller,there are USB Disk interface,MPG Port,Main Port and external
+Start/Pause/Estop interface.
+In order to make convenient for the connection,we also apply the 3 layers wiring terminal for main port.
+We also supply a DB-15 Ma plug for MPG connection.
+The 8 screws are to fix the wiring ternimal and controller.
+The U-disk is for the transfer of the G-code file.
+Picture 1-4 Back side of the controller and the accessories
+Digital Dream Standalone Motion Controller Page -3 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 5 ---
+1.4 Explanation of Abbreviations
+When operating the DDCS, the users will come across some English abbreviations. Here a list with expla-
+nations
+FRO: Feed Rate Override
+SRO: Spindle Rate Override
+SRJ: Jog Speed Setting
+F: Feed rate, unit is mm/min
+S: Spindle Speed, unit rev/min.
+X: The coordinate code of the X axis.
+Y: The coordinate code of the Y axis.
+Z: The coordinate code of the Z axis.
+A: The coordinate code of the A axis
+BUSY: The system is busy. You still can adjust FRO and SRO
+READY: READY mode, any operation can be done
+RESET: Reset mode, controller is in ÔÇ£OFFÔÇØ mode, no operation can be performed
+CONT: Continuous mode, each axis can be manually jogged with the arrow keys
+Step :Manual Step Mode´╝îeach axis can be jogged in defined steps
+MPG: MPG mode. Operate the machine with the MPG (Manual Pulse Generator)
+AUTO: Run G code. Auto is showing when file is processing
+1.5 Notes and Warnings
+Keep away from exposure to moisture or water. This product contains sophisticated electronics
+and must not get wet.
+Wiring warning: the IO input terminal of this controller supports equipment with source power (such as
+Inductive Proximity Switch ). When using this kind of equipment, pay attention to the polarity. Avoid the
++terminal to be connect with GND. This controllers has analog output for spindle control (0-10V). Please avoid
+this terminal to ever connect with GND as damage to the controller may occur.
+Operation warning. Please observe all security measures when operating the machine. The ESTOP
+must be connected and properly labelled. In case of a problem, press the E-stop at once to avoid
+damage to humans, animals and the equipment.
+High voltage danger. The DDCS is connected to18-32V DC. Obey and follow the electricity safety rules
+of your country when connecting this equipment.
+Digital Dream Standalone Motion Controller Page -4 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 6 ---
+2 Wiring
+2.1 Power supply explanation
+In general, the power supply of industrial controlÔÇÖs equipment products are complex. They have many
+different ground levels. The internal power structure of this product is as follows:
+See picture 2-1. The Master Power input and MPG module and stepper control module have the same
+ground. Limit,ESTOP and other input modules as well as the spindle speed control output /M3/M8/M10 and
+other output modules have the same ground, which use optical isolation. The Limits, E-STOP and other input
+modules are connected with the same positive. The controller provides 12V as the common + port, without the
+requirement of the external power source. As for the spindle port, take the output ground for references and the
+0-10V adjustable voltages to adjust the spindle speed (refer to spindle VFD manual). The M3/M8/M10 digital
+output ports pull to ground. You can connect an external relay with up to 50mA direct to 12V+ and the M
+connector (Solid State relays usually pull between 15 and 20mA)
+Picture 2-1 Power supply structure
+2.2 Product Wiring Overview
+MPG Ports USB Port
+Start/Pause/Estop Switch
+Picture 2-2 Wiring and Ports
+As the picture shows, the wiring section of the controller has Input Ports,Spindle&Output Ports,tepper/Ser-
+vo control step and direction output,MPG Port, USB Port and Power supply Port.
+Digital Dream Standalone Motion Controller Page -5 DDCS V3.1 UserÔÇÖs Manual
+Power
+Supply
+Spindle&Output
+Ports
+Input
+Ports
+Stepper
+or
+Servo
+Ports
+--- PAGE 7 ---
+2.3 START/PAUSE/ESTOP Switch Wiring
+As Picture 2-3 shows, the power interface,there is a screw termimal for connection. The marks are the
+ÔÇ£STARTÔÇØ/ÔÇØPAUSEÔÇØ/ÔÇØESTOPÔÇØ and ÔÇ£COMÔÇØ for external switches. And Picture 2-4 is the circuit drawing for the
+connection.
+Picture 2-3 START/PAUSE/ESTOP/COM interface
+Picture 2-4 Circuit drawing of START/PAUSE/ESTOP/COM
+2.4 USB Wiring
+This USB port is the standard USB A-type. A 50cm USB extension cord with installation plug is supplied
+with the controller. See sketch diagram picture 2-5 for reference.
+Picture 2-5 USB interface
+Digital Dream Standalone Motion Controller Page -6 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 8 ---
+2.5 MPG Port
+The MPG port is shown in Picture 2-6. It is the DB15 Female terminals next to the USB port.
+The users need to weld the MPG cables into the DB15 Male terminal,and plug-in to the MPG port of the
+controller MPG port.
+Picture 2-6 MPG port and accessory connector for it
+The MPG port has 15 pins, see Table 2-1 for reference. See Table 2-2 and table 2-3 for the wiring.
+Pin No.Pin Mark Definition Notes
+Exclusive Power supply Positive of MPG, which can restore the fuse
+1 +5V-W MPG Power Supply 5V Positive
+connection with a 200MA of the system power supply.
+2 WHB+ MPG B phase positive MPG B differential input positive terminal
+3 WHA+ MPG A phase positive MPG A phase differential input positive terminal
+4 X-IN Select switch of X axis Connect with GND,indicates selecting X axis, open indicates no selecting
+5 Z-IN Select switch of Z axis Connect with GND,indicates selecting Z axis, open indicates no selecting
+6 X100 Select switch 100 X Connect with GND, indicates selecting100 X, open indicates no pulse
+7 X1 Select switch 1 X Connect with GND, indicates selecting1 X, open indicates no pulse
+the switch signal common trenimal, which can restore the fuse
+8 COM- Switch Signal common terminal
+connection with a 200MA of the system power supply.
+9 GND MPG Power supply Ground MPG power supply ground
+10 WHB- MPG B phase negative MPG B phase differential input negative terminal
+11 WHA- MPG A phase negative MPG A phase differential input negative terminal
+12 Y-IN Select switch of Y axis Connect with GND, indicates selecting Y axis, open indicates no selecting
+13 A-IN Select switch of A axis Connect with GND, indicates selecting A axis, open indicates no selecting
+14 X10 Select switch 10 X Connect with GND, indicates selecting10 X, open indicates no pulse
+15 ESTOP ESTOP of MPG Connect with GND, indicate ESTOP is in effect.Open indicates Estop is invalid.
+Table 2-1 DDCSÔÇÖs MPG Port
+Digital Dream Standalone Motion Controller Page -7 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 9 ---
+DDCS Wiring Pin MPG Function MPG Pin Mark MPG Output Cable Color
++5V-W Power Supply + Vcc(+5V) Red
+WHB+ B Phase + B+ White
+WHA+ A Phase + A+ Green
+X-IN X Axis X Yellow
+Z-IN Z Axis Z Brown
+X100 X100 Ratio X10 0 Orange
+X1 X1 Ra tio X1 Grey
+COM- Enable Sw itch COM Black/Orange
+GND Power Sup ply - GND Black
+WHB- B Phase - B- Purple/Black
+WHA- A Phase - A- Purple
+Y-IN Y Axis Y Black/Yellow
+A-IN A Axis A Black/Brown
+X10 X10 Ratio X10 Black/Grey
+ESTOP ESTOP ESTOP Blue
+Table 2-2 DDCS Wiring with standard MPG
+Note: It you want to use the single-terminal MPG (there is no A-B-MPG), please refer to table 2-3 for reference.
+As for the unlisted MPG, please take the differential MPG wiring mode.
+DDCS Wiring Pin Mark MPG Pin Mark and Color
+WHA+ A+ Green
+WHA- 0V Black
+WHB+ B+ White
+WHB- 0V Black
+Table 2-3 DDCS Wiring with Single-terminal MPG
+Digital Dream Standalone Motion Controller Page -8 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 10 ---
+2.6 Main Port Wiring
+Picture 2-7 shows the main port position:
+Picture 2-7 Main Port
+We also supply a wiring terminal to fit the 37 female pins,which make the convenient for the wiring.Pls
+note the following photo.At the termimal 4 conners,there are screws to make the terminal locked-onto the
+controller.
+Picture 2-8 Main Port with wiring terminal
+Digital Dream Standalone Motion Controller Page -9 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 11 ---
+There are 3 layers of the Wiring Terminal.Pls note the following photo,which showed the pin No.s and Pin
+Mark and definition.It include:
+1) Stepper/Servo Output Ports;
+2) The Spindle Control Output Ports;
+3) The E-stop,Limit,Home and Probe and other Inputs ports;
+4) 24V DC Power Supply ports for the Controller;
+5) 24V DC Power Supply ports for the I/O Unit.
+Picture 2-9 shows the 3-layers and the orders of the pin no.Table 2-4 and 2-5 shows the Pin mark and
+definition.
+Pin 18
+Pin 20
+Pin 36
+First Layer of the Terminal
+Pin 37
+Second Layer of the Terminal
+Third Layer of the Terminal
+Pin 20
+Picture 2-9 3-Layers wiring terminal
+First Layer of the Terminal
+PIN 18 PIN 17 PIN 16 PIN 15 PIN 14 PIN 13 PIN 12 PIN 11 PIN 6 PIN 23 PIN 3 PIN 1 PIN 1 PIN 20
+AD- AP- ZD- ZP- YD- YP- XD- XP- YL++ XL++ M8 COM- COM- COM+
+Second Layer of the Terminal
+PIN 36 PIN 35 PIN 34 PIN 33 PIN 32 PIN 31 PIN 30 PIN 29 PIN 25 PIN 5 PIN 22 PIN 2 PIN 1 PIN 20
+AD+ AP+ ZD+ ZP+ YD+ YP+ XD+ XP+ YL-- XL-- M10 VSO COM- COM+
+Third Layer of the Terminal
+PIN 37 PIN 19 PIN 10 PIN 28 PIN 9 PIN 27 PIN 8 PIN 26 PIN 7 PIN 24 PIN 4 PIN 21 PIN 1 PIN 20
+GND 24V AHOME AL-- AL++ ZHOME ZL-- ZL++ YHOMEXHOME PROBE M3 COM- COM+
+Table 2-4 Main Port Pin No. and Mark
+Digital Dream Standalone Motion Controller Page -10 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 12 ---
+First Layer of the Terminal
+Pin No. Pin Mark Definition
+PIN 18 AD- Direction Signal Negative Output of A Axis (5V)
+PIN 17 AP- Pulse Signal Negative Output of A Axis (5V)
+PIN 16 ZD- Direction Signal Negative Output of Z Axis (5V)
+PIN 15 ZP- Pulse Signal Negative Output of Z Axis (5V)
+PIN 14 YD- Direction Signal Negative Output of Y Axis (5V)
+PIN 13 YP- Pulse Signal Negative Output of Y Axis (5V)
+PIN 12 XD- Direction Signal Negative Output of X Axis (5V)
+PIN 11 XP- Pulse Signal Negative Output of X Axis (5V)
+PIN 6 YL++ Limited Signal Input at Y++ direction
+PIN 23 XL++ Limited Signal Input at X++ direction
+PIN 3 M8 Start Cooling Signal Output for Spindle
+PIN 1 COM-
+All between ÔÇ£COM+ÔÇØs are conducting.All between ÔÇ£COM-ÔÇØs are conducting.
+PIN 1 COM- Between COM+ and COM- there is 24VDC power.COM+ and COM- is the power supply for I/O
+Unit,for example the relay.COM+ is Positive side and COM- is Negative side.
+PIN 20 COM+
+Second Layer of the Terminal
+Pin No. Pin Mark Definition
+PIN 36 AD+ Direction Signal Positive Output of A Axis (5V)
+PIN 35 AP+ Pulse Signal Positive Output of A Axis (5V)
+PIN 34 ZD+ Direction Signal Positive Output of Z Axis (5V)
+PIN 33 ZP+ Pulse Signal Positive Output of Z Axis (5V)
+PIN 32 YD+ Direction Signal Positive Output of Y Axis (5V)
+PIN 31 YP+ Pulse Signal Positive Output of Y Axis (5V)
+PIN 30 XD+ Direction Signal Positive Output of X Axis (5V)
+PIN 29 XP+ Pulse Signal Positive Output of X Axis (5V)
+PIN 25 YL-- Limited Signal Input at Y-- direction
+PIN 5 XL-- Limited Signal Input at X-- direction
+PIN 22 M10 Start Lubrication Signal Output for Spindle
+PIN 2 VSO Speed output´╝ê0-10V) VSO Signal Output
+PIN 1 COM- All between ÔÇ£COM+ÔÇØs are conducting.All between ÔÇ£COM-ÔÇØs are conducting.
+Between COM+ and COM- there is 24VDC power.COM+ and COM- is the power supply for I/O
+PIN 20 COM+ Unit,for example the relay.COM+ is Positive side and COM- is Negative side.
+Third Layer of the Terminal
+Pin No. Pin Mark Definition
+PIN 37 GND Power Supply Ground
+PIN 19 24V Power Supply for Controller 24VDC Input Positive Side
+PIN 10 AHOME Home Signal Input of A Axis
+PIN 28 AL-- Limited Signal Input at A-- direction
+PIN 9 AL++ Limited Signal Input at A++ direction
+PIN 27 ZHOME Home Signal Input of Z Axis
+PIN 8 ZL-- Limited Signal Input at Z-- direction
+PIN 26 ZL++ Limited Signal Input at Z++ direction
+PIN 7 YHOME Home Signal Input of Y Axis
+PIN 24 XHOME Home Signal Input of X Axis
+PIN 4 PROBE Probe Signal Input
+PIN 21 M3 Start Spindle Signal Output
+PIN 1 COM- All between
+--- PAGE 13 ---
+2.6.1 Spindle control output
+PIN3(M8),PIN22(M10),PIN2(VSO) and PIN21(M3) is for spindle control output.The spindle control
+output terminal offers connections for Start and Stop of the Spindle (M3/M5), Start/Stop of Cooling (M8/M9)
+and Start/Stop of Lubrication (M10/M11). These three output terminals are signals open to ground. The highest
+electric current can be absorbed is 50mA. The speed controlling output terminal can output 0-10V. It can adjust
+the speed of the spindle motor by sending the voltage between 0 and 10V to the VFD according the the Spindle
+Speed Setting.
+Controlling the speed of a spindle with a VFD (variable frequency drive) only needs the Start/Stop signal
+and the 0-10V signal to control the frequency.
+The following table 2-6 shows the wiring with Sunfar VFD:
+DDCS V3.1 Wiring pin SUNFAR E300
+Speed output´╝ê0-10V´╝ëPIN2(VSO) AI
+Start and stop of spindle PIN21(M3) FWD
+Output ground CM
+Table 2-6 DDCS and VFD wiring
+PIN3(M8),PIN22(M10) and PIN21(M3) is also can be used for OUTPUT ports.For example,it can be used
+for a Relay output port.For example the picture 2-10 shows the wiring methods:
+Picture 2-10 Wiring Methods with Relay
+Digital Dream Standalone Motion Controller Page -12 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 14 ---
+2.6.2 Limit, Home and Probe Inputs,and the Power for the Input
+PIN6(YL++),PIN23(XL++),PIN25(YL--),PIN5(XL--),PIN28(AL--),PIN9(AL++),PIN8(ZL--),PIN26(ZL++)
+are the Limit ports.
+PIN10(AHOME),PIN27(ZHOME),PIN7(YHOME),PIN24(XHOME) are the Home Ports.
+PIN4(PROBE) is the Probe Port.
+The following wiring pictures and circuit pictures will show the connection of the Limit,Home and Probe
+Wiring.
+Picture 2-11 LIMIT,HOME and PROBE input signal circuit
+X++ Limit COM-
+Picture 2-12 The Limit wiring at X++ direction with mechanical limited switch
+Digital Dream Standalone Motion Controller Page -13 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 15 ---
+COM-
+X++ Limit
+COM+
+Picture 2-13 The Limit wiring at X++ direction with 3-line proximity switch
+Picture 2-14 The circuit of 3-line Inductive proximity switch
+Picture 2-15 The Probe Wiring
+Digital Dream Standalone Motion Controller Page -14 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 16 ---
+2.6.3 Stepper/Servo Control Output
+The stepper/servo control output,we cite differential Pulse and Direction output method,Max. 500Khz per
+axis.DDCS V3.1 there is 3 or 4 axis for option
+PIN 18 (AD-),PIN 36 (AD+),PIN 17 (AP-),PIN 35 (AP+) is A Axis Control Output Pins;
+AD- means the Direction signal negative output for A axis,AP+ means the Direction signal positive
+output for A axis,AP- means the Pulse signal negative output,AP+ means the Pluse Signal positive output.
+The Pulse and Direction signal output voltage is ┬▒5V.
+PIN 16 (ZD-),PIN 34 (ZD+),PIN 15 (ZP-),PIN 33 (ZP+) is Z Axis Control Output Pins;
+PIN 14 (YD-),PIN 32 (YD+),PIN 13 (YP-),PIN 31 (YP+) is Y Axis Control Output Pins;
+PIN 12 (XD-),PIN 30 (XD+),PIN 11 (XP-),PIN 29 (XP+) is X Axis Control Output Pins.
+The following picture 2-16 is the example of stepper driver wiring as X axis.
+XP-
+XD-
+XD+
+XP+
+Picture 2-16 The Stepper driver wiring as X Axis
+Digital Dream Standalone Motion Controller Page -15 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 17 ---
+3 Software Operation and Parameter Settings
+3.1 Interface description
+The software interface contains 3 pages. Main page, File page and Configuration page.
+3.1.1 Main page
+18 17 16 15
+14
+1
+13
+12
+2
+11
+3 10
+9
+4
+8
+5
+7
+6
+Picture 3-1 Main page
+The picture 3-1 shows the Main page of the DDCS. It is divided into status column, coordinate display
+column, basic parameter column, and notification column. In total, it is divided into 18 sections in detail. Here
+the detailed description of the 18 sections :
+1ÒÇüX Coordinate
+This column shows the current coordinate value of X. The display range is -99999.999~+99999.999, the
+minimum JOG value is 0.001.
+2ÒÇüY Coordinate
+This column shows the current coordinate value of Y. The display range is -99999.999~+99999.999, the
+minimum JOG value is 0.001.
+3ÒÇüZ Coordinate
+This column shows the current coordinate value of Z. The display range is -99999.999~+99999.999, the
+minimum JOG value is 0.001.
+4ÒÇüA Coordinate´╝êThis section has no definition in the 3-axis´╝ë
+This column shows the current coordinate value of A. The display range is -99999.999~+99999.999, the
+minimum JOG value is 0.001.
+5ÒÇüCurrent Operation
+When the controller runs the G code file, it will show the current operation line number and coordinates.
+When the operation state is READY, it will show nothing
+6ÒÇüPage
+The page shows the current page. This controller has 3 pages, Main Page, File Page and Configuration
+Page. Press Page button to move between the Pages.
+7ÒÇüOperation Window
+This message window switches between 3 displays. It shows the prompt message of several keys and the
+2nd (second function)
+Digital Dream Standalone Motion Controller Page -16 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 18 ---
+The message displayed while in normal state is: Normal Mode.
+The message displayed of the 2nd function status is:
+X-: goto, Y-: zero, Z-: home, A-: probe, Pause: goto break
+If you now click X-, the machine will move to Zero. If you click A-, the probe function will be activated.
+If you click Y-, all coordinates will be set to Zero. If you click Z-, the machine will home. If you click Start, the
+Start Line window appears and you can enter the G-code line you want to start from. Click on Pause to enter the
+breakpoint CONT Callback Function.
+Tip:
+You need to click these functions twice to activate them (first click is ÔÇ£selectÔÇØ, second click is ÔÇ£activateÔÇØ.
+Tip:
+When you are in an Editing Window, you can insert values by using the following keys:
+X-: moves the cursor left
+X+: moves the cursor right
+Y-: decrease the value
+Y+: increases the value
+Z-: Enter
+Z+: Cancel
+8 Coordinate System
+With the CR8-500 control panel it is very easy to control your Machine Coordinates and Work Offset Coor-
+dinates. Click FRO/SRO/SJR (from now on only called FRO) 6 times until the coordinate system is highlighted.
+Here you can display G54 to G59 and MACH (Machine Coordinates) by clicking A+ and A-
+Tip
+After selecting a function with the FRO key you use the A+ button to Select and the
+A- button to Modify the value.
+If the function can be edited, the Editing Window will open and you can edit with:
+X-: moves the cursor left
+X+: moves the cursor right
+Y-: decrease the value
+Y+: increases the value
+Z-: Enter
+Z+: Cancel
+9ÒÇüStatus of M3/M5,M8/M9 or M10/M11
+M3/M5: Start/Stop Spindle
+M8/M9 : Start/Stop of Cooling
+M10/M11: Start/Stop of Lubrication
+10ÒÇüSpeed of spindle
+S stands for Spindle Speed. Click FRO till S is highlighted,click A- to modify and edit the value you want.
+The display shows two values. The left value is the real time Spindle Speed, the right value shows the
+default Spindle Speed. The Default Spindle Speed can be changed, use the A- key to modify.
+11ÒÇüFeed speed
+F stands for Feed Speed. Click FRO till F is highlighted, click A- to modify and edit the value you want.
+The display shows two values. The left value is the real time Feed Speed, the right value shows the default
+Feed Speed. The Default Feed Speed can be changed, use the A- key to modify and edit.
+Digital Dream Standalone Motion Controller 16Page -17 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 19 ---
+12ÒÇüSJR
+SJR controls the jogging of the machine. Click FRO till SJR is highlighted.
+First Option: MODE
+Check window 18 and you can see what Jog Mode you are in. By clicking MODE you can change Jogging
+to Continuous, Step or to MPG, Window 18 will display this function.
+When in Cont Mode, A+ and A- can adjust the speed in 10% increments
+When in Step Mode, A+ and A- can change from 0.01mm to 0.1mm to 1mm and to 10mm
+When in MPG mode you can use the MPG to jog the machine
+Second Option: Jog a defined distance
+13ÒÇüSRO
+SRO controls the Spindle Speed. Click FRO till SRO is highlighted, use A+ and A_to adjust the Spindle
+Speed in 10% increments
+14ÒÇüFRO
+FRO controls the Feed Speed. Click FRO till FRO is highlighted. Use A+ and A- to adjust the Feed Speed
+in 10% increments
+15ÒÇüWorking time
+This column shows the processing time of the G code operation. Time keeping is halted during Pause
+16ÒÇüProcessing file
+This column shows the name of the processing files. In the formal situation, it only shows the filename.
+Under the situation of CONT adjust, it will also show the content of the file.
+17ÒÇüOperating Status
+This column shows the operating state. The status and implications can be displayed as follows:
+Busy: Operation is running
+Reset: Reset flashing = controller not active. To activate the controller click Reset
+READY: Ready state. Controller is ready and all operations can be performed
+18ÒÇüFeed status
+This window shows the feed status of Jogging and File Processing.
+AUTO: displayed while processing and executing the G code file
+CONT: indicates Jog CONTINUOUS. You can Jog manually with the ÔÇ£-ÔÇØor ÔÇ£+ÔÇØ keys of X Y Z and A. A
+short click will move the axis in the defined step, a long click will move the axis till you let go
+Step: Jogging in Step Mode
+Digital Dream Standalone Motion Controller Page -18 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 20 ---
+3.1.2 File Management Page
+Click the Page button once and the File Management Page will open
+1
+3 4
+2
+Picture 3-2 File management page
+As the picture 3-2 shows, the file management page can be divided into 4 columns
+1ÒÇüChange Directory
+2ÒÇüFile list of current Directory
+3ÒÇüFiles size column Shows file size in byte
+4ÒÇüModification time and date
+3.1.3 Configuration Page
+Click the Page button once and the File Management Page will open:
+1 2 3 4
+Picture 3-3 Configuration page
+As the picture 3-3 shows, the configuration page can be divided into 4 columns:
+1. Parameter Number
+Each parameter has a specific number, the parameter can be modified .
+2. Parameter Name
+The definition of the Parameter is listed in the Parameter Name column. All Parameters are divided into
+groups according to their function.
+Digital Dream Standalone Motion Controller Page -19 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 21 ---
+3. Parameter Value
+The Parameter Value column lists the value of each Parameter. This value can be configured
+4. Parameter Unit
+The Parameter Unit lists the unit of each parameter.
+3.2 Definition of Keys
+DDCS V3.1
+A
+Tab +
+SELECT
+A
+A
+Shift -
+MODIFY
+PROBE
+Z
+Mode +
+CANCEL
+Z
+Z
+Y -
++
+ENTER
+Y HOME
+Y
+X- - X+
+START PAUSE RESET PAGE R TOOL PATH SPINDLE GOTO 0 ZERO X
+Picture 3-4 Keys Layout
+The picture 3-4 shows the key layout of the DDCS. The Controller DDCS has 17 keys. Please see table
+3-1 for reference.
+Keys Icon Function No. Definition Notes
+After loading the G code file, please press this key
+1 Start operation to start the operation. In case of Pause Status,
+START press this key to continue the processing operation.
+1 Pause operation Press this key to Pause the operation.
+PAUSE
+If Reset is blinking, press this key to activate the
+1 Reset and E-STOP
+controller. Press this key to stop processing urgently.
+RESET
+Switch through File Management Page, Processing
+1 Page switch
+Main Page and Parameter Configuration Page.
+PAGE R
+Switch the display between Coordinate Display or
+1 Toolpath display switch
+Tool Path Tracking display.
+TOOL PATH
+Press this key to manually switch the spindle on or
+1 Spindle manual start/close off. Can not be used if Reset is blinking and while
+SPINDLE processing an operation (Busy)
+Digital Dream Standalone Motion Controller Page -20 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 22 ---
+Keys Icon Function No. Definition Notes
+In ÔÇ£CONT ModeÔÇØ, the X axis will Continuously move
+1: X axis moves left´╝ø negative after pressing this key. In ÔÇ£STEP ModeÔÇØ X
+X- 3 2: Cursor moves left will move negative in steps. When in ÔÇ£Line EditingÔÇØ
+or default F/S value modification, this key moves
+GOTO 0 3: Goto Zero function the cursor left. When in ÔÇ£2nd FunctionÔÇØ, this key has
+the goto Zero function.
+In ÔÇ£CONT ModeÔÇØ, the X axis will Continuously move
+1: X axis moves right´╝ø positive after pressing this key. In ÔÇ£STEP ModeÔÇØ X
+X+ 3 2: Cursor moves right will move positive in steps. When in ÔÇ£Line EditingÔÇØ or
+X 3: X axis select default F/S value modification, this key moves the
+cursor right. When in ÔÇ£home/zero-clearing/ gotozÔÇØ,
+this key opens the X axis coordinate edit window.
+In ÔÇ£CONT ModeÔÇØ, the Y axis will continuously move
+Y + 3 1 2 : : Y P a a r x a i m s e m te o r v e v s a l f u o e r w in a c r r d e ´╝ø ases p w o il s l i m tiv o e v e a f p te o r s p iti r v e e s s in in s g t e th p i s s . k W ey h . e I n n i ÔÇ£ n S ÔÇ£ T L E in P e M E o d d it e in ÔÇØ g Y ÔÇØ
+Y 3: Y axis select o th r e d v e a f l a u u e l . t F W /S h e v n a l i u n e ÔÇ£ h m o o m d e if / ic z a e t r i o o - n c , l e th a i r s in k g e / y g o in t c o r z e ÔÇØ a ,t s h e is s
+key this key opens the Y axis coordinate edit window.
+In ÔÇ£CONT ModeÔÇØ, the Y axis will continuously move
+3 1: Y axis move backward´╝ø negative after pressing this key. In ÔÇ£STEP ModeÔÇØ Y
+Y - 2: Parameter value decreases; will move negative in steps. When in ÔÇ£Line EditingÔÇØ
+3: Start the current coordinate or default F/S value modification, this key decreases
+ZERO 0-clearing the value. When you start the 2nd function, this key
+has the Ycoordinate function.
+In ÔÇ£CONT ModeÔÇØ, the Z axis will continuously move
+Z 1: Z axis Plummer block positive after pressing this key. In ÔÇ£STEP ModeÔÇØ Z
++ 3 2: Z axis select will move positive in steps. When in
+CANCEL 3: cancel ÔÇ£home/zero-clearing/ gotozÔÇØ, this key opens Z axis
+Z coordinate edit window. This key is also CANCEL key.
+In ÔÇ£CONT ModeÔÇØ, the Z axis will continuously move
+Z 1: Z axis down
+- negative after pressing this key. In ÔÇ£STEP ModeÔÇØ Z
+2: home
+ENTER 3 3: enter/select will move negative in steps. This key serves as the
+HOME ENTER key and also is the HOME key
+In ÔÇ£CONT ModeÔÇØ, the A axis will continuously move
+positive after pressing this key. In ÔÇ£STEP ModeÔÇØ A
+will move positive in steps.
+1: A axis rotates in forward direction
+MOD A - IFY 4 2 3 : : A pa a ra xi m s e s t e e l r e c in
+--- PAGE 23 ---
+3.3 Operation of common functions
+TIP
+Do not press two keys at the same time
+A
+Shift - Shift
+For example: + M O D I F Y indicates that you should first press and then release this
+PROBE
+A
+-
+key,then press MODIFY
+PROBE
+3.3.1 File Management
+When in the Main Page press to enter the File Page, See Picture 3-5
+PAGE R
+Picture 3-5 File management page
+The displays will show all folders and files in the root directory. The Name of folders and files, the size
+of files and the time and date of manipulation. The blue strip indicates the current valid target location.
+Y
++
+Press Y to move up
+Y
+-
+Press to move down
+ZERO
+Z
+Press + to quit the file management page
+CANCEL
+Z
+Z
+-
+Press E N T E R If the blue bar is at ÔÇ£ . .ÔÇØ , the Enter button will change to the last directory. If the blue bar
+HOME
+highlights a folder, it will open the folder. If the blue bar highlights a G code file, this button will load the G
+code and go back to the Main Page for processing. If the blue bar highlights a .set file, it will upgrade the system.
+In this case make sure you delete the settings file or the upgrade will overwrite the original settings file too and
+you will lose your settings.
+Digital Dream Standalone Motion Controller Page -22 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 24 ---
+1´╝ëCopy the file
+Picture 3-6 Select 2mmnew.tap file and copy the file
+Tab
+Hrere the 2mmnew.tap file is selected. Press the key to copy the 2mmnew.tap file into memory
+2´╝ëPaste the file
+Picture 3-7 Switch to the target folder
+Shift
+Choose your target directory or target folder, click to paste the 2mmnew.tap file to this directory.
+See picture 3-8 for reference
+Picture 3-8 Paste the 2mmnew.tap file to this directory
+Digital Dream Standalone Motion Controller Page -23 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 25 ---
+3) Delete a file
+Mode
+Highlight the required file and click to delete the file
+Picture 3-9 Move the blue strip to the 2mmnew.tap file, click MODE to delete
+Picture 3-10 Delete the 2mmnew.tap file
+4) Load the G code file
+Z
+-
+Highlight the G code file required and click E N T E R . The file will be loaded and the screen will change
+HOME
+back to the Main Screen for processing. The file name will be displayed.
+Picture 3-11 Search for the file2mmnew.tap
+Digital Dream Standalone Motion Controller Page -24 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 26 ---
+Picture 3-12 After loading the file 2mmnew.tap the file name will be displayed
+3.3.2 Running a G code file
+1) Start running G code
+After loading the G code file, make sure the controller is in READY. If RESET is blinking, just press
+the key and ensure the operation status column displays READY.
+RESET
+Now set ZERO as requested. For example, if the G code file defines the work piece center as the XY
+ZERO point, move the cutter to that position.
+Y
+Shift -
+Click the button and then click the button. The Operation Window will give you
+ZERO
+Z
+X+ -
+ENTER
+several options. Click X and an EDIT WINDOW will open. Click H O M E to Zero X.
+Y Y
+Click the S h i f t button again and then click the - button. Now click + to select Y
+ZERO Y
+Z
+-
+Axis and an EDIT WINDOW will open. Click E N T E R to Zero Y.
+HOME
+After ZERO is set, press S T A R T to run the G code file. During Gcode processing, only the function
+Tab
+of and are valid. The key can set the values of FRO (Prosessing Speed) and
+PAUSE RESET
+SRO (Spindle Speed).
+See Picture 3-13.
+Look at Current Operation (just below the Axis Read Out). It shows that the G code has been processed
+to line 180th. The controller now is in BUSY Mode. Press to switch the display to show the tool path.
+TOOL PATH
+Picture3-14,15 and 16 show the tool path display.
+Digital Dream Standalone Motion Controller Page -25 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 27 ---
+Picture 3-13 G code processing
+Picture 3-14 Tool path display after processing at beginning the file
+Picture 3-15 Tool path display after processing most of the file
+Digital Dream Standalone Motion Controller Page -26 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 28 ---
+Picture 3-16 Tool path display, processing completed
+2) Breakpoint operation
+Shift
+Press to enter the second mode. Click to enter the breakpoint operation. The controller
+PAUSE
+will run from the last record breakpoint.
+Note´╝ÜWhen you click P A U S E , it will automatically produce a breakpoint. In case of power outage, it
+will also automatically record the breakpoint. As the picture 3-17 shows, it begins processing from the 180th line
+at this time. Picture 3-17 shows the display under the ÔÇ£goto breakÔÇØ status and the display shows the file name.
+Picture 3-17 Breakpoint Operation
+3) Start a G code file from a specific line
+Shift
+Click to enter the 2nd mode. When in 2nd mode, click and the Start Line Edit Box will
+START
+Z
+-
+appear. Insert the line number and click E N T E R . A syntax check will be performed and the G code will be
+HOME
+operated from your chosen Start Line position See pictures 3-18 to 3-20.
+Digital Dream Standalone Motion Controller Page -27 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 29 ---
+Picture 3-18 Edit the start line
+Picture 3-19 Syntax Checking
+Picture 3-20 Program will run from the chosen line
+Digital Dream Standalone Motion Controller Page -28 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 30 ---
+4) Pause in operation
+During file processing, press the key to pause the operation. The Operation Status Column will
+PAUSE
+display ÔÇ£READYÔÇØ and the Z axis will lift the tool to the defined safe height.
+5) ESTOP in operation
+During file processing, press the R E S E T key to ESTOP the procedure. The Operation Status Column will
+display ÔÇ£RESETÔÇØ flashing. The spindle will stop.
+6) Start/Stop spindle
+Only when the Operation Status Column displays ÔÇ£READYÔÇØ you can manually start or stop the spindle.
+Use the spindle button to switch from Start to Stop and back.
+SPINDLE
+3.3.3 Manually position the machine
+You can manually position the machine at any position. You can move Continuous, in defined Steps or with
+Mode
+the MPG. The button moves you through the three options:
+1) Manual step of the X axis
+Mode
+Press till ÔÇ£stepÔÇØ is displayed. In picture 3-21 Step parameter shows the current step rate (0.01mm).
+A A
+Press the T a b button till SJR is highlighted and you can change the steps by + and - keys.
+SELECT MODIFY
+A PROBE
+Press the X - key to move the X axis negative 0.01mm´╝îand press X + to move the X axis 0.01mm
+GOTO 0 X
+positive. Move Y Z and A in the same way.
+Picture 3-21 STEP Mode
+Digital Dream Standalone Motion Controller Page -29 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 31 ---
+2) Manual continuous operation of the X axis
+Mode
+Click till CONT is displayed. The feed status displays ÔÇ£CONTÔÇØ. See picture
+3-22. You can now move the axis continuous with the arrow keys. Adjust the Jog speed
+A A
++ -
+by highlighting SJR and modify the jog speed with S E L E C T and M O D I F Y . All other axes
+A PROBE
+can be moved in the same way.
+Picture 3-22 Enter the manual Continuously moving mode
+3) Use MPG to operate X axis
+Mode
+Click till the Feed Status displays ÔÇ£MPGÔÇØ. Use the MPG to move the machine.
+Picture 3-23 Enter the MPG mode
+3.3.4 Main Page Parameter adjustments
+The values FRO, SRO, SRJ, F, S Coordinate system and the M codes can easily be changed
+A A
+Tab + -
+Click till the display highlights what you want to adjust and then click S E L E C T or M O D I F Y .
+A PROBE
+Digital Dream Standalone Motion Controller Page -30 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 32 ---
+1) FRO
+Tab
+The FRO parameters. Under ÔÇ£READYÔÇØ press till FRO is highlighted (bold).
+A A
++ -
+SELECT MODIFY
+With and adjust the value between 0% to 300%
+A PROBE
+2) SRO
+A A
++ -
+The Spindle adjustment controls the spindleÔÇÖs speed. Highlight SRO and use S E L E C T and M O D I F Y to
+A PROBE
+adjust the spindle speed from 0% to 200%
+3) SJR
+The SJR is to adjust the jog speed. In ÔÇ£CONTÔÇØ mode you can adjust from 0% to 150%.
+A A
+- +
+In ÔÇ£StepÔÇØ mode you can adjust 0.01mm, 0.1mm, 1mm and 10mm. Use M O D I F Y and S E L E C T to adjust and
+PROBE A
+choose your value. Click on the Axes arrow keys will move the machine this distance once.
+Picture 3-24 SJR value adjusts to 10 under the mode of ÔÇ£stepÔÇØ
+4) F Value modification
+The F value adjustment the default Feed Speed. Use the T a b key to highlight F.
+A A
+- +
+If you click M O D I F Y or S E L E C T an Edit Window will appear Choose your desired Feed speed and
+PROBE A
+confirm with Enter. See picture 3-23
+Picture 3-25 Enter default F modification mode
+Digital Dream Standalone Motion Controller Page -31 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 33 ---
+5) S Value modification
+A A
+Tab + -
+Use the key to highlight S. If you click S E L E C T or M O D I F Y an Edit Window will appear
+A PROBE
+Choose your desired Feed speed and confirm with Enter.
+Picture 3-26 Enter the status of modifying default S value
+6) Select G coordinate system
+Tab
+Under ÔÇ£READYÔÇØ, press the key till the Coordinate System is highlighted. It will display G54,
+ÔÇª.G59 or MACH (stands for Machine Coordinates).
+A A
+- +
+Use M O D I F Y and S E L E C T to choose your desired Coordinate System. Position values will be displayed
+PROBE A
+for X, Y, Z and A. The Enter key confirms the Coordinate System you chose.
+Digital Dream Standalone Motion Controller Page -32 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 34 ---
+3.3.5 The 2nd Mode
+The 2nd key opens several functions.
+Shift
+In READY mode, the Operation Window displays ÔÇ£Normal ModeÔÇØ. Press to enter the 2nd mode.
+The Operation Window will show: X-:gotoz Y-:zero Z-: home A-:probe start:goto break and the Feed Status
+column displays ÔÇ£2nd modeÔÇØ. See picture 3-27. You can now make your choice which may open new options
+accordingly.
+Picture 3-27 Enter the ÔÇ£2nd functionÔÇØ Mode
+Tip
+Lets say you want to choose the center of your material as the X and Y Zero position.Move the machine
+with the arrow keys to the desired XY position. Alternatively use the MPG to do this.
+Shift
+Now press the key and the Operation Window will show: X-:gotoz, Y-:zero, Z-: home, A-:probe,
+start:goto break .
+Shift
+Press the key again and the coordinates of X Y and Z will show 0.000
+Picture 3-28 The tool tip over the work piece center
+Tip:
+Do not forget to probe again after a tool change
+Digital Dream Standalone Motion Controller Page -33 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 35 ---
+3.4 Parameter setting
+The DDCS stores the machine settings in a parameter file called setting.set. This file is a basic text file. You
+can modify all the parameters in the Parameter Page but also within the setting.set file. Originally the DDCS
+V3.1 will be loaded with the default setting and you can change the settings in the Parameter Page (or in the text
+file setting.set) to adjust for your machine.
+Tip:
+Back up your setting.set fileÔÇª just in case.
+3.4.1 Parameter loading method
+Copy the parameter file to the USB drive and insert it into the USB interface one the controller. As the
+Picture 3-28 shows,press the key in the main page to ensure that the status column can display
+RESET
+ÔÇ£READYÔÇØ and then press the key to switch to the file management page. As the Picture 3-30 shows,
+PAGE R
+Z
+-
+ENTER
+select the parameter file Uservar.set and then press the Enter key to load the parameter file. It
+HOME
+probably needs to wait for 1-5s and the ÔÇ£READYÔÇØ of status column will automatically change into ÔÇ£resetÔÇØ
+with flashing, which indicates the parameter loads successfully.
+Picture 3-29 Ensure the status column is the status of ÔÇ£READYÔÇØ
+Picture 3-30 Selct the uservar.set file and enter
+Digital Dream Standalone Motion Controller Page -34 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 36 ---
+3.4.2 Set the Parameters in the Parameter setting Page
+In the main page, ensure the operation status is ÔÇ£READYÔÇØ and press the key two times continu-
+PAGE R
+ously to enter the Parameter Page. As the picture 3-31 shows, in the parameter configuration page, pressing
+X- X+ Y + Y -
+the key G O T O 0 and X is to turn the page forward and backward. Pressing the key Y and Z E R O
+is to select the current parameter items up and down. When you select the parameters which are required to
+Z
+-
+modify, please press the key E N T E R to enter the current parameter modification mode. At this time, it will
+HOME
+pop up a small dialog box of the modified value, which is the same with the other parameters.Pressing the
+X- X+ Y + Y -
+key G O T O 0 and X is to adjust the current bit. Pressing the key Y and Z E R O is to adjust the
+Z
+-
+value of the current bit. After finishing modification, please press the key E N T E R to return to the parameter
+HOME
+select. After finishing modifying the parameter, it needs to press to return to the homepage, thus
+PAGE R
+loading the parameter and making the parameter takes effect.
+Picture 3-31 Enter the parameter configuration page
+3.4.3 The detailed definition of parameters
+The parameter file can be edited, but it needs to follow the definite standards, the standards are as follows:
+aÒÇüOne line can only be edited one parameter.
+bÒÇüThe parameter format is #/parameter mark/value/Unit. Among them, # must be the first character of
+each line.# should closely be followed by the parameter mark and the following mark will be followed by the
+actual value.
+cÒÇüAfter the parameter has assignment and equation, the part of parameter interpretation can have any
+format without constraint.
+dÒÇüEach parameter is regulated with assignment scope. Please do the assignment in strict accordance with
+the assignment scope.
+eÒÇüEach parameter is set with default value in advance. Please use the setting value of default parameter
+under the situation of not understanding the actual function of this parameter.
+Digital Dream Standalone Motion Controller Page -35 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 37 ---
+1) Configuration parameter of motor (16 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#33 speed of motor start running 50 mm/min 0~200 Speed ofmotor start runningÔÇÖs first step
+#34 Pulse /mm X axis 640 Pulse/mm 100~10000
+#35 Pulse /mm Y axis 640 Pulse/mm 100~10000
+#36 Pulse /mm Z axis 640 Pulse/mm 100~10000
+#38 Pulse /mm A axis 640 Pulse/degree 100~10000
+#390 level of X axis DIR signal 0 BOOL 1/0
+#391 level of Y axis DIR signal 0 BOOL 1/0
+1=high,0=low
+#392 level of Z axis DIR signal 1 BOOL 1/0
+#393 level of A axis DIR signal 0 BOOL 1/0
+#416 time between DIR & pulse 300 ns 0~1000 Differential between direction and pulse
+#418 level of X axis pulse signal 0 BOOL 1/0
+axis pulse signal of X,Y,Z,A as well as
+#419 level of Y axis pulse signal 0 BOOL 1/0
+the Pulse signal value when there is no
+#420 level of Z axis pulse signal 1 BOOL 1/0 pulse.
+#421 level of A axis pulse signal 1 BOOL 1/0
+2) Parameter of manual control motion(16 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#41 max speed of X in M_Ctrl mode 16000 mm/min 0~20000
+#42 max speed of Y in M_Ctrl mode 16000 mm/min 0~20000 The parameter value of this
+#43 max speed of Z in M_Ctrl mode 16000 mm/min 0~20000 group has set a upper limit for
+the SJR
+#44 max speed of A in M_Ctrl mode 16000 degree/min 0~20000
+#45 start Acceleration of X in M_Ctrl mode 600 mm/s2 0~2000
+#46 start Acceleration of Y in M_Ctrl mode 600 mm/s2 0~2000
+4 axis of X,Y,Z,A manual start
+#47 start Acceleration of Z in M_Ctrl mode 600 mm/s2 0~2000
+acceleration
+#48 start Acceleration of A in M_Ctrl mode 600 degree/s2 0~2000
+#100 manual control speed of X axis 8000 mm/min 0~20000
+#101 manual control speed of Y axis 8000 mm/min 0~20000 Panel keys operation the X,Y,Z,A
+#102 manual control speed of Z axis 4000 mm/min 0~20000 axis Continuously move speed
+#103 manual control speed of A axis 12000 degree/min 0~20000
+#263 stop Acceleration of X in M_Ctrl mode 1200 mm/s2 0~2000
+4 axis of X,Y,Z,Amanually stop
+#264 stop Acceleration of Y in M_Ctrl mode 1200 mm/s2 0~2000 acceleration, the stop accelera-
+#265 stop Acceleration of Z in M_Ctrl mode 1200 mm/s2 0~2000 tion can be set appropriately
+larger
+#266 stop Acceleration of A in M_Ctrl mode 1200 degree/s2 0~2000
+3) Automatic processing parameter(11 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#15 Speed selection for Gcode file 1 BOOL 1/0 0:set by G code; 1:use default
+--- PAGE 38 ---
+4) Parameter of coordinate system(1 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#16 Current coordinate system 1 BOOL 0~6 0~5: G54~G59, 6: Machine
+5) Parameter of spindle(8 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+Spindle PWM or voltage signal full range
+#98 Max spindle speed 24000 rpm 0~50000
+is corresponding to speed value
+#220 Spindle speed selection 1 BOOL 1/0 0: G code,1:Default
+#221 Default spindle speed 12000 rpm 0~50000
+#222 Activate M3/M5 1 BOOL 1/0 1: Yes; 0:No
+#224 Delay time of M3/M5 3 s 0~100 Spare enough time for spindle response
+Corresponding output electrical level
+#227 active level of spindle 1 BOOL 1/0
+when the spindle starting
+The output voltage value is 0,the spindle
+#422 definition of PWM level 0 BOOL 1/0
+is 0,voltage is 10V,speed is full.
+The acceleration time to full speed
+#433 Acceleration time of PWM 1111 Time equivalent 1~65535
+is #433*0.0005s
+6) IO output parameter(5 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+M#2a2r3k value Unit Scope
+#223 Activate M code (M8/M9,M10/M11) 1 BOOL 1/0 1: Yes; 0:No
+#225 Delay time of M8/M9 1 S 1~20 Delay time after
+M8/M9/M10/M11 code
+#226 Delay time of M10/M11 1 S 1~20
+#228 Active level of M8/M9 1 BOOL 1/0 1: Yes; 0:No
+#229 Active level of M10/M11 1 BOOL 1/0 1: Yes; 0:No
+7´╝ë0-point function parameter(20 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+M#2a2r3k value Unit Scope
+#52 Enable X home 1 BOOL 1/0
+#53 Enable Y home 1 BOOL 1/0
+1: Yes; 0:No
+#54 Enable of Z home 1 BOOL 1/0
+#55 Enable of A home 1 BOOL 1/0
+#56 Home speed of X 8000 mm/s 1~20000
+#57 Home speed of Y 8000 mm/s 1~20000
+#58 Home speed of Z 8000 mm/s 1~20000
+#59 Home speed of A 8000 mm/s 1~20000
+#60 Signal Level X Home 0 BOOL 1/0
+#61 Signal Level Y Home 0 BOOL 1/0
+1: High; 0:Low
+#62 Signal Level Z Home 0 BOOL 1/0
+#63 Signal Level A Home 0 BOOL 1/0
+#64 direction of X home 0 BOOL 1/0
+#65 direction of Y home 0 BOOL 1/0 0:reverse direction home(--)
+#66 direction of Z home 0 BOOL 1/0 1:forward direction home(++)
+#67 direction of A home 0 BOOL 1/0
+#83 back off distance of X after home 10 mm 0~1000 After homing, each axis needs
+to move away from the home
+#84 back off distance of Y after home 10 mm 0~1000
+switch for a certain distance.
+#85 back off distance of Z after home 10 mm 0~1000
+The parameter of this group
+#86 back off distance of A after home 10 mm 0~1000 is this back off distance
+Digital Dr
+--- PAGE 39 ---
+8) Parameter of Probe function (8 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#68 enable Probe 1 BOOL 1/0 0´╝Üdisable 1´╝Üenable
+#69 thickness of tool sensor 20 mm 0~200
+#70 level of probe signal 0 BOOL 1/0 1: High; 0:Low active
+#71 initial tool's position 0 BOOL 1/0 0: current position; 1:fixed position mode
+Tools position X coordinate in the
+#72 initial X axis in fixed mode 0 mm 0-9999
+Mach(ine) coordinate system
+Tools position Y coordinate in the
+#73 initial Y axis in fixed mode 0 mm 0-9999
+Mach(ine) coordinate system
+Height of Z axis before the XY move
+#74 initial Z axis in fixed mode 0 mm 0-9999
+under the Mach(ine) coordinate system
+#75 Back off distance after probing 10 mm 0~200
+9) Parameter of hard limit function(16 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#400 enable X-- limit 1 BOOL 1/0 0´╝ÜDisable 1´╝ÜEnable
+#401 enable Y-- limit 1 BOOL 1/0 0´╝ÜDisable 1´╝ÜEnable
+#402 Enable Z-- limit 1 BOOL 1/0 0´╝ÜDisable 1´╝ÜEnable
+#403 enable A-- limit 1 BOOL 1/0 0´╝ÜDisable 1´╝ÜEnable
+#404 enable X++ limit 1 BOOL 1/0 0´╝ÜDisable 1´╝ÜEnable
+#405 enable Y++ limit 1 BOOL 1/0 0´╝ÜDisable 1´╝ÜEnable
+#406 enable Z++ limit 1 BOOL 1/0 0´╝ÜDisable 1´╝ÜEnable
+#407 enable A++ limit 1 BOOL 1/0 0´╝ÜDisable 1´╝ÜEnable
+#408 active level X-- limit 0 BOOL 1/0 1: High; 0:Low
+#409 active level Y-- limit 0 BOOL 1/0 1: High; 0:Low
+#410 active level Z-- limit 0 BOOL 1/0 1: High; 0:Low
+#411 active level A-- limit 0 BOOL 1/0 1: High; 0:Low
+#412 active level X++ limit 0 BOOL 1/0 1: High; 0:Low
+#413 active level Y++ limit 0 BOOL 1/0 1: High; 0:Low
+#414 active level Z++ limit 0 BOOL 1/0 1: High; 0:Low
+#415 active level A++ limit 0 BOOL 1/0 1: High; 0:Low
+10) Parameter of soft limit function (9 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#374 enable Soft Limit 0 BOOL 1/0 0:Disable, 1:Enable
+#375 value X-- Soft Limit -400 BOOL -2000~0
+The set value will trigger the limit signal.
+The limit values refer to the machine
+#376 value Y-- Soft Limit -400 BOOL -2000~0
+coordinates, not the work piece coordi-
+#377 value Z-- Soft Limit -400 BOOL -2000~0 nate.
+#378 value A-- Soft Limit -400 BOOL -2000~0
+#379 value X++ Soft Limit 400 BOOL 0~2000
+The set value will trigger the limit signal.
+#380 value Y++ Soft Limit 400 BOOL 0~2000 The limit values refer to the machine
+coordinates, not the work piece coordi-
+#381 value Z++ Soft Limit 400 BOOL 0~2000
+nate.
+#382 value A++ Soft Limit 400 BOOL
+--- PAGE 40 ---
+11) Parameter of MPG function(5 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#428 Enable MPG RESET 1 BOOL 1/0 0: Disable,1: Enable
+#429 Level of MPG RESET 0 BOOL 1/0 1: High; 0:Low
+#430 Type of MPG port 1 BOOL 1/0 0:UART,1: Standard
+#431 Pulse of MPG 0 BOOL 1/0 0: 100 steps /cycle,1: 24 steps /cycle
+#432 IO signal level of MPG 0 BOOL 1/0 1: High; 0:Low
+12) Parameter extended functions (7 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#423 External RESET 1 BOOL 1/0 1: High; 0:Low
+#424 Level External RESET 0 BOOL 1/0 1: High; 0:Low
+#425 Enable of External Key 1 BOOL 1/0 0: Disable,1: Enable
+#426 Level of External Key 1 0 BOOL 1/0 1: High; 0:Low
+#427 Level of External Key 2 0 BOOL 1/0 1: High; 0:Low
+#446 Function of External Key 1 0 BOOL 1/0 0:Start,1:Find Center
+#447 Function of External Key 2 0 BOOL 1/0 0:Pause,1: Zero
+13) Parameter of Backlash (9 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#437 Enable of X backlash 0 BOOL 1/0
+#438 Enable of Y backlash 0 BOOL 1/0
+0:Disable,1:Enable
+#439 Enable of Z backlash 0 BOOL 1/0
+#440 Enable of A backlash 0 BOOL 1/0
+#441 Distance of X axis backlash 0 mm 0~200
+#442 Distance of Y axis backlash 0 mm 0~200 Set the backlash return as you need for
+each axis.
+#443 Distance of Z axis backlash 0 mm 0~200
+Tip: experiment with the settings and
+#444 Distance of A axis backlash 0 mm 0~200 check the results
+#445 Speed of backlash 0 mm/min 0~2000
+14 ) Other parameters(6 in total)
+Para. Default Parameter Parameter
+Parameter definition Notes
+Mark value Unit Scope
+#1 Language 1 BOOL 1/0 0: English,1: Chinese
+Note: For general G-code file, the
+Interface response speed parameter can be set as 400. If the file
+#2 400 400-10000
+while processing has many small segments, adjust the
+parameter to be larger.
+#495 circle of interpolation 0.002 s 0.002-0.01 circle of interpolation
+#250 enable of draw tool road 1 BOOL 1/0 0:disable 1: enable
+#253 mode of draw 0 BOOL 1/0 0:statue mode 1:line mode
+#499 user access key 888888 N/A 0-999999
+Mode of draw tool road: As for the plane line, such as the PCB engraving or the color plates lettering,
+please adopt the line pattern. As for the plane embossment, please adopt the statue pattern.
+Digital Dream Standalone Motion Controller Page -39 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 41 ---
+3.5 Firmware upgrade
+Decompress the upgraded file into the USB-disk,and save it to the root directory of the U-disk.
+Pls note the upgraded file should be in the Root-directory in the U-disk,as bellow:
+Computer U-disk Upgraded file in the root directory
+Picture 3-32 Position of Upgraded file
+As the picture 3-33 shows, after decompressing the file into the USBÔÇÖs root directory, the file path is
+X://INSTALL/. The upgrade files are in this folder, it total 6 files. There is ch (Chinese) and eng (English).
+Motion.out is the main program. The pause.nc and systemLib.nc are the extended code files. Setting is the
+setting file.
+Picture 3-33 upgrade files
+Important
+When upgrading, the entire configuration will be replaced. If you need to keep your Settings, delete the
+setting.set file in the install folder. Your original Settings will then not be changed.
+The install folder must appear as in pic 3-32 or it can not be upgraded. If the folder name is not correct (for
+example install instead of install), or the upgraded file is not in the root directory of the U-dks,the upgrade can
+not be performed. See as picture 3-34 and 3-35.
+Digital Dream Standalone Motion Controller Page -40 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 42 ---
+Wrong!
+Picture 3-34 If the folder name is not correct, installation can not be processed
+Wrong!
+Picture 3-35 Multilevel directory can not work
+Begin to upgrade when USB is inserted into the controller.
+Shut Down the controller,after 10 seconds,insert the U-disk into the controller.Then power on the control-
+ler.The controller can find the upgraded file itself and process the upgrading.The update will be performed
+automatically and the screen will not change for about 30 seconds. Please be patient.
+When the upgrading is finished,on the main page,it will shows the upgrading version No.It shows as below:
+Picture 3-36 Version No. of the upgraded file
+Digital Dream Standalone Motion Controller Page -41 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 43 ---
+Picture 3-37 Screen displayed during upgrade process (approx 30 seconds)
+After the upgrade, the DDCS can be used right away.
+Digital Dream Standalone Motion Controller Page -42 DDCS V3.1 UserÔÇÖs Manual
+--- PAGE 44 ---
+3 G code and M Code List
+G Code Name Definition Use case
+Operate to the assigned position with
+G0 Quick positioning G0 X..Y.. Z..
+the highest speed set by the system
+Operate to the assigned position according
+G1 Spindle straightaway cut G1 X..Y.. Z..
+to the F value assigned by the system or the file
+Radius method:G2X..Y..Z..R..F..
+G2 Spindle cut along the circle Arc cutting machining clockwise
+Circle center method : G2X..Y ..Z..I..J..K..F
+Radius method:G2X..Y..Z..R..F..
+G3 Spindle cut inversing the circle Arc cutting machining clockwise
+Circle center method : G2X..Y ..Z..I..J..K..F
+G17 XY plane select Interpolation plane selects the XY plane G17
+G18 ZX plane select Interpolation plane selects the YZ plane G18
+G19 YZ plane select Interpolation plane selects the YZ plane G19
+G28 Home
+G31 Probe
+G54 G54 coordinate system Select G54 work piece coordinate system G54
+G55 G55 coordinate system Select G55 work piece coordinate system G55
+G56 G56 coordinate system Select G56 work piece coordinate system G56
+G57 G57 coordinate system Select G57 work piece coordinate system
+G58 G58 coordinate system Select G58 work piece coordinate system
+G59 G59 coordinate system Select G59 work piece coordinate system
+G81 Drill hole code G81 X..Y..Z..R..F..
+G82 Drill hole code G82 X..Y..Z..R..P..F..
+G83 Circulation Drill Hole Code G83 X..Y..Z..R..Q..F..
+G90 Absolute size Mode
+G91 Increment size Mode
+G98 should work with G99.G98 invok a
+G98 Invok sub-program
+sub-program from main program.
+G99 should with with G98.G99 set back to the
+G99 Back to main program
+main program after G98 finish its job.
+M Code Name Definition
+M3 Spindle rotates forward The set of output control signal for spindle rotates forward is valid
+M5 Spindle stop The set of output control signal for spindle rotates forward is invalid
+M8 Start of water -cooling Arc cutting machining clocThe set of water-cooling output control signal is valid
+M9 Stop of water- cooling The set of water-cooling output control signal is invalid
+M10 Start of lubricating oil Interpolation plane seThe set of lubricating oil output control is valid
+M11 Close of the lubricating oil The set of lubricating oil output control is invalid
+Digital Dream Standalone Motion Controller Page -43 DDCS V3.1 UserÔÇÖs Manual

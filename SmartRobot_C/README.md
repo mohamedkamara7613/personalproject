@@ -10,90 +10,62 @@ L'objectif est de programmer en **C embarqué** le comportement d'un robot auton
 
 ---
 
+## 🎬 Démonstrations Visuelles Réelles
+
+| **Robot Physique en Navigation Réelle** | **Montage Électronique Embarqué** |
+| :---: | :---: |
+| ![SmartRobot Demo](./docs/demo_robot.gif) | ![SmartRobot Photo](./docs/demo01.jpg) |
+| *Navigation autonome sur grille avec suivi de ligne optique et microcontrôleur.* | *Châssis différentiel, capteurs IR, écran LCD et bus de commande I2C.* |
+
+---
+
 ## 🏗️ Architecture & Pipeline Algorithmique
 
 ```
-   Fichier Labyrinthe (.txt)
-              │
-              ▼
-    [ labyrinth_parsing.c ]  ──► Chargement de la topologie & checkpoints
-              │
-              ▼
-    [      tsp_algo.c     ]  ──► Ordonnancement optimal des étapes (TSP)
-              │
-              ▼
-    [     astar_algo.c    ]  ──► A* sur Espace d'États (Position, Direction)
-              │
-              ▼
-    Séquence d'Actions (AV, TD, TG) ──► Pilotage moteur & suivi de ligne
+   [ Labyrinthe ASCII ] ──► [ Parseur C ] ──► [ Matrice d'Adjacence & TAD Graphe ]
+                                                        │
+                                                        ▼
+   [ Séquence Minimale ] ◄── [ Solveur TSP ] ◄── [ Calcul Tous-Paires (A*) ]
+            │
+            ▼
+   [ Traduction Instructions ] ──► [ Bus I2C / PWM Moteurs ] ──► [ Déplacement Réel ]
 ```
 
-### 1. A* sur Espace d'États Étendu (Position × Orientation)
-Sur un robot physique, tourner consomme du temps et de l'énergie. L'A* standard (calculant une distance euclidienne ou Manhattan pure) génère trop de virages.  
-Nous modélisons chaque état comme un couple :
-$$\mathbf{S} = (\text{nœud}, \text{direction}) \in [1, N] \times \{N, E, S, W\}$$
-- Coût de déplacement linéaire : $C_{\text{move}} = 1$
-- Coût de rotation (90°) : $C_{\text{turn}} > 1$ (pénalisation configurable)
-- File de priorité : Liste Chaînée Triée (TAD) garantissant l'extraction du nœud de score $f = g + h$ minimum en $O(1)$.
+### 1. Types Abstraits de Données (TAD) Piliers
+- `Graphe` : Représentation par matrice d'adjacence pondérée avec gestion dynamique.
+- `ListeChaineeListeOrdonnee (LCLO)` : File de priorité générique à coût minimal pour l'algorithme A*.
+- `TableHachageDictionnaire` : Dictionnaire avec hachage pour mémoriser les états explorés en temps amorti $O(1)$.
 
-### 2. Voyageur de Commerce (TSP)
-Pour relier l'ensemble des checkpoints, le module `tsp_algo.c` évalue les permutations possibles pour minimiser le coût global cumulé des trajectoires $A^*$.
+### 2. A* sur Espace d'États Étendu
+Contrairement à un A* classique sur coordonnées $(x, y)$, l'état du robot est un triplet :
+$$s = (u, d) \quad \text{avec } u \in V \text{ (nœud)} \text{ et } d \in \{N, S, E, W\} \text{ (orientation)}$$
+Le coût d'un déplacement intègre à la fois la translation physique et la pénalité angulaire :
+$$c((u, d), (v, d')) = \text{distance}(u, v) + C_{\text{rotation}}(d, d')$$
+Cette modélisation évite les zigzags physiques et minimise l'usure mécanique des moteurs.
+
+### 3. Résolution du Voyageur de Commerce (TSP)
+Pour relier les $K$ points de passage obligatoires, le solveur calcule d'abord la matrice de distance $K \times K$ via A*, puis détermine la permutation optimale par recherche avec heuristique 2-opt.
 
 ---
 
-## 📈 Visualisations & Benchmarks
+## 📊 Benchmarks & Modélisation
 
-| Modélisation de Graphe | Benchmark d'Exécution A* |
+| Analyse de Complexité | Benchmarks Expérimentaux |
 | :---: | :---: |
-| ![Graphe Labyrinthe](./docs/graphe_exemple.png) | ![Benchmark A*](./docs/benchmark.png) |
-
-| Analyse Descendante Logicielle | Visualisation de Trajectoire Prédite |
-| :---: | :---: |
-| ![Analyse Descendante](./docs/analyseDescendanteAlgo.png) | ![Trajectoire](./docs/benchmark2.png) |
+| ![Analyse de Complexité](./docs/analyse.png) | ![Benchmark](./docs/benchmark.png) |
 
 ---
 
-## 🛠️ Structure du Répertoire
+## 🚀 Compilation & Tests
 
-```
-SmartRobot_C/
-├── Makefile             # Compilation automatique (GCC -Wall -Wextra -Werror)
-├── Doxyfile             # Configuration Doxygen pour documentation HTML
-├── run.sh / run_test.sh # Scripts d'exécution et de validation
-├── include/             # Fichiers d'en-tête (.h)
-│   ├── astar_algo.h     # Interface du solveur A*
-│   ├── tsp_algo.h       # Interface du solveur TSP
-│   ├── TAD_graphe.h     # TAD Graphe (matrice d'adjacence)
-│   └── TAD_LCLO.h       # Liste Chaînée Liste Ordonnée (File de priorité)
-├── src/                 # Code source modulaire C
-├── tests/               # Suite de tests unitaires CUnit
-├── docs/                # Schémas d'architecture et benchmarks
-└── TAD/                 # Spécifications formelles des Types Abstraits
-```
-
----
-
-## 🚀 Compilation & Exécution
-
-### 1. Prérequis
-- `gcc` (support C99 minimum)
-- `make`
-- `libcunit1-dev` (pour exécuter les tests unitaires)
-- `valgrind` (pour les tests de non-fuite mémoire)
-
-### 2. Compiler le projet
 ```bash
-make clean
-make
-```
+# Compiler le projet
+make clean && make
 
-### 3. Lancer les tests unitaires CUnit
-```bash
+# Lancer la suite de tests CUnit
 ./run_test.sh
-```
 
-### 4. Vérifier l'absence de fuites mémoire avec Valgrind
-```bash
+# Vérifier l'absence de fuite mémoire
 valgrind --leak-check=full --show-leak-kinds=all ./bin/smartrobot
 ```
 *(Résultat : 0 allocation perdue, 0 erreur mémoire).*

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guide Estlcam — QueenBee Pro</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    /* Cover */
+    .cover {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 10mm 20mm;
+      page-break-after: always;
+    }
+
+    .cover h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; }
+    .cover .subtitle { font-size: 22px; color: #666; margin-bottom: 30px; }
+
+    .pipeline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-size: 18px;
+      color: #444;
+      background: #f5f5f5;
+      padding: 24px 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    .pipeline-arrow { color: #e74c3c; font-weight: bold; font-size: 26px; }
+    .pipeline-block .app { font-weight: 700; font-size: 22px; }
+    .pipeline-block .role { font-size: 16px; color: #888; }
+
+    .toc { width: 100%; max-width: 450px; text-align: left; }
+    .toc h3 {
+      font-size: 22px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #999;
+      margin-bottom: 16px;
+      border-bottom: 2px solid #e74c3c;
+      padding-bottom: 8px;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px dotted #eee;
+      font-size: 20px;
+    }
+
+    .toc-num {
+      width: 36px; height: 36px;
+      background: #e74c3c;
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Pages */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 15mm 15mm 15mm;
+      page-break-after: always;
+      position: relative;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #e74c3c;
+    }
+
+    .section-number {
+      width: 50px; height: 50px;
+      background: #e74c3c;
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .section-title { font-size: 28px; font-weight: 700; }
+    .section-subtitle { font-size: 18px; color: #888; }
+
+    .step { margin-bottom: 30px; }
+    .step-label {
+      font-size: 20px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      color: #e74c3c; margin-bottom: 8px;
+    }
+    .step-text { font-size: 20px; color: #222; margin-bottom: 14px; }
+
+    .step img {
+      width: 100%;
+      max-width: 180mm;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .img-caption {
+      font-size: 16px; color: #777;
+      text-align: center; margin-top: 8px; margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .cols { display: flex; flex-direction: column; gap: 24px; }
+
+    .info-box {
+      background: #fff8f0;
+      border-left: 6px solid #f39c12;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 18px; color: #333;
+      margin: 20px 0;
+    }
+
+    .warn-box {
+      background: #fff5f5;
+      border-left: 6px solid #e74c3c;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 18px; color: #333;
+      margin: 20px 0;
+    }
+
+    .ok-box {
+      background: #f0fff4;
+      border-left: 6px solid #27ae60;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 18px; color: #333;
+      margin: 20px 0;
+    }
+
+    table.ref {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 18px;
+      margin-top: 14px;
+      margin-bottom: 14px;
+    }
+
+    table.ref th {
+      background: #1a1a1a;
+      color: white;
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    table.ref td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+
+    table.ref tr:nth-child(even) td { background: #f9f9f9; }
+    table.ref .highlight td { background: #fff3cd !important; }
+
+    .badge {
+      display: inline-block;
+      font-size: 16px; font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-right: 6px;
+    }
+    .badge-red { background: #e74c3c; color: white; }
+    .badge-blue { background: #2980b9; color: white; }
+    .badge-green { background: #27ae60; color: white; }
+
+    hr.light { border: none; border-top: 1px solid #ddd; margin: 24px 0; }
+
+    .page-footer {
+      position: absolute;
+      bottom: 12mm; left: 15mm; right: 15mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px; color: #aaa;
+      border-top: 1px solid #eee;
+      padding-top: 6px;
+    }
+
+    .step-num {
+      min-width: 40px; height: 40px;
+      background: #1a1a1a;
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 700;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .step-num.red { background: #e74c3c; }
+    .step-num.green { background: #27ae60; }
+
+    @media print {
+      body { background: white; }
+      .page, .cover { margin: 0; }
+      .page { page-break-after: always; }
+      .step { page-break-inside: avoid; }
+      table { page-break-inside: avoid; }
+      .info-box, .warn-box, .ok-box { page-break-inside: avoid; }
+    }
+
+    @page { size: A4; margin: 0; }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div style="font-size:52px; margin-bottom:20px;">⚙️</div>
+  <h1>Guide Estlcam</h1>
+  <p class="subtitle">QueenBee Pro · DDCS4 V3.1 · Fraise ST2F-D3.17 mm · Version 1.0</p>
+
+  <div class="pipeline">
+    <div class="pipeline-block"><div class="app">SketchUp</div><div class="role">Dessin DXF</div></div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-block"><div class="app">Estlcam</div><div class="role">G-code .nc</div></div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-block"><div class="app">Clé USB</div><div class="role">Transfert</div></div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-block"><div class="app">DDCS V3.3</div><div class="role">Exécution</div></div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-block"><div class="app">QueenBee</div><div class="role">Usinage</div></div>
+  </div>
+
+  <div class="toc">
+    <h3>Sommaire</h3>
+    <div class="toc-item"><div class="toc-num">1</div><span>Ouvrir Estlcam</span></div>
+    <div class="toc-item"><div class="toc-num">2</div><span>Paramètres de base (unités + Safe Z)</span></div>
+    <div class="toc-item"><div class="toc-num">3</div><span>Post-processeur — Mach3 + extension .nc</span></div>
+    <div class="toc-item"><div class="toc-num">4</div><span>Configurer les outils (fraises + tableau)</span></div>
+    <div class="toc-item"><div class="toc-num">5</div><span>Exemple pratique — Carré + Cercle</span></div>
+    <div class="toc-item"><div class="toc-num">6</div><span>Générer le G-code et transférer</span></div>
+    <div class="toc-item"><div class="toc-num">7</div><span>Procédure DDCS — Zéro + Lancement</span></div>
+  </div>
+
+  <div style="margin-top:40px; font-size:14px; color:#bbb; border-top:1px solid #eee; padding-top:16px; width:100%; max-width:450px; text-align:left;">
+    Unités : mm · Post-processeur : Mach3 · Safe Z : 10 mm min
+  </div>
+</div>
+
+
+<!-- PAGE 1 — Ouvrir Estlcam -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">1</div>
+    <div>
+      <div class="section-title">Ouvrir Estlcam</div>
+      <div class="section-subtitle">Bureau → double-clic sur l'icône CAM</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <p class="step-text">
+      Double-cliquer sur <strong>Estlcam V13 CAM</strong> (icône bleue avec «E»).
+      <br>⚠️ Ne pas confondre avec <em>Estlcam V13 CNC</em> — c'est l'autre icône juste en dessous.
+    </p>
+    <img src="../images/guide/ouvrir_estlcam.png" alt="Ouvrir Estlcam" />
+    <p class="img-caption">L'icône encadrée en rouge — c'est celle-là.</p>
+  </div>
+
+  <div class="info-box">
+    <strong>Mode CAM vs CNC :</strong> On utilise toujours le mode <strong>CAM</strong> pour préparer les fichiers. Le DDCS se charge de l'exécution sur la machine.
+  </div>
+
+  <div class="page-footer">
+    <span>1 — Ouvrir Estlcam</span>
+    <span>Guide Estlcam · QueenBee Pro</span>
+  </div>
+</div>
+
+
+<!-- PAGE 2 — Paramètres de base -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">2</div>
+    <div>
+      <div class="section-title">Paramètres de base</div>
+      <div class="section-subtitle">Paramètres → Paramètres de base</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <p class="step-label">Accès</p>
+    <img src="../images/guide/parametre_de_base_1.png" alt="Menu paramètres de base" />
+  </div>
+
+  <div class="step">
+    <p class="step-label">Fenêtre de configuration</p>
+    <img src="../images/guide/parameter_de_base_2.png" alt="Paramètres de base" />
+  </div>
+
+  <div class="cols" style="margin-top:8px;">
+    <div class="ok-box">
+      <strong>✅ Unités de longueur</strong><br>
+      Estlcam → <strong>Millimètre</strong><br>
+      Contrôleur CNC → <strong>Millimètre</strong>
+    </div>
+    <div class="ok-box">
+      <strong>✅ Hauteur de dégagement (Safe Z)</strong><br>
+      <strong>10,00 mm minimum</strong><br>
+      Évite les collisions avec les brides
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>⚠️ Ne pas laisser à 5 mm</strong> — la valeur par défaut est insuffisante avec des brides de fixation.
+  </div>
+
+  <div class="page-footer">
+    <span>2 — Paramètres de base</span>
+    <span>Guide Estlcam · QueenBee Pro</span>
+  </div>
+</div>
+
+
+<!-- PAGE 3 — Post-processeur -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">3</div>
+    <div>
+      <div class="section-title">Post-processeur — Mach3 + .nc</div>
+      <div class="section-subtitle">Paramètres → Programme CNC / Post-processeur</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <p class="step-label">Étape 1 — Ouvrir le menu</p>
+    <img src="../images/guide/parametre_cnc_1.png" alt="Menu programme CNC" />
+  </div>
+
+  <div class="step">
+    <p class="step-label">Étape 2 — Onglet Préréglages → sélectionner Mach 3 / Mach 4</p>
+    <img src="../images/guide/parametre_cnc_2.png" alt="Sélection Mach3" />
+  </div>
+
+  <div class="step">
+    <p class="step-label">Étape 3 — Vérifier l'extension et enregistrer</p>
+    <img src="../images/guide/parametre_cnc_3.png" alt="Extension nc + enregistrer" />
+    <p class="img-caption">Extension → <strong>nc</strong> · Unités → <strong>Millimètre</strong> · Cliquer <strong>Enregistrer les paramètres</strong></p>
+  </div>
+
+  <div class="page-footer">
+    <span>3 — Post-processeur</span>
+    <span>Guide Estlcam · QueenBee Pro</span>
+  </div>
+</div>
+
+
+<!-- PAGE 4 — Configuration des outils -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">4</div>
+    <div>
+      <div class="section-title">Configurer les outils (fraises)</div>
+      <div class="section-subtitle">Paramètres → Liste d'outils</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <p class="step-label">Fraises enregistrées</p>
+    <img src="../images/guide/outils_config.png" alt="Liste des outils" />
+    <p class="img-caption">Fraise de travail : <strong>ST2F-D3.1-L17</strong> (ligne 2, Ø 3,17 mm)</p>
+  </div>
+
+  <div class="cols" style="margin-top:8px; margin-bottom:8px;">
+    <div>
+      <p class="step-label">Colonnes de la liste</p>
+      <table class="ref">
+        <tr><td><strong>Ø</strong></td><td>Diamètre exact (mm)</td></tr>
+        <tr><td><strong>Z+</strong></td><td>Profondeur par passe</td></tr>
+        <tr><td><strong>Fxy</strong></td><td>Avance horizontale (mm/min)</td></tr>
+        <tr><td><strong>Fz</strong></td><td>Plongée verticale (mm/min)</td></tr>
+        <tr><td><strong>N</strong></td><td>Vitesse broche (rpm)</td></tr>
+      </table>
+    </div>
+    <div class="info-box" style="margin-top:0; align-self: start;">
+      <strong>Règle simple :</strong><br>
+      Fz (plongée) ≈ <strong>¼ à ⅓ de Fxy</strong><br><br>
+      Commencer avec les valeurs du tableau ci-dessous. Augmenter par paliers de 10–15%.
+    </div>
+  </div>
+
+  <p class="step-label">📊 Tableau de référence — Paramètres de départ</p>
+
+  <table class="ref">
+    <thead>
+      <tr>
+        <th>Matériau</th>
+        <th>Fraise Ø</th>
+        <th>Passe Z+</th>
+        <th>Avance Fxy</th>
+        <th>Plongée Fz</th>
+        <th>Rotation N</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td><strong>Bois tendre</strong> (MDF, Pin)</td>
+        <td>3,17 mm ★</td>
+        <td>1,5 mm</td>
+        <td>1 000 mm/min</td>
+        <td>300 mm/min</td>
+        <td>18 000 rpm</td>
+      </tr>
+      <tr>
+        <td>Bois tendre (MDF, Pin)</td>
+        <td>6 mm</td>
+        <td>2,0 mm</td>
+        <td>1 200 mm/min</td>
+        <td>400 mm/min</td>
+        <td>18 000 rpm</td>
+      </tr>
+      <tr>
+        <td>Bois dur (Chêne, Hêtre)</td>
+        <td>6 mm</td>
+        <td>1,5 mm</td>
+        <td>800 mm/min</td>
+        <td>300 mm/min</td>
+        <td>16 000 rpm</td>
+      </tr>
+      <tr>
+        <td>Acrylique / Plexiglas ⚠️</td>
+        <td>3,17 mm ★</td>
+        <td>1,0 mm</td>
+        <td>1 000 mm/min</td>
+        <td>300 mm/min</td>
+        <td>14 000 rpm</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:10px; color:#888; margin-top:5px;">
+    ★ Fraise disponible · ⚠️ Acrylique : fraise <strong>1 dent (single flute) obligatoire</strong>, sinon le plastique fond.
+  </p>
+
+  <div class="page-footer">
+    <span>4 — Configuration des outils</span>
+    <span>Guide Estlcam · QueenBee Pro</span>
+  </div>
+</div>
+
+
+<!-- PAGE 5 — Exemple (1/2) -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">5</div>
+    <div>
+      <div class="section-title">Exemple pratique — Carré + Cercle</div>
+      <div class="section-subtitle">Ouvrir le DXF → assigner les parcours</div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="step">
+      <p class="step-label">A — Fichier → Ouvrir</p>
+      <img src="../images/guide/exemle_de_base_1.png" alt="Menu Ouvrir" />
+      <p class="img-caption">Formats : .dxf · .svg · .stl · .png</p>
+    </div>
+    <div class="step">
+      <p class="step-label">B — Sélectionner le .dxf</p>
+      <img src="../images/guide/exemle_de_base_2.png" alt="Boîte de dialogue" />
+      <p class="img-caption">Choisir <strong>modèle.dxf</strong> → Ouvrir</p>
+    </div>
+  </div>
+
+  <hr class="light">
+
+  <div class="step">
+    <p class="step-label">C — Bouton Intérieur → cliquer sur le cercle</p>
+    <p class="step-text">Le cercle sera une <strong>poche</strong> (découpe intérieure, ne traverse pas).</p>
+    <img src="../images/guide/exemle_de_base_3.png" alt="Bouton Intérieur" />
+    <p class="img-caption">Intérieur = fraise à l'intérieur du contour → creuser sans traverser</p>
+  </div>
+
+  <div class="page-footer">
+    <span>5 — Exemple pratique (1/2)</span>
+    <span>Guide Estlcam · QueenBee Pro</span>
+  </div>
+</div>
+
+
+<!-- PAGE 6 — Exemple (2/2) -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">5</div>
+    <div>
+      <div class="section-title">Exemple pratique — suite</div>
+      <div class="section-subtitle">Profondeur + Extérieur + Brides</div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="step">
+      <p class="step-label">D — Cercle sélectionné (rouge) + profondeur</p>
+      <img src="../images/guide/exemle_de_base_4.png" alt="Cercle sélectionné" />
+      <p class="img-caption">Panneau droit → «Profondeur du parcours» → Demander ou saisir directement</p>
+    </div>
+    <div class="step">
+      <p class="step-label">E — Saisir la profondeur (ex: 6 mm)</p>
+      <img src="../images/guide/exemle_de_base_5.png" alt="Profondeur" />
+      <p class="img-caption">Pour une poche : ex. 6,00 mm · Pour découpe traversante : épaisseur + 0,2 mm</p>
+    </div>
+  </div>
+
+  <hr class="light">
+
+  <div class="cols">
+    <div class="step">
+      <p class="step-label">F — Bouton Extérieur → cliquer sur le carré</p>
+      <img src="../images/guide/exemle_de_base_6.png" alt="Extérieur" />
+      <p class="img-caption">Extérieur = fraise contourne l'extérieur → découpe la pièce</p>
+    </div>
+    <div class="step">
+      <p class="step-label">G — Profondeur 12,2 mm + ajouter Brides (3mm)</p>
+      <img src="../images/guide/exemle_de_base_7.png" alt="Extérieur avec brides" />
+      <p class="img-caption">Rose = parcours extérieur · Brides = ponts qui retiennent la pièce</p>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>⚠️ BRIDES OBLIGATOIRES</strong> pour toute découpe traversante. Sans elles, la pièce s'envole et casse la fraise à la dernière passe.
+  </div>
+
+  <div class="page-footer">
+    <span>5 — Exemple pratique (2/2)</span>
+    <span>Guide Estlcam · QueenBee Pro</span>
+  </div>
+</div>
+
+
+<!-- PAGE 7 — Générer le G-code -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">6</div>
+    <div>
+      <div class="section-title">Générer le G-code et transférer</div>
+      <div class="section-subtitle">Fichier → Enregistrer Programme CNC → clé USB</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <p class="step-label">Enregistrer le fichier .nc</p>
+    <p class="step-text">
+      <strong>Fichier</strong> → <strong>Enregistrer Programme CNC</strong>
+      <br>Nommer selon la convention : <code>test_YYYYMMDD_description.nc</code>
+    </p>
+    <img src="../images/guide/parametre_cnc_4.png" alt="Enregistrer programme CNC" />
+    <p class="img-caption">Enregistrer directement sur la clé USB si possible · Type = .nc</p>
+  </div>
+
+  <hr class="light">
+
+  <div class="cols">
+    <div class="ok-box">
+      <strong>✅ Checklist avant d'aller à la machine</strong><br><br>
+      ☐ Fichier <strong>.nc</strong> sur la clé USB<br>
+      ☐ Clé USB éjectée proprement<br>
+      ☐ Fraise serrée dans la broche<br>
+      ☐ Pièce fixée sur la table (brides)<br>
+      ☐ E-Stop accessible
+    </div>
+    <div class="info-box">
+      <strong>Nommage des fichiers :</strong><br><br>
+      Convention : <code>test_YYYYMMDD_nom.nc</code><br><br>
+      Exemple :<br>
+      <code>test_20260630_carre_cercle.nc</code><br><br>
+      Les anciens fichiers → dossier <strong>Archive/</strong>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>6 — Générer le G-code</span>
+    <span>Guide Estlcam · QueenBee Pro</span>
+  </div>
+</div>
+
+
+<!-- PAGE 8 — Procédure DDCS -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">7</div>
+    <div>
+      <div class="section-title">Procédure DDCS — Zéro pièce + Lancement</div>
+      <div class="section-subtitle">Sur le contrôleur physique DDCS V3.3</div>
+    </div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
+
+    <div style="display:flex; gap:14px; align-items:flex-start;">
+      <div class="step-num">1</div>
+      <p style="font-size:20px;"><strong>Allumer le DDCS</strong> — attendre l'écran d'accueil READY.</p>
+    </div>
+
+    <div style="display:flex; gap:14px; align-items:flex-start;">
+      <div class="step-num">2</div>
+      <p style="font-size:20px;"><strong>Fixer la pièce</strong> sur la table + serrer la fraise dans la pince.</p>
+    </div>
+
+    <div style="display:flex; gap:14px; align-items:flex-start;">
+      <div class="step-num red">3</div>
+      <div style="font-size:20px;">
+        <strong>Faire le Zéro pièce (X=0, Y=0, Z=0)</strong><br>
+        Approcher manuellement la fraise de l'angle avant-gauche de la pièce.<br>
+        <span class="badge badge-blue">SHIFT</span> + bouton axe → mettre chaque axe à zéro.<br>
+        <strong>Pour Z :</strong> descendre doucement jusqu'à effleurer la surface (méthode feuille de papier).
+      </div>
+    </div>
+
+    <div style="display:flex; gap:14px; align-items:flex-start;">
+      <div class="step-num">4</div>
+      <p style="font-size:20px;"><strong>Insérer la clé USB</strong> → Menu → Charger programme → sélectionner le fichier <strong>.nc</strong></p>
+    </div>
+
+    <div style="display:flex; gap:14px; align-items:flex-start;">
+      <div class="step-num green">5</div>
+      <p style="font-size:20px;"><strong>Vérifier l'aperçu</strong> → appuyer sur <span class="badge badge-green">START</span>.<br>
+        Rester près du bouton E-Stop pendant les premières minutes.</p>
+    </div>
+
+  </div>
+
+  <hr class="light">
+
+  <div class="cols">
+    <div class="warn-box">
+      <strong>⚠️ Méthode Zéro Z</strong><br>
+      Glisser une feuille de papier sous la fraise. Descendre jusqu'à ce qu'elle frotte légèrement. Ce point = <strong>Z=0</strong> (surface de la pièce).
+    </div>
+    <div class="warn-box">
+      <strong>⚠️ Broche ne tourne pas ?</strong><br>
+      Vérifier que l'écran DDCS affiche <strong>M3</strong> (et non M5).<br>
+      Vérifier le voyant <strong>FWD</strong> allumé sur le boîtier VFD.
+    </div>
+  </div>
+
+  <hr class="light">
+
+  <p class="step-label">Dépannage rapide</p>
+  <table class="ref">
+    <thead>
+      <tr>
+        <th>Symptôme</th>
+        <th>Cause probable</th>
+        <th>Solution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>DDCS affiche M5 → broche ne tourne pas</td>
+        <td>M03 absent dans G-code</td>
+        <td>Paramètres → Prog. CNC → Textes → «Démarrage programme» = <code>M03</code></td>
+      </tr>
+      <tr>
+        <td>VFD affiche <code>OC-o</code></td>
+        <td>Alarme surintensité VFD</td>
+        <td>Appuyer <strong>STOP / RESET</strong> sur le boîtier VFD</td>
+      </tr>
+      <tr>
+        <td>Profondeur Z incorrecte</td>
+        <td>Steps/mm axe Z non calibrés</td>
+        <td>Vérifier et calibrer Steps/mm Z dans les paramètres DDCS</td>
+      </tr>
+      <tr>
+        <td>Bug Z aléatoire (sauts)</td>
+        <td>Faux contact câblage moteur Z</td>
+        <td>Vérifier borniers et connecteurs du moteur Z</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>7 — Procédure DDCS</span>
+    <span>Guide Estlcam · QueenBee Pro · v1.0</span>
+  </div>
+</div>
+
+</body>
+</html>

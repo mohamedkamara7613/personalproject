@@ -119,7 +119,7 @@ def main():
 
     print("Trajectoire Méthode 3 calculée.")
     
-    m = folium.Map(location=[ref_lat, ref_lon], zoom_start=18, tiles="OpenStreetMap")
+    m = folium.Map(location=[ref_lat, ref_lon], zoom_start=18, tiles="CartoDB voyager")
     
     strava_path = "strava_ground_truth.gpx"
     if Path(strava_path).exists():

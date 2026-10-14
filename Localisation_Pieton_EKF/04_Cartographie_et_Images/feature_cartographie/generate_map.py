@@ -40,7 +40,7 @@ def generate_interactive_map(kalman_csv, photos_csv, output_html="carte_photos.h
     start_lat = k_data['Latitude'].iloc[0]
     start_lon = k_data['Longitude'].iloc[0]
     
-    m = folium.Map(location=[start_lat, start_lon], zoom_start=18, tiles="OpenStreetMap")
+    m = folium.Map(location=[start_lat, start_lon], zoom_start=18, tiles="CartoDB voyager")
     
     # Création du groupe de marqueurs (gère l'empilement)
     marker_cluster = MarkerCluster().add_to(m)

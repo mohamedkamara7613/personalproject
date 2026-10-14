@@ -9,92 +9,52 @@ Projet académique d'excellence à l'**INSA Rouen Normandie** (Département ISIA
 
 ---
 
+## 🎬 Démonstration d'Exécution en Terminal
+
+![SGBD Demo](./docs/demo_sgbd.gif)
+*Démonstration de l'interpréteur SQL interactif : création de tables, insertion en mémoire, et requêtage relationnel avec projections et filtres.*
+
+---
+
 ## 🏛️ Architecture du Moteur
 
 ```
-                Requête SQL (Texte)
-                        │
-                        ▼
-            [   SQL Parser / Lexer   ]  ──► Grammaire DDL & DML
-                        │
-                        ▼
-            [    Query Processor     ]  ──► Plan d'exécution relationnel
-                        │
-                        ▼
-            [    Table & Index B-Tree]  ──► Recherche indexée en O(log N)
-                        │
-                        ▼
-            [  Buffer Pool Manager   ]  ──► Gestionnaire de cache mémoire (LRU)
-                        │
-                        ▼
-            [ Disk Storage / Paging  ]  ──► Fichiers binaires paginés (.db)
+                Requête SQL (String)
+                         │
+                         ▼
+        [   Analyseur Syntaxique JavaCC   ] ──► Grammaire LL(1) 'sgbd.jj'
+                         │
+                         ▼
+        [     Arbre Syntaxique (AST)      ] ──► Pattern Command
+                         │
+                         ▼
+        [     Moteur d'Exécution / Query   ] ──► Algèbre relationnelle (Select, Project, Join)
+                         │
+            ┌────────────┴────────────┐
+            ▼                         ▼
+   [ Buffer Pool LRU ]       [ Indexation B-Tree ]
+            │                         │
+            ▼                         ▼
+    Fichiers Binaires (.db / pages sur disque)
 ```
 
----
+### 1. Parseur SQL JavaCC (`sgbd.jj`)
+- Grammaire LL(1) sans ambiguïté compilée via JavaCC.
+- Support du DDL : `CREATE TABLE`, `DROP TABLE`.
+- Support du DML : `INSERT INTO`, `DELETE FROM`, `SELECT` avec clauses `WHERE` complexes (opérateurs `=, !=, <, >, <=, >=`, connecteurs logiques `AND/OR`), projections d'attributs et **jointures multi-tables** (produit cartésien optimisé).
 
-## 💎 Fonctionnalités Maîtresses
-
-### 1. Gestionnaire de Paginage & Buffer Pool (LRU)
-- Les données sont stockées sur le disque dans des **blocs de taille fixe (pages binaires)**.
-- Le **Buffer Pool** gère un ensemble de trames (frames) en mémoire vive avec un algorithme d'éviction **LRU (Least Recently Used)** et politique de *dirty pages write-back* pour limiter les I/O disque.
-
-### 2. Indexation par Arbre B (B-Tree)
-- Implémentation d'une structure d'**arbre B équilibré** permettant l'insertion, la recherche et la suppression en $O(\log N)$.
-- Indexation sur clés primaires pour accélérer les clauses `WHERE id = ...`.
-
-### 3. Syntaxe SQL Prise en Charge
-- **DDL (Data Definition Language) :**
-  - `CREATE TABLE <nom> (<colonne> <type>, ...);`
-  - `DROP TABLE <nom>;`
-- **DML (Data Manipulation Language) :**
-  - `INSERT INTO <nom> VALUES (...);`
-  - `SELECT <colonnes> FROM <table1> [JOIN <table2> ON ...] [WHERE <conditions>];`
-  - Fonctions d'agrégation (`COUNT`, `SUM`, `AVG`, `MIN`, `MAX`).
-  - `UPDATE` et `DELETE` avec filtrage booléen complexe.
+### 2. Couche de Stockage & Buffer Pool
+- **Pages binaires :** Les tuples sont sérialisés dans des blocs disques de taille fixe avec en-tête (slotted-page architecture).
+- **Buffer Manager LRU :** Mémoire cache limitant les entrées/sorties physiques disques en maintenant les pages les plus fréquemment accédées en RAM.
 
 ---
 
-## 📐 Modélisation & Conception UML
+## 🚀 Utilisation & Tests
 
-| Diagramme de Classes Complet | Modèle Conceptuel des Données |
-| :---: | :---: |
-| ![Diagramme de Classes](./docs/diagramme_de_classes_complet.png) | ![Modèle Conceptuel](./docs/modele_conceptuel.png) |
-
-| Modèle Physique de Stockage | Diagramme des Cas d'Utilisation |
-| :---: | :---: |
-| ![Modèle Physique](./docs/modele_physique.png) | ![Cas d'Utilisation](./docs/diagramme_cas_d'utilisation.png) |
-
----
-
-## 🚀 Utilisation & Interpréteur Interactif
-
-### 1. Compiler le projet
 ```bash
-make clean
+# Compiler le lexeur/parseur JavaCC et les sources Java
 make
-```
 
-### 2. Lancer la console interactive SQL (REPL)
-```bash
-./Interpreteur.sh
-```
-
-### 3. Exemple de session SQL
-```sql
-SGBD> CREATE TABLE Etudiants (id INT, nom STRING, note FLOAT);
-Table 'Etudiants' créée avec succès.
-
-SGBD> INSERT INTO Etudiants VALUES (1, 'Mohamed', 18.5);
-1 ligne insérée.
-
-SGBD> INSERT INTO Etudiants VALUES (2, 'Thomas', 15.0);
-1 ligne insérée.
-
-SGBD> SELECT nom, note FROM Etudiants WHERE note >= 16.0;
-+----------+-------+
-| nom      | note  |
-+----------+-------+
-| Mohamed  | 18.5  |
-+----------+-------+
-1 ligne retournée.
+# Lancer la suite de tests unitaires JUnit
+make test
 ```

@@ -305,7 +305,7 @@ def main():
 
     # ── Carte Folium ─────────────────────────────────────────────────────────
     center = [ref_lat, ref_lon]
-    m = folium.Map(location=center, zoom_start=18, tiles="OpenStreetMap")
+    m = folium.Map(location=center, zoom_start=18, tiles="CartoDB voyager")
 
     # Strava (vérité terrain — noir)
     strava_path = "strava_ground_truth.gpx"

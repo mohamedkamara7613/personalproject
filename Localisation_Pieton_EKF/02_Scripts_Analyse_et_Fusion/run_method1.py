@@ -177,7 +177,7 @@ def main():
     print("Trajectoire Méthode 1 calculée.")
     
     # 4. Traçage Folium
-    m = folium.Map(location=[ref_lat, ref_lon], zoom_start=18, tiles="OpenStreetMap")
+    m = folium.Map(location=[ref_lat, ref_lon], zoom_start=18, tiles="CartoDB voyager")
     
     # Strava (Vérité terrain)
     strava_path = "strava_ground_truth.gpx"

@@ -156,7 +156,7 @@ def run_kalman(gps: pd.DataFrame, sigma_a_arr: np.ndarray):
 
 def make_map(gps_raw, gps_clean, kf_n, kf_e, accepted, out_path):
     center = [gps_clean.Latitude.mean(), gps_clean.Longitude.mean()]
-    m = folium.Map(location=center, zoom_start=18, tiles="OpenStreetMap")
+    m = folium.Map(location=center, zoom_start=18, tiles="CartoDB voyager")
 
     # GPS brut (rouge)
     for _, row in gps_raw.iterrows():

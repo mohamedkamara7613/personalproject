@@ -1,0 +1,878 @@
+﻿Version=13.004
+Setting type=CNC settings
+
+;----------------------------------------------------------------------------------------------------------------------------------------------------
+;Vor Änderungen an dieser Datei muss Estlcam unbedingt geschlossen werden, sonst gehen die Änderungen verloren!
+;Die "Steuerungselektronik" Liste der Grundeinstellungen setzt alles auf Standardwerte zurück. Klicke Sie nach manuellen Änderungen nicht mehr an!
+;----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Enabled=N
+Hardware=None
+Firmware=None
+Port=
+
+;Basic configuration
+Steps rev X=1600
+Steps rev Y=1600
+Steps rev Z=1600
+Distance rev X=5
+Distance rev Y=5
+Distance rev Z=5
+Fmax X=50
+Fmax Y=50
+Fmax Z=50
+Inertia X=85
+Inertia Y=85
+Inertia Z=85
+Inverted X=N
+Inverted Y=N
+Inverted Z=N
+Current X=0,5
+Current Y=0,5
+Current Z=0,5
+Acceleration distance=2
+Fmin=1
+Fast diagonal=N
+Step length=N_DEF
+Step pause=0
+Step inverted=N
+Swap XY=N
+Enable output used=N
+Enable output inverted=N
+
+Oversampling override=-1
+Manual reset=N
+Balance message=Y
+
+;LPT Pin configuration
+Step X1=-1
+Dir X1=-1
+Step X2=-1
+Dir X2=-1
+Step Y1=-1
+Dir Y1=-1
+Step Y2=-1
+Dir Y2=-1
+Step Z1=-1
+Dir Z1=-1
+Step Z2=-1
+Dir Z2=-1
+Spindle=-1
+Output1=-1
+Output2=-1
+Output3=-1
+Output4=-1
+Output5=-1
+Output6=-1
+PWM=-1
+Enable Watchdog=-1
+Enable High1=-1
+Enable Low1=-1
+Enable High2=-1
+Enable Low2=-1
+Enable High3=-1
+Enable Low3=-1
+
+;Spindle
+Spindle on off control=Y
+Spindle RPM control=Y
+Spindle delay=1
+Spindle RPM min=8000
+Spindle RPM max=24000
+Spindle PWM frequency=0
+Spindle PWM min=0
+Spindle PWM max=100
+Spindle output inverted=N
+Spindle 10V calibration=0
+
+;Inputs
+Input 1 name=Input 1
+Input 1 function=Unused
+Input 1 inverted=N
+
+Input 2 name=Input 2
+Input 2 function=Unused
+Input 2 inverted=N
+
+Input 3 name=Input 3
+Input 3 function=Unused
+Input 3 inverted=N
+
+Input 4 name=Input 4
+Input 4 function=Unused
+Input 4 inverted=N
+
+Input 5 name=Input 5
+Input 5 function=Unused
+Input 5 inverted=N
+
+Input 6 name=Input 6
+Input 6 function=Unused
+Input 6 inverted=N
+
+Input 7 name=Input 7
+Input 7 function=Unused
+Input 7 inverted=N
+
+Input 8 name=Input 8
+Input 8 function=Unused
+Input 8 inverted=N
+
+Input 9 name=Input 9
+Input 9 function=Unused
+Input 9 inverted=N
+
+Input 10 name=Input 10
+Input 10 function=Unused
+Input 10 inverted=N
+
+Input 11 name=Input 11
+Input 11 function=Unused
+Input 11 inverted=N
+
+Input 12 name=Input 12
+Input 12 function=Unused
+Input 12 inverted=N
+
+Input 13 name=Input 13
+Input 13 function=Unused
+Input 13 inverted=N
+
+Input 14 name=Input 14
+Input 14 function=Unused
+Input 14 inverted=N
+
+Input 15 name=Input 15
+Input 15 function=Unused
+Input 15 inverted=N
+
+Input 16 name=Input 16
+Input 16 function=Unused
+Input 16 inverted=N
+
+;Sensors
+Sensor FREQ name=Freq
+Sensor FREQ type=F
+Sensor FREQ format=0.00
+Sensor FREQ show=N
+Sensor FREQ ignore=Yes
+Sensor FREQ show min=0
+Sensor FREQ show max=1000
+Sensor FREQ OK min=0
+Sensor FREQ OK max=1000
+Sensor FREQ conversion in=0;1
+Sensor FREQ conversion out=0;1
+Sensor FREQ calibration in bias=0
+Sensor FREQ calibration in gain=0
+Sensor FREQ calibration out bias=0
+Sensor FREQ calibration out gain=0
+Sensor FREQ preset name=
+Sensor FREQ preset changed=N
+
+Sensor ADC_01 name=ADC 1
+Sensor ADC_01 type=Preset
+Sensor ADC_01 format=0.00
+Sensor ADC_01 show=N
+Sensor ADC_01 ignore=Yes
+Sensor ADC_01 show min=0
+Sensor ADC_01 show max=1000
+Sensor ADC_01 OK min=0
+Sensor ADC_01 OK max=1000
+Sensor ADC_01 conversion in=0;1
+Sensor ADC_01 conversion out=0;1
+Sensor ADC_01 calibration in bias=0
+Sensor ADC_01 calibration in gain=0
+Sensor ADC_01 calibration out bias=0
+Sensor ADC_01 calibration out gain=0
+Sensor ADC_01 preset name=
+Sensor ADC_01 preset changed=N
+
+Sensor ADC_02 name=ADC 2
+Sensor ADC_02 type=Preset
+Sensor ADC_02 format=0.00
+Sensor ADC_02 show=N
+Sensor ADC_02 ignore=Yes
+Sensor ADC_02 show min=0
+Sensor ADC_02 show max=1000
+Sensor ADC_02 OK min=0
+Sensor ADC_02 OK max=1000
+Sensor ADC_02 conversion in=0;1
+Sensor ADC_02 conversion out=0;1
+Sensor ADC_02 calibration in bias=0
+Sensor ADC_02 calibration in gain=0
+Sensor ADC_02 calibration out bias=0
+Sensor ADC_02 calibration out gain=0
+Sensor ADC_02 preset name=
+Sensor ADC_02 preset changed=N
+
+Sensor ADC_03 name=ADC 3
+Sensor ADC_03 type=Preset
+Sensor ADC_03 format=0.00
+Sensor ADC_03 show=N
+Sensor ADC_03 ignore=Yes
+Sensor ADC_03 show min=0
+Sensor ADC_03 show max=1000
+Sensor ADC_03 OK min=0
+Sensor ADC_03 OK max=1000
+Sensor ADC_03 conversion in=0;1
+Sensor ADC_03 conversion out=0;1
+Sensor ADC_03 calibration in bias=0
+Sensor ADC_03 calibration in gain=0
+Sensor ADC_03 calibration out bias=0
+Sensor ADC_03 calibration out gain=0
+Sensor ADC_03 preset name=
+Sensor ADC_03 preset changed=N
+
+Sensor ADC_04 name=ADC 4
+Sensor ADC_04 type=Preset
+Sensor ADC_04 format=0.00
+Sensor ADC_04 show=N
+Sensor ADC_04 ignore=Yes
+Sensor ADC_04 show min=0
+Sensor ADC_04 show max=1000
+Sensor ADC_04 OK min=0
+Sensor ADC_04 OK max=1000
+Sensor ADC_04 conversion in=0;1
+Sensor ADC_04 conversion out=0;1
+Sensor ADC_04 calibration in bias=0
+Sensor ADC_04 calibration in gain=0
+Sensor ADC_04 calibration out bias=0
+Sensor ADC_04 calibration out gain=0
+Sensor ADC_04 preset name=
+Sensor ADC_04 preset changed=N
+
+Sensor ADC_05 name=ADC 5
+Sensor ADC_05 type=Preset
+Sensor ADC_05 format=0.00
+Sensor ADC_05 show=N
+Sensor ADC_05 ignore=Yes
+Sensor ADC_05 show min=0
+Sensor ADC_05 show max=1000
+Sensor ADC_05 OK min=0
+Sensor ADC_05 OK max=1000
+Sensor ADC_05 conversion in=0;1
+Sensor ADC_05 conversion out=0;1
+Sensor ADC_05 calibration in bias=0
+Sensor ADC_05 calibration in gain=0
+Sensor ADC_05 calibration out bias=0
+Sensor ADC_05 calibration out gain=0
+Sensor ADC_05 preset name=
+Sensor ADC_05 preset changed=N
+
+Sensor ADC_06 name=ADC 6
+Sensor ADC_06 type=Preset
+Sensor ADC_06 format=0.00
+Sensor ADC_06 show=N
+Sensor ADC_06 ignore=Yes
+Sensor ADC_06 show min=0
+Sensor ADC_06 show max=1000
+Sensor ADC_06 OK min=0
+Sensor ADC_06 OK max=1000
+Sensor ADC_06 conversion in=0;1
+Sensor ADC_06 conversion out=0;1
+Sensor ADC_06 calibration in bias=0
+Sensor ADC_06 calibration in gain=0
+Sensor ADC_06 calibration out bias=0
+Sensor ADC_06 calibration out gain=0
+Sensor ADC_06 preset name=
+Sensor ADC_06 preset changed=N
+
+Sensor ADC_07 name=ADC 7
+Sensor ADC_07 type=Preset
+Sensor ADC_07 format=0.00
+Sensor ADC_07 show=N
+Sensor ADC_07 ignore=Yes
+Sensor ADC_07 show min=0
+Sensor ADC_07 show max=1000
+Sensor ADC_07 OK min=0
+Sensor ADC_07 OK max=1000
+Sensor ADC_07 conversion in=0;1
+Sensor ADC_07 conversion out=0;1
+Sensor ADC_07 calibration in bias=0
+Sensor ADC_07 calibration in gain=0
+Sensor ADC_07 calibration out bias=0
+Sensor ADC_07 calibration out gain=0
+Sensor ADC_07 preset name=
+Sensor ADC_07 preset changed=N
+
+;Outputs
+Output 1 name=Output 1
+Output 1 pic=Flood
+Output 1 text=
+Output 1 description=
+Output 1 spindle lock=0
+Output 1 CNC lock=N
+Output 1 autostart Estlcam=N
+Output 1 autostart CNC start=N
+Output 1 autostop CNC pause=N
+Output 1 autostop CNC end=N
+
+Output 2 name=Output 2
+Output 2 pic=Mist
+Output 2 text=
+Output 2 description=
+Output 2 spindle lock=0
+Output 2 CNC lock=N
+Output 2 autostart Estlcam=N
+Output 2 autostart CNC start=N
+Output 2 autostop CNC pause=N
+Output 2 autostop CNC end=N
+
+Output 3 name=Output 3
+Output 3 pic=Vac
+Output 3 text=
+Output 3 description=
+Output 3 spindle lock=0
+Output 3 CNC lock=N
+Output 3 autostart Estlcam=N
+Output 3 autostart CNC start=N
+Output 3 autostop CNC pause=N
+Output 3 autostop CNC end=N
+
+Output 4 name=Output 4
+Output 4 pic=Compressor
+Output 4 text=
+Output 4 description=
+Output 4 spindle lock=0
+Output 4 CNC lock=N
+Output 4 autostart Estlcam=N
+Output 4 autostart CNC start=N
+Output 4 autostop CNC pause=N
+Output 4 autostop CNC end=N
+
+Output 5 name=Output 5
+Output 5 pic=Light
+Output 5 text=
+Output 5 description=
+Output 5 spindle lock=0
+Output 5 CNC lock=N
+Output 5 autostart Estlcam=N
+Output 5 autostart CNC start=N
+Output 5 autostop CNC pause=N
+Output 5 autostop CNC end=N
+
+Output 6 name=Output 6
+Output 6 pic=None
+Output 6 text=
+Output 6 description=
+Output 6 spindle lock=0
+Output 6 CNC lock=N
+Output 6 autostart Estlcam=N
+Output 6 autostart CNC start=N
+Output 6 autostop CNC pause=N
+Output 6 autostop CNC end=N
+
+Output 7 name=Output 7
+Output 7 pic=None
+Output 7 text=
+Output 7 description=
+Output 7 spindle lock=0
+Output 7 CNC lock=N
+Output 7 autostart Estlcam=N
+Output 7 autostart CNC start=N
+Output 7 autostop CNC pause=N
+Output 7 autostop CNC end=N
+
+Output 8 name=Output 8
+Output 8 pic=None
+Output 8 text=
+Output 8 description=
+Output 8 spindle lock=0
+Output 8 CNC lock=N
+Output 8 autostart Estlcam=N
+Output 8 autostart CNC start=N
+Output 8 autostop CNC pause=N
+Output 8 autostop CNC end=N
+
+Output 9 name=Output 9
+Output 9 pic=None
+Output 9 text=
+Output 9 description=
+Output 9 spindle lock=0
+Output 9 CNC lock=N
+Output 9 autostart Estlcam=N
+Output 9 autostart CNC start=N
+Output 9 autostop CNC pause=N
+Output 9 autostop CNC end=N
+
+Output 10 name=Output 10
+Output 10 pic=None
+Output 10 text=
+Output 10 description=
+Output 10 spindle lock=0
+Output 10 CNC lock=N
+Output 10 autostart Estlcam=N
+Output 10 autostart CNC start=N
+Output 10 autostop CNC pause=N
+Output 10 autostop CNC end=N
+
+Output 11 name=Output 11
+Output 11 pic=None
+Output 11 text=
+Output 11 description=
+Output 11 spindle lock=0
+Output 11 CNC lock=N
+Output 11 autostart Estlcam=N
+Output 11 autostart CNC start=N
+Output 11 autostop CNC pause=N
+Output 11 autostop CNC end=N
+
+Output 12 name=Output 12
+Output 12 pic=None
+Output 12 text=
+Output 12 description=
+Output 12 spindle lock=0
+Output 12 CNC lock=N
+Output 12 autostart Estlcam=N
+Output 12 autostart CNC start=N
+Output 12 autostop CNC pause=N
+Output 12 autostop CNC end=N
+
+Output 13 name=Output 13
+Output 13 pic=None
+Output 13 text=
+Output 13 description=
+Output 13 spindle lock=0
+Output 13 CNC lock=N
+Output 13 autostart Estlcam=N
+Output 13 autostart CNC start=N
+Output 13 autostop CNC pause=N
+Output 13 autostop CNC end=N
+
+Output 14 name=Output 14
+Output 14 pic=None
+Output 14 text=
+Output 14 description=
+Output 14 spindle lock=0
+Output 14 CNC lock=N
+Output 14 autostart Estlcam=N
+Output 14 autostart CNC start=N
+Output 14 autostop CNC pause=N
+Output 14 autostop CNC end=N
+
+Output 15 name=Output 15
+Output 15 pic=None
+Output 15 text=
+Output 15 description=
+Output 15 spindle lock=0
+Output 15 CNC lock=N
+Output 15 autostart Estlcam=N
+Output 15 autostart CNC start=N
+Output 15 autostop CNC pause=N
+Output 15 autostop CNC end=N
+
+Output 16 name=Output 16
+Output 16 pic=None
+Output 16 text=
+Output 16 description=
+Output 16 spindle lock=0
+Output 16 CNC lock=N
+Output 16 autostart Estlcam=N
+Output 16 autostart CNC start=N
+Output 16 autostop CNC pause=N
+Output 16 autostop CNC end=N
+
+;MMS
+MMS 1 name=Sprühprogramm 1
+MMS 1 pic=None
+MMS 1 text=
+MMS 1 pulse frequency=2
+MMS 1 pulse duration=10
+MMS 1 spindle sync=N
+MMS 1 aux outputs=N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;
+MMS 1 blow output=-1
+MMS 1 blow interval=0
+MMS 1 blow duration=0
+
+MMS 2 name=Sprühprogramm 2
+MMS 2 pic=None
+MMS 2 text=
+MMS 2 pulse frequency=2
+MMS 2 pulse duration=10
+MMS 2 spindle sync=N
+MMS 2 aux outputs=N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;
+MMS 2 blow output=-1
+MMS 2 blow interval=0
+MMS 2 blow duration=0
+
+MMS 3 name=Sprühprogramm 3
+MMS 3 pic=None
+MMS 3 text=
+MMS 3 pulse frequency=2
+MMS 3 pulse duration=10
+MMS 3 spindle sync=N
+MMS 3 aux outputs=N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;
+MMS 3 blow output=-1
+MMS 3 blow interval=0
+MMS 3 blow duration=0
+
+MMS 4 name=Sprühprogramm 4
+MMS 4 pic=None
+MMS 4 text=
+MMS 4 pulse frequency=2
+MMS 4 pulse duration=10
+MMS 4 spindle sync=N
+MMS 4 aux outputs=N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;
+MMS 4 blow output=-1
+MMS 4 blow interval=0
+MMS 4 blow duration=0
+
+MMS 5 name=Sprühprogramm 5
+MMS 5 pic=None
+MMS 5 text=
+MMS 5 pulse frequency=2
+MMS 5 pulse duration=10
+MMS 5 spindle sync=N
+MMS 5 aux outputs=N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;
+MMS 5 blow output=-1
+MMS 5 blow interval=0
+MMS 5 blow duration=0
+
+;Homing
+Home Order=ZXY
+Home auto=N
+Home dir X=0
+Home dir Y=0
+Home dir Z=1
+Home F1=20
+Home F2=3
+Home back off=5
+Home left right difference=0
+Home switch precise=Y
+
+;Travel limit
+Travel limit enabled=N
+Travel limit X=1000
+Travel limit Y=1000
+Travel limit Z=1000
+Park after homing=N
+Park after controller start=N
+Park after CNC program end=N
+Park after M00 M01=N
+Parking pos X=0
+Parking pos Y=0
+Parking pos Z=0
+
+;Tool changes
+Tool change position enabled=N
+Tool change position X=N_DEF
+Tool change position Y=N_DEF
+Tool change position Z=N_DEF
+ATC enabled=N
+ATC socket A pos X=N_DEF
+ATC socket A pos Y=N_DEF
+ATC socket A pos Z=N_DEF
+ATC sockets=5
+ATC socket spacing=100
+ATC location=Back
+ATC approach height=N_DEF
+ATC lift height=10
+ATC clearance height=N_DEF
+ATC XY in out=50
+ATC output blow cleaning=0
+ATC output tool release=0
+ATC tool release delay=0,20000000000000001
+ATC blow time=0,5
+ATC cover output=0
+ATC cover delay=1
+ATC air pressure sensor=0
+ATC air pressure min=5
+ATC air pressure timeout=60
+ATC cover timeout=5
+Tool 1 is 3D probe=N
+
+;Tool length sensor
+TLS mode=Man_Work
+TLS active=Always
+TLS F=5
+TLS back off=10
+TLS height=0
+TLS pos X=N_DEF
+TLS pos Y=N_DEF
+TLS pos Z=N_DEF
+TLS approach height=N_DEF
+TLS remeasure frequency=Never
+TLS remeasure height=10
+TLS remeasure tolerance=1
+TLS output blow cleaning=0
+TLS cover output=0
+
+;Touch plate
+TP F=5
+TP probe distance=20
+TP angle distance=50
+TP margin X=5
+TP margin Y=5
+TP margin Z=5
+TP back off=20
+
+;Keyboard and mouse
+Mouse enabled=Y
+Touch enabled=N
+Keyboard enabled=Y
+Feed level 0=2
+Feed level 1=10
+Feed level 2=25
+Feed level 3=50
+Feed level 4=100
+Mouse wheel 0=0,5
+Mouse wheel 1=0,5
+Mouse wheel 2=0,5
+Mouse wheel 3=0,5
+Mouse wheel 4=0,5
+Speed level latching=N
+Mouse wheel both directions=Y
+Key D_N 1=None
+Key D_N 2=None
+Key D_NE 1=None
+Key D_NE 2=None
+Key D_E 1=None
+Key D_E 2=None
+Key D_SE 1=None
+Key D_SE 2=None
+Key D_S 1=None
+Key D_S 2=None
+Key D_SW 1=None
+Key D_SW 2=None
+Key D_W 1=None
+Key D_W 2=None
+Key D_NW 1=None
+Key D_NW 2=None
+Key D_UP 1=None
+Key D_UP 2=None
+Key D_DN 1=None
+Key D_DN 2=None
+Key F_UP 1=None
+Key F_UP 2=None
+Key F_DN 1=None
+Key F_DN 2=None
+Key S_UP 1=None
+Key S_UP 2=None
+Key S_DN 1=None
+Key S_DN 2=None
+Key KB_EN 1=None
+Key KB_EN 2=None
+Key WLS 1=None
+Key WLS 2=None
+Key CNC_Start 1=None
+Key CNC_Start 2=None
+Key Spindle_Start 1=None
+Key Spindle_Start 2=None
+Key OK 1=None
+Key OK 2=None
+Key SS 1=None
+Key SS 2=None
+Key S1 1=None
+Key S1 2=None
+Key S2 1=None
+Key S2 2=None
+Key S3 1=None
+Key S3 2=None
+Key S4 1=None
+Key S4 2=None
+Key S5 1=None
+Key S5 2=None
+Key M1 1=None
+Key M1 2=None
+Key M2 1=None
+Key M2 2=None
+Key M3 1=None
+Key M3 2=None
+Key M4 1=None
+Key M4 2=None
+Key M5 1=None
+Key M5 2=None
+Key M6 1=None
+Key M6 2=None
+Key M7 1=None
+Key M7 2=None
+Key M8 1=None
+Key M8 2=None
+Key M9 1=None
+Key M9 2=None
+Key M10 1=None
+Key M10 2=None
+Key O1 1=None
+Key O1 2=None
+Key O2 1=None
+Key O2 2=None
+Key O3 1=None
+Key O3 2=None
+Key O4 1=None
+Key O4 2=None
+Key O5 1=None
+Key O5 2=None
+Key O6 1=None
+Key O6 2=None
+Key O7 1=None
+Key O7 2=None
+Key O8 1=None
+Key O8 2=None
+Key O9 1=None
+Key O9 2=None
+Key O10 1=None
+Key O10 2=None
+Key O11 1=None
+Key O11 2=None
+Key O12 1=None
+Key O12 2=None
+Key O13 1=None
+Key O13 2=None
+Key O14 1=None
+Key O14 2=None
+Key O15 1=None
+Key O15 2=None
+Key O16 1=None
+Key O16 2=None
+Key OVR 1=None
+Key OVR 2=None
+Key Anhalten 1=None
+Key Anhalten 2=None
+
+;Gamepad
+GP enabled=N
+GP number=0
+GP F1=2
+GP F2=100
+GP exponent=60
+GP backlash=25
+GP sensitivity=2
+GP single axis=N
+
+;Pendant
+Feed override knob enabled=N
+Feed override knob min=13107
+Feed override knob max=52429
+Spindle override knob enabled=N
+Spindle override knob min=13107
+Spindle override knob max=52429
+Jog wheel enabled=N
+Jog wheel inverted X=N
+Jog wheel inverted Y=N
+Jog wheel inverted Z=N
+Jog wheel multiplier=1:1
+Joystick enabled=N
+Joystick inverted X=N
+Joystick inverted Y=N
+Joystick inverted Z=N
+Joystick mode=1
+Joystick expo=60
+Joystick sensitivity=50
+Joystick center X=50
+Joystick center Y=50
+Joystick center Z=50
+Joystick backlash X=5
+Joystick backlash Y=5
+Joystick backlash Z=5
+Pendant ID=
+
+;Webcam
+Webcam application=
+Webcam window margin left=0
+Webcam window margin right=0
+Webcam window margin top=0
+Webcam window margin bottom=0
+Webcam tool offset X=0
+Webcam tool offset Y=0
+Webcam tool offset Z=0
+Webcam aligned to preview=N
+Webcam show crosshairs=Y
+
+;Macros
+Macro 1 name=
+Macro 1 picture=None
+Macro 1 text=
+Macro 1 description=
+Macro 1 macro=
+Macro 1 release=
+Macro 1 repeat=
+
+Macro 2 name=
+Macro 2 picture=None
+Macro 2 text=
+Macro 2 description=
+Macro 2 macro=
+Macro 2 release=
+Macro 2 repeat=
+
+Macro 3 name=
+Macro 3 picture=None
+Macro 3 text=
+Macro 3 description=
+Macro 3 macro=
+Macro 3 release=
+Macro 3 repeat=
+
+Macro 4 name=
+Macro 4 picture=None
+Macro 4 text=
+Macro 4 description=
+Macro 4 macro=
+Macro 4 release=
+Macro 4 repeat=
+
+Macro 5 name=
+Macro 5 picture=None
+Macro 5 text=
+Macro 5 description=
+Macro 5 macro=
+Macro 5 release=
+Macro 5 repeat=
+
+Macro 6 name=
+Macro 6 picture=None
+Macro 6 text=
+Macro 6 description=
+Macro 6 macro=
+Macro 6 release=
+Macro 6 repeat=
+
+Macro 7 name=
+Macro 7 picture=None
+Macro 7 text=
+Macro 7 description=
+Macro 7 macro=
+Macro 7 release=
+Macro 7 repeat=
+
+Macro 8 name=
+Macro 8 picture=None
+Macro 8 text=
+Macro 8 description=
+Macro 8 macro=
+Macro 8 release=
+Macro 8 repeat=
+
+Macro 9 name=
+Macro 9 picture=None
+Macro 9 text=
+Macro 9 description=
+Macro 9 macro=
+Macro 9 release=
+Macro 9 repeat=
+
+Macro 10 name=
+Macro 10 picture=None
+Macro 10 text=
+Macro 10 description=
+Macro 10 macro=
+Macro 10 release=
+Macro 10 repeat=
+
+;Misc
+Show drag knife button=Y
+Show tool length button=Y
+Show surface scan button=Y
+Show homing button=Y
+Show stop button=N
+Back off distance=1
+Surface scan feed=2
+Sound=Y
+
+;Bootloader
+Bootloader baudrate=115200
+Bootloader reset time=20
+Bootloader wait time=500
+
+Preset info=
+EOL=C08F_D7E0_1AFB_C671
