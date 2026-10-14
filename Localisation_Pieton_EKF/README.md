@@ -52,3 +52,9 @@ Le script génère une carte interactive HTML (`carte_trajectoire.html`) visuali
 - **Trace GPS brute (rouge) :** Bruitée, avec décrochages urbains.
 - **Trace GPS nettoyée (orange) :** Après filtrage IQR et élimination des trames aberrantes.
 - **Trajectoire estimée par l'EKF (bleue) :** Lisse, continue et fidèle au parcours réel.
+
+---
+
+## 📑 Rapport Technique & Documents Scientifiques
+- 📄 [Consulter le Rapport de Fusion Capteurs & EKF (PDF)](./docs/Rapport_Fusion_EKF.pdf)
+- 📊 [Consulter la Présentation de Fusion Stochastique & Filtrage de Kalman (PDF)](./03_Rapports_et_Documents/Beamer_Capteur_CM6_Kalman.pdf)

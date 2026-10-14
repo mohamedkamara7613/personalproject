@@ -97,3 +97,9 @@ make
 valgrind --leak-check=full --show-leak-kinds=all ./bin/smartrobot
 ```
 *(Résultat : 0 allocation perdue, 0 erreur mémoire).*
+
+---
+
+## 📑 Rapport d'Ingénierie & Spécifications
+- 📄 [Consulter le Rapport Complet d'Ingénierie SmartRobot (PDF)](./docs/Rapport_PI_SmartRobot.pdf)
+- 📋 [Consulter le Cahier des Charges & Spécifications (PDF)](./docs/Cahier_Des_Charges_SmartRobot.pdf)

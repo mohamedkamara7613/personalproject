@@ -42,3 +42,9 @@ Le système a été validé sur une base d'images tests présentant des angles d
 - Décodage à $100\%$ sur des images contrastées et à plus de $92\%$ sur des images floues ou bruitées grâce au fenêtrage dichotomique adaptatif.
 
 Les résultats de segmentation par fenêtrage se trouvent dans le sous-dossier `Test/img/window/`.
+
+---
+
+## 📑 Présentation & Rapports Académiques (TIPE)
+- 📊 [Consulter le Diaporama de Présentation Officiel TIPE (PDF)](./docs/Presentation_TIPE_CodeBarres.pdf)
+- 📋 [Consulter le Dossier MCOT - Mise en Cohérence des Objectifs TIPE (PDF)](./docs/MCOT_TIPE_CodeBarres.pdf)

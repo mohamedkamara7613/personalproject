@@ -59,3 +59,9 @@ $$H_{k,t} \leftarrow H_{k,t} \frac{\sum_f W_{f,k} V_{f,t} / (WH)_{f,t}}{\sum_f W
 - `Matrice_M_et_Decomp.ipynb` : Notebook d'expérimentation matricielle et factorisation NMF.
 - `Projet_A_l_Aide_de_Librairie.ipynb` : Benchmark comparatif avec Scikit-Learn et Librosa.
 - `son/` : Fichiers audios de test et sources synthétiques isolées.
+
+---
+
+## 📑 Rapport & Documentation Scientifique
+- 📄 [Consulter le Rapport Scientifique STFT & NMF (PDF)](./docs/Rapport_AutoDecomposer_NMF.pdf)
+- 📋 [Consulter le Sujet Officiel & Spécifications (PDF)](./sujet_PI-2025.pdf)
