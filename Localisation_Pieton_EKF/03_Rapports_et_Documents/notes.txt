@@ -1,0 +1,106 @@
+
+Choix des capteurs et justification
+    - CAMERA 
+    - Lidar
+    - GPS
+
+    - (IMU) pourquoi et qu'est ce qu'il peut emmener de plus
+
+
+- recuperer le code du TP Kalman
+- recuperer  le TP sur la calibration de la CAMERA
+- recuperer le TP sur le GPS
+- Recuperer le TP sur l'utilisation du du lidar + 4 cameras
+
+
+
+1. Fondations Théoriques
+Démystification de Kalman : Nous avons détaillé le fonctionnement du Filtre de Kalman appliqué spécifiquement à la fusion GPS (basse fréquence) et IMU (haute fréquence).
+Documentation du Rapport : J'ai rédigé les fichiers theorie_kalman_rapport.md et .tex. Ils explicitent complètement le vecteur d'état, l'ellipse d'incertitude (matrice $P$) et les équations, avec les références exactes aux diapositives de ton professeur.
+Protocole Expérimental : Nous avons défini la méthode pour calculer l'incertitude de l'IMU (matrice $Q$) et celle du GPS (matrice $R$) via une phase de calibration au repos.
+2. Le Moteur Algorithmique (kalman.py)
+Nous avons traduit la théorie en code Python propre via la librairie numpy.
+La classe KalmanFilter est prête et gère dynamiquement l'étape de Prédiction (via les accélérations de l'IMU) et l'étape de Mise à jour (via les coordonnées du GPS).
+3. Traitement Spatial et Robustesse (gps_utils.py)
+Le GPS fournit des Degrés (Latitude/Longitude), or Kalman attend des Mètres. Nous avons donc codé la fonction mathématique de conversion cartésienne locale.
+Filtrage du Bruit : Suite à tes tests sur calibrationGPS_beitou.csv, nous avons identifié et corrigé deux bugs matériels majeurs (coordonnées à 262° et sauts brutaux de 100 km). L'algorithme nettoie désormais silencieusement ces données corrompues.
+4. L'Orchestrateur de Fusion (main_fusion.py)
+C'est le chef d'orchestre : il prend le fichier du GPS et (bientôt) de l'IMU, les rassemble, et les trie chronologiquement grâce aux timestamps.
+Il gère l'asynchronisme en dépilant les événements temporels un par un.
+En attendant les données de l'équipe, il intègre même un générateur de fausses données IMU pour vous permettre de tester et d'afficher le résultat visuel avec matplotlib.
+5. L'Environnement
+Nous avons configuré un environnement virtuel Python complet (.venv) avec numpy, matplotlib et python-dateutil pour garantir que tout s'exécute sans erreur de dépendance.
+
+
+
+
+- Pourquoi on fait la prediction avec IMU et la correction avec le GPS et pas l'inverse ?
+- Pour la fonctionnalité, on a pensé a prendre une photo avec notre main (Mediapipe) si possible au pire avec un bouton poussoir puis à placer la photo sur la carte en fonction de l'endroit d'où elle a été prise.
+    Pour la prise de photo (+ enregistrement des metadonnée potentielle) je vois un peu par contre pour le placement sur la carte (on en mentionné Openstreet dans le sujet je ne connais pas trop) je ne vois pas du tout
+
+
+
+Pour la partie 2, la fonctionnalité, d'aprés le prof c'est trop simple, ducoup notre nouvelle idée 
+est de gamifier l'ITIfone, l'idée est de placer des objets à trouver à des positions sur la carte (notre idée de 
+base c'etait de mettre des photos a trouver mais le probleme peut etre de calculer un bon score 
+de similarité entre les deux photos) et celui qui a l'itiphone (la raspberry) il va sur la position 
+(une precision d'environ 5m) pour prendre une photo et avec mediapipe ou yolo faire la reconnaissance 
+de l'objet donc ces deux conditions pour valider le defi. Et aprés avoir fait tous les objets de la carte 
+on trace l'itineraire. Et on ajoute un timer pour rendre ça plus drole. Et la fin est signaler par un buzzer. 
+Tu pourra me poser des questions pour eclaircir l'idée il y a quelque precision que je n'ai pas trop specifier 
+ici (openstreetmap, bureeau vnc...)
+
+solution ---> orb
+le GPIO 17 est valide pour le bouton
+
+
+Je suis OK pour ORB, je l'ai testé sur un exemple mais je ne sais pas à quel point il sera robuste.
+Il faudra en faire un module en orienté objet pour l'utiliser dans la pipeline.
+Je suis un peu perdu peux tu me resumer ce dont je t'avais parlé sur la partie 2.
+D'aprés ce que j'ai compris il y a deux partie la partie construction du parcours et la paritie comparaison/verification.
+Partie construction : mon collegue m'assure que j'aurai un dossier avec un ensemble d'image de références
+                        et un fichier csv avec la positon d'où a ete pris l'image et l'image (son chemin)
+Partie verification : lorsqu'un joueur appui sur un bouton, l'image est prise, d'abord la position est verifiée, on cherche d'abord dans le fichier si une position est valide (precision de 10m)
+                        et si c'est bon il verifie avec l'image (ORB) et si les deux conditions sont validé il fait sonner le buzzer (valide) sinon (non valide)
+
+Est cela ?
+
+
+pdflatex -interaction=nonstopmode rapport_fusion_ekf.tex
+
+
+----------------------
+log derneire acquistion : 
+ python3 post_processing_ekf.py --gps /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/22_05_01_grande/gps_data.csv --imu /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/22_05_01_grande/imu_data.csv --out-csv resultat_ekf_sans_magneto_22_05_01_grande --out-html visual_ekf_sans_magneto_22_05_01_grande
+[*] Chargement du GPS: /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/22_05_01_grande/gps_data.csv
+[*] Chargement de l'IMU: /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/22_05_01_grande/imu_data.csv
+[*] Lancement du filtre EKF...
+[+] Fusion terminée. 0 points GPS rejetés.
+[*] Génération du CSV: resultat_ekf_sans_magneto_22_05_01_grande
+[*] Génération de la carte: visual_ekf_sans_magneto_22_05_01_grande
+[+] Succès !
+(test) mkamara@mkamara-Inspiron-15-3520:~/Bureau/repos/pi_itineraire_26_28/code/Code_fusion$ python3 post_processing_ekf.py --gps /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/22_05_02_petite/gps_data.csv --imu /home/mkamara/Bureau/repos/pi
+_itineraire_26_28/code/Code_avec_magneto/22_05_02_petite/imu_data.csv --out-csv resultat
+_ekf_sans_magneto_22_05_02_petite.csv --out-html visual_ekf_sans_magneto_22_05_02_petite
+.html
+[*] Chargement du GPS: /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/22_05_02_petite/gps_data.csv
+[*] Chargement de l'IMU: /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/22_05_02_petite/imu_data.csv
+[*] Lancement du filtre EKF...
+[+] Fusion terminée. 0 points GPS rejetés.
+[*] Génération du CSV: resultat_ekf_sans_magneto_22_05_02_petite.csv
+[*] Génération de la carte: visual_ekf_sans_magneto_22_05_02_petite.html
+[+] Succès !
+(test) mkamara@mkamara-Inspiron-15-3520:~/Bureau/repos/pi_itineraire_26_28/code/Code_fusion$ python3 post_processing_ekf.py --gps /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/22_05_03_interieur/gps_data.csv --imu /home/mkamara/Bureau/repos
+/pi_itineraire_26_28/code/Code_avec_magneto/22_05_03_interieur/imu_data.csv --out-csv re
+sultat_ekf_sans_magneto_22_05_03_interieur.csv --out-html visual_ekf_sans_magneto_22_05_
+03_interieur.html
+[*] Chargement du GPS: /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/22_05_03_interieur/gps_data.csv
+[*] Chargement de l'IMU: /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/22_05_03_interieur/imu_data.csv
+[*] Lancement du filtre EKF...
+[+] Fusion terminée. 31 points GPS rejetés.
+[*] Génération du CSV: resultat_ekf_sans_magneto_22_05_03_interieur.csv
+[*] Génération de la carte: visual_ekf_sans_magneto_22_05_03_interieur.html
+[+] Succès !
+
+pour faire des acquistions on execute le script /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto/get_data_v1.py et les donnees d'acquistion se trouve dans se trouve dans /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Code_avec_magneto 
+et les acquisition strava dans /home/mkamara/Bureau/repos/pi_itineraire_26_28/code/Acquisition_strava

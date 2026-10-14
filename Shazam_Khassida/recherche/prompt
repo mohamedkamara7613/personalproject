@@ -1,0 +1,117 @@
+faudra pas oublier de me rappeler de faire un point sur la securité, toute les bonnes pratiques et lister les vulnerabilité classique connues
+----------------------
+
+J'ai tout analysé en détail. Voici ce que j'ai compris de l'application de référence (qui semble s'appeler **Batman** ou une app islamique type Tarteel/My Duas) :
+---> elle s'appelle innovation mouride
+---> ne pas oublier de faire un brainstorming pour trouver un nom a note app
+
+---
+
+## 🔍 Analyse complète des 10 images
+
+### 🎨 Design System — Palette et Style
+
+| Élément | Valeur |
+|---|---|
+| Fond principal | `#6B2D0B` (marron roux foncé) |
+| Fond secondaire | `#8B3A0F` (marron moyen pour cards) |
+| Accent / Highlight | `#C8832A` → `#E8B84B` (doré/sable) |
+| Texte principal | `#FFFFFF` (blanc) |
+| Texte arabe | Noir sur fond crème (`#FAF6F0`) |
+| Fond lecture | Crème clair `#FAF6F0` (thème Paper) |
+| Fond lecture sombre | Noir `#000000` (thème Sombre) |
+| Barre de navigation | Fond blanc cassé avec icônes brunes |
+| Cards liste | Blanc avec bordures rondes sur fond marron |
+
+---
+
+### 📱 Écrans identifiés (flux complet)
+
+1. **Image 1 (photo_23-23-48)** — **Page Kàggu / Bibliothèque (vue Grille)**
+   - Onglets: *Coran / Qaçidas / Sciences*
+---> Oui mais ici on va garder que Qacida ou Khassida qui nous interresse ici
+   - Sous-filtres: *Qaçida | Diiwaan PDF | Qaçida PDF | X...*
+---> on ne gardera que Khassida et Khassida PDF
+   - Barre de recherche
+   - Grille 3 colonnes de cards avec image + titre Khassida
+   ---> cette partie concerne l'onglet khassida pdf où ces images renverrait au pdf qu'on proposera de telecharger pour etre consulté
+
+2. **Image 2 (photo_23-23-51)** — **Modal "Choisir une Qaçida"** (sur fond de lecteur)
+   - Liste alphabétique complète des Khassidas
+   - Champ de recherche en haut
+   - Design très épuré (blanc, fond sombre)
+
+3. **Image 3 (photo_23-23-53)** — **Lecteur de Khassida + Paramètres → onglet "Audio"**
+   - Texte arabe + translittération en italique
+   - Modal Paramètres avec 3 onglets: *Affichage | Texte | Audio*
+   - Audio encore en développement ("bientôt disponibles")
+   ---> à implémenter vu que notre app est principalement basé sur l'audio (mettre l'audio de reference)
+
+4. **Image 4 (photo_23-23-54)** — **Paramètres → onglet "Texte"**
+   - Choix de police arabe : *Othman | IndoPak | Sans accent*
+   ---> mettre une seule police arabe (le plus complet et le plus clair)
+   - Toggle "Afficher traduction française"
+    ---> si disponible (a voir)
+
+5. **Image 5 (photo_23-23-55)** — **Paramètres → onglet "Affichage"**
+   - Thèmes : *Modern | Paper (papyrus) | Sombre*
+   - Mode de lecture : *Liste | Page*
+   - Slider pour taille de texte
+
+6. **Image 6 (photo_23-23-56)** — **Lecteur Khassida (thème Paper)**
+   - Fond crème `#FAF6F0`, texte arabe avec diacritiques (Amiri/Kitab)
+   - Translittération en italique gris
+   - Barre flottante en bas : ▶ play, 📖 page, 🔍 recherche
+   - Barre de titre marron foncé en haut (header sticky)
+
+7. **Image 7 (photo_23-23-57)** — **Page Kàggu (vue Liste)**
+   - Même liste de Khassidas mais en cards pleine largeur
+   - Fond marron, cards blancs arrondis
+   - Onglets et sous-filtres identiques
+
+8. **Image 8 (photo_23-23-58)** — **Page Accueil (Home)**
+   - Hero banner carousel (ici "Ramadan Touba 1447h-2026") avec bouton CTA
+   ---> à enlever
+   - Section "Aaya du jour" avec texte arabe + traduction française + lien "Continuer la lecture"
+   ---> à enlever
+   - Barre de navigation bottom (Accueil, Kàggu, Calendrier, Communauté)
+   ---> on ne gardera que Accueil et Kaggu
+   ---> l'accueil où se trouvera notre bouton a la style shazam pour déclencher l'enregistrement et afficher les potentiels résultats en dessous qui lors d'un clic devront rediriger vers les bons khassidas dans kaggu
+
+9. **Image 9 (photo_23-24-00)** — **Page Accueil (section supérieure)**
+   - Icônes notifications + paramètres en haut
+   - Barre de recherche globale
+   - Onglet Recent (pour consulter recemment) ou proposition des Khassida les plus populaires (que je definirai)
+   - Grille icônes "Rubriques" : Lecture
+   - Début d'un carousel en bas
+
+10. **Image 10 (photo_23-24-16)** — **Même modal "Choisir une Qaçida"** (doublon)
+
+---
+
+### 🧭 Ce que tu veux ADAPTER pour Shazam Khassida
+
+En comparant avec ton idée, voici la mappature logique :
+
+| Écran dans l'app source | → Ce que tu veux pour Shazam Khassida |
+|---|---|
+| Page Accueil | **Page Accueil** avec un gros bouton "Shazam" central au lieu des widgets prière |
+| Kàggu (bibliothèque) | **Historique des reconnaissances** + catalogue de Khassidas |
+| Lecteur Khassida (thème Paper) | **Page Résultat** : affiche le Khassida reconnu avec son texte |
+| Modal "Choisir une Qaçida" | *(peut devenir)* recherche manuelle en fallback si la reconnaissance échoue |
+| Paramètres Audio/Texte | Paramètres de l'app Shazam (thème, langue...) |
+
+---
+
+### ✨ Points de design clés à retenir
+
+- **Header sticky marron foncé** avec titre + icônes en blanc
+- **Bottom navigation** toujours visible (4 onglets)
+- **Cards liste** = blanc arrondi sur fond marron (très lisible)
+- **Grille 3 colonnes** pour mode galerie
+- **Thème crème (Paper)** pour la lecture — très agréable visuellement
+- **Polices arabes premium** (Amiri ou Kitab) pour les textes
+- **Translittération** toujours présente sous le texte arabe
+- La barre de navigation bottom a des **icônes custom** (pas génériques)
+
+---

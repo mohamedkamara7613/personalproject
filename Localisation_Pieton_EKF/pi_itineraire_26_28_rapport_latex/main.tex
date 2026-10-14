@@ -1,0 +1,63 @@
+\input{setup}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{url}
+\usepackage{float}
+\usepackage[
+  left=2cm,
+  right=2cm,
+  top=2.5cm,
+  bottom=2.5cm
+]{geometry}
+\usepackage{amsmath}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{PI\_ITInéraire\_26\_28}
+\author{El Assad Ilyass / Kamara Mohamed / Ravier Mathis / Semy Julie / Thomas Ismaël}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Analyse des capteurs disponibles}
+
+\subsection{Choix des capteurs pour la fusion}
+\input{sections/choixCapteurs}
+
+\section{Estimation de la trajectoire}
+
+\subsection{Paramètres d'acquisition}
+\label{sec:params}
+\input{sections/parametresAcquisition.tex}
+
+
+\subsection{Calibration des capteurs}
+\input{sections/calibration.tex} 
+
+
+\input{sections/fusionEtAcquisition.tex}
+
+\subsection{Analyse des résultats}
+\input{sections/analyse.tex}
+
+\section{Fonctionnalité supplémentaire}
+\input{sections/fonctionnalite_sup}
+
+\section{Difficultés rencontrées}
+\input{sections/difficulte}
+
+\section{Voies d'amélioration}
+\input{sections/ameliorations}
+
+\section{Réalisation du projet}
+\input{sections/realisationProjet}
+
+\section{Conclusion}
+\input{sections/conclusion}
+
+\end{document}

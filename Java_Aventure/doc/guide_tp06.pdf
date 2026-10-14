@@ -1,0 +1,175 @@
+# Guide TP06 — Projet Java Aventure
+
+> **État au 17/03/2026** — Sections 1, 2, 3 partiellement implémentées. Section 4 (Monstre) à faire.
+
+---
+
+## Section 1 — `Monde.genererNom()` ✅ DÉJÀ FAIT
+
+Rien à faire, c'est en place dans [Monde.java](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/Monde.java).
+
+---
+
+## Section 2 — Classes [Serrure](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/objets/serrurerie/Serrure.java#19-92) & [Cle](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/objets/serrurerie/Cle.java#12-34) ✅ FAIT — 1 correction à apporter
+
+Les deux classes sont dans `elements/objets/serrurerie/`. La logique est correcte.
+
+### Correction : constructeur de [Cle](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/objets/serrurerie/Cle.java#12-34) trop accessible
+
+```java
+// ❌ Actuellement (public → n'importe qui peut instancier une Cle)
+public Cle(String nom, Monde monde) throws NomDEntiteDejaUtiliseDansLeMondeException { ... }
+
+// ✅ Doit être package-private (aucun modificateur d'accès)
+Cle(String nom, Monde monde) throws NomDEntiteDejaUtiliseDansLeMondeException { ... }
+```
+
+> [!NOTE]
+> Le commentaire `// en package-private` est déjà dans le code… mais le `public` est toujours là. Supprimer le mot-clé `public`.
+
+---
+
+## Section 3 — Modification de [Porte](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/structure/Porte.java#20-110) ⚠️ 1 CORRECTION CRITIQUE
+
+Le 2e constructeur et [activer()](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/Activable.java#11-12) sont OK. **Une correction est nécessaire dans [activerAvec()](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/objets/serrurerie/Serrure.java#61-77)** :
+
+### Bug : [PiedDeBiche](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/objets/PiedDeBiche.java#10-46) n'arrache pas la serrure
+
+```java
+// ❌ Actuellement — la serrure reste accrochée à la porte
+else if(obj instanceof PiedDeBiche) {
+    this.etat = Etat.OUVERT;
+}
+
+// ✅ Correction — la serrure est retirée (devient null)
+else if(obj instanceof PiedDeBiche) {
+    this.serrure = null;   // ← AJOUTER CETTE LIGNE
+    this.etat = Etat.OUVERT;
+}
+```
+
+**Pourquoi c'est important :** après un coup de pied de biche, la porte doit se comporter comme une porte **sans serrure**. Sans ce `null`, [activableAvec()](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/Activable.java#9-10) continuera à retourner `true` pour un PiedDeBiche même quand ce n'est plus nécessaire, et [activer()](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/Activable.java#11-12) continuera à vérifier la serrure (qui est déjà DEVERROUILLE ou VERROUILLE mais ne devrait plus être là).
+
+---
+
+## Section 4 — Classe `Monstre` ❌ À FAIRE
+
+### Prérequis : exposer [PointVie](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/vivants/Vivant.java#78-88) dans [Vivant](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/vivants/Vivant.java#26-328)
+
+[PointVie](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/vivants/Vivant.java#78-88) est `private` dans [Vivant](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/vivants/Vivant.java#26-328). Ajouter cette méthode dans [Vivant.java](file:///home/mkamara/Bureau/repos/java_aventure/codes/src/fr/insarouen/iti/prog/aventure/elements/vivants/Vivant.java) :
+
+```java
+protected void perdreVie(int points) {
+    this.PointVie -= points;
+}
+```
+Ou passer l'attribut de `private` à `protected`.
+
+### Fichier à créer
+
+`src/fr/insarouen/iti/prog/aventure/elements/vivants/Monstre.java`
+
+```java
+package fr.insarouen.iti.prog.aventure.elements.vivants;
+
+import fr.insarouen.iti.prog.aventure.Monde;
+import fr.insarouen.iti.prog.aventure.elements.Etat;
+import fr.insarouen.iti.prog.aventure.elements.structure.Piece;
+import fr.insarouen.iti.prog.aventure.elements.structure.Porte;
+import fr.insarouen.iti.prog.aventure.elements.objets.Objet;
+import fr.insarouen.iti.prog.aventure.NomDEntiteDejaUtiliseDansLeMondeException;
+import fr.insarouen.iti.prog.aventure.elements.structure.VivantAbsentDeLaPieceException;
+
+import java.util.Collection;
+import java.util.Optional;
+
+public class Monstre extends Vivant {
+
+    public Monstre(String nom, Monde monde, int pointVie, int pointForce, Piece piece, Objet... objets)
+            throws NomDEntiteDejaUtiliseDansLeMondeException, VivantAbsentDeLaPieceException {
+        super(nom, monde, pointVie, pointForce, piece, objets);
+    }
+
+    public void executer() {
+        // 1. Vérifier si vivant (PV > 0)
+        if (getPointVie() <= 0) return;
+
+        // 2. Perdre 1 point de vie
+        perdreVie(1);
+
+        // 3. Chercher une porte franchissable (OUVERT ou FERME) avec un stream
+        Optional<Porte> porteOpt = getPiece().getPortes().stream()
+            .filter(p -> p.getEtat() == Etat.OUVERT || p.getEtat() == Etat.FERME)
+            .findFirst();
+
+        if (!porteOpt.isPresent()) return;  // aucune porte accessible
+        Porte porte = porteOpt.get();
+
+        // 4. Ouvrir si nécessaire, puis franchir
+        Piece anciennePiece = getPiece();
+        try {
+            if (porte.getEtat() == Etat.FERME) {
+                porte.activer();  // FERME → OUVERT
+            }
+            franchir(porte);
+        } catch (Exception e) {
+            return;  // échec → le monstre reste là
+        }
+
+        // 5. Si changement de pièce : échanger les inventaires
+        if (!getPiece().equals(anciennePiece)) {
+            echangerInventaire(anciennePiece);
+        }
+    }
+
+    private void echangerInventaire(Piece anciennePiece) {
+        // Copier les collections AVANT de modifier (pour éviter ConcurrentModificationException)
+        Collection<Objet> objetsMonastre = getObjets();       // copie défensive déjà faite par getObjets()
+        Collection<Objet> objetsPiece   = getPiece().getObjets(); // idem
+
+        // Déposer les objets du monstre dans la nouvelle pièce
+        for (Objet obj : objetsMonastre) {
+            try { deposer(obj); } catch (Exception e) { /* ignore */ }
+        }
+        // Prendre les objets de la nouvelle pièce
+        for (Objet obj : objetsPiece) {
+            try { prendre(obj); } catch (Exception e) { /* ignore */ }
+        }
+    }
+}
+```
+
+> [!IMPORTANT]
+> Le TP précise **"Utilisez les streams"** pour chercher la porte. L'instruction `.stream().filter(...).findFirst()` en est l'implémentation directe — ne pas la remplacer par une boucle for.
+
+---
+
+## Workflow — Tests du prof
+
+> [!CAUTION]
+> Le prof fournit des **binaires** (`.class`) de tests dans [testsUnitaires.zip](file:///home/mkamara/Bureau/repos/java_aventure/testsUnitaires.zip). Ces binaires remplacent `classestest/`.
+>
+> - ✅ **Pour valider :** `make run-tests-prof` (compile seulement les sources, puis exécute les tests du prof déjà en `classestest`)
+> - ❌ **À éviter :** `make run-tests` ou `make` tout court → recompile tes tests et écrase les binaires du prof → il faut recopier depuis le zip
+
+**Workflow recommandé :**
+```
+1. Coder dans src/
+2. make build        (compile uniquement les sources)
+3. [recopier classestest/ depuis testsUnitaires.zip si besoin]
+4. make run-tests-prof
+```
+
+---
+
+## Ordre de finalisation
+
+```
+1. ✅ genererNom()        → déjà fait
+2. Cle.java               → retirer le "public" du constructeur  (1 min)
+3. Porte.java             → ajouter this.serrure = null dans activerAvec (1 min)
+   ↓ make build + run-tests-prof
+4. Vivant.java            → ajouter perdreVie()                   (2 min)
+5. Monstre.java           → créer la classe                       (20 min)
+   ↓ make build + run-tests-prof
+```

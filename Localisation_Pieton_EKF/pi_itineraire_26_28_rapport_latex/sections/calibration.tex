@@ -1,0 +1,96 @@
+La calibration vise à estimer expérimentalement les paramètres de bruit des
+capteurs, afin de les modéliser correctement dans le filtre de Kalman Étendu.
+Deux capteurs nécessitent une calibration : le module GNSS et l'IMU.
+
+\subsubsection{Calibration du module GNSS}
+
+La calibration du GPS consiste à estimer la matrice de bruit de mesure $R$,
+qui représente l'incertitude des positions fournies par le récepteur. Cette
+calibration a été réalisée lors du choix de la constellation satellitaire :
+une acquisition statique extérieure a permis de mesurer les écarts-types
+$\sigma_{\text{lon}}$ et $\sigma_{\text{lat}}$ pour chaque configuration.
+
+\textbf{Remarque importante :} la calibration a été effectuée exclusivement
+en extérieur, à l'écart de tout obstacle. Une acquisition en intérieur serait
+inexploitable en raison du phénomène de \textit{multipath} : les signaux
+satellitaires réfléchis par les murs et les plafonds produisent une
+distribution bimodale des positions, incompatible avec l'hypothèse gaussienne
+du filtre.
+
+Les valeurs obtenues et la matrice $R$ résultante sont détaillées en
+section~\ref{sec:params}.
+
+\subsubsection{Calibration de l'IMU}
+
+L'IMU nécessite deux calibrations distinctes : l'estimation du biais du
+gyroscope, et l'estimation de l'écart-type de l'accélération $\sigma_a$
+utilisé dans la matrice de bruit de processus $Q$.
+
+\paragraph{Pour le biais du gyroscope}
+
+Un gyroscope parfait indiquerait une vitesse angulaire nulle lorsque le
+capteur est immobile. En pratique, les MEMS présentent un \textbf{biais
+additif} $b_\omega$, constant à court terme, qui s'intègre au cours du temps
+et produit une dérive du cap estimé :
+
+\begin{equation}
+    \omega_{\text{mesuré}} = \omega_{\text{réel}} + b_\omega + \epsilon
+\end{equation}
+
+où $\epsilon$ est le bruit de mesure centré. Non corrigé, ce biais entraîne
+une erreur d'orientation croissant linéairement avec le temps, ce qui fausse
+l'étape de prédiction de l'EKF.
+
+\textbf{Protocole de calibration :} au démarrage de chaque acquisition, le
+système est maintenu immobile pendant les premières secondes. Durant cette
+phase quasi-statique, la vitesse angulaire réelle est nulle ($\omega_{\text{réel}} = 0$).
+Le biais est estimé par la moyenne des $N = 200$ premières mesures de
+\textit{Gyro\_X} :
+
+\begin{equation}
+    \hat{b}_\omega = \frac{1}{N} \sum_{i=1}^{N} \omega_{\text{mesuré},i}
+\end{equation}
+
+Ce biais est ensuite soustrait à l'ensemble des mesures de l'acquisition :
+
+\begin{equation}
+    \omega_{\text{corrigé}} = \omega_{\text{mesuré}} - \hat{b}_\omega
+\end{equation}
+
+\textbf{Justification du choix de l'axe :} comme observé lors de la mise en
+place du matériel, l'accéléromètre mesure systématiquement $\approx 1g$ sur
+l'axe X, confirmant que cet axe est orienté verticalement. La rotation du
+piéton sur lui-même correspond donc à une rotation autour de l'axe vertical,
+directement lue par \textit{Gyro\_X}.
+
+\paragraph{Pour l'écart-type de l'accélération $\sigma_a$ pour la matrice $Q$}
+
+La matrice de bruit de processus $Q$ modélise l'incertitude du modèle
+cinématique. Elle dépend de $\sigma_a$, l'écart-type de l'accélération
+horizontale du piéton. Ce paramètre ne peut pas être fixé arbitrairement :
+il doit être estimé à partir des données réelles d'acquisition.
+
+\textbf{Méthode RMS :} $\sigma_a$ est calculé comme la racine carrée de la
+moyenne quadratique (RMS) des accélérations horizontales mesurées par l'IMU
+(axes Y et Z, qui sont les axes horizontaux dans notre montage) :
+
+\begin{equation}
+    \sigma_a = \sqrt{\frac{1}{N} \sum_{i=1}^{N} \left( a_{Y,i}^2 + a_{Z,i}^2 \right)}
+\end{equation}
+
+Le choix du RMS plutôt que de la moyenne arithmétique est délibéré : la
+moyenne des accélérations lors de la marche tend vers zéro par symétrie
+(chaque pas produit une accélération suivie d'une décélération), ce qui
+sous-estimerait l'énergie réelle du signal. Le RMS, en sommant les carrés,
+capture correctement l'amplitude des pics d'accélération caractéristiques
+du pas humain.
+
+La valeur obtenue sur l'acquisition de référence est :
+
+\begin{equation}
+    \sigma_a = 0.86 \ \text{m/s}^2
+\end{equation}
+
+Ce paramètre est recalculé dynamiquement à chaque itération du filtre, 
+permettant à $Q$ de s'adapter aux variations d'allure du piéton (marche
+rapide, arrêts, changements de direction).

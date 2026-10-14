@@ -1,0 +1,48 @@
+Rappel des commandes :
+    javac -cp /classes  -sourcepath src -d classes src/**/*.java
+    javac -cp "classes:lib/junit4.jar:lib/hamcrest-all.jar" -d classestest -sourcepath srctest srctest/**/*.java
+    java -cp "classes:classestest:lib/junit4.jar:lib/hamcrest-all.jar" org.junit.runner.JUnitCore fr.insarouen.iti.prog.aventure.AllTests
+    
+
+
+obsolete
+
+- il faut rajouter la java doc sur toutes les classes et méthodes
+- Dans Entite.java d'aprés le prof le "monde" doit etre final. ✅
+- Dans TableauDynamique.java il faut faire :
+
+- Dans Piece.java il faut faire :
+    - il faut refaire constructeur de Piece pour qu'il ait un tableau de Vivants 
+    et un tableau d'Objets ✅
+    - les deux version de contientVivant() ✅
+    - getVivants() ✅
+
+    EN SYNCHRONISANT L'ATTRIBUTS PIECE DE VIVANT
+    - les deux versions de soritr() ✅
+    - entrer() ✅
+
+    - retirer() pourrait poser un probleme a cause du cast ✅
+
+- Dans Vivant.java il faut faire : ?
+
+
+- Et faire les Tests pour Piece et Vivant (cf TP2 moodle) ✅
+-------------------------------------------------------------------------------------------------------------------------------
+
+- il faudrait reecrire les fonctions qui retourne .values d'une collection pour le remplacer par la copie... ✅
+- faire la classe porte. ✅
+- il faut faire TestPorte et gerer les exceptions.
+Modifiez le code de Vivant afin de prendre en compte la gestion de Porte.
+Prenez en compte la gestion des exceptions liées aux portes : PorteFermeException
+et PorteInexistanteDansLaPieceException
+Testez le franchissement des portes.
+
+notes : j'ai modifié le makefile pour pouvoir executer que les tests du profs pour le TP06:
+le TP06 : actuellement je fais une manip un peu chiante qui est de copier la classestest de TestUnitaires (celui du prof) dans mon dossier code pour remplacer l'ancien que j'ai compilé avec mes tests
+mais si jamais je recompile tous les tests je suis obligé de refaire la manip.
+pour executer les testes du profs il ne faut pas recompiler car on a juste les binaires du profs (bref...)
+
+
+
+
+modifier remplacer les succes par this.getEtatSiConditionVerifiee()

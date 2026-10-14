@@ -1,0 +1,116 @@
+Le système d'acquisition de l'ITIPhone intègre quatre capteurs : un module GNSS
+(DFRobot TEL0157), une centrale inertielle (MiniIMU-9 v6), un LiDAR 2D
+(RPLIDAR A1M8) et une caméra (Raspberry Pi Camera Module 3). Cette section
+justifie le choix des capteurs retenus pour la fusion de données.
+
+\subsubsection{Module GNSS}
+
+Le module GNSS fournit une position absolue en latitude et longitude à une
+fréquence comprise entre 1 et 10~Hz. Son erreur est de nature
+\textbf{stochastique et bornée} : les mesures oscillent aléatoirement autour
+de la vraie position, sans dérive temporelle. Ce comportement est modélisé
+par un bruit blanc gaussien de variance $\sigma^2_{\text{GPS}}$, typiquement de
+l'ordre de quelques mètres carrés en milieu urbain.
+
+Cependant, le GPS seul présente deux limitations majeures pour une estimation
+de trajectoire robuste :
+
+\begin{itemize}
+    \item \textbf{Fréquence d'acquisition faible} : une mesure toutes les
+    100~ms à 1~s est insuffisante pour restituer fidèlement une trajectoire
+    lors d'un déplacement dynamique. Entre deux mesures, la position est
+    inconnue.
+    \item \textbf{Disponibilité conditionnelle} : en environnement urbain
+    dense ou sous couvert végétal, le signal peut être temporairement
+    indisponible, rendant l'estimation impossible sans capteur de substitution.
+\end{itemize}
+
+\subsubsection{Centrale inertielle IMU}
+
+L'IMU MiniIMU-9 v6 intègre un accéléromètre, un gyroscope et un magnétomètre,
+opérant à une fréquence typique de 100~Hz. La position est estimée par double
+intégration numérique de l'accélération mesurée dans le repère monde :
+
+\begin{align}
+    \mathbf{v}(t) &= \mathbf{v}(t-1) + \mathbf{a}_{\text{monde}}(t) \cdot \Delta t \\
+    \mathbf{x}(t) &= \mathbf{x}(t-1) + \mathbf{v}(t) \cdot \Delta t
+\end{align}
+
+L'IMU présente une limitation fondamentale : son erreur est \textbf{non
+bornée}. Le biais $b$ de l'accéléromètre, après double intégration, produit
+une erreur de position croissant en $t^2$ :
+
+\begin{equation}
+    \epsilon_{\text{position}}(t) \approx \frac{1}{2} \cdot b \cdot t^2
+\end{equation}
+
+Pour un biais typique de $b = 0{,}01$~m/s², l'erreur atteint 18~mètres après
+60 secondes. \textbf{L'IMU seul est donc inutilisable pour une navigation de
+longue durée.}
+
+\subsubsection{LiDAR 2D et caméra}
+
+Ces deux capteurs peuvent théoriquement fournir une estimation de déplacement
+relatif (via l'algorithme ICP pour le LiDAR, ou l'odométrie visuelle pour la
+caméra). Ils ont été écartés pour la fusion pour trois raisons :
+
+\begin{itemize}
+    \item Ils ne fournissent qu'un \textbf{déplacement relatif}, sans
+    référence de position absolue — fonctionnellement équivalent à l'IMU,
+    mais bien plus complexe à implémenter.
+    \item Leurs performances en extérieur sont dégradées : l'ICP diverge dans
+    les environnements peu structurés, et l'odométrie visuelle est sensible
+     aux conditions lumineuses.
+    \item Ces algorithmes sont coûteux en calcul pour une Raspberry Pi 4
+    embarquée.
+\end{itemize}
+
+Ces capteurs seront valorisés dans le cadre de la Partie~2.
+
+\subsection{Complémentarité GPS + IMU}
+
+Le critère fondamental pour sélectionner les capteurs d'une fusion est la
+\textbf{complémentarité de leurs caractéristiques d'erreur}. Le tableau
+suivant résume les propriétés de chaque capteur :
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparaison des caractéristiques d'erreur du GPS et de l'IMU}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Caractéristique} & \textbf{GPS} & \textbf{IMU} \\
+        \hline
+        Type d'erreur        & Bruit gaussien borné & Dérive en $t^2$ \\
+        Fréquence            & 1--10~Hz             & $\sim$100~Hz    \\
+        Fiabilité long terme & Bonne                & Mauvaise        \\
+        Fiabilité court terme & Mauvaise (bruit)    & Bonne           \\
+        Disponibilité        & Conditionnelle       & Permanente      \\
+        \hline
+    \end{tabular}
+    \label{tab:capteurs}
+\end{table}
+
+La combinaison GPS + IMU est complémentaire sur chacun des problèmes identifiés :
+
+\begin{enumerate}
+    \item \textbf{Fréquence basse du GPS} : l'IMU à 100~Hz interpole la
+    trajectoire entre deux mesures GPS, produisant un tracé continu et
+    physiquement cohérent.
+    \item \textbf{Perte de signal GPS} : l'IMU prend le relais en navigation
+    autonome. Le filtre de Kalman modélise la dégradation progressive de
+    la confiance via la matrice de covariance $\mathbf{P}$.
+    \item \textbf{Bruit du GPS} : le filtre de Kalman combine les deux
+    sources de manière optimale. On peut montrer que la variance de
+    l'estimation fusionnée vérifie : la fusion de deux capteurs bruités produit
+    donc \textbf{toujours une estimation plus précise} que le meilleur capteur
+    pris seul, à condition que leurs bruits soient décorrélés — ce qui est
+    vérifié ici, les deux capteurs reposant sur des principes physiques distincts.
+\end{enumerate}
+
+\subsection*{Conclusion}
+
+Le choix GPS + IMU est justifié par la complémentarité stricte de leurs
+caractéristiques d'erreur : le GPS fournit une référence absolue bornée à
+basse fréquence, tandis que l'IMU assure une estimation dynamique précise à
+haute fréquence. Le LiDAR et la caméra, ne fournissant que des déplacements
+relatifs avec une complexité algorithmique élevée, sont réservés à la Partie~2.

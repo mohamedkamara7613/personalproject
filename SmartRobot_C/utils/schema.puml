@@ -1,0 +1,214 @@
+@startuml
+' =========================================================
+'  PlantUML – Architecture logicielle (LaTeX PDF friendly)
+' =========================================================
+
+top to bottom direction
+skinparam dpi 150
+skinparam componentStyle uml2
+skinparam nodesep 35
+skinparam ranksep 60
+skinparam componentFontSize 11
+skinparam linetype ortho
+hide stereotype
+
+skinparam component {
+  BackgroundColor<<Type>> #FDE2E2
+  BackgroundColor<<Fonction>> #DCEBFA
+  BackgroundColor<<SousFonction>> #FFF4CC
+  BorderColor Black
+  FontColor Black
+}
+
+' =========================================================
+' NIVEAU 1 : ALGORITHMES COMPLEXES
+' =========================================================
+package "Niveau 1 : Algorithmes Complexes" {
+
+  package "1.3 Parsing (Chargement)" {
+    [filename] <<Type>> as P_IN
+    [load_city] <<Fonction>> as P_FUNC
+    [CityConfig] <<Type>> as P_OUT
+
+    P_IN -down-> P_FUNC
+    P_FUNC -down-> P_OUT
+  }
+
+  package "1.2 TSP (Planification)" {
+    [graphe,\nstart,\ndir,\ncheckpoints] <<Type>> as TSP_IN
+    [solve_tsp] <<Fonction>> as TSP_FUNC
+    [Liste<Action>] <<Type>> as TSP_OUT
+
+    TSP_IN -down-> TSP_FUNC
+    TSP_FUNC -down-> TSP_OUT
+
+    [start, dir,\nPermutation] <<Type>> as EVAL_IN
+    [evaluer_sequence] <<SousFonction>> as TSP_EVAL
+    [Coût, Chemin] <<Type>> as EVAL_OUT
+    
+    EVAL_IN -down-> TSP_EVAL
+    TSP_EVAL -down-> EVAL_OUT
+
+    [curr, dir,\ncheckpoints] <<Type>> as NEAR_IN
+    [Trouver_Plus_Proche_AStar] <<SousFonction>> as TSP_NEAR
+    [Best CP] <<Type>> as NEAR_OUT
+
+    NEAR_IN -down-> TSP_NEAR
+    TSP_NEAR -down-> NEAR_OUT
+
+    TSP_FUNC .right.> TSP_EVAL
+    TSP_FUNC .left.> TSP_NEAR
+  }
+
+  package "1.1 A* (Noyau)" {
+    [graphe,\nstart_node,\nstart_dir,\ntarget_node] <<Type>> as ASTAR_IN
+    [astar_search] <<Fonction>> as ASTAR_FUNC
+    [Liste<Action>] <<Type>> as ASTAR_OUT
+
+    ASTAR_IN -down-> ASTAR_FUNC
+    ASTAR_FUNC -down-> ASTAR_OUT
+
+    [node, target] <<Type>> as H_IN
+    [heuristique] <<SousFonction>> as H_FUNC
+    [Distance] <<Type>> as H_OUT
+
+    H_IN -down-> H_FUNC
+    H_FUNC -down-> H_OUT
+
+    [graphe,\nnode, dir] <<Type>> as V_IN
+    [get_voisin_devant] <<SousFonction>> as VOISIN_FUNC
+    [Voisin ou Null] <<Type>> as V_OUT
+
+    V_IN -down-> VOISIN_FUNC
+    VOISIN_FUNC -down-> V_OUT
+
+    [NodeData] <<Type>> as R_IN
+    [reconstruire_chemin] <<SousFonction>> as RECON_FUNC
+    [Liste<Action>] <<Type>> as R_OUT
+
+    R_IN -down-> RECON_FUNC
+    RECON_FUNC -down-> R_OUT
+
+    ASTAR_FUNC .right.> H_FUNC
+    ASTAR_FUNC .right.> VOISIN_FUNC
+    ASTAR_FUNC .right.> RECON_FUNC
+  }
+}
+
+' =========================================================
+' NIVEAU 2 : TADs (OPÉRATIONS ÉLÉMENTAIRES)
+' =========================================================
+package "Niveau 2 : TADs (Opérations Élémentaires)" {
+
+  package "2.1 TAD Case" {
+    [Entier] <<Type>> as INT_C
+    [creerCase] <<SousFonction>> as C_CREER
+    [Case] <<Type>> as CASE_OUT
+
+    INT_C -down-> C_CREER
+    C_CREER -down-> CASE_OUT
+
+    [Case,Case] <<Type>> as C_EQ_IN
+    [estEgal] <<SousFonction>> as C_EQ
+    [Booléen] <<Type>> as C_BOOL
+
+    C_EQ_IN -down-> C_EQ
+    C_EQ -down-> C_BOOL
+
+    [Case] <<Type>> as C_VAL_IN
+    [valeur] <<SousFonction>> as C_VAL
+    [Entier] <<Type>> as C_VAL_OUT
+
+    C_VAL_IN -down-> C_VAL
+    C_VAL -down-> C_VAL_OUT
+  }
+
+  package "2.2 TAD Direction" {
+    [Direction] <<Type>> as DIR_IN
+    [tournerDroite] <<SousFonction>> as ROT_D
+    [tournerGauche] <<SousFonction>> as ROT_G
+    [opposee] <<SousFonction>> as OPP
+    [Direction] <<Type>> as DIR_OUT
+
+    DIR_IN -down-> ROT_D
+    ROT_D -down-> DIR_OUT
+
+    DIR_IN -down-> ROT_G
+    ROT_G -down-> DIR_OUT
+
+    DIR_IN -down-> OPP
+    OPP -down-> DIR_OUT
+
+    [directionVersEntier] <<SousFonction>> as DIR_TO_INT
+    [Entier] <<Type>> as DIR_INT_OUT
+
+    DIR_IN -down-> DIR_TO_INT
+    DIR_TO_INT -down-> DIR_INT_OUT
+  }
+
+  package "2.3 TAD Labyrinthe" {
+    [w,h,g,\nstart,\nstartD,\ncps] <<Type>> as LAB_ARGS
+    [creerLabyrinthe] <<SousFonction>> as LAB_CREER
+    [Labyrinthe] <<Type>> as LAB_OUT
+
+    LAB_ARGS -down-> LAB_CREER
+    LAB_CREER -down-> LAB_OUT
+
+    [Labyrinthe,\nCase] <<Type>> as KEY_COORD
+    [caseVersCoord] <<SousFonction>> as TO_COORD
+    [x,y] <<Type>> as XY_OUT
+
+    KEY_COORD -down-> TO_COORD
+    TO_COORD -down-> XY_OUT
+    
+    [Labyrinthe,\nx,y] <<Type>> as KEY_CASE
+    [coordVersCase] <<SousFonction>> as TO_CASE
+    [Case] <<Type>> as CASE_RES
+
+    KEY_CASE -down-> TO_CASE
+    TO_CASE -down-> CASE_RES
+
+    [Labyrinthe,\nCase,Case] <<Type>> as KEY_CONN
+    [estConnecte] <<SousFonction>> as TO_CONN
+    [Booléen] <<Type>> as BOOL_CONN
+
+    KEY_CONN -down-> TO_CONN
+    TO_CONN -down-> BOOL_CONN
+  }
+
+  package "2.4 TAD Instructions" {
+    [creerListeVide] <<SousFonction>> as I_CREER
+    [ListeInstructions] <<Type>> as I_LIST
+
+    I_CREER -down-> I_LIST
+
+    [Liste,\nAction,\nCase] <<Type>> as I_ADD_IN
+    [ajouterEnFin] <<SousFonction>> as I_ADD
+    [ListeInstructions] <<Type>> as I_ADD_OUT
+
+    I_ADD_IN -down-> I_ADD
+    I_ADD -down-> I_ADD_OUT
+
+    [Liste,Liste] <<Type>> as I_CAT_IN
+    [concatener] <<SousFonction>> as I_CAT
+    [ListeInstructions] <<Type>> as I_CAT_OUT
+
+    I_CAT_IN -down-> I_CAT
+    I_CAT -down-> I_CAT_OUT
+  }
+}
+
+' =========================================================
+' LIENS TRANSVERSAUX
+' =========================================================
+TSP_FUNC ..> ASTAR_FUNC
+TSP_NEAR ..> ASTAR_FUNC
+
+P_FUNC ..> C_CREER
+P_FUNC ..> LAB_CREER
+
+VOISIN_FUNC ..> ROT_D
+VOISIN_FUNC ..> ROT_G
+VOISIN_FUNC ..> TO_CONN
+
+@enduml

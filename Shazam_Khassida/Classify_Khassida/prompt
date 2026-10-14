@@ -1,0 +1,23 @@
+Plan général pour le nettoyage
+ok maitenant a partir @1-liste_khassida_processed.txt fait moi 2-liste_khassida_processed.txt où il faudrait tout mettre (dans cette ordre) en lower-case, remplacer les doubles lettres par un seul (exemple aa ->a) et supprimé les doublon
+PLus de details : 
+Normalisation basique :
+Convertir tout en minuscule.
+Remplacer les tirets (-), underscores (_) et accents par des espaces ou équivalents standards (e.g., "ç" → "c", "â" → "a").
+Supprimer les parenthèses et leur contenu (e.g., "(1-2)" pour les séries).
+Supprimer les espaces multiples et trimmer.
+Cela rend les comparaisons plus faciles sans perdre l'essence.
+
+Grouping par similarité :
+Utiliser un algorithme de matching fuzzy (similarité > 90%) pour grouper les titres qui sont probablement les mêmes (e.g., variations d'orthographe, espaces/tirets).
+Outils : En Python, utiliser difflib (standard, pas besoin d'install) pour calculer la similarité (ratio). Si ton agent IA supporte du code, c'est parfait ; sinon, fuzzywuzzy si disponible, mais difflib suffit.
+Résultat : Un dictionnaire de groupes (e.g., {"bouchera lana": ["Bouchera-Lana", "Boucheraa Lanaa", "Buchra lanâ"] }).
+
+Choix du titre canonique :
+Par groupe, choisir automatiquement une version "standard" : e.g., la plus longue (souvent la plus complète), ou la plus fréquente, ou celle avec l'orthographe la plus "officielle" (basée sur tags arabes/wolof si dispo).
+Utiliser ton agent IA pour valider/remplacer manuellement les cas ambigus (e.g., si deux titres similaires mais thématiquement différents).
+
+(ignore cette partie, c'est pour la suite dans une partie à part)
+Gestion des audios :
+Une fois la liste nettoyée, mapper les titres d'audios à ces canons (via le même matching fuzzy).
+Exemple : Si un audio s'appelle "bouchra-lana.mp3", il matchera le

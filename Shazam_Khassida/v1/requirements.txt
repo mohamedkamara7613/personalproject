@@ -1,0 +1,5 @@
+librosa
+numpy
+soundfile
+scipy
+pydub

@@ -1,15 +1,45 @@
-Autres/Python/test_utile/del_whitespacce/dictionnaire.txt
-Autres/Python/test_utile/del_whitespacce/dictionnaire1.txt
-Autres/Python/test_utile/del_whitespacce/dictionnaire_whitespace_deleted.txt
-
-.buildozer/
-# Ignorer tous les environnements virtuels Python
+# Environments & Dependencies
 .venv/
 venv/
 **/.venv/
 **/venv/
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+build/
+**/build/
 
-# Ignorer les fichiers de configuration spécifiques à l'IDEs
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.whl
+*.egg-info/
+.ipynb_checkpoints/
+*.pkl
+
+# C / C++
+*.o
+*.obj
+*.gch
+*.d
+*.out
+*.exe
+SmartRobot_C/bin/smartrobot
+SmartRobot_C/obj/
+
+# Java
+*.class
+SGBD_SQL_Java21/bin/
+SGBD_SQL_Java21/classes/
+SGBD_SQL_Java21/classestest/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
 .vscode/
 .idea/
 *.iml
@@ -17,3 +47,22 @@ venv/
 *.iws
 *.sublime-project
 *.sublime-workspace
+.buildozer/
+
+# Heavy Binary Media / Archives / Databases
+*.zip
+*.tar.gz
+*.7z
+*.rar
+*.db
+*.sqlite3
+Shazam_Khassida/v1/data/raw/**/*.mp3
+Shazam_Khassida/v1/data/ref/**/*.mp3
+Shazam_Khassida/v1/data/raw/**/*.wav
+Shazam_Khassida/v1/data/ref/**/*.wav
+Shazam_Khassida/v1/data/processed/
+
+# Specific data files
+Autres/Python/test_utile/del_whitespacce/dictionnaire.txt
+Autres/Python/test_utile/del_whitespacce/dictionnaire1.txt
+Autres/Python/test_utile/del_whitespacce/dictionnaire_whitespace_deleted.txt

@@ -1,0 +1,124 @@
+Le module GNSS DFRobot TEL0157 offre plusieurs paramètres configurables,
+notamment le choix de la constellation satellitaire et la fréquence
+d'acquisition. Ces paramètres influencent directement la qualité des mesures
+utilisées dans le filtre de Kalman. Une démarche expérimentale rigoureuse a
+été menée pour déterminer la configuration optimale.
+
+\subsection{Choix de la constellation GNSS}
+
+\subsubsection{Problématique}
+
+Le module TEL0157 supporte trois constellations satellitaires : GPS (américain),
+BeiDou (chinois) et GLONASS (russe). Le système européen Galileo n'est pas
+supporté par ce module il s'agit d'une limitation matérielle, non logicielle.
+La question est la suivante : quelle combinaison de constellations offre le
+meilleur compromis entre précision et robustesse pour notre application ?
+
+\subsubsection{Protocole expérimental}
+
+Trois acquisitions statiques ont été réalisées en extérieur, dans les mêmes
+conditions, avec successivement chacune des trois configurations disponibles.
+Le récepteur était posé immobile sur une surface plane dégagée, à l'abri de
+tout obstacle susceptible de provoquer des réflexions multipath. Pour chaque
+configuration, les coordonnées GPS ont été enregistrées sur plusieurs minutes,
+puis analysées statistiquement.
+
+Les indicateurs retenus sont :
+\begin{itemize}
+    \item $\sigma_{\text{lat}}$ et $\sigma_{\text{lon}}$ : écarts-types des
+    mesures de latitude et longitude (en mètres), qui quantifient la dispersion
+    autour de la position vraie.
+    \item $\text{cov}(\text{lat}, \text{lon})$ : covariance croisée entre les
+    deux axes, qui indique si les erreurs sont corrélées entre elles.
+\end{itemize}
+
+\subsubsection{Résultats}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparaison statistique des trois configurations de constellation
+    (acquisition statique extérieure)}
+    \begin{tabular}{lcccl}
+        \hline
+        \textbf{Configuration} & $\sigma_{\text{lat}}$ (m) &
+        $\sigma_{\text{lon}}$ (m) & $\text{cov}$ (m²) &
+        \textbf{Bruit gaussien ?} \\
+        \hline
+        GPS + BeiDou          & 4.15  & 8.71  & 19.64  & Non \\
+        GPS seul              & 0.089 & 0.059 & $-$0.002 & Oui \\
+        GPS + BeiDou + GLONASS & 0.262 & 1.095 & 0.006 & Oui \\
+        \hline
+    \end{tabular}
+    \label{tab:constellations}
+\end{table}
+
+\subsubsection{Analyse et décision}
+
+La configuration GPS + BeiDou est immédiatement écartée : sa covariance
+croisée de 19.64~m² trahit une forte corrélation entre les erreurs de latitude
+et de longitude. Ce comportement est incompatible avec l'hypothèse gaussienne
+du filtre de Kalman, qui suppose des bruits décorrélés.
+
+Les deux configurations restantes présentent toutes deux un bruit
+quasi-gaussien décorrélé. Le GPS seul affiche un écart-type plus faible, mais
+repose sur un nombre limité de satellites. En environnement partiellement
+masqué (végétation, bâtiments), la disponibilité des satellites GPS seuls peut
+se dégrader significativement, entraînant des pertes de signal et des sauts de
+position importants. La configuration GPS + BeiDou + GLONASS exploite trois
+constellations distinctes, augmentant le nombre de satellites visibles et
+réduisant ainsi la probabilité de perte de signal.
+
+\textbf{Décision retenue : GPS + BeiDou + GLONASS.} La légère dégradation
+de la précision en conditions statiques idéales est compensée par une
+meilleure robustesse en conditions réelles de marche, et reste tout à fait
+gérable par le filtre de Kalman via la matrice de bruit de mesure $R$.
+
+\subsubsection{Dérivation de la matrice de bruit de mesure $R$}
+
+La covariance croisée quasi nulle ($\text{cov} = 0.006$~m²) confirme que les
+erreurs sur les axes Est et Nord sont décorrélées. La matrice $R$ peut donc
+être modélisée comme une matrice diagonale, dont les termes sont directement
+issus des variances mesurées :
+
+\begin{align}
+    \sigma_{\text{lon}}^2 &= 1.095^2 \approx 1.20 \ \text{m}^2 \\
+    \sigma_{\text{lat}}^2 &= 0.262^2 \approx 0.07 \ \text{m}^2
+\end{align}
+
+Ce qui donne :
+
+\begin{equation}
+    R = \begin{bmatrix} 1.20 & 0 \\ 0 & 0.07 \end{bmatrix} \quad \text{(m}^2\text{)}
+\end{equation}
+
+Cette matrice est utilisée telle quelle dans l'étape de correction du filtre
+de Kalman Étendu, décrite en section~\ref{sec:ekf}.
+
+\subsection{Fréquences d'acquisition}
+
+\subsubsection{Module GNSS : 1~Hz}
+
+Le module TEL0157 est configuré pour délivrer une trame de position à une fréquence de 1~Hz, soit une mesure toutes les secondes. Bien que la puce interne permette théoriquement d'atteindre des fréquences plus élevées en modifiant ses registres (jusqu'à 5~Hz), nous avons fait le choix de conserver cette fréquence d'usine par défaut afin de simplifier l'intégration logicielle et d'alléger la charge sur le bus de communication. De plus, conserver cette configuration d'origine garantit la stabilité des données obtenues et fixe un ratio de 1:100 avec l'IMU.
+
+Cependant, à une vitesse de marche typique de 1.4~m/s, cet intervalle d'une seconde entre deux mesures GPS correspond à un déplacement d'environ 1.4~mètre. Cette résolution spatiale est insuffisante pour restituer fidèlement les changements de direction du piéton. La centrale inertielle (IMU) joue alors un double rôle : elle permet d'ajuster la trajectoire à haute fréquence entre deux relevés satellitaires et, d'autre part, de maintenir une estimation fiable de la position dans les zones couvertes où le signal GPS est temporairement indisponible.
+
+\subsubsection{IMU : 100~Hz}
+
+L'IMU MiniIMU-9 v6 est configuré pour acquérir à 100~Hz, soit un
+échantillon toutes les 10~ms. Ce choix résulte d'un compromis entre deux
+contraintes opposées :
+
+\begin{itemize}
+    \item \textbf{Fidélité de la prédiction} : une fréquence élevée réduit
+    le pas de temps $\Delta t$ de chaque intégration numérique, limitant
+    l'accumulation d'erreurs liées à la discrétisation.
+    \item \textbf{Charge de calcul} : au-delà de 100~Hz, la charge de
+    traitement de la Raspberry Pi 4 devient un facteur limitant pour un
+    fonctionnement temps réel.
+\end{itemize}
+
+\subsubsection{Justification du ratio 100:1}
+
+Ce rapport asymétrique structure le fonctionnement même de notre Filtre de Kalman Étendu. La centrale inertielle (100~Hz) agit comme le moteur continu du système : ses 100 étapes de prédiction par seconde captent la dynamique rapide de la marche et garantissent l'autonomie en zone couverte. Le ratio 1:100 apporte une structure plus simple à calculer et à comprendre pour un prototype.
+
+D'un autre côté, le GNSS (1~Hz) sert de point d'ancrage. Une unique étape de correction spatiale suffit chaque seconde pour annuler la dérive accumulée par l'IMU (remarquable au bout de 5-10 secondes). Cette architecture tire le meilleur des deux matériels : une trajectoire fluide à haute fréquence, recadrée périodiquement par une position absolue.

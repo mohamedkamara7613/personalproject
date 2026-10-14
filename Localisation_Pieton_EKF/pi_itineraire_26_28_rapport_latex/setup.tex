@@ -1,0 +1,56 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{url}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{backgray}{rgb}{0.95,0.95,0.96}
+\definecolor{cGreen}{rgb}{0,0.6,0}
+\definecolor{cBlue}{rgb}{0,0,0.8}
+\definecolor{cRed}{rgb}{0.6,0,0}
+\definecolor{cGray}{rgb}{0.5,0.5,0.5}
+\lstdefinestyle{styleCStandard}{
+    language=C,
+    backgroundcolor=\color{backgray},
+    commentstyle=\color{cGreen},
+    keywordstyle=\color{cBlue}\bfseries,
+    stringstyle=\color{cRed},
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny\color{cGray},
+    numbersep=5pt,
+    frame=lines,
+    breaklines=true,
+    captionpos=t,
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    literate=
+        {é}{{\'e}}1
+        {è}{{\`e}}1
+        {à}{{\`a}}1
+        {ç}{{\c{c}}}1
+        {ù}{{\`u}}1
+        {ê}{{\^e}}1
+        {î}{{\^i}}1
+        {ô}{{\^o}}1
+        {û}{{\^u}}1
+        {ë}{{\"e}}1
+        {ï}{{\"i}}1
+        {'}{{'}}1
+}
+\lstset{style=styleCStandard}
+\renewcommand{\lstlistingname}{Listing}
+\usepackage[
+  left=2cm,
+  right=2cm,
+  top=2.5cm,
+  bottom=2.5cm
+]{geometry}
+\usepackage{amsmath}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}

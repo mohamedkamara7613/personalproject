@@ -1,0 +1,107 @@
+package fr.insarouen.iti.prog.aventure;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Scanner;
+
+import fr.insarouen.iti.prog.aventure.data.Enregistreur;
+import fr.insarouen.iti.prog.aventure.data.EnregistreurSerialisation;
+import fr.insarouen.iti.prog.aventure.data.Lecteur;
+import fr.insarouen.iti.prog.aventure.data.LecteurDescription;
+import fr.insarouen.iti.prog.aventure.data.LecteurSerialisation;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Monde mondeCourant = null;
+        int choix = 0;
+
+        do {
+            System.out.println("\n--- Menu ---");
+            System.out.println("1/ jouer");
+            System.out.println("2/ charger un fichier de description");
+            System.out.println("3/ sauver la partie actuelle");
+            System.out.println("4/ charger une partie");
+            System.out.println("5/ quitter");
+            System.out.print("Votre choix : ");
+
+            if (scanner.hasNextInt()) {
+                choix = scanner.nextInt();
+                scanner.nextLine(); // Consommer le retour à la ligne
+            } else {
+                System.out.println("Veuillez entrer un nombre valide.");
+                scanner.nextLine(); // Vider l'entrée incorrecte
+                continue;
+            }
+
+            switch (choix) {
+                case 1:
+                    if (mondeCourant == null) {
+                        System.out.println("Aucun monde chargé. Veuillez d'abord charger une description ou une sauvegarde !!!!!!!!");
+                    } else {
+                        System.out.println("Lancement du jeu... ");
+                        // joueur.executer();
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Entrez le nom du fichier de description (ex: exemplesimulation1.aa) : ");
+                    String cheminFichierDesc = scanner.nextLine();
+                    try (FileReader reader = new FileReader(cheminFichierDesc)) {
+                        Lecteur lecteurDesc = new LecteurDescription(reader);
+                        mondeCourant = lecteurDesc.getMonde();
+                        System.out.println("Monde chargé avec succès à partir de la description !");
+                        System.out.println(mondeCourant); 
+                    } catch (Exception e) {
+                        System.err.println("Erreur  : " + e.getMessage());
+                    }
+                    break;
+
+                case 3:
+                    if (mondeCourant == null) {
+                        System.out.println("Il n'y a aucune partie à sauvegarder !");
+                    } else {
+                        System.out.print("Entrez le nom du fichier de sauvegarde : ");
+                        String cheminFichierSave = scanner.nextLine();
+                        try (FileOutputStream fos = new FileOutputStream(cheminFichierSave);
+                             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                            Enregistreur enr = new EnregistreurSerialisation(oos);
+                            enr.enregistrer(mondeCourant);
+                            System.out.println("Partie sauvegardée avec succès(-_-)");
+                        } catch (Throwable e) {
+                            System.err.println("Erreur   : " + e.getMessage());
+                        }
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("Entrez le nom du fichier de sauvegarde à charger : ");
+                    String cheminFichierLoad = scanner.nextLine();
+                    try (FileInputStream fis = new FileInputStream(cheminFichierLoad);
+                         ObjectInputStream ois = new ObjectInputStream(fis)) {
+                        Lecteur lectDec = new LecteurSerialisation(ois);
+                        mondeCourant = lectDec.getMonde();
+                        System.out.println("Partie chargée avec succès !");
+                        System.out.println(mondeCourant);
+                    } catch (Exception e) {
+                        System.err.println("Erreur lors du chargement de la sauvegarde : " + e.getMessage());
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Au revoir !");
+                    break;
+
+                default:
+                    System.out.println("Choix invalide. Veuillez réessayer.");
+            }
+
+        } while (choix != 5);
+
+        scanner.close();
+    }
+}

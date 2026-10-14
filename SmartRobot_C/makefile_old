@@ -1,0 +1,31 @@
+SRC_ELEC=src/elec
+SRC_ALGO=src/algo
+BIN_DIR=bin
+INCLUDE_ELEC=include/elec
+INCLUDE_ALGO=include/algo
+CC=gcc
+CFLAGS=-Wall -pedantic -I$(INCLUDE_ELEC) -I$(INCLUDE_ALGO)
+WIRINGPI_FLAGS=-lwiringPiDev -lwiringPi -lm
+EXEC=main
+
+all : algo elec
+
+elec : $(BIN_DIR)/main_elec
+
+algo : $(BIN_DIR)/path_optim
+
+$(BIN_DIR)/main_elec : $(SRC_ELEC)/gestionRobot.o $(SRC_ELEC)/etatCapteur.o $(SRC_ELEC)/main_elec.o
+	$(CC) $(CFLAGS) -o $@ $(SRC_ELEC)/gestionRobot.o $(SRC_ELEC)/etatCapteur.o $(SRC_ELEC)/main_elec.o $(WIRINGPI_FLAGS)
+
+$(BIN_DIR)/path_optim : $(SRC_ALGO)/graphe.o $(SRC_ALGO)/astar_algo.o $(SRC_ALGO)/labyrinth_parsing.o $(SRC_ALGO)/tsp_algo.o $(SRC_ALGO)/path_optim.o
+	$(CC) $(CFLAGS) -o $@ $(SRC_ALGO)/graphe.o $(SRC_ALGO)/astar_algo.o $(SRC_ALGO)/labyrinth_parsing.o $(SRC_ALGO)/tsp_algo.o $(SRC_ALGO)/path_optim.o
+
+$(SRC_ELEC)/%.o : $(SRC_ELEC)%.c
+	$(CC) -o $@ -c $< $(CFLAGS) $(WIRINGPI_FLAGS)
+
+$(SRC_ALGO)/%.o : $(SRC_ALGO)%.c
+	$(CC) -o $@ -c $< $(CFLAGS) $(WIRINGPI_FLAGS)
+
+clean :
+	rm $(SRCDIR)/*.o
+	rm $(BINDIR)/*

@@ -1,0 +1,21 @@
+Vu que je ne peux pas enconre avancer sur le core de l'application, il me faut un dataset, cela va me prendre du temps
+et je n'ai pas encore developper le modele de reconnaissance.
+Parcontre on peut developper l'interface graphique et toutes les fonctionnalité en considérant que le core fonction puis on revient dessus.
+En te basant sur la documentation technique de cette app que j'avais fait /home/mkamara/Bureau/Programmation/projet divers/Shazam_Khassida/docs/TECH_STACK.md
+Dis moi si c'est possible.
+Je veux un truc qui pourra etre consulter directement dans un site web ou bien installer comme une application
+sans forcement etre obligé d'en coder deux version.
+
+J'aimerai m'inspirai de cette app dont les visuel sont là : /home/mkamara/Bureau/Programmation/projet divers/Shazam_Khassida/recherche/visuel
+en changeant et adaptant un certains nombre de trucs pour simplifier et optimiser
+
+
+WakhMu	"Reconnais-le" en wolof (wakh = parole, mu = lui) — jeu de mots avec Shazam
+
+Sama' (سماع)	"L'écoute" en arabe — très poétique, évoque l'écoute spirituelle
+Fayda (فيضة)	"Le flux / la grâce" — concept central dans la culture mouride
+Taalibe	Celui qui cherche — évoque la quête spirituelle
+Katan	Mot wolof, à creuser
+Rewmi Khassida	"L'app des Khassidas" en wolof
+Nafar	"L'appel" — évoque l'appel à la prière/au Khassida
+Bayyi	"Identifie" en wolof

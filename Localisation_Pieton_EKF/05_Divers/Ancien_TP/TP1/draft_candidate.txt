@@ -1,0 +1,71 @@
+​
+TP1
+
+pour brancher en i2c on relier sda et scl de la raspberry avec la sda et scl de la lcd et de la
+GNSS TEL0157 en utilisant la breadbords
+
+ensuite avec la commande i2cdetect -y 1 on releve les addresse en hexa de la GNSS
+TEL0157 puis de la lcd.
+
+
+
+
+Exécutez le programme script/get_nmea_frames.py.
+
+
+
+
+-→ C’est le systeme GNSS est un système global
+
+Infos qu’on peut extraire du tram GNGGA
+$GNGGA,145748.000,4923.06331,N,00104.°9899,E,1,07,3.9,69.6,M,45.3,M,,*70
+UTC : Temps Universel Coordonné. : 145748,000
+Latitude : Latitude (en degrés décimaux) : 4923,06331
+▶ NS : Hémisphère Nord (N) ou Sud (S) : N
+▶ Longitude : Longitude (en degrés décimaux) : 00104
+▶ EW : Hémisphère Est (E) ou Ouest (W).
+▶ Fix : État du fix (0 = aucun fix, 1 = fix GPS, 2 = fix différentiel DGPS).
+▶ Satellites : Nombre de satellites utilisés.
+▶ HDOP : Précision horizontale (Horizontal Dilution of Precision).
+▶ Altitude : Altitude au-dessus du niveau de la mer.
+▶ Unit : Unité de l’altitude (typiquement M pour mètre).
+▶ Geoidal Separation : Séparation géoïde-niveau de la mer.
+▶ DGPS Age : Temps depuis la dernière correction DGPS (si disponible).
+▶ DGPS Station ID : Identifiant de la station DGPS.
+Checksum : Valeur de contrôle pour la vérification des erreurs.
+
+
+
+
+Pour une trame RMC :
+$GNRMC,145748.000,A,4923.06331,N,00104.09899,E,0.00,90.96,270126,,,A,V*38
+
+UTC : Temps Universel Coordonné.
+Status : Validité de la trame (A = actif, V = invalide).
+▶ Latitude, Longitude : Position en degrés décimaux.
+▶ NS, EW : Hémisphères (Nord/Sud et Est/Ouest).
+▶ Speed : Vitesse sur le sol en nœuds.
+▶ Course : Cap vrai en degrés.
+▶ Date : Date au format JJMMAA.
+▶ Magnetic Variation : Variation magnétique.
+▶ MV Direction : Direction de la variation (E = Est, W = Ouest).
+▶ Mode : Mode GNSS (autonome, différentiel, non valide).
+▶ Checksum : Valeur de contrôle pour la vérification des erreurs.
+
+
+python3 scripts/get_nmea_frames.py --mode gps
+
+
+
+
+python3 scripts/get_nmea_frames.py --mode beidou
+python3 scripts/get_nmea_frames.py --mode glonass
+
+
+
+
+Quel est le format des coordonnées GNSS lues avec le module ? Avec
+quelle précision (en mètres) ?
+Le format est en DD degre decimal
+on a fait un tour on constate que le trajet est tres tres bruité
+

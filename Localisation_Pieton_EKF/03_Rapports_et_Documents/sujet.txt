@@ -1,0 +1,286 @@
+Présentation du Projet Intégratif ITINERAIRE
+ITIPhone, le smartphone de demain
+C'est bien beau de faire des études dans une école publique, mais l'établissement n'est pas rentable ! Afin de combler les déficits, le département ITI se diversifie dans son offre en proposant la conception du smartphone de demain, afin de concurrencer directement les GAFAM : Introducing ITIPhone !
+
+ITIphone
+
+Et oui, ITI lance son tout premier smartphone fait maison ! Bon pour l'instant, on est sur un prototype très sommaire, mais on a besoin de votre aide pour construire la nouvelle génération de smartphone.
+
+Le département a fait le choix fort d'intégrer un maximum de capteurs au sein de ce bijou de technologie : 
+
+Une caméra
+Un IMU
+Un GPS
+Un LiDAR 2D
+Via ces différents capteurs, une infinité de possibilité s'offre à nous pour nous démarquer de la concurrence :D Mais pour cela, on a besoin de votre aide \o/
+
+Objectifs du projet
+Dans ce contexte, votre rôle sera donc de nous aider à avancer le développement de ce nouveau smartphone. L'équipe en charge de la conception a pour l'instant identifier 3 problèmes principaux:
+
+Le GPS étant non traité, les données brutes sont loin d'être satisfaisantes pour une estimation de trajectoire fiable et robuste (Partie 1)
+Les développeurs ont des compétences, mais pas beaucoup d'idées pour l'instant pour exploiter intelligemment les différents capteurs  (Partie 2)
+Dans l'optique de développer des outils à partir des données capteurs, il y a un manque cruel de données acquises proprement afin de consolider la production (Partie Bonus)
+Vous l'aurez compris, ce projet peut être décomposé en 3 parties, décrites dans les sous-sections suivantes de cette page Moodle :
+
+Partie 1 : Estimation de la trajectoire
+Partie 2 : Fonctionnalité supplémentaire
+Partie Bonus : Partage des acquisitions
+Pour vous aider dans vos missions, vous aurez à disposition une plaque d'acquisition intégrant les différents capteurs cités précédemment, ainsi que des accessoires supplémentaires (Détail dans la section Organisation, sous-section Matériel)
+
+-------------
+Partie 1 : Estimation de la trajectoire
+Objectifs
+Le système d'acquisition de l'ITIPhone aura comme fonctionnalité obligatoire l'estimation de la position d'un utilisateur au cours d'une acquisition, ainsi que l'évolution de son déplacement, afin de concevoir un système GPS dernier cri (tremblez Waze et Google Maps !). Dans le cadre de ce projet, nous vous demandons donc de concevoir un programme permettant l'enregistrement d'une acquisition multi-capteurs, ainsi que le traitement de ces données afin d'obtenir une estimation de la position robuste et fiable.
+
+Après une phase d’initialisation dédiée à la calibration des capteurs, l’utilisateur devra pouvoir démarrer un enregistrement à l’aide d’un bouton poussoir. L’acquisition devra être entièrement autonome : l’utilisateur devra être en mesure de lancer et de stopper une acquisition directement depuis la Raspberry Pi, sans assistance d’un ordinateur. À l’issue de l’enregistrement, un traitement (soit réalisé pendant l'acquisition, soit en offline) sera réalisé sur les données, et le trajet parcouru devra être visualisable sur une carte OpenStreetMap.
+
+Une attention particulière sera portée sur la qualité de l'estimation de la trajectoire. Pour cela, vous devrez obligatoirement utiliser plusieurs capteurs pour un résultat convenable. Le choix des capteurs est à votre charge, en justifiant leur utilité dans le cadre de cette tâche. Une fusion de données provenant de plusieurs capteurs est attendue, via notamment l'utilisation d'un filtre de Kalman. Cependant, l'application de cette fusion pourra se faire en offline, c'est à dire après acquisition.
+
+Les traitements appliqués aux données brutes, via des outils vus durant votre cursus en ITI3, et le choix des paramètres du système devront être justifiés de manière rigoureuse et non empiriquement. Pour cela, il sera nécessaire de réaliser plusieurs acquisitions dans des conditions variées afin d’évaluer l’impact des facteurs environnementaux et des incertitudes de mesure. Une analyse statistique permettra d’identifier les tendances, de détecter d’éventuelles anomalies et d’apprécier la qualité des estimations obtenues. Elle devra également servir à comparer différentes configurations et à optimiser les paramètres influençant la fusion des données. L’objectif est d’adopter une démarche scientifique en s’appuyant sur des résultats mesurés plutôt que sur des ajustements arbitraires.
+
+Comparaison à une vérité terrain
+Afin de comparer les performances de votre estimation de trajectoire, il vous faudra une vérité terrain, à savoir une estimation de trajectoire traitée correcte. Pour cela, vous pouvez utiliser Strava, une application pour l'enregistrement des activités sportives par GPS. L'estimation faite par Strava est traitée via la connaissance de la carte, et l'utilisation d'autres capteurs internes du téléphone, fournissant un résultat plus fidèle que le signal GPS pur. Les enregistrements réalisés par l'application sont téléchargeables ensuite sous forme de fichiers GPX via l'interface web. Afin de convertir ces données GPX dans le format que vous utilisez, ou inversement, vous avec le fichier python suivant à disposition (à insérer dans le dossier postprocessing/).
+
+
+conversion_gpx.py Fichier
+Critères d'évaluation
+Les critères d'évaluation de cette partie sont les suivants:
+
+Le choix des capteurs pour la fusion
+La calibration des capteurs
+Le choix des paramètres d'acquisition des différents capteurs, avec justification
+Le filtrage des données brutes
+La modélisation du filtre de Kalman
+L'estimation des paramètres du filtre
+L'analyse des résultats, avec comparaison à la vérité terrain Strava
+------------------------
+Partie 2 : Fonctionnalité supplémentaire
+Objectifs
+A côté de l'estimation de trajectoire, vous avez à proposer une fonctionnalité supplémentaire pour l'ITIPhone, basée sur votre système d'acquisition multi-capteurs. Cette fonctionnalité devra exploiter des signaux issus d’au moins un capteur. Les données utilisées devront être obligatoirement traitées : je ne veux pas que vous utilisiez directement des signaux bruts, ou alors il me faut une bonne raison !
+
+La fonctionnalité pourra être développée sous forme de preuve de concept (Proof of Concept). Elle n’a donc pas nécessairement vocation à être entièrement aboutie, notamment si sa mise en œuvre complète dépend de conditions particulières (environnement spécifique, besoin de matériel, etc.). Pour donner un exemple concret: vous pouvez développer une fonctionnalité nécessitant normalement l'écran du smartphone, mais remplacer cette écran par une connexion SSH ou un écran d'ordinateur.
+
+Vous avez le champ libre sur le choix de la fonctionnalité, tant que vous respectez les contraintes précédemment citées. L'équipe de développement étant assez ouverte, vous pouvez nous proposer des idées originales, voire louches sur le papier... Un seul mot d'ordre: amusez-vous !
+
+Durant les séances, les enseignants viendront discuter avec vous pour vous conseiller sur le choix de la fonctionnalité supplémentaire, et vous donneront leurs retours sur la faisabilité ainsi que le respect des attendus.
+
+Critères d'évaluation
+Les critères d'évaluation de la partie 2 sont les suivants:
+
+Complexité de la fonctionnalité supplémentaire
+Choix des capteurs sollicités
+Traitement des données
+Sollicitation des outils/techniques/pratiques vues en ITI3
+Mise en place de la fonctionnalité (le code en gros)
+Analyse critique des résultats obtenus
+--------
+
+Partie Bonus : Partage des acquisitions
+Objectifs
+Dans le cadre du projet, vous serez amené à faire BEAUCOUP d'acquisitions. En effet, entre les tests de fonctionnement, mais également le choix des paramètres d'acquisition, et tant d'autres points, il va vous falloir sortir de la salle souvent, et exploiter un bon nombre d'acquisitions. Cependant, vous n'avez que 2 semaines de projets, et beaucoup de travail. C'est là que le partage des acquisitions rentre en jeu.
+
+L'objectif ici est de rendre disponible à tous les groupes vos acquisitions réalisées. En travaillant collaborativement, vous pouvez tous ensemble construire une grande base de données d'acquisitions, qui pourront vous aider dans votre projet. Dans ce contexte, chacun des groupes a pour objectif de faire des acquisitions et d'en partager une partie sur le dépôt https://gitlab.insa-rouen.fr/rcondat/pi-itineraire-data, en respectant le format des jeux de données.
+
+3 raisons de jouer le jeu:
+
+Avec ce travail collaboratif, vous allez potentiellement gagner beaucoup de temps sur le projet
+Ca va vous forcer à discuter avec les autres groupes, afin de ne pas faire exactement les mêmes acquisitions
+En fonction de votre investissement dans le partage d'acquisitions, des points bonus seront attribués sur la note finale du projet
+Format des jeu de données
+Un jeu de données est une seule acquisition réalisée avec un ou plusieurs capteurs. Lorsque vous publiez un jeu de données *sample_name*, ce dernier doit être sous le format suivant :
+
+├── sample_name/
+│    ├── images/
+│    │       └── lien_telechargement.md
+│    ├── scans/
+│    │       ├── scan_000000.csv
+│    │       ├── scan_000001.csv
+│    │       └── ...
+│    ├── description.md
+│    ├── parameters.py
+│    ├── gps_ref.gpx
+│    ├── gps.csv
+│    ├── imu.csv
+│    ├── timestamps_frames.csv
+│    └── timestamps_scans.csv
+
+L'architecture décrite ici est dans le cas où vous faites une acquisition avec tous les capteurs. Vous pouvez cependant soumettre des acquisitions avec qu'une partie des capteurs.
+
+Les images prenant beaucoup de place, vous ne les incluerait pas directement dans votre acquisition pour Gitlab. Vous mettrez à la place un fichier lien_telechargement.md contenant un lien de téléchargement Filesender de vos images (sur la plateforme ENT).
+
+Le fichier description.md décrit les conditions d'acquisitions de le jeu de données (trajet effectué, jour/heure, météo).
+
+Préférez les données brutes, sans traitement. Si vous souhaitez publier également les données après prétraitements, mettez les dans le même dossier que les données brutes avec une indication du traitement dans le nom de fichier (ex: imu_mean_filter.csv).
+-------------
+Modalités d'évaluation
+Rapport
+Parmi les livrables attendus, vous avez à rédiger un rapport détaillé sur votre projet, présentant la démarche scientifique employée, les choix réalisés à différentes étapes du projet et l'analyse critique des résultats obtenus, pour les 2 parties principales du projet, ainsi qu'une matrice de répartition du travail au sein du groupe. Nous attendons pour chaque partie principale (P1 et P2) entre 5 et 15 pages dédiées.
+
+Code
+Dans le cadre du PI, vous devez mettre en place un dépôt Gitlab intitulé pi_itineraire_26_xx (avec xx correspondant au numéro de votre groupe). Vous rajouterez sur votre git les enseignants du PI (rôle Développeur).
+
+Si vous utilisez le système d'issues, ce que je vous recommande, veuillez ne pas nous inclure dans les tickets svp, on veut éviter de recevoir 150 mails inutiles...
+
+Vous partirez avec le code réalisé durant les TP de Capteurs ce semestre:
+
+Je vous conseille fortement de partir avec le TP6 en base (le dernier TP Caméra LiDAR)
+Le code est le votre, donc n'hésitez pas à modifier les classes, les fonctions, bref, ce que vous voulez en fonction de vos besoins. Rien n'est immuable
+Démonstration
+En fin de semestre (après la semaine d'examen, début juin), vous aurez une démonstration afin de conclure le PI, et remettre le matériel.
+
+La démonstration se déroulera en 2 parties:
+
+Une grande acquisition extérieure commune afin de tester l'efficacité de l'estimation de trajectoire via fusion multi-capteurs. Après acquisition, vous aurez 15 min pour effectuer le post-traitement si nécessaire, et soumettre le résultat de votre acquisition
+Une présentation de 5 min maximum devant la moitié de la promo pour présenter la fonctionnalité supplémentaire développée avec votre groupe.
+Peut-être un goûter, car ça sera très sûrement le dernier créneau pour vous avant les vacances ;)
+La démonstration en elle-même n'est pas notée. Si l'acquisition foire malheureusement, car ça peut arriver, ce n'est pas rédhibitoire. L'objectif est surtout pour nous les enseignants, afin de préparer plus efficacement l'évaluation de vos projets.
+----------------
+Matériel
+Dans le cadre du PI, vous avez obligatoirement besoin de matériel. Cette section a pour but de lister le matériel que vous aurez à disposition par groupe, ainsi que le matériel supplémentaire que vous pouvez emprunter.
+
+Contenu des boîtes
+Chaque groupe aura une boîte qu'il récupèrera lors de la toute première séance. Les boîtes peuvent être stockés dans les salles EEAS, ou récupérée par un/plusieurs étudiant(s) du groupe.
+
+Chaque boîte contient:
+
+ Une plaque d'acquisition (comme celles du cours Capteurs en ITI 3) avec :
+Une Raspberry Pi 4 (avec shield)
+Une plaque d'essai
+Un module GNSS DFRobot TEL0157
+Un LiDAR 2D RPLIDAR A1M8
+Une batterie externe
+Une caméra Raspberry Pi Camera Module 3
+Un IMU MinIMU-9 v6 Gyro
+Une mire de calibration (échiquier)
+Deux boutons poussoirs
+Un buzzer
+Une LED
+Un écran LCD
+Une clé USB (voir la section Configuration WIFI à distance)
+Une prise secteur USB-C (alimentation Raspberry Pi 4 sur secteur)
+Un câble USB-A vers USB-C (alimentation Raspberry Pi 4 via batterie)
+Un câble USB-A vers micro USB (connexion LiDAR)
+Un inventaire de chaque boîte sera réalisé durant la première séance avec les étudiants, afin de garantir que toutes les boîtes sont conformes. 
+
+En cas de panne ou casse de matériel, les étudiants doivent avertir un des enseignants. Si des dégâts sont constatés à la fin du projet sans qu'un enseignant soit averti, un malus pourra être appliqué sur l'évaluation.
+
+Matériel empruntable
+En complément du matériel de votre boîte, chaque groupe aura la possibilité d'emprunter du matériel supplémentaire dans le cadre du projet. Toute demande doit se faire durant une séance en présentiel en salle EEAS, avec l'enseignant présent. 
+
+Hormis pour les câbles, tout emprunt doit être validé par un enseignant. Ce dernier a la possibilité de refuser la demande en fonction du stock ou du matériel déjà emprunté par le groupe.
+
+Empruntable durant une séance
+Une plaque d'acquisition complète
+Une Raspberry Pi et un chargeur secteur
+Empruntable jusqu'à la fin du projet
+Les modules hors capteurs (Buzzer, LED, Bouton)
+Un deuxième IMU (utilisable en parallèle de celui de votre boîte)
+-----------------------
+Configuration de la Raspberry Pi
+Dans cette section, vous trouverez toutes les informations nécessaires à la mise en place de la Raspberry Pi dans le cadre du projet:
+
+Environnement virtuel et librairies Python : Les instructions pour mettre en place votre environnement de travail Python
+Connexion à distance : Les différents moyens de connexion à distance à votre Raspberry Pi
+Configuration WIFI à distance : Les instructions pour pouvoir vous connecter à n'importe quel réseau WIFI sans interface graphique
+-------------
+Environnement virtuel et librairies Python
+Les commandes suivantes sont à réaliser :
+
+une seule fois pour l'installation
+à chaque ouverture d'un terminal pour activer l'environnement virtuel, ou préciser la variable d'environnement PYTHONPATH.
+Notez que vous pouvez aussi modifier votre fichier .bashrc afin d'éviter de réécrire les mêmes commandes à chaque ouverture de terminal. Le fichier est situé à la racine.
+
+Commandes pour l'installation de l'environnement et des librairies
+sudo apt update
+
+sudo apt install -y python3-numpy python3-opencv python3-simplejpeg python3-picamera2 libcamera-apps
+
+python3 -m venv --system-site-packages ~/env_capteurs
+
+source ~/env_capteurs/bin/activate
+
+pip install numpy pandas pandas-stubs matplotlib folium evdev RPLCD
+
+Activation de l'interface I2C de la Raspberry Pi
+sudo raspi-config nonint do_i2c 0
+
+Ajout du chemin de votre code dans PYTHONPATH
+export PYTHONPATH='/chemin/de/votre/code:$PYTHONPATH"
+-------------------
+Connexion à distance
+Afin de vous connecter à votre Raspberry Pi à distance (notamment lorsque vous n'avez pas accès à la salle info), vous pouvez la paramétrer pour vous connecter via SSH ou VNC.
+
+SSH
+Pour vous connecter à votre Raspberry Pi via SSH, il vous faudra un ordinateur distant connecté sur le même réseau.
+
+Adresse IP de la Raspberry Pi
+hostname -I
+
+Connexion depuis un autre ordinateur
+ssh [LOGIN]@[HOSTNAME]
+Note: pour un transfert graphique (figures matplotlib par exemple), ajoutez l'option -X
+
+SSH depuis Visual Studio Code / Codium
+Afin de coder dans les meilleures conditions, vous pouvez vous connecter à distance avec un IDE directement en SSH. Cela vous évitera de passer par l'interface graphique, tout en accédant facilement à tous les fichiers de votre Raspberry.
+
+Pour les IDE VS Code et Codium, il suffit d'installer l'extension Remote - SSH.
+Pour les autres IDE, renseignez-vous via une recherche sur ce magnifique outil qu'est Internet...
+Il est important d'avoir un bon environnement de travail lorsque vous codez, donc prenez le temps de le mettre en place. De plus, je vous déconseille fortement d'installer Codium sur la Raspberry directement (ça prend beaucoup de place en terme de mémoire).
+
+SCP
+Pour le transfert de fichiers (ou de dossiers), vous pouvez utiliser le SCP (copie de fichiers via transfert SSH)
+
+Transfert depuis l'ordinateur vers la Raspberry Pi
+scp -r /chemin/source/ordinateur [LOGIN]@[HOSTNAME]:/chemin/absolu/destination/raspberry
+
+Transfert de la Raspberry Pi vers l'ordinateur
+scp -r [LOGIN]@[HOSTNAME]:/chemin/absolu/source/raspberry /chemin/destination/ordinateur
+
+VNC
+Si vous souhaitez avoir accès à l'interface graphique de la Raspberry Pi à distance, vous pouvez le faire via connexion VNC. Il vous faudra alors installer sur votre ordinateur VNC Viewer.
+
+Activation de VNC sur la Raspberry Pi
+sudo raspi-config nonint do_vnc 0
+
+VNC Viewer
+L'installation de VNC Viewer se fait via le lien suivant: https://www.realvnc.com/en/connect/download/viewer/raspberrypi/. Il vous faudra créer un compte, mais c'est gratuit dans le cas d'une connexion à une Raspberry Pi.
+--------------------------
+Configuration WIFI à distance
+Dans le cadre des séances de projet, ou à domicile, il se peut que vous ayez besoin de vous connecter à votre Raspberry Pi sans avoir d'interface graphique. Cependant, lorsque vous changez de réseau WIFI, la Raspberry ne se connecte pas automatiquement. Afin de palier à ce problème, vous avez à disposition une clé USB permettant de préciser les informations du réseau WIFI dont vous souhaitez vous connecter.
+
+Pré-configuration (à faire une fois)
+La solution est basée sur des fichiers bash et autres devant s'exécuter à chaque allumage de la Raspberry Pi, disponibles sur votre clé dans le dossier install_wifi_update_files/.
+
+Etapes à suivre:
+Branchez la clé USB sur la Raspberry Pi
+Modifiez le fichier wifi.env à la racine de la clé (informations dans la section suivante)
+Ouvrez un terminal et déplacez vous dans le dossier d'installation sur la clé
+cd /media/[LOGIN]/WIFIUSB/install_wifi_update_files/
+
+Exécutez le script bash pour l'installation
+./install-wifi-usb.sh
+
+Connexion à un réseau WIFI à distance
+La procédure suivante est à réaliser lorsque vous souhaitez vous connecter à un WIFI sans interface graphique.
+
+Branchez la clé USB sur votre ordinateur
+Modifiez le fichier wifi.env en indiquant les informations du réseau WIFI où vous souhaitez vous connecter
+SSID="[NOM DU WIFI ENTRE GUILLEMETS]"
+PSK="[MOT DE PASSE DU WIFI ENTRE GUILLEMETS]
+
+Ejectez la clé USB de l'ordinateur et branchez là sur un port USB de la Raspberry Pi
+Mettez votre Raspberry Pi sous tension... et attendez...
+Ne débranchez pas la clé USB avant la fin de l'exécution du script.
+
+Dès lors, vous devriez après environ 30 secondes le PIN GPIO 17 clignoter régulièrement. Cela signifie que le script est en cours, et qu'il cherche le réseau WIFI demandé.
+
+A la fin du script, le PIN GPIO 26 clignotera:
+
+3 fois lentement s'il a réussi à se connecter au réseau WIFI
+6 fois rapidement s'il a échoué à se connecter. La Raspberry Pi tentera alors de se connecter au dernier réseau connu
+Vous pouvez alors débrancher votre clé USB, et la brancher sur votre PC, où vous pourrez voir 3 fichiers:
+
+wifi-ip.txt : en cas de succès de connexion, ce fichier indique l'adresse IP où votre Raspberry Pi communique, afin que vous puissiez vous connecter en SSH
+wifi-status.txt : ce fichier indique si la connexion est réussie ou si elle a échouée
+wifi-update.log : ce fichier contient le log terminal du script, permettant ainsi, en cas d'échec de connexion, de trouver la source de votre problème.
+----------------------

@@ -1,0 +1,23 @@
+Pourquoi on veut a tout passer en domaine frequentiel ?
+
+c'est quoi un signal stationnaire ?
+
+pour quoi appliquer une fenetre de hann ? sinon quelle est la consequence ?
+
+en quoi le padding est important ?
+
+
+(image de mon dessin explicatif)
+la fft global nous donne les frequences presentes dans le signal mais ne nous indique pas quand elles apparaisent
+en plus le signal n'est pas stationnaiere(fréquences, énergie ne changent pas dans le temps.) (c'est rarement le cas pour les musics).
+
+Donc la stft nous apporte cette information sur le temps, ce qui nous permettra de detecter des motifs.
+
+pour cela on decoupe le signal
+puis on applique une fenetre de Hann pour eviter les fuites spectrales (qui rendent difficile la reconstruction)
+ensuite on applique la fft dessus
+ensuite on fait decaler la fenetre de delta t (s'il le faut on rajoute des zeros (Ne pas perdre la fin du signal), c'est utile pour la reconstrcution du signal) puis on refait la meme chose
+
+(image d'un spectogramme et de la comparaison avec scipy)
+a la fin on assemble les spectre pour donnée une matrice temps-frequence avec la valeur du carrée de l'amplitude (lenergie) en coefficient de cette matrice. 
+voici le resultat de la comparaison avec stft de scipy sur un exemple simple (2 sinusoides)

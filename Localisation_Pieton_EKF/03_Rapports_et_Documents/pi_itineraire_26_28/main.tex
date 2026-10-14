@@ -1,0 +1,38 @@
+\input{setup}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{url}
+\usepackage[
+  left=2cm,
+  right=2cm,
+  top=2.5cm,
+  bottom=2.5cm
+]{geometry}
+\usepackage{amsmath}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{PI\_ITInéraire\_26\_28}
+\author{El Assad Ilyass / Kamara Mohamed / Ravier Mathis / Semy Julie / Thomas Ismaël}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Introduction : analyse des capteurs disponibles}
+
+\subsection{Choix des capteurs pour la fusion}
+\input{sections/choixCapteurs}
+
+\section{Partie 1 : Estimation de la trajectoire}
+\input{sections/fusionEtAcquisition.tex}
+
+\section{Partie 2 : Fonctionnalité supplémentaire}
+\input{sections/fonctionnalite_sup}
+
+
+\end{document}

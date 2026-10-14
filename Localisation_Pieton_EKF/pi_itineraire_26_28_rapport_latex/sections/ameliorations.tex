@@ -1,0 +1,17 @@
+Bien que le système que nous avons développé réponde aux exigences initiales de robustesse et de continuité de positionnement, plusieurs axes d'amélioration pourraient permettre d'en optimiser les performances et d'étendre ses capacités opérationnelles.
+
+\subsection{Exploitation de la vitesse Doppler du GNSS}
+
+Afin de limiter les effets du bruit de mesure induit par la dérivation spatiale des positions successives, une piste d'amélioration significative consisterait à exploiter directement les mesures de vitesse Doppler fournies par le récepteur GNSS. L'intégration de ces informations de vitesse au sein de la matrice d'observation de l'EKF permettrait d'améliorer la robustesse et la stabilité de l'estimation de la vitesse du porteur, en particulier lors des phases transitoires où les variations dynamiques sont les plus marquées.
+
+\subsection{Calibration dynamique et gestion du magnétomètre}
+
+L'abandon du magnétomètre a permis d'éviter les perturbations électromagnétiques locales, mais au prix d'une dérive à long terme du cap (yaw) calculé par l'IMU. L'implémentation d'un algorithme de calibration dynamique permettrait de réintégrer le magnétomètre et d'éviter les problèmes liés au cap.
+
+\subsection{Optimisation et EKF en temps réel}
+
+Des optimisations de l'EKF en temps réel tels que la gestion de la latence, l'asynchronisme et où l'implementation de bruits adaptatifs auraient permis de s'affranchir des compromis de réglages fixes. cela aurait pu offrir au système une résilience et une précision optimales face aux perturbations environnementales et aux contraintes computationnelles de la plateforme embarquée.
+
+\subsection{Mode plus intéractif}
+
+L'aspect ludique du GeoGuessr pourrait être enrichi par le calcul en temps réel d'un score de précision plus exacte grâce aux améliorations liées à la partie 1. De plus, l'interface utilisateur pourrait guider le joueur à l'aide d'indicateurs de direction (ex: boussole visuelle ou signaux sonores...) générés directement à partir des écarts de coordonnées calculés par le système.

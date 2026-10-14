@@ -1,0 +1,71 @@
+# Démarche Théorique : Fusion de données IMU/GPS par Filtre de Kalman
+
+Ce document détaille la modélisation théorique utilisée pour le projet ITINERAIRE afin de fusionner les données asynchrones d'une Centrale à Inertie (IMU) et d'un capteur GNSS (GPS). L'objectif est d'obtenir une estimation robuste et précise de la trajectoire.
+
+## 1. Principe Général *(Réf. Diapositive 18)*
+Le Filtre de Kalman est un algorithme d'estimation récursive. Son but est de minimiser l'erreur quadratique moyenne en combinant les lois de la dynamique (via l'IMU) et des mesures absolues bruitées (via le GPS). 
+
+L'algorithme manipule à chaque instant deux éléments fondamentaux :
+* **L'état estimé ($\hat{X}$)** : Les grandeurs physiques (position, vitesse).
+* **La matrice de covariance ($P$)** : L'incertitude structurée. Géométriquement, cela représente une "ellipse d'incertitude" dont la forme et l'orientation définissent la confiance dans notre état.
+
+Le cycle du filtre repose sur l'équation fondamentale :
+> **Estimation = Prédiction + (Gain $\times$ Innovation)**
+
+## 2. Définition du Modèle d'État et de l'Incertitude *(Réf. Diapositives 26-27)*
+Notre objectif est de suivre la trajectoire 2D sur le plan local (mètres). Le vecteur d'état est défini par :
+$$X = \begin{bmatrix} x \\ y \\ v_x \\ v_y \end{bmatrix}$$
+
+La matrice de covariance associée $P$ de taille $4 \times 4$ contient sur sa diagonale les variances individuelles (l'incertitude pure sur chaque variable) et hors-diagonale les covariances (le couplage entre les variables) :
+$$P = \begin{bmatrix} 
+\sigma_{x}^2 & \sigma_{x,y} & \sigma_{x,vx} & \sigma_{x,vy} \\ 
+\sigma_{y,x} & \sigma_{y}^2 & \sigma_{y,vx} & \sigma_{y,vy} \\ 
+\sigma_{vx,x} & \sigma_{vx,y} & \sigma_{vx}^2 & \sigma_{vx,vy} \\ 
+\sigma_{vy,x} & \sigma_{vy,y} & \sigma_{vy,vx} & \sigma_{vy}^2 
+\end{bmatrix}$$
+*Remarque :* Initialement, si la position de départ est inconnue, on initialise $P$ avec de très grandes valeurs sur la diagonale.
+
+## 3. Modèle de Prédiction (Cinématique via IMU) *(Réf. Diapositive 55)*
+La prédiction est effectuée à haute fréquence (ex: 100 Hz) à chaque réception d'une donnée accélérométrique de l'IMU.
+
+Le vecteur de commande $U$ contient les accélérations linéaires locales $a_x$ et $a_y$ :
+$$U = \begin{bmatrix} a_x \\ a_y \end{bmatrix}$$
+
+L'équation d'évolution de l'état s'écrit :
+$$X_{k|k-1} = F \cdot X_{k-1|k-1} + B \cdot U_k$$
+
+L'équation de propagation de l'incertitude (l'ellipse s'élargit) s'écrit :
+$$P_{k|k-1} = F \cdot P_{k-1|k-1} \cdot F^T + Q$$
+
+* **Matrice de Transition ($F$)** : Modélise la cinématique à vitesse constante sur un intervalle $\Delta t$.
+  $$F = \begin{bmatrix} 1 & 0 & \Delta t & 0 \\ 0 & 1 & 0 & \Delta t \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+* **Matrice de Contrôle ($B$)** : Modélise l'impact de l'accélération sur la position et la vitesse.
+  $$B = \begin{bmatrix} \frac{1}{2}\Delta t^2 & 0 \\ 0 & \frac{1}{2}\Delta t^2 \\ \Delta t & 0 \\ 0 & \Delta t \end{bmatrix}$$
+* **Matrice de Bruit du Processus ($Q$) *(Réf. Diapo 51)*** : Représente l'incertitude liée au capteur IMU. Comme le bruit vient de l'accélération (variance $\sigma_a^2$), il se propage à la position et la vitesse proportionnellement au temps $\Delta t$. En utilisant le modèle $Q = \sigma_a^2 (B \cdot B^T)$, on obtient explicitement :
+  $$Q = \sigma_a^2 \begin{bmatrix} \frac{\Delta t^4}{4} & 0 & \frac{\Delta t^3}{2} & 0 \\ 0 & \frac{\Delta t^4}{4} & 0 & \frac{\Delta t^3}{2} \\ \frac{\Delta t^3}{2} & 0 & \Delta t^2 & 0 \\ 0 & \frac{\Delta t^3}{2} & 0 & \Delta t^2 \end{bmatrix}$$
+
+## 4. Modèle d'Observation et Correction (via GPS) *(Réf. Diapositive 56)*
+La mise à jour est effectuée à basse fréquence (ex: 1 Hz) à chaque réception d'une trame GPS valide convertie en coordonnées cartésiennes locales (ENU).
+
+Le vecteur d'observation $Z$ ne contient que la position :
+$$Z = \begin{bmatrix} x_{gps} \\ y_{gps} \end{bmatrix}$$
+
+Pour comparer la mesure du capteur à notre état $X$, on utilise la matrice d'observation $H$ (taille $2 \times 4$) :
+$$H = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \end{bmatrix}$$
+
+### Étapes de la mise à jour :
+1. **Calcul de l'Innovation** (La "Surprise" entre la mesure et la prédiction *- Réf. Diapo 53*) :
+   $$Y = Z - H \cdot X_{k|k-1}$$
+2. **Calcul du Gain de Kalman ($K$)** (Le poids accordé à la mesure vs la prédiction) :
+   $$K = P_{k|k-1} \cdot H^T \cdot (H \cdot P_{k|k-1} \cdot H^T + R)^{-1}$$
+3. **Mise à jour de l'État** :
+   $$X_{k|k} = X_{k|k-1} + K \cdot Y$$
+4. **Mise à jour de la Covariance** (L'ellipse se resserre grâce à la nouvelle information) :
+   $$P_{k|k} = (I - K \cdot H) \cdot P_{k|k-1}$$
+
+* **Matrice de Bruit de Mesure ($R$) *(Réf. Diapo 51)*** : Représente la précision intrinsèque du module GNSS (généralement définie par la variance constructeur, ex: précision à 4 mètres $\Rightarrow R = \text{diag}(16, 16)$).
+
+## 5. Calculs Statistiques Expérimentaux à Réaliser
+Afin que le filtre soit parfaitement adapté à la dynamique du projet, les grandeurs statistiques suivantes doivent être calculées **avant** l'application du filtre :
+1. **Calcul de $\sigma_a^2$ (pour la matrice Q) :** Une phase de calibration est nécessaire. Le boîtier doit être enregistré au repos pendant environ 10 secondes. La moyenne des accélérations mesurées donnera le **biais** (à soustraire des mesures futures), et la variance des accélérations donnera la valeur de $\sigma_a^2$.
+2. **Calcul de la matrice R :** En restant immobile dans un espace dégagé pendant quelques minutes, la mesure du nuage de points GPS permettra de calculer la variance spatiale sur les axes $X$ et $Y$, donnant ainsi les valeurs réelles de la diagonale de la matrice $R$.

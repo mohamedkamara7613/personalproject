@@ -1,0 +1,43 @@
+L'obtention d'une version stable à rencontrer de nombreux obstacles, tant sur le plan algorithmique que matériel, nécessitant le développement de plusieurs versions successives du filtre de Kalman avant d'aboutir à un résultat concluant. Cette section détaille les défis majeurs rencontrés par l'équipe et les solutions techniques apportées.
+
+\subsection{Instabilités et refontes du filtre de kalman étendu (EKF)}
+Le développement de l'algorithme de fusion a exigé une étroite adaptation face à la nature et aux imperfections des bruits des capteurs physiques :
+
+\begin{itemize}
+    \item \textbf{Interférences magnétiques majeures :} Initialement, le magnétomètre devait fournir un cap absolu pour orienter le système. Cependant, l'environnement urbain environnant ainsi que les perturbations électromagnétiques internes générées par la carte elle-même rendaient les mesures aberrantes et inutilisables.
+    \item \textit{Solution :} Pas de solution fiable n'ayant été trouvé l'équipe a opté pour l'abandon total du magnétomètre. L'architecture de l'EKF a été basculée sur un modèle purement cinématique où le cap $\theta_k$ est estimé par l'intégration temporelle de la vitesse angulaire $\omega$ fournie par le gyroscope.
+    
+    \item \textbf{Dérive exponentielle de l'accéléromètre :} Les premières versions du filtre s'appuyaient sur une double intégration numérique de l'accélération linéaire pour estimer la position. En pratique, le bruit haute fréquence du capteur combiné aux résidus de la gravité terrestre provoquait une dérive en $t^2$, rendant la trajectoire totalement aberrante en quelques secondes.
+    \item \textit{Solution :} Arrêt définitif de l'intégration spatiale. L'accéléromètre a été relégué à un rôle purement statistique : il sert désormais uniquement à calculer l'énergie instantanée de la marche (via la méthode RMS) afin d'adapter dynamiquement la matrice de bruit de processus $Q$.
+    
+    \item \textbf{Absence de vitesse native GPS :} Le script d'acquisition final ne permettait pas de récupérer la vitesse Doppler directement issue de la puce GNSS, qui constitue pourtant la mesure de vitesse matérielle la plus instantanée et fiable.
+    \item \textit{Solution :} La vitesse scalaire $v$ a dû être reconstruite artificiellement par dérivation spatiale (calcul de la distance géodésique entre deux trames GPS successives divisée par le pas de temps $\Delta t$) lors de l'étape de post-traitement.
+    
+    \item \textbf{Sauts de position GPS (Effet Multipath) :} En milieu urbain dense ou à proximité des bâtiments du campus, les réflexions des signaux satellitaires altéraient brutalement les mesures de position, ce qui dégradait fortement la trajectoire calculée par l'EKF.
+    \item \textit{Solution :} Mise en place d'un filtre anti-outliers robuste (\textit{Validation Gate}) basé sur la distance de Mahalanobis. Ce système rejette statistiquement toute donnée dont le résidu normalisé est supérieur au seuil théorique du $\chi^2$ (fixé à $9.21$ pour 2 degrés de liberté), laissant le modèle inertiel autonome prendre temporairement le relais.
+\end{itemize}
+
+\subsection{Problématiques matérielles et intégration mécanique}
+L'assemblage physique de l'ITIPhone sur sa plaquette d'essais a également ralenti la phase de prototypage en conditions réelles :
+
+\begin{itemize}
+    \item \textbf{Connexion du cable de la caméra :} Lors du montage initial, le câble plat de la camera a été branché à l'envers. Le diagnostic et la correction de cette erreur ont requis un temps important en raison de l'accès restreint imposé par le shield matériel fixé sur la carte Raspberry Pi.
+    \item \textbf{Orientation physique du capteur optique :} La caméra a également été montée à l'envers sur son support, ce qui inversait la totalité des captures d'écran nécessaires au fonctionnement du GeoGuessr. Bien qu'une solution interne purement logicielle eût été réalisable en Python (via un retournement de matrice avec OpenCV), on a privilégié une correction mécanique en démontant et retournant le module pour garantir une cohérence matérielle propre.
+\end{itemize}
+
+\subsection{Calibration et qualité des premières acquisitions}
+Lors des premières acquisitions en extérieur, les trajectoires brutes enregistrées par le module GPS seul présentaient un décalage très marqué et une forte imprécision par rapport au trajet réel. 
+
+Le problème suivant a été identifié: la vitesse de marche influençait directement la qualité de la géométrie des signaux reçus. La solution retenue a consisté à réduire volontairement la vitesse de marche lors des acquisitions suivantes. Ce rythme plus modéré et régulier a permis de stabiliser le récepteur GNSS, afin d'obtenir des trajets beaucoup plus précis.
+
+\subsection{Échec de l'implémentation du filtre de kalman simple en temps réel}
+Une part importante du travail d'ingénierie a initialement été consacrée à la tentative d'exécuter un Filtre de Kalman simple (linéaire) en direct, c'est-à-dire en flux tendu au cours de l'acquisition des données embarquées. L'objectif était de pouvoir estimer et afficher une trajectoire corrigée de manière instantanée.
+
+Cependant, les résultats expérimentaux obtenus n'ont pas été à la hauteur des attentes. Lors des essais en direct, la trajectoire estimée présentait des anomalies majeures sous forme de « pics » de position brutaux et erratiques, totalement absents du trajet initial et physiquement impossibles pour un déplacement piéton. Ces divergences et cette instabilité s'expliquaient par plusieurs facteurs critiques :
+
+\begin{itemize}
+    \item \textbf{Hypothèse de linéarité mise en défaut :} Le filtre de Kalman simple repose sur des équations de transition strictement linéaires. En direct, les approximations nécessaires pour maintenir ce cadre linéaire (notamment l'évolution des composantes de cap et de vitesse) se sont révélées insuffisantes face aux dynamiques réelles du porteur.
+    \item \textbf{Désalignement temporel et latence :} Le flux direct imposait de gérer le désalignement temporel (\textit{jitter}) et l'asynchronisme entre les trames à haute fréquence de l'IMU (100 Hz) et celles du GPS (1 Hz). Les fluctuations du pas de temps $\Delta t$ injectaient des erreurs numériques critiques dans les matrices de prédiction.
+\end{itemize}
+
+Face à l'impossibilité d'obtenir une version finale stable d'un filtre de Kalman simple en temps réel, et au vu du temps de calcul requis pour tenter de traiter ces donées à la volée, on a pris la décision d'abandonner cette approche. Nous nous sommes ainsi réorientés vers une architecture de post-traitement des données, garantissant une convergence mathématique robuste et une trajectoire finale d'une bien meilleure fidélité.

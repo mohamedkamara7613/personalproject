@@ -1,0 +1,71 @@
+Situation actuelle :
+    - dans la base il y a 2 khassidas de ref connu : midadi et rabibima
+
+
+1er test avec un audio de midadi qui doit retourner midadi (vrai):
+python3 main.py recognize data/raw/midadi/midadi_v1.mp3 
+🎵 Lancement de l'Orchestrateur Shazam Khassida sur data/raw/midadi/midadi_v1.mp3
+\n🔊 Analyse de l'extrait : data/raw/midadi/midadi_v1.mp3
+➡️ Lancement du Pass 1 (Fingerprinting - Recherche Exacte)...
+✅ SUCCÈS PASS 1 ! Identifié : ('midadi', 'midadi_v1_ref') (Score d'alignement: 26)
+
+==================================================
+🎙️ MASHALLAH KHASSIDA RECONNU ! 🎙️
+➤ Khassida : midadi
+➤ Version originale : midadi_v1_ref
+➤ Méthode de reconnaissance : pass1_fingerprint
+➤ Score de confiance : 26.0000
+==================================================
+
+Donc le test 1 est un succès
+
+2eme test avec un audio de rabibima qui doit retourner rabibima (vrai):
+python3 main.py recognize data/raw/rabibima/rabibima_v1.mp3 
+🎵 Lancement de l'Orchestrateur Shazam Khassida sur data/raw/rabibima/rabibima_v1.mp3
+\n🔊 Analyse de l'extrait : data/raw/rabibima/rabibima_v1.mp3
+➡️ Lancement du Pass 1 (Fingerprinting - Recherche Exacte)...
+✅ SUCCÈS PASS 1 ! Identifié : ('midadi', 'midadi_v1_ref') (Score d'alignement: 20)
+
+==================================================
+🎙️ MASHALLAH KHASSIDA RECONNU ! 🎙️
+➤ Khassida : midadi
+➤ Version originale : midadi_v1_ref
+➤ Méthode de reconnaissance : pass1_fingerprint
+➤ Score de confiance : 20.0000
+==================================================
+
+Donc le test 2 est un echec car il retourne midadi au lieu de rabibima
+
+3eme test avec un audio de rabibima_v2 (une version differente de la version connue) qui devrait etre non reconnu (ou pas d'ailleurs)
+python3 main.py recognize data/raw/test_unknow/rabibima_v2_unknow.mp3 
+🎵 Lancement de l'Orchestrateur Shazam Khassida sur data/raw/test_unknow/rabibima_v2_unknow.mp3
+\n🔊 Analyse de l'extrait : data/raw/test_unknow/rabibima_v2_unknow.mp3
+➡️ Lancement du Pass 1 (Fingerprinting - Recherche Exacte)...
+✅ SUCCÈS PASS 1 ! Identifié : ('midadi', 'midadi_v1_ref') (Score d'alignement: 18)
+
+==================================================
+🎙️ MASHALLAH KHASSIDA RECONNU ! 🎙️
+➤ Khassida : midadi
+➤ Version originale : midadi_v1_ref
+➤ Méthode de reconnaissance : pass1_fingerprint
+➤ Score de confiance : 18.0000
+==================================================
+
+Donc le test 3 est un echec car il retourne midadi au lieu d'un echec (comme attendu)
+
+3eme test avec un audio random qui dvrait etre non reconnu:
+python3 main.py recognize data/raw/test_unknow/random_unknow.mp3 
+🎵 Lancement de l'Orchestrateur Shazam Khassida sur data/raw/test_unknow/random_unknow.mp3
+\n🔊 Analyse de l'extrait : data/raw/test_unknow/random_unknow.mp3
+➡️ Lancement du Pass 1 (Fingerprinting - Recherche Exacte)...
+✅ SUCCÈS PASS 1 ! Identifié : ('midadi', 'midadi_v1_ref') (Score d'alignement: 22)
+
+==================================================
+🎙️ MASHALLAH KHASSIDA RECONNU ! 🎙️
+➤ Khassida : midadi
+➤ Version originale : midadi_v1_ref
+➤ Méthode de reconnaissance : pass1_fingerprint
+➤ Score de confiance : 22.0000
+==================================================
+
+Donc le test 4 est un echec car il retourne midadi au lieu d'un echec (comme attendu)
